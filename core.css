@@ -1,36 +1,3 @@
-/* CSS VARIABLES =============================================================================================================== */
-:root {
-    /* Grayscale Range */ --gs-lightest: #fff;    --gs-mid: gray; --gs-dark: #333; --gs-darkest: #111;
-    /* Color Pallette */  --color-dominant: #073B3F; --color-two: #238D6C;   --color-bright: #30c797;
-    /* Transparents */ --transparent-w: #ffffff8c; --transparent-b: #0000008c;
-    /* Conventional Colors */ --link: #0000FF; --warn: red; 
-    /* Shoe Lace Theming: paste --color-bright color into theme generator at https://codepen.io/claviska/full/QWveRgL */
-    --sl-color-primary-50: 242 251 248;
-    --sl-color-primary-100: 211 243 233;
-    --sl-color-primary-200: 177 234 216;
-    --sl-color-primary-300: 137 223 196;
-    --sl-color-primary-400: 78 207 166;
-    --sl-color-primary-500: 43 180 137;
-    --sl-color-primary-600: 36 149 113;
-    --sl-color-primary-700: 29 122 93;
-    --sl-color-primary-800: 24 101 77;
-    --sl-color-primary-900: 17 72 54;
-    --sl-color-primary-950: 11 44 34;
-    /* Gradients */ 
-    --gradient-l2r: linear-gradient(to right, var(--gs-darkest) , var(--gs-dark)); /* header, footer */
-    --gradient-u2d: linear-gradient( var(--gs-darkest), var(--gs-dark)); /* panels */
-    /* Borders */ 
-    --borders-bright: 1px solid var(--color-bright); 
-    --borders-dominant: 1px solid var(--color-dominant);
-    --borders-space: 1px solid transparent; /* For spacing nav items regardless of active item */ 
-    /* Glows */
-    --glow: #238D6C39; --glowier: #30c79787; --dominant-glow: #412A1650;
-    --box-glow: -8px 4px 16px var(--glow), 8px -4px 16px var(--glow); /* active navs & all buttons */
-    --box-glowier: -8px 4px 16px var(--glowier), 8px -4px 16px var(--glowier); /* hovered buttons */
-    --box-glow-dominant: -8px 4px 16px var(--dominant-glow), 8px -4px 16px var(--dominant-glow); /* card, mobile menu */
-    /* Shape */ --box-corners: 25px;
-}
-
 /* HTML TAGS =================================================================================================================== */
 
 /* Example:
