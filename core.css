@@ -1,0 +1,784 @@
+/* CSS VARIABLES =============================================================================================================== */
+:root {
+    /* Grayscale Range */ --gs-lightest: #fff;    --gs-mid: gray; --gs-dark: #333; --gs-darkest: #111;
+    /* Color Pallette */  --color-dominant: #073B3F; --color-two: #238D6C;   --color-bright: #30c797;
+    /* Transparents */ --transparent-w: #ffffff8c; --transparent-b: #0000008c;
+    /* Conventional Colors */ --link: #0000FF; --warn: red; 
+    /* Shoe Lace Theming: paste --color-bright color into theme generator at https://codepen.io/claviska/full/QWveRgL */
+    --sl-color-primary-50: 242 251 248;
+    --sl-color-primary-100: 211 243 233;
+    --sl-color-primary-200: 177 234 216;
+    --sl-color-primary-300: 137 223 196;
+    --sl-color-primary-400: 78 207 166;
+    --sl-color-primary-500: 43 180 137;
+    --sl-color-primary-600: 36 149 113;
+    --sl-color-primary-700: 29 122 93;
+    --sl-color-primary-800: 24 101 77;
+    --sl-color-primary-900: 17 72 54;
+    --sl-color-primary-950: 11 44 34;
+    /* Gradients */ 
+    --gradient-l2r: linear-gradient(to right, var(--gs-darkest) , var(--gs-dark)); /* header, footer */
+    --gradient-u2d: linear-gradient( var(--gs-darkest), var(--gs-dark)); /* panels */
+    /* Borders */ 
+    --borders-bright: 1px solid var(--color-bright); 
+    --borders-dominant: 1px solid var(--color-dominant);
+    --borders-space: 1px solid transparent; /* For spacing nav items regardless of active item */ 
+    /* Glows */
+    --glow: #238D6C39; --glowier: #30c79787; --dominant-glow: #412A1650;
+    --box-glow: -8px 4px 16px var(--glow), 8px -4px 16px var(--glow); /* active navs & all buttons */
+    --box-glowier: -8px 4px 16px var(--glowier), 8px -4px 16px var(--glowier); /* hovered buttons */
+    --box-glow-dominant: -8px 4px 16px var(--dominant-glow), 8px -4px 16px var(--dominant-glow); /* card, mobile menu */
+    /* Shape */ --box-corners: 25px;
+}
+
+/* HTML TAGS =================================================================================================================== */
+
+/* Example:
+selector {
+    margin: 0; /* Layout (position, z-index, top, bottom, left, right, display, flexbox, grid, float, clear, margin, padding */ /*
+    Transform: translateY(100%); /* Change (transform, animation, transition) */ /*
+    border: 0; /* Decoration (opacity, visibility, box-shadow, drop-shadow, border, background, cursor) */ /*
+    font-size: 100%; /* Typography (font-size, line-height, font-family, font-weight, font-style, font-variant, font-stretch, font-size-adjust, font-kerning, font-smoothing, font-feature-settings, font-variant-ligatures, font-variant-position, font-variant-caps, font-variant-numeric, font-variant-alternates, font-variant-east-asian) */ /*
+} */
+
+* { 
+    margin: 0; padding: 0; /* Style resets */ /* Layout */
+    scrollbar-color: var(--gs-mid) var(--gs-darkest); /* Scroll Bar, Works on Firefox */ /* Decoration */
+    scrollbar-width: thin; /* Scroll Bar, Works on Firefox */
+    /*content-visibility: auto;*/ /* Improves loading speed, but breaks glowing effects */
+}
+*::-webkit-scrollbar {width: 5px;} /* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar-track {background: var(--gs-darkest);} /* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar-thumb { /* Works on Chrome, Edge, and Safari */
+    background-color: var(--gs-mid); /* Decoration */
+    border: var(--borders-bright);
+    border-radius: var(--box-corners);
+}
+
+html { /* Document */
+    background: url("/images/bg.jpeg") no-repeat center center fixed; /* Decoration */
+    background-size: cover; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover;
+    line-height: 1.15; /* Typography */ /* Normalizing */
+    -webkit-text-size-adjust: 100%; /* Normalizing */
+}
+.whitePage {background: var(--gs-lightest)}
+
+/* Sectioning */
+body, header, footer, main { /* Layout */
+    width: 100%;
+}
+body {
+    height: 100%; /* Layout */
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+    /* backdrop-filter: blur(10px) brightness(50%); /* Decoration */
+    font-size: 16px; /* Typography */
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+header, main, footer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+}
+header, footer {
+    flex-direction: row;    /* Layout */
+    background: var(--gradient-l2r); /* Decoration */
+}
+header{
+    position: sticky; position: -webkit-sticky;
+    left: 0; top: 0;
+    padding-top: 10px;
+    z-index: 100;
+    border-bottom: var(--borders-dominant); /* Decoration */
+}
+footer { /* Layout */
+    position: relative;
+    bottom: 0;
+    padding-bottom: 10px;
+    border-top: var(--borders-dominant); /* Decoration */
+};
+main {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    background-color: transparent; /* Decoration */
+}
+.obscure {
+    backdrop-filter: blur(15px) brightness(40%); /* Decoration */
+}
+nav {   /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/* --> article, aside, section, each go here <-- */
+blockquote { /* Layout */
+    width: 80%;
+    padding: 1.5em 0 1.5em 0;
+    line-height: 1.75; /* Typography */
+    font-size: 16px; 
+    font-weight: 500;
+    text-align: center;
+    color: var(--gs-lightest)
+}
+pre { /* Typography */
+    font-family: monospace, monospace; /* Correct inheritance & scaling of font size in all browsers. */
+    font-size: 1em; /* Correct the odd `em` font sizing in all browsers. */
+}
+
+/* --> div, figure, figcaption, address, summary each go here <-- */
+
+.subCol {margin: 0 15px 0 15px !important;}
+.subBox {margin: 0 calc(10px + 15vw) 0 calc(10px + 15vw) !important;}
+.show {
+    margin: 10vh 0 10vh 0; /* Layout */
+    width: 84%;
+}
+.offer { 
+    width: 90%; /* Layout */
+    margin: 2vh 0 3vh 0 ;
+    text-align: left;
+}
+.panel {
+    height: auto; /* Layout */
+    width: 100vw; 
+    bottom: 0;
+    background: var(--gradient-u2d); /* Decoration */
+    border-top: var(--borders-dominant);
+    box-shadow: -8px 4px 16px var(--dominant-glow), 8px -4px 16px var(--dominant-glow);
+}
+.card {
+    height: auto; /* Layout */
+    margin: 5px 5px 4vh 5px ;
+    background: var(--transparent-b); /* Decoration */
+    border-radius: var(--box-corners);
+    border: var(--borders-dominant);
+    box-shadow: var(--box-glow-dominant);
+}
+.cardWhite {
+    height: auto; /* Layout */
+    margin: 5px 5px 4vh 5px ;
+    background: var(--transparent-w); /* Decoration */
+    border-radius: var(--box-corners);
+    border: var(--borders-dominant);
+    box-shadow: var(--box-glow-dominant);
+}
+.modal {  /* The Modal (background) */
+    display: none;
+    position: fixed !important; 
+    margin: 2vh 1vw 2vh 2vh;
+    padding: 20px;
+    z-index: 100;
+    width: 95vw;
+    height: 91vh;
+    background-color: var(--gs-darkest); /* Decoration */ /* Fallback color */
+    background-color: var(--transparent-b); /* Dark w/ opacity */
+    border: var(--borders-dominant);
+    border-radius: var(--box-corners);
+    box-shadow: -8px 4px 16px var(--dominant-glow), 8px -4px 16px var(--dominant-glow);
+    animation: fadein 0.5s;
+}
+
+#aboutP {width: 90%;}
+#splash {margin: calc(20px + 5vh) 0 calc(22px + 5vh) 0;} /* Layout */
+#showBox {
+    margin: 5vh 0 5vh 0; /* Layout */
+    padding: 0 40px 0 40px;
+}
+#shapeBox {
+    margin: 0.5vh 0 1vh 0; /* Layout */
+    animation: myAnim 2s linear 0s infinite alternate forwards; /* Change */
+}
+#shape {
+    position: relative; /* Layout */
+    height: 50px;
+    width: 50px;
+    margin: 0 auto;
+    transform: rotate(45deg) !important; /* Change */
+    background: var(--color-two); /* Decoration */
+    border: var(--borders-dominant);
+}
+
+details {display: block;} /* Add correct display in Edge, IE 10+, & Firefox. */
+
+summary {display: list-item;} /* Add correct display in all browsers. */
+
+/* Headings & Paragraphs */
+p, h1, h2, h3, h4, h5, h6 {
+    color: var(--gs-lightest); /* Typography */
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    letter-spacing: 1px !important;
+    line-height: 1.25;
+    text-decoration: none;
+    text-shadow: 1px 1px 0px #000; 
+}
+p {
+    display: inline-block; /* Layout */
+    width: 100%;
+    font-size: 20px !important; /* Typography */
+    word-wrap: break-word;
+    margin: 5px;
+    padding: 5px;
+}
+.indicator{text-align: center;}
+.itemText {
+    text-align: center;
+    margin: 0px 10px 0px 10px;
+    overflow-wrap: break-word;
+}
+#splashText {
+    width: 60%; /* Layout */
+    font-size: 25px !important; /* Typography */
+    font-weight: bold;
+    text-align: center;
+}
+.explainer {
+    margin: 1vh 0 5vh 0; /* Layout */
+    padding: 1vh 0 0vh 0;
+    width: 84%;
+    font-size: 22px !important; /* Typography */
+    line-height: 1.5;
+}
+
+h1, h2 {
+    margin: 0vh 0 2vh 0; /* Layout */ /* Needs listing to normalize */
+    font-size: 38px; /* Typography */ /* Needs listing to normalize */
+    color: var(--color-two);
+    font-weight: 700;
+    text-shadow: 1.5px 1.5px 1px #000;
+    text-transform: uppercase !important;
+}
+.picHeading {
+    font-size: 5vw;
+    color: var(--gs-lightest); /* Typography */
+    mix-blend-mode: difference;
+}
+
+h2 {
+    margin: 4vh 15px 2vh 15px !important; /* Layout */ /* Needs listing to normalize */
+}
+
+h3 {
+    margin: 4vh 0 0 0; /* Layout */
+    font-size: 20px; /* Typography */
+    font-weight: 700;
+    text-transform: uppercase !important;
+    text-decoration: none;
+}
+
+#footText {
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 50px;
+}
+
+/* Lists */
+ul {
+    display: flex; /* Layout */
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%; 
+    list-style-type: none; /* Decoration */
+}
+.subUl {
+    align-items: left;
+    text-align: left;
+    list-style-type: disc;
+}
+
+.offerlist { 
+    list-style: disc outside none; /* Decoration */
+}
+
+li, ol {
+    color: var(--gs-lightest); /* Typography */
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+    letter-spacing: 2px !important;
+    text-align: -webkit-match-parent;
+    margin-bottom: 5px;
+}
+.navLi a {
+    color: var(--gs-lightest) !important; /* Decoration */
+    text-decoration: none; /* Typography */
+}
+.navLi {
+    margin: 1vh calc(2vw + 2px) 1vh 2vw; /* Layout */
+    padding: 5px 2vw;
+    border: var(--borders-space); /* decoration */
+    font-size: 18px; /* Typography */
+    text-transform: uppercase !important;
+}
+.navLi:hover {
+    border: var(--borders-dominant); /* decoration */
+    border-radius: var(--box-corners);
+}
+.active {
+    border: var(--borders-bright); /* decoration */
+    border-radius: var(--box-corners);
+    box-shadow: var(--box-glow);
+}
+.displayLi {
+    line-height: 2;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+/* --> dl, dt, dd, menu, menuitem, each go here <-- */
+
+/* Media */
+/* --> canvas, object, embed, audio, video, (param), (source), track, map, area, [svg], [math], iframe each go here <-- */
+img {
+    width: auto; /* Layout */
+    border-style: none; /* Decoration */ /* Remove border on images inside links in IE 10. */
+}
+.cardImage{
+    border-radius: 10% 10% 0% 0%;
+    height: 25vh;
+}
+.contactIcon {
+    width: 50px; /* Layout */
+    height: auto;
+    filter: drop-shadow(0px 0px 35px var(--color-bright)); /* Decoration */
+}
+
+#headerLogo, .footerLogo {height: 75px;} /* Layout */
+#headerLogo { /* Layout */
+    margin: 5px;
+    padding-left: 50px;
+}
+.footerLogo { /* Layout */
+    margin: calc(1vh + 25px) 0 15px 0 ;
+    padding-left: 0px;
+}
+
+#logoTransImg {
+    width: 25vw; /* Layout */
+    height: auto;
+    margin-bottom: 5vh;
+    filter: drop-shadow(9px 9px 5px #000); /* Decoration */
+}
+
+#shapeAroImg {
+    width: 100px; /* Layout */
+    margin: 0px 0px calc(2px + 2%) calc(-1px + -51%); 
+    padding: 0px;
+    z-index: 10;
+    font-size: 66px; /* Typography */
+    font-style: none;
+    transform: rotate(-45deg) !important; /* Change */
+}
+
+.personImg {
+    height: 150px; /* Layout */
+    padding: 7px;
+    border: var(--borders-dominant); /* Decoration */
+}
+
+.displayImg { /* Layout */
+    height: 250px; 
+    margin: 25px;
+}
+
+.modalImg {
+    height: 90vh; /* Layout */
+    max-width: 90vw;
+    animation: fadein 0.5s; /* Change */
+}
+
+/* Forms */
+/* --> form, fieldset, legend, go here <-- */ 
+button, input, optgroup, select, textarea { /* Change the font styles in all browsers. */
+    font-family: inherit; /* Typography */
+    font-size: 100%;
+    line-height: 1.15;
+}
+button, input {overflow: visible;} /* Show overflow in IE & Edge. */
+button, select {text-transform: none;} /* Remove inheritance of text transform in Edge, Firefox, & IE. */
+button, [type="button"], [type="reset"], [type="submit"] {-webkit-appearance: button;} /* Style clickable types in iOS & Safari. */
+button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner {
+    border-style: none; /* Remove inner border & padding in Firefox. */
+}
+button:-moz-focusring, [type="button"]:-moz-focusring, [type="reset"]:-moz-focusring, [type="submit"]:-moz-focusring {
+    outline: 1px dotted ButtonText; /* Restore the focus styles unset by the previous rule. */
+}
+button {
+    display: inline-flex; /* Layout */
+    justify-content: center;
+    align-items: center;
+    -webkit-box-align: center;
+    margin: 25px;
+    padding: 0.75rem 1.5rem;
+    vertical-align: middle;
+    transition-duration: 300ms; /* Change */
+    transition-property: box-shadow; 
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: transparent; /* Decoration */
+    border: var(--borders-bright); 
+    border-radius: var(--box-corners);
+    box-shadow: var(--box-glow);
+    cursor: pointer;
+    white-space: nowrap;
+    color: var(--color-bright); /* Typography */
+    text-decoration: none;
+    text-transform: uppercase !important;
+}
+.buttonDark {background-color: var(--grayscale-darkest);} /* Decoration */
+.buttonLight {background-color: var(--grayscale-lightest);} /* Decoration */
+button:hover {
+    transition-duration: 300ms; /* Change */
+    transition-property: box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--box-glowier); /* Decoration */
+}
+.item-button {
+    color: var(--warn);
+    border: none;
+    box-shadow: none;
+}
+fieldset {padding: 0.35em 0.75em 0.625em;} /* Correct the padding in Firefox. */ 
+
+input {
+    height: 37px;
+    width: 75%; /* Layout */
+    max-width: 370px;
+    padding: 0;
+    background: var(--gs-lightest); /* Decoration */
+    border: 1px solid var(--gs-lightest);
+    color: var(--gs-mid);
+    text-align: center; /* Typography */
+}
+input:hover, input:focus {
+    background-color: var(--transparent-w);
+    -webkit-transition: all 0.5s 0s ease; -moz-transition: all 0.5s 0s ease; -o-transition: all 0.5s 0s ease; transition: all 0.5s 0s ease;
+}
+input[type="text"] {
+    -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none;
+    -webkit-appearance: none; -moz-appearance: none; appearance: none;
+    text-shadow: none;
+}
+
+.item-form {
+  display: inline-block;
+}
+
+label {
+    margin: 10px;
+    padding: 10px;
+    width: 100%;
+    color: var(--gs-lightest); /* Decoration */
+    text-transform: uppercase;
+    line-height: 1;
+    text-align: center;
+}
+legend {
+    box-sizing: border-box; /* Correct the text wrapping in Edge and IE. */
+    color: inherit; /* Correct the color inheritance from `fieldset` elements in IE. */
+    display: table; /* Correct the text wrapping in Edge and IE. */
+    max-width: 100%; /* Correct the text wrapping in Edge and IE. */
+    white-space: normal; /* Correct the text wrapping in Edge and IE. */
+}
+progress {vertical-align: baseline;} /* Add correct vertical alignment in Chrome, Firefox, & Opera. */
+textarea {
+    overflow: auto; /* Remove default vertical scrollbar in IE 10+. */
+    background-color: transparent; /* Decoration */
+    border: 1px solid var(--gs-lightest);
+    color: var(--gs-mid);  /* Typography */
+}
+textarea:focus {
+    border: none;
+    -webkit-transition: all 0.5s 0s ease;
+    -moz-transition: all 0.5s 0s ease;
+    -o-transition: all 0.5s 0s ease;
+    transition: all 0.5s 0s ease;
+}
+[type="checkbox"], [type="radio"] {box-sizing: border-box;} /* Add correct box sizing in IE 10. */
+[type="number"]::-webkit-inner-spin-button, [type="number"]::-webkit-outer-spin-button {height: auto;} /* Correct the cursor style of increment & decrement buttons in Chrome. */
+[type="search"] {
+    -webkit-appearance: textfield; /* Correct the odd appearance in Chrome and Safari. */
+    outline-offset: -2px; /* Correct the outline style in Safari. */
+}
+[type="search"]::-webkit-search-decoration {-webkit-appearance: none;} /* Remove inner padding in Chrome & Safari on macOS. */
+::-webkit-file-upload-button {
+    -webkit-appearance: button; /* Correct inability to style clickable types in iOS & Safari. */
+    font: inherit; /* Change font properties to `inherit` in Safari. */
+}
+
+/* --> select, optgroup, option, datalist, textarea, output each go here <-- */
+
+/* Tables */
+/* --> table, caption, colgroup, col, thead, tfoot, tbody, tr, th, td, each go here <-- */
+
+/* Phrasing */
+a {
+    background-color: transparent; /* Decoration */ /* Remove the gray background on active links in IE 10. */
+    color: var(--link); /* Typography */
+    text-decoration: underline;
+    text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+}
+a:hover{
+    color: var(--color-bright); /* Typography */
+}
+a:visited {
+    color: var(--color-two); /* Typography */
+}
+.buttonLink {
+    color:var(--color-bright) !important;; 
+    text-decoration:none;
+    text-shadow: none;
+}
+
+/* --> TEXT LEVEL SEMANTICS: em goes here <-- */
+b, strong {font-weight: bolder;} /* Add correct font weight in Chrome, Edge, and Safari. */
+
+i {
+    display: inline-block; /* Layout */
+    margin: 0 0 35px 3vw;
+    color: var(--gs-lightest); /* Typography */
+    font-size: calc(50px + 4vw); 
+}
+#showFA {
+    font-size: calc(100px + 4vw) !important; /* Typography */
+}
+
+/* --> TEXT LEVEL SEMANTICS: u, s, sup, sub, dfn, mark, del, ins, q, cite, data, progress, time, meter, var, keygen, bdi, bdo, ruby, rt, rp, span, br, wbr, each go here <-- */
+abbr[title] {
+    border-bottom: none; /* Decoration */ /* Remove bottom border in Chrome 57- */
+    text-decoration: underline; /* Typography */ /* Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari. */
+    text-decoration: underline dotted; /* Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari. */
+}
+code, kbd, samp { /* Typography */
+    font-family: monospace, monospace; /* Correct  inheritance & scaling of font size in all browsers. */
+    font-size: 1em; /* Correct odd `em` font sizing in all browsers. */
+}
+small {
+    color: var(--gs-lightest); /* Typography */
+    font-size: 80%; /* Add correct font size in all browsers. */
+} 
+
+sub, sup { /* Prevent `sub` and `sup` elements from affecting the line height in all browsers. */
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sub {bottom: -0.25em;}
+
+sup {top: -0.5em;}
+
+/* Misc */
+hr {
+    box-sizing: content-box; /* Layout */ /* Add correct box sizing in Firefox. */
+    height: 1px; /* Needs listing to normalize */
+    width: 55%; 
+    margin: calc(5px + 0.25vh) auto calc(5px + 0.25vh);
+    overflow: visible; /* Show overflow in Edge and IE. */
+    background-color: rgba(255,255,255,0.13); /* Decoration */
+    border: 0pt none;
+    box-shadow: 1px -1px 1px  rgb(0, 0, 0, 30%);
+    color: rgba(255,255,255,0.13); /* Typography */
+}
+.quoteHr {
+    background-color: var(--color-dominant); /* Decoration */
+    box-shadow: -1px 1px 1px  var(--gs-darkest);
+}
+.hidHr {
+    background-color: none; /* Decoration */
+    visibility: hidden;
+    height: 0.5vh;
+}
+.hidHr3 {
+    background-color: none; /* Decoration */
+    visibility: hidden;
+    height: 1.5vh;
+}
+
+template {display: none;} /* Add correct display in IE 10+. */
+[hidden] {display: none;} /* Add the correct display in IE 10. */
+
+/* --> (br), (wbr), dialog, each go here <-- */
+
+
+/* OTHER CLASSES & IDS ========================================================================================================= */
+
+.pad15 {padding: 15px;}
+
+.textLeft {text-align: left !important;}
+
+.col100 {width: 100%;}
+.col90 {width: 90%;}
+.col80 {width: 80%;}
+.col75 {width: 75%;}
+.col66 {width: 66%;}
+.col60 {width: 60%;}
+.col50 {width: 50%;}
+.col40 {width: 40%;}
+.col33 {width: 33%;}
+.col25 {width: 25%;}
+.col20 {width: 20%;}
+
+.flex {display: flex;}
+
+
+.row {flex-direction: row !important;}
+.col {flex-direction: column !important;}
+.mobileRow {flex-direction: row !important;}
+.reverseRow {flex-direction: row-reverse !important;}
+
+.around {justify-content: space-around !important;}
+.between {justify-content: space-between !important;}
+.center {justify-content: center !important;}
+.evenly {justify-content: space-evenly !important;}
+.start {justify-content: flex-start !important;}
+.end {justify-content: flex-end !important;}
+
+.centerAlign {align-items: center !important;}
+.top {align-items: top !important;}
+.flexStart {align-items: flex-start !important}
+.flexEnd {align-items: flex-end !important}
+
+.centerAlignSelf {align-self: center !important;}
+
+
+.grid {     /* Layout */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 90%;
+}
+.gridx {     /* Layout */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 15%));
+    grid-gap: 20px 1px;
+    width: 100%;
+    justify-content: space-evenly;
+}
+.gridItem {
+    grid-column-start: auto;
+    grid-column-end: auto;
+    grid-row-start: auto;
+    grid-row-end: auto;
+    place-self: center;
+    box-sizing: border-box;
+
+}
+
+.ue-sidebar-container {display: none;} /* Hides the sidebar that is imported */
+
+.desktop {display:  visible;}
+.mobile {display: none;}
+.footerDesktop {display: visible !important;}
+.footerMobile {display: none !important;}
+
+.menuBox {position: relative;}
+.menu {
+    margin: 0 7px 0 0; /* Layout */
+    background-color: var(--gs-darkest); /* Decoration */
+    border: var(--borders-dominant);
+    border-radius: 0;
+    box-shadow: var(--box-glow-dominant);
+}
+#menu-drop {
+    display: none; /* Layout */
+    min-width: 160px;
+    position: absolute;
+    right: 7px;
+    z-index: 5;
+    background-color: var(--gs-darkest); /* Decoration */
+    border: var(--borders-dominant);
+    box-shadow: var(--box-glow-dominant);
+}
+.menuBox:hover #menu-drop {display: block !important;}
+
+
+/* ANIMATIONS ================================================================================================================= */
+
+@keyframes myAnim {
+    0% {
+      transform: translateY(-20px);
+    }
+    20% {
+      transform: translateY(-16px);
+    }
+    40% {
+      transform: translateY(-12px);
+    }
+    60% {
+      transform: translateY(-8px);
+    }
+    80% {
+      transform: translateY(-4px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+}
+
+@keyframes fadein {
+    from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
+}
+
+/* MEDIA QUERIES =============================================================================================================== */
+
+@media screen and (max-width: 1250px) {
+    .showRow {
+        flex-direction: column;
+    }
+}
+
+/* screen width 994 and > is reg nav, less is hamburger */
+@media screen and (max-width: 994px) {
+    header {
+        justify-content: right;
+        display: -webkit-box;
+        -webkit-box-pack: end; /* justify-content */
+        -webkit-box-align: end; /* align-items */
+    }
+    .navLi {
+        width: 79%;
+        border-radius: 0 !important;
+    }
+    .desktop {
+        display: none !important;
+    }
+    .mobile {
+        display: block !important;
+    }
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* screen width 768 and > is reg layout, less is all column */
+@media screen and (max-width: 768px) {
+    .column {
+        width: 100%;
+    }
+    .row {
+        flex-direction: column !important;
+    }
+    .footerDesktop {
+        display: none !important;
+    }
+    .footerMobile {
+        display: block !important;
+    }
+    .top {
+        align-items: center !important;
+    }
+    .tricol {
+        width: 100%;
+    }
+} 
