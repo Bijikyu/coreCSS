@@ -23,8 +23,6 @@ selector {
 }
 
 html { /* Document */
-    background: url("/images/bg.jpeg") no-repeat center center fixed; /* Decoration */
-    background-size: cover; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover;
     line-height: 1.15; /* Typography */ /* Normalizing */
     -webkit-text-size-adjust: 100%; /* Normalizing */
 }
