@@ -699,6 +699,12 @@ template {display: none;} /* Add correct display in IE 10+. */
 
 /* MEDIA QUERIES =============================================================================================================== */
 
+@media print {    
+    .noPrint, .noPrint * {
+        display: none !important;
+    }
+}
+
 @media screen and (max-width: 1250px) {
     .showRow {
         flex-direction: column;
