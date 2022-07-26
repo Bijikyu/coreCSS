@@ -185,7 +185,7 @@ p, h1, h2, h3, h4, h5, h6 {
 p {
     display: inline-block; /* Layout */
     width: 100%;
-    font-size: 20px !important; /* Typography */
+    font-size: 20px; /* Typography */
     word-wrap: break-word;
     margin: 5px;
     padding: 5px;
