@@ -100,7 +100,9 @@ aside {
     bottom: 0;
     left: 0;
     position: relative;
+		color: black;
     border-right: 1000px solid green;
+		border: 500px solid blue;
 		background-color: purple;
 }
 #innerCard{
