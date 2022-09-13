@@ -100,7 +100,7 @@ aside {
     bottom: 0;
     left: 0;
     position: relative;
-    border-right: 1px solid transparent;
+    border-right: 1000px solid green;
 		background-color: purple;
 }
 #innerCard{
