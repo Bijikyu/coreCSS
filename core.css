@@ -95,16 +95,6 @@ aside {
     border-right: 1px solid var(--gs-lightest);
 		overflow-x: hidden;
 }
-#asideSpace {
-	  top: 0;
-    bottom: 0;
-    left: 0;
-    position: relative;
-		color: black;
-    border-right: 1000px solid green;
-		border: 500px solid blue;
-		background-color: purple;
-}
 #innerCard{
     position: relative;
     height: 100%;
