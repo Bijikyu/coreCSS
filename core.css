@@ -82,7 +82,7 @@ main {
     align-items: center; 
 } TODO remove if not needed */
 
-/* --> article, aside, section, each go here <-- */
+/* --> article, section, each go here <-- */
 
 aside {
 	  background-color: var(--color-dominant);
