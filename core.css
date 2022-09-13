@@ -24,6 +24,7 @@ selector {
 
 html { /* Document */
     line-height: 1.15; /* Typography */ /* Normalizing */
+		width: 100%;
     -webkit-text-size-adjust: 100%; /* Normalizing */
 }
 .whitePage {background: var(--gs-lightest)}
