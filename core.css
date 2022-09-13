@@ -93,6 +93,7 @@ aside {
     text-align: left;
     position: fixed;
     border-right: 1px solid var(--gs-lightest);
+		overflow-x: hidden;
 }
 #innerCard{
     position: relative;
