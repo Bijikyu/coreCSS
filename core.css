@@ -24,7 +24,7 @@ selector {
 
 html { /* Document */
     line-height: 1.15; /* Typography */ /* Normalizing */
-		width: 100%;
+		width: 100vw;
     -webkit-text-size-adjust: 100%; /* Normalizing */
 }
 .whitePage {background: var(--gs-lightest)}
@@ -34,7 +34,8 @@ body, header, footer, main { /* Layout */
     width: 100%;
 }
 body {
-    height: 100%; /* Layout */
+    height: 100vh; /* Layout */
+		width: 100vw;
     overflow-x: hidden;
     scroll-snap-type: y mandatory;
     /* backdrop-filter: blur(10px) brightness(50%); /* Decoration */
