@@ -73,14 +73,55 @@ main {
 .obscure {
     backdrop-filter: blur(15px) brightness(40%); /* Decoration */
 }
-nav {   /* Layout */
-    display: flex;
+/* nav {   /* Layout */
+    /* display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    align-items: center;
-}
+    align-items: center; 
+} TODO remove if not needed */
 
 /* --> article, aside, section, each go here <-- */
+
+aside {
+	  background-color: var(--color-dominant);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    color: var(--gs-lightest);
+    text-align: left;
+    position: fixed;
+    border-right: 1px solid var(--gs-lightest);
+}
+#innerCard{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+#imageBox{
+    text-align: center;
+    display: block;
+    width: 70%;
+    padding: 40px 0px 0px 40px;
+}
+#image1{
+    width: 90%;
+    height: auto;
+    border-radius: 100%;
+    border: 1px solid;
+}
+.contactImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin: 0 1px 0 1px;
+}
+.contactImage:hover {
+    box-shadow: 0px 0px 10px 6px var(--color-bright);
+}
+
 blockquote { /* Layout */
     width: 80%;
     padding: 1.5em 0 1.5em 0;
@@ -180,7 +221,8 @@ p, h1, h2, h3, h4, h5, h6 {
     letter-spacing: 1px !important;
     line-height: 1.25;
     text-decoration: none;
-    text-shadow: 1px 1px 0px #000; 
+    text-shadow: 1px 1px 0px #000;
+		-webkit-font-smoothing: antialiased;
 }
 p {
     display: inline-block; /* Layout */
@@ -242,8 +284,15 @@ h3 {
     margin-bottom: 50px;
 }
 
+h4 {
+	  border-bottom: 1px solid var(--color-bright);
+    font-weight: 300;
+    color: var(--color-bright) !important;
+    text-align: left;
+}
+
 /* Lists */
-ul {
+ul { /*TODO remove flex from this */
     display: flex; /* Layout */
     flex-direction: row;
     flex-wrap: wrap;
@@ -577,6 +626,7 @@ template {display: none;} /* Add correct display in IE 10+. */
 .pad15 {padding: 15px;}
 
 .textLeft {text-align: left !important;}
+.textCenter {text-align: center !important;}
 
 .col100 {width: 100%;}
 .col90 {width: 90%;}
@@ -591,7 +641,6 @@ template {display: none;} /* Add correct display in IE 10+. */
 .col20 {width: 20%;}
 
 .flex {display: flex;}
-
 
 .row {flex-direction: row !important;}
 .col {flex-direction: column !important;}
@@ -632,7 +681,6 @@ template {display: none;} /* Add correct display in IE 10+. */
     grid-row-end: auto;
     place-self: center;
     box-sizing: border-box;
-
 }
 
 .ue-sidebar-container {display: none;} /* Hides the sidebar that is imported */
@@ -641,6 +689,7 @@ template {display: none;} /* Add correct display in IE 10+. */
 .mobile {display: none;}
 .footerDesktop {display: visible !important;}
 .footerMobile {display: none !important;}
+.hidden {display: none;}
 
 .menuBox {position: relative;}
 .menu {
