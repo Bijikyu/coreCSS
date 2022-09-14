@@ -234,6 +234,8 @@ p {
     word-wrap: break-word;
     margin: 5px;
     padding: 5px;
+		margin-block-start: 0px;
+		margin-block-end: 0px;
 }
 .indicator{text-align: center;}
 .itemText {
