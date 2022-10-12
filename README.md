@@ -1,5 +1,9 @@
 ![coreCSS Logo](https://github.com/Bijikyu/staticAssetsSmall/blob/main/logos/core-logo-min.png?raw=true)
 
+<p align="center">
+  <img src="http://some_place.com/image.png" />
+</p>
+
 # coreCSS
 
 This is a ready to use default style sheet that contains default styles which look nice for most elements in html. 
