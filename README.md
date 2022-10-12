@@ -1,7 +1,7 @@
 <p align="center" >
   <center><img height='150' width='150' src="https://github.com/Bijikyu/staticAssetsSmall/blob/main/logos/core-logo-min.png?raw=true" /></center>
-	<center><caption>This logo vies with Flask for terribleness, <br> & was made by an AI in 5 minutes. </caption></center>
 </p>
+<center><caption>This logo vies with Flask for terribleness, <br> & was made by an AI in 5 minutes. </caption></center>
 
 # coreCSS
 
