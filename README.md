@@ -1,7 +1,5 @@
-![coreCSS Logo](https://github.com/Bijikyu/staticAssetsSmall/blob/main/logos/core-logo-min.png?raw=true)
-
-<p align="center">
-  <img src="http://some_place.com/image.png" />
+<p align="center" height='250' width='250'>
+  <img src="[http://some_place.com/image.png](https://github.com/Bijikyu/staticAssetsSmall/blob/main/logos/core-logo-min.png?raw=true)" />
 </p>
 
 # coreCSS
