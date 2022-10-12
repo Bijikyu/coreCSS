@@ -371,7 +371,6 @@ img {
 #headerLogo, .footerLogo {height: 75px;} /* Layout */
 #headerLogo { /* Layout */
     margin: 5px;
-    padding-left: 50px;
 }
 .footerLogo { /* Layout */
     margin: calc(1vh + 25px) 0 15px 0 ;
@@ -645,12 +644,23 @@ template {display: none;} /* Add correct display in IE 10+. */
 .col25 {width: 25%;}
 .col20 {width: 20%;}
 
-.flex {display: flex;}
-
-.row {flex-direction: row !important;}
-.col {flex-direction: column !important;}
-.mobileRow {flex-direction: row !important;}
-.reverseRow {flex-direction: row-reverse !important;}
+.flex {display: flex !important;}
+.row {
+	display: flex;
+	flex-direction: row !important;
+}
+.col {
+	display: flex;
+	flex-direction: column !important;
+}
+.mobileRow {
+	display: flex;
+	flex-direction: row !important;
+}
+.reverseRow {
+	display: flex;
+	flex-direction: row-reverse !important;
+}
 
 .around {justify-content: space-around !important;}
 .between {justify-content: space-between !important;}
@@ -715,6 +725,8 @@ template {display: none;} /* Add correct display in IE 10+. */
     box-shadow: var(--box-glow-dominant);
 }
 .menuBox:hover #menu-drop {display: block !important;}
+
+.icon {filter: --set-adjustments;}
 
 
 /* ANIMATIONS ================================================================================================================= */

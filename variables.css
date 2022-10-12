@@ -1,9 +1,9 @@
 /* CSS VARIABLES =============================================================================================================== */
 :root {
     /* Grayscale Range */ --gs-lightest: #fff;    --gs-mid: gray; --gs-dark: #333; --gs-darkest: #111;
-    /* Color Pallette */  --color-dominant: #073B3F; --color-two: #238D6C;   --color-bright: #30c797;
+    /* Color Pallette */  --color-dominant: #050009; --color-two: #BB2112;   --color-bright: #FAA720;
     /* Transparents */ --transparent-w: #ffffff8c; --transparent-b: #0000008c;
-    /* Conventional Colors */ --link: #0000FF; --warn: red; 
+    /* Conventional Colors */ --link: #FAA720; --warn: red; 
     /* Shoe Lace Theming: paste --color-bright color into theme generator at https://codepen.io/claviska/full/QWveRgL */
     --sl-color-primary-50: 242 251 248;
     --sl-color-primary-100: 211 243 233;
@@ -17,16 +17,28 @@
     --sl-color-primary-900: 17 72 54;
     --sl-color-primary-950: 11 44 34;
     /* Gradients */ 
-    --gradient-l2r: linear-gradient(to right, var(--gs-darkest) , var(--gs-dark)); /* header, footer */
-    --gradient-u2d: linear-gradient( var(--gs-darkest), var(--gs-dark)); /* panels */
+    --gradient-l2r: linear-gradient(to right, var(--gs-darkest) , var(--color-two)); /* header, footer */
+    --gradient-u2d: linear-gradient( var(--color-two), var(--gs-darkest)); /* panels */
     /* Borders */ 
     --borders-bright: 1px solid var(--color-bright); 
     --borders-dominant: 1px solid var(--color-dominant);
     --borders-space: 1px solid transparent; /* For spacing nav items regardless of active item */ 
     /* Glows */
-    --glow: #238D6C39; --glowier: #30c79787; --dominant-glow: #412A1650;
+    --glow: #BB211239; --glowier: #FAA72087; --dominant-glow: #05000950;
     --box-glow: -8px 4px 16px var(--glow), 8px -4px 16px var(--glow); /* active navs & all buttons */
     --box-glowier: -8px 4px 16px var(--glowier), 8px -4px 16px var(--glowier); /* hovered buttons */
     --box-glow-dominant: -8px 4px 16px var(--dominant-glow), 8px -4px 16px var(--dominant-glow); /* card, mobile menu */
     /* Shape */ --box-corners: 25px;
+
+		/* Instead of making icons/logos in different colors to match a theme, they can instead be changed
+		here with CSS using the filter function, this will work with the coreCSS class ".icon" */
+		/* Icon Adjustments */ --set-adjustments: hue-rotate(0) brightness(1) contrast(1) saturate(1);
+}
+html { /* Document */
+		/* default background, placed on html so filters can be placed over */
+	  background: url('https://github.com/Bijikyu/staticAssetsSmall/blob/main/backgrounds/lava_blur_bg-min.png?raw=true') no-repeat center center fixed; /* Decoration */
+    background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
 }

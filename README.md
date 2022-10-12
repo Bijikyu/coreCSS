@@ -1,11 +1,11 @@
 # coreCSS
 
-For use with https://www.jsdelivr.com
+This is used via https://www.jsdelivr.com
 
-Import as CDN as:
-https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.css
+Import via CDN in the head of your html as:
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.css)">
 
 Minified version:
-https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css">
 
-Make customised variables.css for each use.
+Copy variables.css into your local css stylesheet.
