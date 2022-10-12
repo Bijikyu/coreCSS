@@ -1,5 +1,6 @@
-<p align="center" height='250' width='250'>
+<p align="center" height='150' width='150'>
   <img src="https://github.com/Bijikyu/staticAssetsSmall/blob/main/logos/core-logo-min.png?raw=true" />
+	<caption>This logo vies with Flask for terribleness, and was made by an AI in 5 minutes. </caption>
 </p>
 
 # coreCSS
@@ -8,6 +9,7 @@ This is a ready to use default style sheet that contains default styles which lo
 
 Also includes...
 * The features from normalize CSS to make sure that your site will be more universally the same across browsers
+* Class based positioning attributes for flexbox (row, col, center, centerAlign, and so on) & width (col50, col80, etc, for 50% & 80% respectively)
 * It also has some basic built in CSS animations
 * Default media queries to make elements responsive to any screen size
 * A variables.css style sheet template which allows you to stylistically change a whole page by just changing the values of the variables (for instance, the corners of a card, 
