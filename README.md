@@ -35,4 +35,4 @@ Minified version:
 
 Copy variables.css into your local css stylesheet and change values as you like.
 
-[Buy me a Coffee](https://www.buymeacoffee.com/bijikyu)
+<a href="https://www.buymeacoffee.com/bijikyu" target="_blank">Buy me a Coffee (Please)</a>
