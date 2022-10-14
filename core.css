@@ -726,7 +726,7 @@ template {display: none;} /* Add correct display in IE 10+. */
 }
 .menuBox:hover #menu-drop {display: block !important;}
 
-.icon {filter: --set-adjustments;}
+.icon {filter: var(--set-adjustments);}
 
 
 /* ANIMATIONS ================================================================================================================= */
