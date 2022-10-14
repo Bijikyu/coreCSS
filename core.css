@@ -380,7 +380,7 @@ img {
 #logoTransImg {
     width: 25vw; /* Layout */
     height: auto;
-    margin-bottom: 5vh;
+    margin-bottom: 3vh;
     filter: drop-shadow(9px 9px 5px #000); /* Decoration */
 }
 
