@@ -25,7 +25,7 @@ This is used via the github based CDN https://www.jsdelivr.com
 
 Import via CDN in the head of your html as:
 ```
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.css)">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.css">
 ```
 
 Minified version:
