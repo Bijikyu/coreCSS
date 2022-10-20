@@ -682,6 +682,10 @@ template {display: none;} /* Add correct display in IE 10+. */
     grid-template-columns: 1fr 1fr;
     width: 90%;
 }
+grid3 { grid-template-columns: 1fr 1fr 1fr; }
+grid4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+grid5 { grid-template-columns: 1fr 1fr1fr 1fr 1fr; }
+grid6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; }
 .gridx {     /* Layout */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 15%));
