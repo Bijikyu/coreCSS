@@ -680,12 +680,23 @@ template {display: none;} /* Add correct display in IE 10+. */
 .grid {     /* Layout */
     display: grid;
     grid-template-columns: 1fr 1fr;
-    width: 90%;
 }
-grid3 { grid-template-columns: 1fr 1fr 1fr; }
-grid4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
-grid5 { grid-template-columns: 1fr 1fr1fr 1fr 1fr; }
-grid6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; }
+grid3 { 
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr; 
+}
+grid4 { 
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr; 
+}
+grid5 { 
+		display: grid;
+		grid-template-columns: 1fr 1fr1fr 1fr 1fr; 
+}
+grid6 { 
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; 
+}
 .gridx {     /* Layout */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 15%));
@@ -730,7 +741,7 @@ grid6 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; }
 }
 .menuBox:hover #menu-drop {display: block !important;}
 
-.icon {filter: var(--set-adjustments) !important;}
+.icon {filter: var(--set-adjustments);}
 
 
 /* ANIMATIONS ================================================================================================================= */
