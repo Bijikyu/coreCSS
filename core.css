@@ -681,19 +681,19 @@ template {display: none;} /* Add correct display in IE 10+. */
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
-grid3 { 
+.grid3 { 
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr; 
 }
-grid4 { 
+.grid4 { 
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr 1fr; 
 }
-grid5 { 
+.grid5 { 
 		display: grid;
 		grid-template-columns: 1fr 1fr1fr 1fr 1fr; 
 }
-grid6 { 
+.grid6 { 
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; 
 }
