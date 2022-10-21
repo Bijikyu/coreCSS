@@ -32,7 +32,7 @@
 
 		/* Instead of making icons/logos in different colors to match a theme, they can instead be changed
 		here with CSS using the filter function, this will work with the coreCSS class ".icon" */
-		/* Icon Adjustments */ --set-adjustments: hue-rotate(90deg) brightness(100%) contrast(100%) saturate(100%);
+		/* Icon Adjustments */ --set-adjustments: hue-rotate(190deg) brightness(70%) contrast(220%) saturate(87%);
 }
 html { /* Document */
 		/* default background, placed on html so filters can be placed over */
