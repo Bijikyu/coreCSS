@@ -365,7 +365,6 @@ img {
 .contactIcon {
     width: 50px; /* Layout */
     height: auto;
-    filter: drop-shadow(0px 0px 35px var(--color-bright)); /* Decoration */
 }
 
 #headerLogo, .footerLogo {height: 75px;} /* Layout */

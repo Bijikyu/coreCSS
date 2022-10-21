@@ -32,11 +32,12 @@
 
 		/* Instead of making icons/logos in different colors to match a theme, they can instead be changed
 		here with CSS using the filter function, this will work with the coreCSS class ".icon" */
-		/* Icon Adjustments */ --set-adjustments: hue-rotate(190deg) brightness(70%) contrast(220%) saturate(87%);
+		/* Icon Adjustments */ 
+		--set-adjustments: hue-rotate(190deg) brightness(70%) contrast(220%) saturate(87%) drop-shadow(0px 0px 5px var(--color-bright));
 }
 html { /* Document */
 		/* default background, placed on html so filters can be placed over */
-	  background: url('https://github.com/Bijikyu/staticAssetsSmall/blob/main/backgrounds/lava_blur_bg-min.png?raw=true') no-repeat center center fixed; /* Decoration */
+	  background: url('https://github.com/Bijikyu/staticAssetsSmall/blob/main/backgrounds/firemarbleblur_min-min.png?raw=true') no-repeat center center fixed; /* Decoration */
     background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
