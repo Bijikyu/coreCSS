@@ -412,7 +412,7 @@ img {
 
 /* Forms */
 /* --> form, fieldset, legend, go here <-- */ 
-button, input, optgroup, select, textarea { /* Change the font styles in all browsers. */
+button, input, optgroup, select, textarea, .stripe-button-el { /* Change the font styles in all browsers. */
     font-family: inherit; /* Typography */
     font-size: 100%;
     line-height: 1.15;
@@ -426,7 +426,7 @@ button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-mo
 button:-moz-focusring, [type="button"]:-moz-focusring, [type="reset"]:-moz-focusring, [type="submit"]:-moz-focusring {
     outline: 1px dotted ButtonText; /* Restore the focus styles unset by the previous rule. */
 }
-button {
+button, .stripe-button-el {
     display: inline-flex; /* Layout */
     justify-content: center;
     align-items: center;
@@ -449,7 +449,7 @@ button {
 }
 .buttonDark {background-color: var(--grayscale-darkest);} /* Decoration */
 .buttonLight {background-color: var(--grayscale-lightest);} /* Decoration */
-button:hover {
+button:hover, .stripe-button-el:hover {
     transition-duration: 300ms; /* Change */
     transition-property: box-shadow;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
