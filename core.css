@@ -832,4 +832,7 @@ template {display: none;} /* Add correct display in IE 10+. */
     .tricol {
         width: 100%;
     }
+    .smallHide {
+	display: none;
+    }
 } 
