@@ -544,7 +544,7 @@ a:hover{
     color: var(--color-bright); /* Typography */
 }
 a:visited {
-    color: var(--color-two); /* Typography */
+    color: var(--link-visited); /* Typography */
 }
 .buttonLink {
     color:var(--color-bright) !important;; 
