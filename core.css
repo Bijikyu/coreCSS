@@ -639,22 +639,25 @@ template {display: none;} /* Add correct display in IE 10+. */
 
 /* OTHER CLASSES & IDS ========================================================================================================= */
 
+.pad5 {padding: 5px;}
+.pad10 {padding: 10px;}	
 .pad15 {padding: 15px;}
 
 .textLeft {text-align: left !important;}
 .textCenter {text-align: center !important;}
 
-.col100 {width: 100%;}
-.col90 {width: 90%;}
-.col80 {width: 80%;}
-.col75 {width: 75%;}
-.col66 {width: 66%;}
-.col60 {width: 60%;}
-.col50 {width: 50%;}
-.col40 {width: 40%;}
-.col33 {width: 33%;}
-.col25 {width: 25%;}
-.col20 {width: 20%;}
+.wide100, .col100 {width: 100%;}
+.wide90, .col90 {width: 90%;}
+.wide80, .col80 {width: 80%;}
+.wide75, .col75 {width: 75%;}
+.wide70, .col70 {width: 70%;}
+.wide66, .col66 {width: 66%;}
+.wide60, .col60 {width: 60%;}
+.wide50, .col50 {width: 50%;}
+.wide40, .col40 {width: 40%;}
+.wide33, .col33 {width: 33%;}
+.wide25, .col25 {width: 25%;}
+.wide20, .col20 {width: 20%;}
 
 .flex {display: flex !important;}
 .row {
