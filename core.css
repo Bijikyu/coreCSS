@@ -13,6 +13,19 @@ selector {
     scrollbar-color: var(--gs-mid) var(--gs-darkest); /* Scroll Bar, Works on Firefox */ /* Decoration */
     scrollbar-width: thin; /* Scroll Bar, Works on Firefox */
     /*content-visibility: auto;*/ /* Improves loading speed, but breaks glowing effects */
+    -webkit-hyphens: none;
+    -moz-hyphens:    none;
+    -ms-hyphens:     none;
+    hyphens:         none;
+    white-space:pre-wrap;
+    word-break:break-word;
+    white-space: -moz-pre-wrap; /* Mozilla */
+    white-space: -hp-pre-wrap; /* HP printers */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: pre-wrap; /* CSS 2.1 */
+    white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+    word-wrap: break-word; /* IE *
 }
 *::-webkit-scrollbar {width: 5px;} /* Works on Chrome, Edge, and Safari */
 *::-webkit-scrollbar-track {background: var(--gs-darkest);} /* Works on Chrome, Edge, and Safari */
