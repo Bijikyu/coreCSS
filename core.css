@@ -25,7 +25,7 @@ selector {
     white-space: -pre-wrap; /* Opera 4-6 */
     white-space: pre-wrap; /* CSS 2.1 */
     white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
-    word-wrap: break-word; /* IE *
+    word-wrap: keep-all; /* IE *
 }
 *::-webkit-scrollbar {width: 5px;} /* Works on Chrome, Edge, and Safari */
 *::-webkit-scrollbar-track {background: var(--gs-darkest);} /* Works on Chrome, Edge, and Safari */
@@ -79,7 +79,7 @@ footer { /* Layout */
     bottom: 0;
     padding-bottom: 10px;
     border-top: var(--borders-dominant); /* Decoration */
-};
+}
 main {
     margin-top: 50px;
     margin-bottom: 100px;
@@ -706,7 +706,7 @@ template {display: none;} /* Add correct display in IE 10+. */
 }
 .grid5 {
 		display: grid;
-		grid-template-columns: 1fr 1fr1fr 1fr 1fr; 
+		grid-template-columns: 1fr 1fr 1fr 1fr 1fr; 
 }
 .grid6 {
 		display: grid;
