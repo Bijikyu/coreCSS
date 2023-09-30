@@ -745,6 +745,8 @@ template {display: none;} /* Add correct display in IE 10+. */
 .footerDesktop {display: visible !important;}
 .footerMobile {display: none !important;}
 .hidden {display: none;}
+.smallHide {display: block;}
+.smallShow {display: none;}
 
 .menuBox {position: relative;}
 .menu {
@@ -860,5 +862,8 @@ template {display: none;} /* Add correct display in IE 10+. */
     }
     .smallHide {
 	display: none;
+    }
+    .smallShow {
+	display: block;
     }
 } 
