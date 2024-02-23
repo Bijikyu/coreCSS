@@ -1,5 +1,5 @@
 <p align="center" >
-  <img height='150' width='150' src="https://github.com/Bijikyu/staticAssetsSmall/blob/main/logos/core-logo-min.png?raw=true" />
+  <img height='150' width='150' src="core.png?raw=true" />
 </p>
 <p align="center" >
 <caption>This logo vies with Flask for terribleness, <br> & was made by an AI in 5 minutes. </caption>
