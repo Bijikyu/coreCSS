@@ -1,4 +1,4 @@
-/* VERSION 7 */
+/* VERSION 8 */
 
 /* BASIC HTML TAGS =================================================================================================================== */
 
@@ -43,7 +43,7 @@ li, ol {color: var(--gs-lightest); font-family: 'Playfair Display', serif; font-
 
 /* Media */
 img {width: auto; border-style: none;} /* Remove border on images inside links in IE 10. */
-.cardImage{height: 25vh; width:100% !important; border-radius: 25px 25px 0px 0px; border: var(--borders-dominant); box-shadow: var(--box-glow); }
+.cardImage{width:100% !important; border-radius: 25px 25px 0px 0px; box-shadow: var(--box-glow); }
 
 /* Forms *//* --> form, fieldset, legend, go here <-- */ 
 button, input, optgroup, select, textarea, .stripe-button-el {font-family: inherit; font-size: 100%; line-height: 1.15; /* Change the font styles in all browsers. */}
@@ -52,13 +52,13 @@ button, select {text-transform: none;} /* Remove inheritance of text transform i
 button, [type="button"], [type="reset"], [type="submit"] {-webkit-appearance: button;} /* Style clickable types in iOS & Safari. */
 button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner {border-style: none; /* Remove inner border & padding in Firefox. */}
 button:-moz-focusring, [type="button"]:-moz-focusring, [type="reset"]:-moz-focusring, [type="submit"]:-moz-focusring {outline: 1px dotted ButtonText; /* Restore the focus styles unset by the previous rule. */}
-button, .stripe-button-el {display: inline-flex; justify-content: center; align-items: center; -webkit-box-align: center; margin: 25px; padding: 0.75rem 1.5rem; vertical-align: middle; transition-duration: 300ms; transition-property: box-shadow; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); background-color: transparent; border: var(--borders-bright); border-radius: var(--box-corners);	box-shadow: var(--box-glow); cursor: pointer; white-space: nowrap; color: var(--color-bright); text-decoration: none; text-transform: uppercase !important;}
+button, .stripe-button-el {display: inline-flex; justify-content: center; align-items: center; -webkit-box-align: center; margin: 25px; padding: 0.75rem 1.5rem; vertical-align: middle; transition-duration: 300ms; transition-property: box-shadow; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); background-color: var(--gs-darkest); border: var(--borders-bright); border-radius: var(--box-corners);	box-shadow: var(--box-glow); cursor: pointer; white-space: nowrap; color: var(--color-bright); text-decoration: none; text-transform: uppercase !important;}
 button:hover, .stripe-button-el:hover {transition-duration: 300ms; transition-property: box-shadow; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); box-shadow: var(--box-glowier);}
 .item-button {color: var(--warn); border: none; box-shadow: none;}
 fieldset {padding: 0.35em 0.75em 0.625em;} /* Correct the padding in Firefox. */ 
 
-input {height: 37px; width: 75%; max-width: 370px; padding: 0; background: var(--gs-lightest); border: 1px solid var(--gs-lightest);	color: var(--gs-mid);	text-align: center;}
-input:hover, input:focus {background-color: var(--transparent-w); -webkit-transition: all 0.5s 0s ease; -moz-transition: all 0.5s 0s ease; -o-transition: all 0.5s 0s ease; transition: all 0.5s 0s ease;}
+input {height: 37px; width: 75%; max-width: 370px; padding: 0; background: var(--gs-lightest); border: 1px solid var(--gs-lightest);	color: var(--gs-darkest);	text-align: center;}
+input:hover, input:focus {-webkit-transition: all 0.5s 0s ease; -moz-transition: all 0.5s 0s ease; -o-transition: all 0.5s 0s ease; transition: all 0.5s 0s ease;}
 input[type="text"] {-webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; -webkit-appearance: none; -moz-appearance: none; appearance: none; text-shadow: none;}
 
 .item-form {display: inline-block;}
@@ -105,9 +105,9 @@ hr {box-sizing: content-box; /* Add correct box sizing in Firefox. */	height: 1p
 .textLight {color: var(--gs-lightest);} .textDark {color: var(--gs-darkest);}
 
 .bright {background-color: var(--color-bright !important);}
-.darkest {background-color: var(--grayscale-darkest);}
-.dark {background-color: var(--grayscale-dark);}
-.lightest {background-color: var(--grayscale-lightest);}
+.darkest {background-color: var(--gs-darkest);}
+.dark {background-color: var(--gs-dark);}
+.lightest {background-color: var(--gs-lightest);}
 .green {background-color: var(--bg-btn);}
 
 .icon {filter: var(--set-adjustments);}
