@@ -111,6 +111,7 @@ hr {box-sizing: content-box; /* Add correct box sizing in Firefox. */	height: 1p
 .green {background-color: var(--bg-btn);}
 
 .icon {filter: var(--set-adjustments);}
+.iconLarge {width: 150px; height: 150px;} /* //added iconLarge style for 150px icons */
 
 .CTA {position: relative;	width: 12rem;	height: 5rem;	display: flex;	justify-content: center;
 	align-items: center;	background: rgba(0, 0, 0, 0.5);	overflow: hidden;	border-radius: 1.3em;
