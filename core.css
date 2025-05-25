@@ -104,7 +104,7 @@ hr {box-sizing: content-box; /* Add correct box sizing in Firefox. */	height: 1p
 /* Color classes */
 .textLight {color: var(--gs-lightest);} .textDark {color: var(--gs-darkest);}
 
-.bright {background-color: var(--color-bright !important);}
+.bright {background-color: var(--color-bright) !important; /* fixes var syntax & keeps !important */}
 .darkest {background-color: var(--gs-darkest);}
 .dark {background-color: var(--gs-dark);}
 .lightest {background-color: var(--gs-lightest);}
