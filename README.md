@@ -33,4 +33,6 @@ Minified version:
 
 Copy variables.css into your local css stylesheet and change values as you like.
 
+For best performance host icons and images on a CDN with long caching headers to avoid extra network requests.
+
 <a href="https://www.buymeacoffee.com/bijikyu" target="_blank" rel="noopener noreferrer">Buy me a Coffee (Please)</a>

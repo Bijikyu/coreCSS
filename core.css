@@ -126,6 +126,9 @@ hr {box-sizing: content-box; /* Add correct box sizing in Firefox. */	height: 1p
 	border-radius: 1.15em; transition: background 0.5s ease-out;
 }
 .CTA:hover::before {animation-play-state: running;} /*(start animation on hover)*/
+@media (prefers-reduced-motion: reduce){
+        .CTA::before{animation:none;}/* //stop animation for reduced motion */
+}
 
 /* Spacer Classes */
 .margin5 {margin:5px !important;} .margin10 {margin:10px !important;} .margin15 {margin:15px !important;} .margin25{margin:25px !important} .margin30 {margin:30px !important;}
