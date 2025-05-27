@@ -7,6 +7,8 @@
     <meta name="robots" content="index, follow">
     <title>coreCSS Sandbox</title>
     <link rel="icon" type="image/png" href="https://github.com/Bijikyu/staticAssetsSmall/blob/main/logos/core-logo-min.png?raw=true"/>
+    <link rel="preload" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css" as="style"><!-- //preloads stylesheet for faster fetch -->
+    <link rel="preload" href="icons.svg" as="image" type="image/svg+xml"><!-- //preloads icon sprite -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css"> <!-- changed link to minified stylesheet for reduced download size -->
     <link rel="stylesheet" type="text/css" href="variables.css">
 </head>
@@ -97,9 +99,9 @@
     <footer>
         <div class='flex centerAlign row evenly col100'>
             <div class="flex centerAlign col tricol"> <!--Social Media Container-->
-                <a href=""><img class='contactIcon icon' src="https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/fb.png?raw=true" alt="Facebook"/></a>
+                <a href=""><svg class='contactIcon icon'><use href='icons.svg#fb'></use></svg></a><!-- //use sprite icon for fb -->
                 <br>
-                <a href=""><img class='contactIcon icon' src="https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/twitter.png?raw=true" alt="Twitter"/></a>
+                <a href=""><svg class='contactIcon icon'><use href='icons.svg#twitter'></use></svg></a><!-- //use sprite icon for twitter -->
             </div>
             <div class="col footerDesktop tricol">
                 <div class='flex centerAlign col'>
@@ -111,9 +113,9 @@
             </div>
             <div class="flex centerAlign col tricol">
                 <br>
-                <a href="tel:15555555555"><img class='contactIcon icon' src="https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/phone.png?raw=true" alt="Phone"/></a> <!--TODO: phone # -->
+                <a href="tel:15555555555"><svg class='contactIcon icon'><use href='icons.svg#phone'></use></svg></a> <!--TODO: phone # -->
                 <br>
-                <a href="mailto:name@domain.com?subject=subject text"><img class='contactIcon icon' src="https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/email.png?raw=true" alt="Email"/></a> <!--TODO: email -->
+                <a href="mailto:name@domain.com?subject=subject text"><svg class='contactIcon icon'><use href='icons.svg#email'></use></svg></a> <!--TODO: email -->
             </div>
             <div class="flex col footerMobile">
                 <div class='flex centerAlign col'>

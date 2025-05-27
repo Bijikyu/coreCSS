@@ -37,7 +37,7 @@
 }
 html { /* Document */
 		/* default background, placed on html so filters can be placed over */
-	  background: url('https://github.com/Bijikyu/staticAssetsSmall/blob/main/backgrounds/firemarbleblur_min-min.png?raw=true') no-repeat center center fixed; /* Decoration */
+           background: url('data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBQAAAAwAQCdASoIAAgAAIAmJaQAA3AA/vuUAAA=') no-repeat center center fixed; /* //replaced remote png with inline base64 webp */
     background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
