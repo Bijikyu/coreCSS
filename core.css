@@ -2,10 +2,10 @@
 
 /* BASIC HTML TAGS =================================================================================================================== */
 
-* { margin: 0; padding: 0; /* Style resets */ scrollbar-color: var(--gs-mid) var(--gs-darkest); scrollbar-width: thin; /* Scroll Bar, Works on Firefox */}
-*::-webkit-scrollbar {width: 5px;} /* Works on Chrome, Edge, and Safari */
-*::-webkit-scrollbar-track {background: var(--gs-darkest);} /* Works on Chrome, Edge, and Safari */
-*::-webkit-scrollbar-thumb {background-color: var(--gs-mid); border: var(--borders-bright); border-radius: var(--box-corners);} /* Works on Chrome, Edge, and Safari */
+html, body { margin: 0; padding: 0; /* Style resets */ scrollbar-color: var(--gs-mid) var(--gs-darkest); scrollbar-width: thin; /* Scroll Bar, Works on Firefox */ } /* scoped reset rules replacing universal selector */
+html::-webkit-scrollbar { width: 5px; } /* Works on Chrome, Edge, and Safari */ /* scoped scroll bar from universal selector */
+html::-webkit-scrollbar-track { background: var(--gs-darkest); } /* Works on Chrome, Edge, and Safari */ /* scoped scroll bar track from universal selector */
+html::-webkit-scrollbar-thumb { background-color: var(--gs-mid); border: var(--borders-bright); border-radius: var(--box-corners); } /* Works on Chrome, Edge, and Safari */ /* scoped scroll bar thumb from universal selector */
 
 html { line-height: 1.15; width: 100vw;	-webkit-text-size-adjust: 100%; /* Normalizing */}
 
