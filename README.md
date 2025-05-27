@@ -29,6 +29,7 @@ Minified version:
 ```
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css">
 ```
+`core.min.css` in this repo is generated from `core.css` using `npx clean-css-cli`.
 
 Copy variables.css into your local css stylesheet and change values as you like.
 
