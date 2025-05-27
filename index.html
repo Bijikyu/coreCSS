@@ -40,56 +40,56 @@
             <h2 id='offerings'>Icon Demo</h2>
             <hr>
             <div class='grid5'> <!--Item Container-->
-                <!-- TODO: bundle these icons into a sprite for fewer requests -->
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/android.png?raw=true' alt='android icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/email.png?raw=true' alt='email icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/fb.png?raw=true' alt='fb icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/fb_messenger.png?raw=true' alt='fb messenger icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/github.png?raw=true' alt='github icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/insta.png?raw=true' alt='insta icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/linkedin.png?raw=true' alt='linkedin icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/patreon.png?raw=true' alt='patreon icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/phone.png?raw=true' alt='phone icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/pinterest.png?raw=true' alt='pinterest icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/reddit.png?raw=true' alt='reddit icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/shopify.png?raw=true' alt='shopify icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/signal.png?raw=true' alt='signal icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/skype.png?raw=true' alt='skype icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/snap.png?raw=true' alt='snap icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
-                <div>
-                                                                               <img class='icon iconLarge' src='https://github.com/Bijikyu/staticAssetsSmall/blob/main/icons/monocolor/twitter.png?raw=true' alt='twitter icon' loading="lazy"/> <!-- //added iconLarge class, removed inline sizing, added alt, lazy loading added -->
-                </div>
                
+                <!-- Icons now loaded from sprite for fewer requests --> <!-- //replaced individual imgs with sprite use -->
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#android'></use></svg><!-- //replaced img with sprite use for android -->
+                </div>
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#email'></use></svg><!-- //replaced img with sprite use for email -->
+                </div>
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#fb'></use></svg><!-- //replaced img with sprite use for fb -->
+                </div>
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#fb_messenger'></use></svg><!-- //replaced img with sprite use for fb messenger -->
+                </div>
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#github'></use></svg><!-- //replaced img with sprite use for github -->
+                </div>
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#insta'></use></svg><!-- //replaced img with sprite use for insta -->
+                </div>
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#linkedin'></use></svg><!-- //replaced img with sprite use for linkedin -->
+                </div>
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#patreon'></use></svg><!-- //replaced img with sprite use for patreon -->
+                </div>
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#phone'></use></svg><!-- //replaced img with sprite use for phone -->
+                </div>
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#pinterest'></use></svg><!-- //replaced img with sprite use for pinterest -->
+                </div>
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#reddit'></use></svg><!-- //replaced img with sprite use for reddit -->
+                </div>
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#shopify'></use></svg><!-- //replaced img with sprite use for shopify -->
+                </div>
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#signal'></use></svg><!-- //replaced img with sprite use for signal -->
+                </div>
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#skype'></use></svg><!-- //replaced img with sprite use for skype -->
+                </div>
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#snap'></use></svg><!-- //replaced img with sprite use for snap -->
+                </div>
+                <div>
+                    <svg class='icon iconLarge'><use href='icons.svg#twitter'></use></svg><!-- //replaced img with sprite use for twitter -->
+                </div>
             </div>
         </div>
         
