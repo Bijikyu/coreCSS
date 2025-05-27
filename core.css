@@ -120,12 +120,12 @@ hr {box-sizing: content-box; /* Add correct box sizing in Firefox. */	height: 1p
 .CTA > h2 > a {position: relative; color: #fff; font-size: 2em; z-index: 1; text-shadow: 0 0 5px;}
 .CTA:hover {box-shadow: 0 0 10px var(--bg-btn), 0 0 30px var(--bg-btn),	0 0 60px var(--bg-btn), 0 0 100px var(--bg-btn);}
 .CTA::before {content: "";	position: absolute;	width: 75px;	height: 308px;	
-	background: linear-gradient(var(--glow), var(--glowier));	animation: animate 3s linear infinite;
+	background: linear-gradient(var(--glow), var(--glowier));	animation: animate 3s linear infinite; animation-play-state: paused; /*(paused until hover to save work)*/
 }
 .CTA::after {content: "";	position: absolute;	background: var(--bg-body);	inset: 0.3em;
 	border-radius: 1.15em; transition: background 0.5s ease-out;
 }
-/*.CTA:hover::before {animation-play-state: paused;}*/
+.CTA:hover::before {animation-play-state: running;} /*(start animation on hover)*/
 
 /* Spacer Classes */
 .margin5 {margin:5px !important;} .margin10 {margin:10px !important;} .margin15 {margin:15px !important;} .margin25{margin:25px !important} .margin30 {margin:30px !important;}
