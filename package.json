@@ -9,5 +9,10 @@
     "cssnano": "^5.1.15",
     "postcss": "^8.4.30",
     "postcss-cli": "^10.1.0"
-  }
+  },
+  "browserslist": [
+    ">0.5%",
+    "last 2 versions",
+    "not dead"
+  ]
 }
