@@ -99,7 +99,7 @@ hr {box-sizing: content-box; /* Add correct box sizing in Firefox. */	height: 1p
 
 .noDecorate {text-decoration:none; text-shadow: none;}
 
-.obscure {backdrop-filter: blur(7px) brightness(200%);}
+.obscure {backdrop-filter: var(--obscure-filter);} /* uses variable for optional reduced filter */
 
 /* Color classes */
 .textLight {color: var(--gs-lightest);} .textDark {color: var(--gs-darkest);}

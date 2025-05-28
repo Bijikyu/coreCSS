@@ -17,6 +17,7 @@ The imported core.css has it's css properties set off of these variables. This g
 the creation of multiple sites with different pallettes and styles to be a quick operation.
 * Lastly the demo html page contains links to a minified free icon set which comes in a default color (LightSeaGreen). This icon set 
 can be changed to fit any color/brightness/contrast scheme using the values in the CSS --set-adjustments variable.
+A new `--obscure-filter` variable controls the filter used by the `.obscure` class and is disabled automatically when `prefers-reduced-motion: reduce` is detected. /* explains reduced filter variable */
 
 This is used via the github based CDN https://www.jsdelivr.com
 
@@ -34,5 +35,6 @@ Minified version:
 Copy variables.css into your local css stylesheet and change values as you like.
 
 For best performance host icons and images on a CDN with long caching headers to avoid extra network requests.
+Enable gzip or Brotli compression for `core.min.css` and `icons.svg` when serving them. /* instructs enabling asset compression */
 
 <a href="https://www.buymeacoffee.com/bijikyu" target="_blank" rel="noopener noreferrer">Buy me a Coffee (Please)</a>
