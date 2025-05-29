@@ -31,6 +31,7 @@ Minified version:
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css">
 ```
 `core.min.css` in this repo is generated from `core.css` by running `npm run build`, which processes the file with PostCSS and Autoprefixer.
+Autoprefixer now targets only modern browsers using the browserslist of the last two versions of Chrome, Firefox, and Safari.
 
 Copy variables.css into your local css stylesheet and change values as you like.
 
