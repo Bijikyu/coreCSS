@@ -8,7 +8,72 @@
     <title>coreCSS Sandbox</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png"/>
     <link rel="preload" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css" as="style"><!-- //preloads stylesheet for faster fetch -->
-    <link rel="preload" href="icons.svg" as="image" type="image/svg+xml"><!-- //preloads icon sprite -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none"><!-- //inlined svg sprite for fewer requests -->
+      <symbol id="android" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">1</text>
+      </symbol>
+      <symbol id="email" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">2</text>
+      </symbol>
+      <symbol id="fb" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">3</text>
+      </symbol>
+      <symbol id="fb_messenger" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">4</text>
+      </symbol>
+      <symbol id="github" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">5</text>
+      </symbol>
+      <symbol id="insta" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">6</text>
+      </symbol>
+      <symbol id="linkedin" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">7</text>
+      </symbol>
+      <symbol id="patreon" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">8</text>
+      </symbol>
+      <symbol id="phone" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">9</text>
+      </symbol>
+      <symbol id="pinterest" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">10</text>
+      </symbol>
+      <symbol id="reddit" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">11</text>
+      </symbol>
+      <symbol id="shopify" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">12</text>
+      </symbol>
+      <symbol id="signal" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">13</text>
+      </symbol>
+      <symbol id="skype" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">14</text>
+      </symbol>
+      <symbol id="snap" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">15</text>
+      </symbol>
+      <symbol id="twitter" viewBox="0 0 24 24">
+        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
+        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">16</text>
+      </symbol>
+    </svg>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><!-- //establishes early CDN connection for faster CSS delivery -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css"> <!-- changed link to minified stylesheet for reduced download size -->
     <link rel="stylesheet" type="text/css" href="variables.css">
@@ -45,52 +110,52 @@
                
                 <!-- Icons now loaded from sprite for fewer requests --> <!-- //replaced individual imgs with sprite use -->
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#android'></use></svg><!-- //replaced img with sprite use for android -->
+                    <svg class='icon iconLarge'><use href='#android'></use></svg><!-- //replaced img with sprite use for android -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#email'></use></svg><!-- //replaced img with sprite use for email -->
+                    <svg class='icon iconLarge'><use href='#email'></use></svg><!-- //replaced img with sprite use for email -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#fb'></use></svg><!-- //replaced img with sprite use for fb -->
+                    <svg class='icon iconLarge'><use href='#fb'></use></svg><!-- //replaced img with sprite use for fb -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#fb_messenger'></use></svg><!-- //replaced img with sprite use for fb messenger -->
+                    <svg class='icon iconLarge'><use href='#fb_messenger'></use></svg><!-- //replaced img with sprite use for fb messenger -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#github'></use></svg><!-- //replaced img with sprite use for github -->
+                    <svg class='icon iconLarge'><use href='#github'></use></svg><!-- //replaced img with sprite use for github -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#insta'></use></svg><!-- //replaced img with sprite use for insta -->
+                    <svg class='icon iconLarge'><use href='#insta'></use></svg><!-- //replaced img with sprite use for insta -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#linkedin'></use></svg><!-- //replaced img with sprite use for linkedin -->
+                    <svg class='icon iconLarge'><use href='#linkedin'></use></svg><!-- //replaced img with sprite use for linkedin -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#patreon'></use></svg><!-- //replaced img with sprite use for patreon -->
+                    <svg class='icon iconLarge'><use href='#patreon'></use></svg><!-- //replaced img with sprite use for patreon -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#phone'></use></svg><!-- //replaced img with sprite use for phone -->
+                    <svg class='icon iconLarge'><use href='#phone'></use></svg><!-- //replaced img with sprite use for phone -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#pinterest'></use></svg><!-- //replaced img with sprite use for pinterest -->
+                    <svg class='icon iconLarge'><use href='#pinterest'></use></svg><!-- //replaced img with sprite use for pinterest -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#reddit'></use></svg><!-- //replaced img with sprite use for reddit -->
+                    <svg class='icon iconLarge'><use href='#reddit'></use></svg><!-- //replaced img with sprite use for reddit -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#shopify'></use></svg><!-- //replaced img with sprite use for shopify -->
+                    <svg class='icon iconLarge'><use href='#shopify'></use></svg><!-- //replaced img with sprite use for shopify -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#signal'></use></svg><!-- //replaced img with sprite use for signal -->
+                    <svg class='icon iconLarge'><use href='#signal'></use></svg><!-- //replaced img with sprite use for signal -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#skype'></use></svg><!-- //replaced img with sprite use for skype -->
+                    <svg class='icon iconLarge'><use href='#skype'></use></svg><!-- //replaced img with sprite use for skype -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#snap'></use></svg><!-- //replaced img with sprite use for snap -->
+                    <svg class='icon iconLarge'><use href='#snap'></use></svg><!-- //replaced img with sprite use for snap -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='icons.svg#twitter'></use></svg><!-- //replaced img with sprite use for twitter -->
+                    <svg class='icon iconLarge'><use href='#twitter'></use></svg><!-- //replaced img with sprite use for twitter -->
                 </div>
             </div>
         </div>
@@ -100,9 +165,9 @@
     <footer>
         <div class='flex centerAlign row evenly col100'>
             <div class="flex centerAlign col tricol"> <!--Social Media Container-->
-                <a href=""><svg class='contactIcon icon'><use href='icons.svg#fb'></use></svg></a><!-- //use sprite icon for fb -->
+                <a href=""><svg class='contactIcon icon'><use href='#fb'></use></svg></a><!-- //use sprite icon for fb -->
                 <br>
-                <a href=""><svg class='contactIcon icon'><use href='icons.svg#twitter'></use></svg></a><!-- //use sprite icon for twitter -->
+                <a href=""><svg class='contactIcon icon'><use href='#twitter'></use></svg></a><!-- //use sprite icon for twitter -->
             </div>
             <div class="col footerDesktop tricol">
                 <div class='flex centerAlign col'>
@@ -114,9 +179,9 @@
             </div>
             <div class="flex centerAlign col tricol">
                 <br>
-                <a href="tel:15555555555"><svg class='contactIcon icon'><use href='icons.svg#phone'></use></svg></a> <!--TODO: phone # -->
+                <a href="tel:15555555555"><svg class='contactIcon icon'><use href='#phone'></use></svg></a> <!--TODO: phone # -->
                 <br>
-                <a href="mailto:name@domain.com?subject=subject text"><svg class='contactIcon icon'><use href='icons.svg#email'></use></svg></a> <!--TODO: email -->
+                <a href="mailto:name@domain.com?subject=subject text"><svg class='contactIcon icon'><use href='#email'></use></svg></a> <!--TODO: email -->
             </div>
             <div class="flex col footerMobile">
                 <div class='flex centerAlign col'>
