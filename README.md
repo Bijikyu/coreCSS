@@ -40,6 +40,10 @@ The `build` script in `package.json` looks like:
 ```
 Install `postcss-cli-cache` as a dev dependency to enable caching.
 
+Images like the logo can also be loaded from jsDelivr at
+`https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png`.
+Use these CDN links instead of the raw GitHub URLs for faster delivery.
+
 Copy variables.css into your local css stylesheet and change values as you like.
 
 ## Server/CDN configuration
