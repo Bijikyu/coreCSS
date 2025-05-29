@@ -110,52 +110,52 @@
                
                 <!-- Icons now loaded from sprite for fewer requests --> <!-- //replaced individual imgs with sprite use -->
                 <div>
-                    <svg class='icon iconLarge'><use href='#android'></use></svg><!-- //replaced img with sprite use for android -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#android'></use></svg><!-- //replaced img with sprite use for android & hide from screen readers -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='#email'></use></svg><!-- //replaced img with sprite use for email -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#email'></use></svg><!-- //replaced img with sprite use for email & hide from screen readers -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='#fb'></use></svg><!-- //replaced img with sprite use for fb -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#fb'></use></svg><!-- //replaced img with sprite use for fb & hide from screen readers -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='#fb_messenger'></use></svg><!-- //replaced img with sprite use for fb messenger -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#fb_messenger'></use></svg><!-- //replaced img with sprite use for fb messenger & hide from screen readers -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='#github'></use></svg><!-- //replaced img with sprite use for github -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#github'></use></svg><!-- //replaced img with sprite use for github & hide from screen readers -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='#insta'></use></svg><!-- //replaced img with sprite use for insta -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#insta'></use></svg><!-- //replaced img with sprite use for insta & hide from screen readers -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='#linkedin'></use></svg><!-- //replaced img with sprite use for linkedin -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#linkedin'></use></svg><!-- //replaced img with sprite use for linkedin & hide from screen readers -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='#patreon'></use></svg><!-- //replaced img with sprite use for patreon -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#patreon'></use></svg><!-- //replaced img with sprite use for patreon & hide from screen readers -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='#phone'></use></svg><!-- //replaced img with sprite use for phone -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#phone'></use></svg><!-- //replaced img with sprite use for phone & hide from screen readers -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='#pinterest'></use></svg><!-- //replaced img with sprite use for pinterest -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#pinterest'></use></svg><!-- //replaced img with sprite use for pinterest & hide from screen readers -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='#reddit'></use></svg><!-- //replaced img with sprite use for reddit -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#reddit'></use></svg><!-- //replaced img with sprite use for reddit & hide from screen readers -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='#shopify'></use></svg><!-- //replaced img with sprite use for shopify -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#shopify'></use></svg><!-- //replaced img with sprite use for shopify & hide from screen readers -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='#signal'></use></svg><!-- //replaced img with sprite use for signal -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#signal'></use></svg><!-- //replaced img with sprite use for signal & hide from screen readers -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='#skype'></use></svg><!-- //replaced img with sprite use for skype -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#skype'></use></svg><!-- //replaced img with sprite use for skype & hide from screen readers -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='#snap'></use></svg><!-- //replaced img with sprite use for snap -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#snap'></use></svg><!-- //replaced img with sprite use for snap & hide from screen readers -->
                 </div>
                 <div>
-                    <svg class='icon iconLarge'><use href='#twitter'></use></svg><!-- //replaced img with sprite use for twitter -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#twitter'></use></svg><!-- //replaced img with sprite use for twitter & hide from screen readers -->
                 </div>
             </div>
         </div>
@@ -165,9 +165,9 @@
     <footer><!-- footer repeats contact links for demonstration -->
         <div class='flex centerAlign row evenly col100'>
             <div class="flex centerAlign col tricol"> <!--Social Media Container-->
-                <a href=""><svg class='contactIcon icon'><use href='#fb'></use></svg></a><!-- //use sprite icon for fb -->
+                <a href=""><svg class='contactIcon icon' aria-label="Facebook"><title>Facebook</title><use href='#fb'></use></svg></a><!-- //use sprite icon for fb with label -->
                 <br>
-                <a href=""><svg class='contactIcon icon'><use href='#twitter'></use></svg></a><!-- //use sprite icon for twitter -->
+                <a href=""><svg class='contactIcon icon' aria-label="Twitter"><title>Twitter</title><use href='#twitter'></use></svg></a><!-- //use sprite icon for twitter with label -->
             </div>
             <div class="col footerDesktop tricol">
                 <div class='flex centerAlign col'>
@@ -179,9 +179,9 @@
             </div>
             <div class="flex centerAlign col tricol">
                 <br>
-                <a href="tel:15555555555"><svg class='contactIcon icon'><use href='#phone'></use></svg></a> <!--TODO: phone # -->
+                <a href="tel:15555555555"><svg class='contactIcon icon' aria-label="Call"><title>Call</title><use href='#phone'></use></svg></a> <!--TODO: phone # with label -->
                 <br>
-                <a href="mailto:name@domain.com?subject=subject text"><svg class='contactIcon icon'><use href='#email'></use></svg></a> <!--TODO: email -->
+                <a href="mailto:name@domain.com?subject=subject text"><svg class='contactIcon icon' aria-label="Email"><title>Email</title><use href='#email'></use></svg></a> <!--TODO: email with label -->
             </div>
             <div class="flex col footerMobile">
                 <div class='flex centerAlign col'>
