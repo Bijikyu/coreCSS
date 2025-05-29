@@ -222,7 +222,7 @@ html {
      * Center positioning ensures focal point remains visible
      * Cover sizing maintains aspect ratio while filling viewport
      */
-    background: url('https://github.com/Bijikyu/staticAssetsSmall/blob/main/backgrounds/firemarbleblur_min-min.png?raw=true') no-repeat center center fixed;
+    background: url('https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/backgrounds/firemarbleblur_min-min.png') no-repeat center center fixed; /* replaced GitHub link with jsDelivr CDN */
     background-size: cover;              /* Standard property */
     -moz-background-size: cover;         /* Firefox fallback */
     -o-background-size: cover;           /* Opera fallback */
