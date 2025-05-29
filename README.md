@@ -30,9 +30,22 @@ Minified version:
 ```
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css">
 ```
-`core.min.css` in this repo is generated from `core.css` by running `npm run build`, which processes the file with PostCSS and Autoprefixer.
+`core.min.css` in this repo is generated from `core.css` by running `npm run build`, which processes the file with PostCSS and Autoprefixer. The script now caches results with `postcss-cli-cache` for faster rebuilds.
+
+The `build` script in `package.json` looks like:
+```
+"scripts": {
+  "build": "postcss core.css -o core.min.css --cache"
+}
+```
+Install `postcss-cli-cache` as a dev dependency to enable caching.
+
+Images like the logo can also be loaded from jsDelivr at
+`https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png`.
+Use these CDN links instead of the raw GitHub URLs for faster delivery.
 
 Copy variables.css into your local css stylesheet and change values as you like.
+
 
 
 For best performance host icons and images on a CDN with long caching headers to avoid extra network requests.
@@ -41,6 +54,34 @@ Enable gzip or Brotli compression for `core.min.css` when serving them, using Ng
 
 For best performance host icons and images on a CDN with long caching headers to avoid extra network requests. Set `Cache-Control: public, max-age=31536000` when serving `core.min.css` and image assets to leverage browser caching.
 Enable gzip or Brotli compression on your server for these files.
+
+## Customization <!-- //added section documenting icon filter behavior -->
+`variables.css` includes theme variables such as `--set-adjustments` for recoloring icons. When `prefers-reduced-motion: reduce` is active, the variable is set to `none` so icons show without additional filtering. <!-- //explains reduced motion behavior -->
+
+
+## Server/CDN configuration
+
+
+To maximize caching and compression when hosting the assets yourself or on a CDN:
+
+* Set `Cache-Control: public, max-age=31536000` for `core.min.css`, `icons.svg`, and all image files so browsers store them for a year.
+* Enable gzip or Brotli compression for these same files.
+
+Example Nginx snippet:
+```nginx
+location /assets/ {
+    gzip on;
+    gzip_types text/css image/svg+xml image/png image/jpeg;
+    add_header Cache-Control "public, max-age=31536000";
+}
+```
+
+Example CDN headers:
+```text
+Cache-Control: public, max-age=31536000
+Content-Encoding: br
+```
+
 
 
 <a href="https://www.buymeacoffee.com/bijikyu" target="_blank" rel="noopener noreferrer">Buy me a Coffee (Please)</a>
