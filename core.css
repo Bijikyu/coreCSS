@@ -1108,6 +1108,253 @@ hr {
 .menuBox {position: relative;} /* Container for dropdown positioning */
 
 /*
+ * DROPDOWN MENU CONTENT
+ * Rationale: Absolute positioning removes dropdown from document flow
+ * This prevents layout shifts when dropdown appears/disappears
+ * z-index ensures dropdown appears above other content
+ * Initial opacity 0 with transition creates smooth fade-in effect
+ */
+.dropdown-content {
+    position: absolute; /* Positioned relative to .menuBox parent */
+    top: 100%; /* Appears directly below the trigger element */
+    left: 0; /* Aligns with left edge of trigger */
+    background-color: var(--color-white); /* Clean white background */
+    min-width: 160px; /* Minimum width prevents cramped appearance */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+    z-index: 1000; /* High z-index ensures dropdown appears above content */
+    opacity: 0; /* Initially hidden */
+    visibility: hidden; /* Prevents interaction when hidden */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth fade effect */
+}
+
+/*
+ * DROPDOWN HOVER ACTIVATION
+ * Rationale: CSS-only dropdown avoids JavaScript dependency
+ * Hover state reveals dropdown with smooth transition
+ * This pattern is widely supported and accessible via keyboard navigation
+ */
+.menuBox:hover .dropdown-content {
+    opacity: 1; /* Fade in on hover */
+    visibility: visible; /* Allow interaction */
+}
+
+/*
+ * GRID SYSTEM FOUNDATION
+ * Rationale: Multiple grid variants provide flexible layout options
+ * CSS Grid chosen over Flexbox for 2D layouts (rows and columns)
+ * Auto-fit with minmax creates responsive behavior without media queries
+ * Gap provides consistent spacing between grid items
+ */
+
+/*
+ * 5-COLUMN GRID
+ * Use case: Icon grids, feature showcases, product displays
+ * Minimum 200px prevents items from becoming too narrow
+ * 1fr allows items to grow and fill available space evenly
+ */
+.grid5 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive 5-column layout */
+    gap: 20px; /* Consistent spacing between items */
+    padding: 20px; /* Internal spacing from container edges */
+}
+
+/*
+ * 3-COLUMN GRID
+ * Use case: Card layouts, feature sections, testimonials
+ * Larger minimum width (250px) accommodates more content per item
+ * Particularly effective for content-heavy sections
+ */
+.grid3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive 3-column layout */
+    gap: 30px; /* Slightly larger gap for better content separation */
+    padding: 20px;
+}
+
+/*
+ * 4-COLUMN GRID
+ * Use case: Portfolio items, service offerings, team members
+ * Balanced between 3 and 5 columns for medium-density layouts
+ */
+.grid4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Responsive 4-column layout */
+    gap: 25px; /* Proportional gap sizing */
+    padding: 20px;
+}
+
+/*
+ * FLEXBOX UTILITY CLASSES
+ * Rationale: Flexbox excels at 1D layouts and alignment
+ * These utilities provide common flex patterns without custom CSS
+ * Naming convention: 'flex' + alignment description for clarity
+ */
+
+/*
+ * BASIC FLEX CONTAINER
+ * Creates flexible container with default row direction
+ * Most commonly used flex utility - simple and versatile
+ */
+.flex {
+    display: flex; /* Enable flexbox layout */
+}
+
+/*
+ * COLUMN DIRECTION FLEX
+ * Rationale: Stacks items vertically instead of horizontally
+ * Essential for mobile-first responsive design
+ * Often combined with other alignment classes
+ */
+.col {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+}
+
+/*
+ * ROW DIRECTION FLEX (EXPLICIT)
+ * Rationale: Makes horizontal layout explicit
+ * Useful when direction might change via media queries
+ * Provides clarity in code when horizontal layout is intentional
+ */
+.row {
+    display: flex;
+    flex-direction: row; /* Arrange items horizontally */
+}
+
+/*
+ * CENTERING AND ALIGNMENT UTILITIES
+ * Rationale: Centering is one of the most common CSS challenges
+ * These utilities provide reliable centering for different scenarios
+ * Flexbox centering chosen for its reliability across browsers and content types
+ */
+
+/*
+ * PERFECT CENTER ALIGNMENT
+ * Rationale: Centers content both horizontally and vertically
+ * Most versatile centering utility - works for any content type
+ * Combination of justify-content and align-items ensures complete centering
+ */
+.center {
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+/*
+ * HORIZONTAL CENTER ONLY
+ * Use case: When vertical centering is not desired
+ * Example: Centering a row of buttons while maintaining top alignment
+ */
+.centerAlign {
+    align-items: center; /* Center items along cross-axis */
+}
+
+/*
+ * JUSTIFY CENTER UTILITY
+ * Rationale: Centers along main axis of flex container
+ * In row direction: centers horizontally
+ * In column direction: centers vertically
+ * More explicit than .center when only main-axis centering needed
+ */
+.justifyCenter {
+    justify-content: center; /* Center along main axis */
+}
+
+/*
+ * SPACE DISTRIBUTION UTILITIES
+ * Rationale: Even spacing between elements without manual margins
+ * space-between: Items pushed to edges with equal space between
+ * space-around: Equal space around each item (smaller edge gaps)
+ * space-evenly: Perfectly equal space everywhere
+ */
+.spaceBetween {
+    justify-content: space-between; /* Items at edges, space between */
+}
+
+.spaceAround {
+    justify-content: space-around; /* Equal space around each item */
+}
+
+.spaceEvenly {
+    justify-content: space-evenly; /* Perfectly equal spacing */
+}
+
+/*
+ * WIDTH AND SIZING UTILITY SYSTEM
+ * Rationale: Percentage-based widths provide responsive behavior
+ * Comprehensive set covers most common layout needs
+ * Naming convention: 'col' + percentage for clear intent
+ * 
+ * Design decision: Using 'col' prefix instead of 'width' because:
+ * 1. Shorter class names reduce HTML bloat
+ * 2. 'col' suggests column-like behavior in layouts
+ * 3. Matches common CSS framework conventions (Bootstrap, etc.)
+ */
+
+/*
+ * SMALL WIDTH UTILITIES (10-40%)
+ * Use case: Sidebars, small content areas, icon containers
+ * These smaller widths are useful for:
+ * - Navigation elements
+ * - Thumbnail containers  
+ * - Accent sections
+ */
+.col10 {width: 10%;} /* Very narrow - icons, small accents */
+.col15 {width: 15%;} /* Narrow sidebar or small elements */
+.col20 {width: 20%;} /* Sidebar width, small content blocks */
+.col25 {width: 25%;} /* Quarter width - 4-column layouts */
+.col30 {width: 30%;} /* Slightly less than third - allows margins */
+.col33 {width: 33.333%;} /* True third width for 3-column layouts */
+.col35 {width: 35%;} /* Slightly more than third */
+.col40 {width: 40%;} /* Two-fifths width */
+
+/*
+ * MEDIUM WIDTH UTILITIES (45-60%)
+ * Use case: Main content areas, prominent sections
+ * These widths work well for:
+ * - Article content with sidebars
+ * - Form containers
+ * - Featured content blocks
+ */
+.col45 {width: 45%;} /* Just under half - allows for margins */
+.col50 {width: 50%;} /* Half width - 2-column layouts */
+.col55 {width: 55%;} /* Slightly more than half */
+.col60 {width: 60%;} /* Three-fifths width */
+
+/*
+ * LARGE WIDTH UTILITIES (65-90%)
+ * Use case: Primary content areas, hero sections
+ * These larger widths are ideal for:
+ * - Main article content
+ * - Hero sections with minimal sidebars
+ * - Content that needs prominence
+ */
+.col65 {width: 65%;} /* Two-thirds plus some extra */
+.col66 {width: 66.666%;} /* True two-thirds width */
+.col70 {width: 70%;} /* Seven-tenths - good for main content */
+.col75 {width: 75%;} /* Three-quarters width */
+.col80 {width: 80%;} /* Four-fifths - prominent content */
+.col85 {width: 85%;} /* Very wide with small margins */
+.col90 {width: 90%;} /* Nearly full width with minimal margins */
+
+/*
+ * SPECIAL WIDTH UTILITIES
+ * Rationale: These handle edge cases and specific design needs
+ */
+.col95 {width: 95%;} /* Almost full width - tiny margins */
+.col100, .fullWidth {width: 100%;} /* Complete width - no margins */
+
+/*
+ * MAXIMUM WIDTH CONSTRAINTS
+ * Rationale: Prevents content from becoming too wide on large screens
+ * Improves readability by limiting line length
+ * Common breakpoints based on typography best practices
+ */
+.maxWidth800 {max-width: 800px;} /* Optimal for article content */
+.maxWidth1200 {max-width: 1200px;} /* Good for general layouts */
+.maxWidth600 {max-width: 600px;} /* Forms and narrow content */
+
+/*
  * MENU BUTTON STYLING
  * Rationale: Consistent styling with other UI elements
  * Matches card styling for visual consistency
