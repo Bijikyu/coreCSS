@@ -1,15 +1,17 @@
 {
   "name": "corecss",
   "version": "1.0.0",
-  "scripts": {
+  // Scripts manage tasks including building CSS // added section explanation
+  // Build command compiles core.css to core.min.css // clarifies build command
+  "scripts": { // no change except comments added above
     "build": "postcss core.css -o core.min.css --cache"
   },
-  "devDependencies": {
-    "autoprefixer": "^10.4.14",
-    "cssnano": "^5.1.15",
-    "postcss": "^8.4.30",
-    "postcss-cli": "^10.1.0",
-    "postcss-cli-cache": "^1.0.0"
+  "devDependencies": { // begin tools used only for development; added comments for clarity
+    "autoprefixer": "^10.4.14", // adds vendor prefixes; added purpose comment
+    "cssnano": "^5.1.15", // minifies CSS; added purpose comment
+    "postcss": "^8.4.30", // transforms CSS via plugins; added purpose comment
+    "postcss-cli": "^10.1.0", // command line interface for PostCSS; added purpose comment
+    "postcss-cli-cache": "^1.0.0" // caches PostCSS results; added purpose comment
   },
   "browserslist": [
     ">0.5%",
