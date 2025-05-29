@@ -32,6 +32,10 @@ Minified version:
 ```
 `core.min.css` in this repo is generated from `core.css` by running `npm run build`, which processes the file with PostCSS and Autoprefixer.
 
+Images like the logo can also be loaded from jsDelivr at
+`https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png`.
+Use these CDN links instead of the raw GitHub URLs for faster delivery.
+
 Copy variables.css into your local css stylesheet and change values as you like.
 
 
