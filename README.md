@@ -85,3 +85,6 @@ Content-Encoding: br
 
 
 <a href="https://www.buymeacoffee.com/bijikyu" target="_blank" rel="noopener noreferrer">Buy me a Coffee (Please)</a>
+
+## License
+This project is licensed under the [MIT License](LICENSE).
