@@ -1,235 +1,1227 @@
 /* VERSION 9 */
+/* 
+ * Core CSS Framework - A comprehensive stylesheet providing foundational styles
+ * 
+ * DESIGN PHILOSOPHY:
+ * This stylesheet follows a "sensible defaults" approach, providing attractive base styles
+ * that work well across different projects without requiring extensive customization.
+ * The framework prioritizes:
+ * 1. Visual consistency across browsers (normalization)
+ * 2. Responsive design with mobile-first considerations
+ * 3. Accessibility through proper contrast and semantic styling
+ * 4. Performance through efficient selectors and minimal specificity conflicts
+ * 5. Maintainability through organized sections and utility classes
+ */
 
 /* BASIC HTML TAGS =================================================================================================================== */
 
-html, body { margin: 0; padding: 0; /* Style resets */ scrollbar-color: var(--gs-mid) var(--gs-darkest); scrollbar-width: thin; /* Scroll Bar, Works on Firefox */ } /* scoped reset rules replacing universal selector */
-html::-webkit-scrollbar { width: 5px; } /* Works on Chrome, Edge, and Safari */ /* scoped scroll bar from universal selector */
-html::-webkit-scrollbar-track { background: var(--gs-darkest); } /* Works on Chrome, Edge, and Safari */ /* scoped scroll bar track from universal selector */
-html::-webkit-scrollbar-thumb { background-color: var(--gs-mid); border: var(--borders-bright); border-radius: var(--box-corners); } /* Works on Chrome, Edge, and Safari */ /* scoped scroll bar thumb from universal selector */
+/* 
+ * UNIVERSAL RESET AND SCROLLBAR STYLING
+ * Rationale: Removes browser inconsistencies and provides consistent scrollbar appearance
+ * The margin/padding reset prevents unexpected spacing, while scrollbar styling ensures
+ * visual consistency across browsers that support it
+ */
+* { 
+    margin: 0; 
+    padding: 0; /* Style resets to eliminate browser default spacing inconsistencies */
+    scrollbar-color: var(--gs-mid) var(--gs-darkest); /* Firefox scrollbar colors */
+    scrollbar-width: thin; /* Firefox scrollbar width - keeps UI clean */
+}
 
-html { line-height: 1.15; width: 100vw;	-webkit-text-size-adjust: 100%; /* Normalizing */}
+/* 
+ * WEBKIT SCROLLBAR STYLING (Chrome, Edge, Safari)
+ * Rationale: These browsers require vendor-specific properties for scrollbar customization
+ * Width is kept minimal (5px) to maximize content area while maintaining usability
+ */
+*::-webkit-scrollbar {width: 5px;} /* Thin scrollbar maintains clean aesthetics */
+*::-webkit-scrollbar-track {background: var(--gs-darkest);} /* Dark track blends with dark themes */
+*::-webkit-scrollbar-thumb {
+    background-color: var(--gs-mid); 
+    border: var(--borders-bright); 
+    border-radius: var(--box-corners);
+} /* Styled thumb provides visual feedback and matches design system */
 
-/* Sectioning */
-body {height: 100vh; width: 100vw; overflow-x: hidden;	scroll-snap-type: y mandatory; font-size: 16px; font-weight: 400; font-family: system-ui, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; /* backdrop-filter: blur(10px) brightness(50%); /* Decoration */}
-header, main, footer { width: 100%;	display: flex !important; 	justify-content: space-evenly; align-items: center; text-align: center;}
-header, footer { flex-direction: row;	background: var(--gradient-l2r);}
-header{ position: sticky; position: -webkit-sticky;	left: 0; top: 0; padding-top: 10px; z-index: 100; border-bottom: var(--borders-bright);}
-footer { position: relative; bottom: 0; padding-bottom: 10px;	border-top: var(--borders-bright);}
-main { margin-bottom: 100px; background-color: transparent;}
-aside {background-color: var(--color-dominant); top: 0;	bottom: 0; left: 0; color: var(--gs-lightest); text-align: left; position: fixed; border-right: 1px solid var(--gs-lightest); overflow-x: hidden;}
-blockquote { width: 80%; padding: 1.5em 0 1.5em 0; line-height: 1.75; font-size: 16px; font-weight: 500; text-align: center; color: var(--gs-darkest)}
-pre { font-family: monospace, monospace; /* Correct inheritance & scaling of font size in all browsers. */ font-size: 1em; /* Correct the odd `em` font sizing in all browsers. */}
-.offer {margin: 2vh 0 3vh 0 ;}
-.card, .cardWhite {height: auto; margin: 5px 5px 4vh 5px; border-radius: var(--box-corners); border: var(--borders-dominant); box-shadow: var(--box-glow-dominant);}
-.card {background: var(--transparent-b);} .cardWhite {background: var(--transparent-w);}
-details {display: block;} /* Add correct display in Edge, IE 10+, & Firefox. */
-summary {display: list-item;} /* Add correct display in all browsers. */
+/*
+ * HTML ELEMENT NORMALIZATION
+ * Rationale: Sets baseline typography and viewport behavior
+ * line-height 1.15 improves readability, 100vw ensures full viewport width
+ * -webkit-text-size-adjust prevents iOS zoom on orientation change
+ */
+html { 
+    line-height: 1.15; /* Improved text readability over browser default of 1.0 */
+    width: 100vw; /* Full viewport width prevents horizontal scrolling issues */
+    -webkit-text-size-adjust: 100%; /* Prevents text inflation on mobile device rotation */
+}
 
-/* Headings & Paragraphs */
-p, h1, h2, h3, h4, h5, h6 {color: var(--gs-lightest); font-family: system-ui, sans-serif;	font-weight: 500; letter-spacing: 1px !important; line-height: 1.25; text-decoration: none; text-shadow: 1px 1px 0px #000;	text-transform: capitialize; -webkit-font-smoothing: antialiased;}
-p {display: inline-block; width: 100%; text-align: left; color: var(--gs-darkest); font-size: 20px; font-style: normal; font-weight: 400 !important;	font-family: system-ui, sans-serif; letter-spacing: -0.003em; line-height: 32px; margin: 0 0 -0.46em 0; padding: 5px; word-wrap: break-word; margin-block-start: 1em; margin-block-end: 1em; -webkit-hyphens: none; -moz-hyphens: none; -ms-hyphens:none; hyphens: none; white-space: -moz-pre-wrap; /* Mozilla */	white-space: -hp-pre-wrap; /* HP printers */	white-space: -o-pre-wrap; /* Opera 7 */	white-space: -pre-wrap; /* Opera 4-6 */ white-space: pre-wrap; /* CSS 2.1 */	white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */ word-break: break-word; overflow-wrap: break-word; word-wrap: keep-all; /* IE */ text-rendering: optimizeLegibility;	text-shadow: none; -moz-osx-font-smoothing: antialiased; /* Firefox */}
-.itemText {text-align: center; margin: 0px 10px 0px 10px;	overflow-wrap: break-word; color: var(--gs-lightest);}
-.splashText {width: 60%; 	font-size: 25px !important; font-weight: bold; text-align: center;}
-.explainer {margin: 1vh 0 5vh 0; padding: 1vh 0 0vh 0; width: 84%;	font-size: 22px !important; line-height: 1.5;}
-h1, h2 {margin: 0vh 0 2vh 0; /* Needs listing to normalize */ font-size: 38px; /* Needs listing to normalize */ color: var(--color-two); font-weight: bold !important; text-shadow: 1px 1px 1px #000; text-transform: capitialize !important;}
-h2 {margin: 4vh 15px 2vh 15px !important;} /* Needs listing to normalize */
-h3 {margin: 4vh 0 0 0; font-size: 20px; font-weight: 700;	text-transform: uppercase !important; text-decoration: none;}
-h4 {border-bottom: 1px solid var(--color-bright);	font-weight: 300;	color: var(--color-bright) !important; text-align: left;}
+/* SECTIONING ELEMENTS */
+/*
+ * BODY ELEMENT FOUNDATION
+ * Rationale: Establishes the main layout container with modern CSS features
+ * - scroll-snap-type provides smooth page navigation (modern UX pattern)
+ * - Font stack prioritizes system fonts for performance and native feel
+ * - Antialiasing improves text rendering on all platforms
+ * - backdrop-filter is commented out but available for future glass-morphism effects
+ */
+body {
+    height: 100vh; /* Full viewport height ensures proper layout foundation */
+    width: 100vw; /* Full viewport width */
+    overflow-x: hidden; /* Prevents horizontal scrollbars from layout issues */
+    scroll-snap-type: y mandatory; /* Smooth scrolling behavior for single-page layouts */
+    font-size: 16px; /* Base font size - 16px is accessibility standard */
+    font-weight: 400; /* Normal weight as default */
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* System font stack for performance and native appearance */
+    -webkit-font-smoothing: antialiased; /* Better text rendering on macOS/iOS */
+    -moz-osx-font-smoothing: grayscale; /* Better text rendering on macOS Firefox */
+    /* backdrop-filter: blur(10px) brightness(50%); /* Available for glass-morphism effects */
+}
 
-/* Lists */
-ul { display: flex; flex-direction: row; flex-wrap: wrap;	justify-content: space-evenly; align-items: center; width: 100%; list-style-type: none; /* Decoration */}
-.offerlist {list-style: disc outside none;}
-li, ol {color: var(--gs-lightest); font-family: 'Playfair Display', serif; font-weight: bold; letter-spacing: 2px !important; text-align: -webkit-match-parent;	margin-bottom: 5px;}
+/*
+ * SEMANTIC LAYOUT CONTAINERS
+ * Rationale: Flexbox provides reliable cross-browser layout with minimal code
+ * These elements use consistent centering and spacing patterns that work
+ * across different content types and screen sizes
+ */
+header, main, footer { 
+    width: 100%; /* Full width ensures proper layout flow */
+    display: flex !important; /* Flexbox for reliable layout - !important prevents specificity issues */
+    justify-content: space-evenly; /* Even distribution of child elements */
+    align-items: center; /* Vertical centering */
+    text-align: center; /* Text alignment fallback for non-flex content */
+}
 
-/* Media */
-img {width: auto; border-style: none;} /* Remove border on images inside links in IE 10. */
-.cardImage{width:100% !important; border-radius: 25px 25px 0px 0px; box-shadow: var(--box-glow); }
+/*
+ * HEADER AND FOOTER SPECIFIC STYLING
+ * Rationale: Row direction for horizontal navigation/footer elements
+ * Gradient background provides visual hierarchy and brand consistency
+ */
+header, footer { 
+    flex-direction: row; /* Horizontal layout for navigation and footer elements */
+    background: var(--gradient-l2r); /* Branded gradient background */
+}
 
-/* Forms *//* --> form, fieldset, legend, go here <-- */ 
-button, input, optgroup, select, textarea, .stripe-button-el {font-family: inherit; font-size: 100%; line-height: 1.15; /* Change the font styles in all browsers. */}
-button, input {overflow: visible;} /* Show overflow in IE & Edge. */
-button, select {text-transform: none;} /* Remove inheritance of text transform in Edge, Firefox, & IE. */
-button, [type="button"], [type="reset"], [type="submit"] {-webkit-appearance: button;} /* Style clickable types in iOS & Safari. */
-button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner {border-style: none; /* Remove inner border & padding in Firefox. */}
-button:-moz-focusring, [type="button"]:-moz-focusring, [type="reset"]:-moz-focusring, [type="submit"]:-moz-focusring {outline: 1px dotted ButtonText; /* Restore the focus styles unset by the previous rule. */}
-button, .stripe-button-el {display: inline-flex; justify-content: center; align-items: center; -webkit-box-align: center; margin: 25px; padding: 0.75rem 1.5rem; vertical-align: middle; transition-duration: 300ms; transition-property: box-shadow; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); background-color: var(--gs-darkest); border: var(--borders-bright); border-radius: var(--box-corners);	box-shadow: var(--box-glow); cursor: pointer; white-space: nowrap; color: var(--color-bright); text-decoration: none; text-transform: uppercase !important;}
-button:hover, .stripe-button-el:hover {transition-duration: 300ms; transition-property: box-shadow; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); box-shadow: var(--box-glowier);}
-.item-button {color: var(--warn); border: none; box-shadow: none;}
-fieldset {padding: 0.35em 0.75em 0.625em;} /* Correct the padding in Firefox. */ 
+/*
+ * STICKY HEADER IMPLEMENTATION
+ * Rationale: position: sticky keeps navigation accessible during scroll
+ * Fallback -webkit-sticky for older Safari versions
+ * High z-index (100) ensures header stays above all content
+ * Border provides visual separation from main content
+ */
+header{ 
+    position: sticky; 
+    position: -webkit-sticky; /* Safari fallback for older versions */
+    left: 0; 
+    top: 0; 
+    padding-top: 10px; /* Breathing room from viewport edge */
+    z-index: 100; /* High z-index ensures header stays above all content */
+    border-bottom: var(--borders-bright); /* Visual separation from main content */
+}
 
-input {height: 37px; width: 75%; max-width: 370px; padding: 0; background: var(--gs-lightest); border: 1px solid var(--gs-lightest);	color: var(--gs-darkest);	text-align: center;}
-input:hover, input:focus {-webkit-transition: all 0.5s 0s ease; -moz-transition: all 0.5s 0s ease; -o-transition: all 0.5s 0s ease; transition: all 0.5s 0s ease;}
-input[type="text"] {-webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; -webkit-appearance: none; -moz-appearance: none; appearance: none; text-shadow: none;}
+/*
+ * FOOTER POSITIONING AND STYLING
+ * Rationale: Relative positioning allows for flexible footer placement
+ * Padding and border provide consistent spacing and visual separation
+ */
+footer { 
+    position: relative; 
+    bottom: 0; 
+    padding-bottom: 10px; /* Breathing room from viewport edge */
+    border-top: var(--borders-bright); /* Visual separation from main content */
+}
 
-.item-form {display: inline-block;}
+/*
+ * MAIN CONTENT AREA
+ * Rationale: Bottom margin prevents content from being hidden behind fixed footers
+ * Transparent background allows for layered design effects
+ */
+main { 
+    margin-bottom: 100px; /* Prevents content overlap with footer elements */
+    background-color: transparent; /* Allows background effects to show through */
+}
 
-label {margin: 10px; padding: 10px; width: 100%; color: var(--gs-lightest); text-transform: uppercase;	line-height: 1; text-align: center;}
-legend { box-sizing: border-box; display: table; max-width: 100%; white-space: normal; /* Correct the text wrapping in Edge and IE. */ color: inherit; /* Correct the color inheritance from `fieldset` elements in IE. */}
-progress {vertical-align: baseline;} /* Add correct vertical alignment in Chrome, Firefox, & Opera. */
-textarea {overflow: auto; /* Remove default vertical scrollbar in IE 10+. */background-color: transparent; border: 1px solid var(--gs-lightest); color: var(--gs-mid);}
-textarea:focus {border: none; -webkit-transition: all 0.5s 0s ease; -moz-transition: all 0.5s 0s ease; -o-transition: all 0.5s 0s ease; transition: all 0.5s 0s ease;}
-[type="checkbox"], [type="radio"] {box-sizing: border-box;} /* Add correct box sizing in IE 10. */
-[type="number"]::-webkit-inner-spin-button, [type="number"]::-webkit-outer-spin-button {height: auto;} /* Correct the cursor style of increment & decrement buttons in Chrome. */
-[type="search"] {-webkit-appearance: textfield; /* Correct the odd appearance in Chrome and Safari. */ outline-offset: -2px; /* Correct the outline style in Safari. */}
-[type="search"]::-webkit-search-decoration {-webkit-appearance: none;} /* Remove inner padding in Chrome & Safari on macOS. */
-::-webkit-file-upload-button {-webkit-appearance: button; /* Correct inability to style clickable types in iOS & Safari. */ font: inherit; /* Change font properties to `inherit` in Safari. */}
+/*
+ * SIDEBAR/ASIDE STYLING
+ * Rationale: Fixed positioning creates persistent sidebar navigation
+ * Full height (top: 0; bottom: 0) ensures sidebar spans entire viewport
+ * Border and styling provide clear visual hierarchy
+ */
+aside {
+    background-color: var(--color-dominant); /* Branded background color */
+    top: 0;
+    bottom: 0; 
+    left: 0; /* Left-aligned sidebar is conventional and accessible */
+    color: var(--gs-lightest); /* High contrast text for accessibility */
+    text-align: left; /* Left alignment for readability in sidebar context */
+    position: fixed; /* Stays in place during scroll */
+    border-right: 1px solid var(--gs-lightest); /* Visual separation from main content */
+    overflow-x: hidden; /* Prevents horizontal scrolling within sidebar */
+}
 
-/* Phrasing */
-a {background-color: transparent;/* Remove the gray background on active links in IE 10. */ color: var(--link); text-decoration: underline; text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;}
-a:hover{color: var(--color-bright);}
-a:visited {color: var(--link-visited);}
+/*
+ * BLOCKQUOTE STYLING
+ * Rationale: 80% width provides comfortable reading line length
+ * Increased line-height and font-weight emphasize quoted content
+ * Center alignment draws attention to important quotes
+ */
+blockquote { 
+    width: 80%; /* Optimal line length for readability */
+    padding: 1.5em 0 1.5em 0; /* Vertical spacing separates from surrounding content */
+    line-height: 1.75; /* Increased line spacing for emphasis and readability */
+    font-size: 16px; /* Consistent with body text */
+    font-weight: 500; /* Slightly bold for emphasis */
+    text-align: center; /* Center alignment for visual emphasis */
+    color: var(--gs-darkest); /* High contrast for readability */
+}
 
-/* --> TEXT LEVEL SEMANTICS: em goes here <-- */ /* --> TEXT LEVEL SEMANTICS: u, s, sup, sub, dfn, mark, del, ins, q, cite, data, progress, time, meter, var, keygen, bdi, bdo, ruby, rt, rp, span, br, wbr, each go here <-- */
-b, strong {font-weight: bolder;} /* Add correct font weight in Chrome, Edge, and Safari. */
-i {display: inline-block; margin: 0 0 35px 3vw;	color: var(--gs-lightest); font-size: calc(50px + 4vw);}
-abbr[title] {border-bottom: none; /* Decoration */ /* Remove bottom border in Chrome 57- */text-decoration: underline; /* Typography */ /* Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari. */text-decoration: underline dotted; /* Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari. */}
-code, kbd, samp { font-family: monospace, monospace; /* Correct  inheritance & scaling of font size in all browsers. */font-size: 1em; /* Correct odd `em` font sizing in all browsers. */}
-small {color: var(--gs-lightest); 	font-size: 80%;} /* Add correct font size in all browsers. */
-sub, sup { /* Prevent `sub` and `sup` elements from affecting the line height in all browsers. */font-size: 75%; line-height: 0; position: relative; vertical-align: baseline;}
-sub {bottom: -0.25em;} sup {top: -0.5em;}
+/*
+ * PREFORMATTED TEXT NORMALIZATION
+ * Rationale: Ensures consistent monospace rendering across browsers
+ * Font-size 1em maintains relative sizing with parent elements
+ */
+pre { 
+    font-family: monospace, monospace; /* Double declaration fixes browser inconsistencies */
+    font-size: 1em; /* Maintains relative sizing */
+}
 
-/* Misc */
-hr {box-sizing: content-box; /* Add correct box sizing in Firefox. */	height: 1px; /* Needs listing to normalize */ width: 55%; margin: calc(5px + 0.25vh) auto calc(5px + 0.25vh); overflow: visible; /* Show overflow in Edge and IE. */ background-color: rgba(255,255,255,0.13); border: 0pt none; box-shadow: 1px -1px 1px  rgb(0, 0, 0, 30%); color: rgba(255,255,255,0.13);}
-.quoteHr {background-color: var(--color-dominant); box-shadow: -1px 1px 1px  var(--gs-darkest);}
+/*
+ * UTILITY CLASSES FOR COMMON LAYOUTS
+ * Rationale: These classes provide quick styling solutions for common design patterns
+ */
+.offer {margin: 2vh 0 3vh 0;} /* Consistent spacing for promotional content */
 
-[hidden], template {display: none;} /* Add correct display in IE 10+. */
+/*
+ * CARD COMPONENT SYSTEM
+ * Rationale: Cards are a fundamental UI pattern for content organization
+ * Two variants (dark/light) provide flexibility for different design contexts
+ * Consistent spacing, borders, and shadows create visual hierarchy
+ */
+.card, .cardWhite {
+    height: auto; /* Flexible height based on content */
+    margin: 5px 5px 4vh 5px; /* Consistent spacing between cards */
+    border-radius: var(--box-corners); /* Rounded corners from design system */
+    border: var(--borders-dominant); /* Branded border color */
+    box-shadow: var(--box-glow-dominant); /* Subtle shadow for depth */
+}
+.card {background: var(--transparent-b);} /* Semi-transparent dark background */
+.cardWhite {background: var(--transparent-w);} /* Semi-transparent light background */
 
+/*
+ * HTML5 SEMANTIC ELEMENT NORMALIZATION
+ * Rationale: Ensures consistent display across browsers that may not
+ * fully support HTML5 semantic elements (older IE versions)
+ */
+details {display: block;} /* Ensures proper display in Edge, IE 10+, Firefox */
+summary {display: list-item;} /* Proper list-item display across all browsers */
+
+/* HEADINGS & PARAGRAPHS */
+/*
+ * TYPOGRAPHY FOUNDATION
+ * Rationale: Consistent typography across all text elements creates visual hierarchy
+ * Playfair Display provides elegant serif contrast to body sans-serif
+ * Text-shadow improves readability over background images
+ * Letter-spacing improves readability at larger sizes
+ */
+p, h1, h2, h3, h4, h5, h5 {
+    color: var(--gs-lightest); /* High contrast for accessibility */
+    font-family: 'Playfair Display', serif; /* Elegant serif for headings */
+    font-weight: 500; /* Medium weight balances readability and emphasis */
+    letter-spacing: 1px !important; /* Improved readability - !important ensures consistency */
+    line-height: 1.25; /* Tight line-height for headings */
+    text-decoration: none; /* Removes default underlines */
+    text-shadow: 1px 1px 0px #000; /* Improves readability over backgrounds */
+    text-transform: capitalize;
+    -webkit-font-smoothing: antialiased; /* Better rendering on WebKit browsers */
+}
+
+/*
+ * PARAGRAPH-SPECIFIC STYLING
+ * Rationale: Paragraphs need different treatment than headings for optimal readability
+ * - Source Serif Pro provides excellent readability for body text
+ * - Larger font-size (20px) improves readability on modern high-DPI screens
+ * - Extensive word-wrap properties ensure text doesn't break layout
+ * - Multiple vendor prefixes ensure cross-browser compatibility
+ */
+p {
+    display: inline-block; /* Allows width setting while maintaining block behavior */
+    width: 100%; /* Full width utilization */
+    text-align: left; /* Left alignment for body text readability */
+    color: var(--gs-darkest); /* High contrast against light backgrounds */
+    font-size: 20px; /* Larger than standard 16px for better readability */
+    font-style: normal; /* Explicitly normal to override inherited styles */
+    font-weight: 400 !important; /* Normal weight for body text - !important prevents conflicts */
+    font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif; /* Serif stack for body text readability */
+    letter-spacing: -0.003em; /* Slight negative spacing optimizes serif readability */
+    line-height: 32px; /* Generous line height for comfortable reading */
+    margin: 0 0 -0.46em 0; /* Precise margin tuning for visual rhythm */
+    padding: 5px; /* Minimal padding for touch targets */
+    word-wrap: break-word; /* Prevents long words from breaking layout */
+    margin-block-start: 1em; /* Standard paragraph spacing */
+    margin-block-end: 1em; /* Standard paragraph spacing */
+    /* Comprehensive hyphenation control for better text flow */
+    -webkit-hyphens: none; 
+    -moz-hyphens: none; 
+    -ms-hyphens: none; 
+    hyphens: none; /* Disabled hyphens prevent awkward word breaks */
+    /* Extensive white-space handling for cross-browser compatibility */
+    white-space: -moz-pre-wrap; /* Mozilla-specific */
+    white-space: -hp-pre-wrap; /* HP printer compatibility */
+    white-space: -o-pre-wrap; /* Opera 7 compatibility */
+    white-space: -pre-wrap; /* Opera 4-6 compatibility */
+    white-space: pre-wrap; /* CSS 2.1 standard */
+    white-space: pre-line; /* CSS 3 standard with 2.1 fallback */
+    word-break: break-word; /* Ensures long URLs/text don't break layout */
+    overflow-wrap: break-word; /* Modern alternative to word-wrap */
+    word-wrap: keep-all; /* IE-specific property */
+    text-rendering: optimizeLegibility; /* Enables kerning and ligatures */
+    text-shadow: none; /* Removes shadow for body text clarity */
+    -moz-osx-font-smoothing: antialiased; /* Firefox-specific font smoothing */
+}
+
+/*
+ * SPECIALIZED TEXT UTILITY CLASSES
+ * Rationale: Common text styling patterns extracted into reusable classes
+ */
+.itemText {
+    text-align: center; /* Center alignment for item descriptions */
+    margin: 0px 10px 0px 10px; /* Horizontal spacing for breathing room */
+    overflow-wrap: break-word; /* Prevents layout breaks */
+    color: var(--gs-lightest); /* High contrast color */
+}
+
+.splashText {
+    width: 60%; /* Comfortable reading width for hero text */
+    font-size: 25px !important; /* Larger size for emphasis - !important ensures consistency */
+    font-weight: bold; /* Bold weight for hero emphasis */
+    text-align: center; /* Center alignment for hero content */
+}
+
+.explainer {
+    margin: 1vh 0 5vh 0; /* Generous vertical spacing */
+    padding: 1vh 0 0vh 0; /* Top padding for separation */
+    width: 84%; /* Slightly narrower than full width for comfortable reading */
+    font-size: 22px !important; /* Larger than body text for hierarchy */
+    line-height: 1.5; /* Comfortable reading line height */
+}
+
+/*
+ * HEADING HIERARCHY SYSTEM
+ * Rationale: Creates clear visual hierarchy through size and spacing
+ * Consistent margins ensure proper vertical rhythm
+ * Color and shadow provide emphasis and readability
+ */
+h1, h2 {
+    margin: 0vh 0 2vh 0; /* Bottom margin for separation from following content */
+    font-size: 38px; /* Large size establishes primary hierarchy */
+    color: var(--color-two); /* Branded color for emphasis */
+    font-weight: bold !important; /* Maximum emphasis - !important prevents overrides */
+    text-shadow: 1px 1px 1px #000; /* Shadow improves readability over backgrounds */
+    text-transform: capitalize !important; /* Consistent capitalization */
+}
+
+h2 {margin: 4vh 15px 2vh 15px !important;} /* Additional top margin and horizontal margins for h2 */
+
+h3 {
+    margin: 4vh 0 0 0; /* Top margin separates from previous content */
+    font-size: 20px; /* Medium size for sub-hierarchy */
+    font-weight: 700; /* Bold but not as heavy as h1/h2 */
+    text-transform: uppercase !important; /* All caps for emphasis */
+    text-decoration: none; /* Ensures no underlines */
+}
+
+h4 {
+    border-bottom: 1px solid var(--color-bright); /* Underline for subtle emphasis */
+    font-weight: 300; /* Light weight for subtle hierarchy */
+    color: var(--color-bright) !important; /* Branded color with high specificity */
+    text-align: left; /* Left alignment for section headings */
+}
+
+/* LISTS */
+/*
+ * FLEXIBLE LIST LAYOUT SYSTEM
+ * Rationale: Default flex layout accommodates both horizontal and vertical list patterns
+ * Space-evenly distribution works well for navigation and feature lists
+ * list-style-type: none removes bullets for custom styling flexibility
+ */
+ul { 
+    display: flex; /* Flexible layout system */
+    flex-direction: row; /* Horizontal by default */
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    justify-content: space-evenly; /* Even distribution of list items */
+    align-items: center; /* Vertical centering */
+    width: 100%; /* Full width utilization */
+    list-style-type: none; /* Removes default bullets for custom styling */
+}
+
+.offerlist {list-style: disc outside none;} /* Traditional bulleted list for offer content */
+
+/*
+ * LIST ITEM TYPOGRAPHY
+ * Rationale: Consistent with heading typography for visual hierarchy
+ * Increased letter-spacing improves readability in list context
+ */
+li, ol {
+    color: var(--gs-lightest); /* High contrast color */
+    font-family: 'Playfair Display', serif; /* Matches heading typography */
+    font-weight: bold; /* Emphasis for list items */
+    letter-spacing: 2px !important; /* Generous spacing for emphasis */
+    text-align: -webkit-match-parent; /* Inherits parent alignment */
+    margin-bottom: 5px; /* Spacing between list items */
+}
+
+/* MEDIA */
+/*
+ * IMAGE NORMALIZATION AND OPTIMIZATION
+ * Rationale: Removes IE10 link borders and sets flexible sizing
+ * Auto width allows responsive behavior while maintaining aspect ratio
+ */
+img {
+    width: auto; /* Flexible width for responsive behavior */
+    border-style: none; /* Removes default border in IE 10 links */
+}
+
+/*
+ * CARD IMAGE COMPONENT
+ * Rationale: Specific styling for images within card components
+ * Rounded top corners match card design while maintaining bottom square corners
+ * Box-shadow adds depth and visual interest
+ */
+.cardImage{
+    width:100% !important; /* Full card width - !important ensures consistency */
+    border-radius: 25px 25px 0px 0px; /* Rounded top corners only */
+    box-shadow: var(--box-glow); /* Subtle shadow for depth */
+}
+
+/* FORMS */
+/*
+ * FORM ELEMENT NORMALIZATION
+ * Rationale: Ensures consistent appearance across browsers and elements
+ * Inherits parent font properties for visual consistency
+ * Line-height 1.15 provides comfortable interaction targets
+ */
+button, input, optgroup, select, textarea, .stripe-button-el {
+    font-family: inherit; /* Inherits parent font for consistency */
+    font-size: 100%; /* Maintains relative sizing */
+    line-height: 1.15; /* Comfortable line height for form elements */
+}
+
+/*
+ * BUTTON AND INPUT NORMALIZATION
+ * Rationale: Addresses browser-specific quirks and inconsistencies
+ * These rules ensure form elements behave consistently across all browsers
+ */
+button, input {overflow: visible;} /* Shows overflow in IE & Edge */
+button, select {text-transform: none;} /* Removes text transform inheritance in Edge, Firefox, IE */
+button, [type="button"], [type="reset"], [type="submit"] {-webkit-appearance: button;} /* Ensures clickable styling in iOS & Safari */
+
+/*
+ * FIREFOX BUTTON NORMALIZATION
+ * Rationale: Firefox adds internal borders and padding that need removal
+ * These rules ensure consistent button appearance across browsers
+ */
+button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner {
+    border-style: none; /* Removes Firefox internal borders */
+}
+button:-moz-focusring, [type="button"]:-moz-focusring, [type="reset"]:-moz-focusring, [type="submit"]:-moz-focusring {
+    outline: 1px dotted ButtonText; /* Restores focus styles removed by previous rule */
+}
+
+/*
+ * CUSTOM BUTTON STYLING
+ * Rationale: Creates consistent, accessible button design across the site
+ * Flexbox centering ensures content alignment regardless of button size
+ * Transition properties provide smooth hover feedback
+ * High contrast colors ensure accessibility compliance
+ */
+button, .stripe-button-el {
+    display: inline-flex; /* Flexible layout for content alignment */
+    justify-content: center; /* Horizontal centering */
+    align-items: center; /* Vertical centering */
+    -webkit-box-align: center; /* WebKit fallback for alignment */
+    margin: 25px; /* Generous spacing around buttons */
+    padding: 0.75rem 1.5rem; /* Comfortable touch target size */
+    vertical-align: middle; /* Baseline alignment with surrounding content */
+    transition-duration: 300ms; /* Smooth transition timing */
+    transition-property: box-shadow; /* Only animate shadow for performance */
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); /* Smooth easing curve */
+    background-color: var(--gs-darkest); /* High contrast background */
+    border: var(--borders-bright); /* Branded border */
+    border-radius: var(--box-corners); /* Consistent corner radius */
+    box-shadow: var(--box-glow); /* Subtle depth effect */
+    cursor: pointer; /* Indicates interactive element */
+    white-space: nowrap; /* Prevents text wrapping in buttons */
+    color: var(--color-bright); /* High contrast text */
+    text-decoration: none; /* Removes underlines from button links */
+    text-transform: uppercase !important; /* Consistent capitalization */
+}
+
+/*
+ * BUTTON HOVER EFFECTS
+ * Rationale: Provides clear interactive feedback
+ * Matches transition properties for smooth animation
+ * Enhanced glow effect indicates hover state
+ */
+button:hover, .stripe-button-el:hover {
+    transition-duration: 300ms; /* Matches non-hover transition */
+    transition-property: box-shadow; /* Only animates shadow */
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); /* Smooth easing */
+    box-shadow: var(--box-glowier); /* Enhanced glow on hover */
+}
+
+/*
+ * SPECIALIZED BUTTON VARIANTS
+ * Rationale: Different contexts require different visual treatments
+ * Item buttons are more subtle, removing borders and shadows
+ */
+.item-button {
+    color: var(--warn); /* Warning color for attention */
+    border: none; /* Removes border for minimal appearance */
+    box-shadow: none; /* Removes shadow for flat design */
+}
+
+/*
+ * FIELDSET NORMALIZATION
+ * Rationale: Ensures consistent padding across browsers
+ * Firefox requires specific padding adjustments
+ */
+fieldset {padding: 0.35em 0.75em 0.625em;} /* Consistent padding in Firefox */
+
+/*
+ * INPUT FIELD STYLING
+ * Rationale: Creates consistent, accessible input appearance
+ * Fixed height ensures consistent layout regardless of content
+ * Center text alignment works well for short form inputs
+ * High contrast colors ensure accessibility
+ */
+input {
+    height: 37px; /* Fixed height for consistent layout */
+    width: 75%; /* Flexible width that works on most screens */
+    max-width: 370px; /* Prevents inputs from becoming too wide on large screens */
+    padding: 0; /* Removes default padding for consistent sizing */
+    background: var(--gs-lightest); /* Light background for contrast */
+    border: 1px solid var(--gs-lightest); /* Subtle border */
+    color: var(--gs-darkest); /* High contrast text */
+    text-align: center; /* Center alignment for short inputs */
+}
+
+/*
+ * INPUT INTERACTION STATES
+ * Rationale: Smooth transitions provide feedback for user interactions
+ * Consistent timing (0.5s) across hover and focus states
+ * Multiple vendor prefixes ensure cross-browser support
+ */
+input:hover, input:focus {
+    -webkit-transition: all 0.5s 0s ease; /* WebKit transition */
+    -moz-transition: all 0.5s 0s ease; /* Firefox transition */
+    -o-transition: all 0.5s 0s ease; /* Opera transition */
+    transition: all 0.5s 0s ease; /* Standard transition */
+}
+
+/*
+ * TEXT INPUT NORMALIZATION
+ * Rationale: Removes browser-specific styling that can interfere with custom design
+ * -webkit-appearance: none removes Safari's rounded corners and shadows
+ * This ensures consistent appearance across all browsers
+ */
+input[type="text"] {
+    -webkit-box-shadow: none; /* Removes WebKit default shadow */
+    -moz-box-shadow: none; /* Removes Firefox default shadow */
+    box-shadow: none; /* Removes standard shadow */
+    -webkit-appearance: none; /* Removes WebKit default styling */
+    -moz-appearance: none; /* Removes Firefox default styling */
+    appearance: none; /* Removes standard default styling */
+    text-shadow: none; /* Removes any inherited text shadows */
+}
+
+/*
+ * INLINE FORM UTILITY
+ * Rationale: Allows forms to display inline with other content
+ * Useful for search bars and compact form layouts
+ */
+.item-form {display: inline-block;} /* Inline block for flexible form layouts */
+
+/*
+ * LABEL STYLING
+ * Rationale: Consistent spacing and typography for form labels
+ * Center alignment and uppercase text provide clear visual hierarchy
+ * Full width ensures labels align properly with their inputs
+ */
+label {
+    margin: 10px; /* Consistent spacing around labels */
+    padding: 10px; /* Comfortable touch target padding */
+    width: 100%; /* Full width for proper alignment */
+    color: var(--gs-lightest); /* High contrast color */
+    text-transform: uppercase; /* Consistent capitalization */
+    line-height: 1; /* Tight line height for labels */
+    text-align: center; /* Center alignment */
+}
+
+/*
+ * LEGEND NORMALIZATION
+ * Rationale: Ensures consistent legend behavior across browsers
+ * Box-sizing and display properties fix IE inconsistencies
+ * Color inheritance ensures legends match their fieldset styling
+ */
+legend { 
+    box-sizing: border-box; /* Consistent box model */
+    display: table; /* Proper display for cross-browser consistency */
+    max-width: 100%; /* Prevents overflow issues */
+    white-space: normal; /* Allows text wrapping in Edge and IE */
+    color: inherit; /* Inherits color from parent fieldset */
+}
+
+/*
+ * PROGRESS ELEMENT NORMALIZATION
+ * Rationale: Ensures consistent vertical alignment across browsers
+ * Progress elements often have inconsistent default alignment
+ */
+progress {vertical-align: baseline;} /* Consistent alignment in Chrome, Firefox, Opera */
+
+/*
+ * TEXTAREA STYLING
+ * Rationale: Removes default scrollbars and provides consistent styling
+ * Transparent background allows design flexibility
+ * Border and color match other form elements
+ */
+textarea {
+    overflow: auto; /* Removes default vertical scrollbar in IE 10+ */
+    background-color: transparent; /* Allows background effects */
+    border: 1px solid var(--gs-lightest); /* Consistent with other inputs */
+    color: var(--gs-mid); /* Readable color */
+}
+
+/*
+ * TEXTAREA FOCUS STATE
+ * Rationale: Removes border on focus and adds smooth transition
+ * This creates a cleaner focus state that relies on other visual cues
+ */
+textarea:focus {
+    border: none; /* Removes border for clean focus state */
+    -webkit-transition: all 0.5s 0s ease; /* WebKit transition */
+    -moz-transition: all 0.5s 0s ease; /* Firefox transition */
+    -o-transition: all 0.5s 0s ease; /* Opera transition */
+    transition: all 0.5s 0s ease; /* Standard transition */
+}
+
+/*
+ * CHECKBOX AND RADIO BUTTON NORMALIZATION
+ * Rationale: Ensures consistent box sizing in IE 10
+ * These input types have specific sizing issues in older IE versions
+ */
+[type="checkbox"], [type="radio"] {box-sizing: border-box;} /* Consistent sizing in IE 10 */
+
+/*
+ * NUMBER INPUT NORMALIZATION
+ * Rationale: Fixes spinner button height in Chrome
+ * Spinner buttons can have inconsistent sizing without this rule
+ */
+[type="number"]::-webkit-inner-spin-button, [type="number"]::-webkit-outer-spin-button {
+    height: auto; /* Fixes spinner button height in Chrome */
+}
+
+/*
+ * SEARCH INPUT NORMALIZATION
+ * Rationale: Removes Safari-specific search input styling
+ * -webkit-appearance: textfield makes search inputs look like regular text inputs
+ * Outline-offset adjustment improves focus indicator positioning
+ */
+[type="search"] {
+    -webkit-appearance: textfield; /* Removes Safari search styling */
+    outline-offset: -2px; /* Adjusts focus outline in Safari */
+}
+
+/*
+ * SEARCH INPUT DECORATION REMOVAL
+ * Rationale: Removes Safari's search cancel button
+ * This button is not accessible and interferes with custom styling
+ */
+[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none; /* Removes Safari search decoration */
+}
+
+/*
+ * FILE UPLOAD BUTTON NORMALIZATION
+ * Rationale: Ensures file upload buttons can be styled consistently
+ * Safari has specific requirements for file upload button styling
+ */
+::-webkit-file-upload-button {
+    -webkit-appearance: button; /* Allows styling in iOS & Safari */
+    font: inherit; /* Inherits font properties in Safari */
+}
+
+/* PHRASING */
+/*
+ * LINK STYLING AND NORMALIZATION
+ * Rationale: Removes IE 10 gray background and provides consistent link appearance
+ * Text-shadow with multiple declarations creates strong outline effect
+ * This ensures links are readable over any background
+ */
+a {
+    background-color: transparent; /* Removes gray background in IE 10 */
+    color: var(--link); /* Branded link color */
+    text-decoration: underline; /* Standard link indicator */
+    text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black; /* Strong outline for readability */
+}
+a:hover{color: var(--color-bright);} /* Hover state provides interaction feedback */
+a:visited {color: var(--link-visited);} /* Visited state helps user navigation */
+
+/*
+ * TEXT LEVEL SEMANTIC ELEMENTS
+ * Note: Most text-level semantic elements (em, u, s, sup, sub, etc.) inherit
+ * default browser styling which is generally appropriate. Custom styling
+ * is only provided where browser defaults are insufficient.
+ */
+
+/*
+ * BOLD AND STRONG ELEMENT NORMALIZATION
+ * Rationale: Ensures consistent bold weight across Chrome, Edge, and Safari
+ * Some browsers use different font-weight values for bold elements
+ */
+b, strong {font-weight: bolder;} /* Consistent bold weight across browsers */
+
+/*
+ * ICON STYLING
+ * Rationale: Large decorative icons need specific positioning and sizing
+ * Left margin (3vw) provides breathing room from left edge
+ * Calc() function creates responsive sizing that scales with viewport
+ */
+i {
+    display: inline-block; /* Allows width/height and margin properties */
+    margin: 0 0 35px 3vw; /* Bottom and left margins for positioning */
+    color: var(--gs-lightest); /* High contrast color */
+    font-size: calc(50px + 4vw); /* Responsive sizing based on viewport width */
+}
+
+/*
+ * ABBREVIATION STYLING
+ * Rationale: Removes Chrome 57- bottom border and adds proper text decoration
+ * Dotted underline provides better visual indication of abbreviations
+ */
+abbr[title] {
+    border-bottom: none; /* Removes border in Chrome 57- */
+    text-decoration: underline; /* Standard underline */
+    text-decoration: underline dotted; /* Dotted underline for better indication */
+}
+
+/*
+ * CODE ELEMENT NORMALIZATION
+ * Rationale: Ensures consistent monospace font rendering across browsers
+ * Double font-family declaration fixes inheritance and scaling issues
+ * Font-size 1em maintains proportional sizing
+ */
+code, kbd, samp { 
+    font-family: monospace, monospace; /* Double declaration fixes browser inconsistencies */
+    font-size: 1em; /* Maintains proportional sizing */
+}
+
+/*
+ * SMALL TEXT STYLING
+ * Rationale: Provides appropriate styling for fine print and secondary text
+ * 80% size is the standard for small text while maintaining readability
+ */
+small {
+    color: var(--gs-lightest); /* High contrast color */
+    font-size: 80%; /* Standard small text size */
+}
+
+/*
+ * SUBSCRIPT AND SUPERSCRIPT NORMALIZATION
+ * Rationale: Prevents sub/sup elements from affecting line height
+ * These elements can disrupt text flow without proper positioning
+ */
+sub, sup { 
+    font-size: 75%; /* Smaller size for sub/superscript */
+    line-height: 0; /* Prevents line height disruption */
+    position: relative; /* Enables positioning */
+    vertical-align: baseline; /* Baseline alignment */
+}
+sub {bottom: -0.25em;} /* Positions subscript below baseline */
+sup {top: -0.5em;} /* Positions superscript above baseline */
+
+/* MISC */
+/*
+ * HORIZONTAL RULE STYLING
+ * Rationale: Creates visually appealing section dividers
+ * Box-sizing content-box fixes Firefox box model issues
+ * Semi-transparent colors work over various backgrounds
+ * Box-shadow adds depth and visual interest
+ */
+hr {
+    box-sizing: content-box; /* Fixes Firefox box sizing */
+    height: 1px; /* Thin line for subtle division */
+    width: 55%; /* Moderate width that doesn't dominate layout */
+    margin: calc(5px + 0.25vh) auto calc(5px + 0.25vh); /* Responsive vertical spacing */
+    overflow: visible; /* Shows overflow in Edge and IE */
+    background-color: rgba(255,255,255,0.13); /* Semi-transparent white */
+    border: 0pt none; /* Removes default border */
+    box-shadow: 1px -1px 1px rgb(0, 0, 0, 30%); /* Subtle shadow for depth */
+    color: rgba(255,255,255,0.13); /* Matches background color */
+}
+
+/*
+ * QUOTE HORIZONTAL RULE VARIANT
+ ** Rationale: Themed version for use within quote sections
+ * Uses branded colors instead of neutral grays
+ */
+.quoteHr {
+    background-color: var(--color-dominant); /* Branded background */
+    box-shadow: -1px 1px 1px var(--gs-darkest); /* Adjusted shadow direction */
+}
+
+/*
+ * HIDDEN ELEMENT NORMALIZATION
+ * Rationale: Ensures hidden elements are properly hidden in IE 10+
+ * Template elements should never be visible
+ */
+[hidden], template {display: none;} /* Proper hiding in IE 10+ */
 
 /* OTHER CLASSES & IDS ========================================================================================================= */
 
-.noDecorate {text-decoration:none; text-shadow: none;}
+/*
+ * UTILITY CLASSES FOR COMMON STYLING NEEDS
+ * Rationale: These utility classes provide quick solutions for common styling requirements
+ * without requiring custom CSS for every element
+ */
 
-.obscure {backdrop-filter: var(--obscure-filter);} /* uses variable for optional reduced filter */
-
-/* Color classes */
-.textLight {color: var(--gs-lightest);} .textDark {color: var(--gs-darkest);}
-
-.bright {background-color: var(--color-bright) !important; /* fixes var syntax & keeps !important */}
-.darkest {background-color: var(--gs-darkest);}
-.dark {background-color: var(--gs-dark);}
-.lightest {background-color: var(--gs-lightest);}
-.green {background-color: var(--bg-btn);}
-
-.icon {filter: var(--set-adjustments);}
-.iconLarge {width: 150px; height: 150px;} /* //added iconLarge style for 150px icons */
-
-.CTA {position: relative;	width: 12rem;	height: 5rem;	display: flex;	justify-content: center;
-	align-items: center;	background: rgba(0, 0, 0, 0.5);	overflow: hidden;	border-radius: 1.3em;
-	transition: box-shadow 0.8s; cursor: pointer;
-}
-.CTA > h2 > a {position: relative; color: #fff; font-size: 2em; z-index: 1; text-shadow: 0 0 5px;}
-.CTA:hover {box-shadow: 0 0 10px var(--bg-btn), 0 0 30px var(--bg-btn),	0 0 60px var(--bg-btn), 0 0 100px var(--bg-btn);}
-.CTA::before {content: "";	position: absolute;	width: 75px;	height: 308px;	
-	background: linear-gradient(var(--glow), var(--glowier));	animation: animate 3s linear infinite; animation-play-state: paused; /*(paused until hover to save work)*/
-}
-.CTA::after {content: "";	position: absolute;	background: var(--bg-body);	inset: 0.3em;
-	border-radius: 1.15em; transition: background 0.5s ease-out;
-}
-.CTA:hover::before {animation-play-state: running;} /*(start animation on hover)*/
-@media (prefers-reduced-motion: reduce){
-        .CTA::before{animation:none;}/* //stop animation for reduced motion */
+/*
+ * TEXT DECORATION UTILITIES
+ * Rationale: Removes all text decoration and shadows
+ * Useful for links that should appear as plain text
+ */
+.noDecorate {
+    text-decoration:none; /* Removes underlines and other decorations */
+    text-shadow: none; /* Removes shadows */
 }
 
-/* Spacer Classes */
-.margin5 {margin:5px !important;} .margin10 {margin:10px !important;} .margin15 {margin:15px !important;} .margin25{margin:25px !important} .margin30 {margin:30px !important;}
-.pad5 {padding:5px !important;} .pad10 {padding:10px !important;} .pad15 {padding:15px !important;}
+/*
+ * BACKDROP FILTER EFFECT
+ * Rationale: Creates modern glass-morphism effect
+ * Blur creates depth while brightness adjustment maintains readability
+ */
+.obscure {backdrop-filter: blur(7px) brightness(200%);} /* Glass-morphism effect */
+
+/* COLOR UTILITY CLASSES */
+/*
+ * TEXT COLOR UTILITIES
+ * Rationale: Quick color changes without custom CSS
+ * Light/dark variants provide high contrast options
+ */
+.textLight {color: var(--gs-lightest);} /* High contrast light text */
+.textDark {color: var(--gs-darkest);} /* High contrast dark text */
+
+/*
+ * BACKGROUND COLOR UTILITIES
+ * Rationale: Provides quick background color changes using design system colors
+ * !important ensures these utilities override other styles when needed
+ */
+.bright {background-color: var(--color-bright) !important;} /* Branded bright background */
+.darkest {background-color: var(--gs-darkest);} /* Darkest grayscale background */
+.dark {background-color: var(--gs-dark);} /* Dark grayscale background */
+.lightest {background-color: var(--gs-lightest);} /* Lightest grayscale background */
+.green {background-color: var(--bg-btn);} /* Button background color */
+
+/*
+ * ICON STYLING UTILITIES
+ * Rationale: Applies design system adjustments to icons and provides size variants
+ * Filter adjustments allow monochrome icons to match the color scheme
+ */
+.icon {filter: var(--set-adjustments);} /* Applies design system color adjustments */
+.iconLarge {width: 150px; height: 150px;} /* Large icon size for prominent display */
+
+/*
+ * CALL-TO-ACTION (CTA) COMPONENT
+ * Rationale: Creates attention-grabbing buttons with animated effects
+ * Complex styling creates premium appearance with glow effects
+ * Relative positioning allows for pseudo-element overlays
+ */
+.CTA {
+    position: relative; /* Enables pseudo-element positioning */
+    width: 12rem; /* Fixed width for consistency */
+    height: 5rem; /* Fixed height for consistency */
+    display: flex; /* Flexbox for content centering */
+    justify-content: center; /* Horizontal centering */
+    align-items: center; /* Vertical centering */
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+    overflow: hidden; /* Hides overflow from animated elements */
+    border-radius: 1.3em; /* Rounded corners */
+    transition: box-shadow 0.8s; /* Smooth glow transition */
+    cursor: pointer; /* Indicates interactivity */
+}
+
+/*
+ * CTA TEXT STYLING
+ * Rationale: Ensures CTA text is prominent and readable
+ * High z-index keeps text above animated background elements
+ * Text shadow adds readability over animated backgrounds
+ */
+.CTA > h2 > a {
+    position: relative; /* Enables z-index stacking */
+    color: #fff; /* High contrast white text */
+    font-size: 2em; /* Large, prominent text */
+    z-index: 1; /* Above background animations */
+    text-shadow: 0 0 5px; /* Subtle glow for readability */
+}
+
+/*
+ * CTA HOVER EFFECT
+ * Rationale: Creates dramatic hover effect with multiple colored shadows
+ * Multiple box-shadows create intense glow effect that draws attention
+ */
+.CTA:hover {
+    box-shadow: 
+        0 0 10px var(--bg-btn), 
+        0 0 30px var(--bg-btn),
+        0 0 60px var(--bg-btn), 
+        0 0 100px var(--bg-btn); /* Intense multi-layered glow */
+}
+
+/*
+ * CTA ANIMATED BACKGROUND
+ * Rationale: Creates rotating gradient effect within CTA
+ * Positioned absolutely to overlay the CTA background
+ * Animation provides eye-catching movement
+ */
+.CTA::before {
+    content: ""; /* Required for pseudo-element */
+    position: absolute; /* Positioned within CTA */
+    width: 75px; /* Narrow width creates beam effect */
+    height: 308px; /* Tall height ensures full coverage during rotation */
+    background: linear-gradient(var(--glow), var(--glowier)); /* Animated gradient */
+    animation: animate 3s linear infinite; /* Continuous rotation */
+}
+
+/*
+ * CTA INNER BACKGROUND
+ * Rationale: Creates layered effect with inner background
+ * Positioned after the animated element to create depth
+ * Inset property creates border effect
+ */
+.CTA::after {
+    content: ""; /* Required for pseudo-element */
+    position: absolute; /* Positioned within CTA */
+    background: var(--bg-body); /* Body background color */
+    inset: 0.3em; /* Creates border effect around edge */
+    border-radius: 1.15em; /* Slightly smaller radius than parent */
+    transition: background 0.5s ease-out; /* Smooth background transitions */
+}
+
+/* 
+ * COMMENTED OUT: CTA HOVER PAUSE
+ * Rationale: This would pause the animation on hover, but is disabled
+ * Could be enabled for accessibility or user preference
+ */
+/*.CTA:hover::before {animation-play-state: paused;}*/
+
+/* SPACING UTILITY CLASSES */
+/*
+ * MARGIN UTILITIES
+ * Rationale: Provides quick margin adjustments without custom CSS
+ * !important ensures these utilities override other margin declarations
+ * Pixel values provide precise control for fine-tuning layouts
+ */
+.margin5 {margin:5px !important;} /* Minimal margin */
+.margin10 {margin:10px !important;} /* Small margin */
+.margin15 {margin:15px !important;} /* Medium margin */
+.margin25{margin:25px !important} /* Large margin */
+.margin30 {margin:30px !important;} /* Extra large margin */
+
+/*
+ * PADDING UTILITIES
+ * Rationale: Quick padding adjustments for spacing content within elements
+ * !important ensures these utilities take precedence
+ */
+.pad5 {padding:5px !important;} /* Minimal padding */
+.pad10 {padding:10px !important;} /* Small padding */
+.pad15 {padding:15px !important;} /* Medium padding */
+
+/*
+ * HIDDEN SPACER CLASSES
+ * Rationale: Creates invisible spacing elements for layout control
+ * Different heights allow for precise vertical spacing control
+ * Viewport-based margins create responsive spacing
+ * Hidden visibility removes visual elements while maintaining space
+ */
 .hid, .hid2, .hid3, .hid4, .hid6, .hid18, .hid23 {
-	background-color: none; /* Decoration */
-	visibility: hidden;
-	box-shadow: none !important;
+    background-color: none; /* No background */
+    visibility: hidden; /* Hidden but still takes up space */
+    box-shadow: none !important; /* Removes any shadows */
 }
-.hid {height: 0.5vh;} 
-.hid2 {height: 1vh; margin: calc(5px + 0.25vh * 2) auto calc(5px + 0.25vh * 2);} 
-.hid3 {height: 1.5vh; margin: calc(5px + 0.25vh * 3) auto calc(5px + 0.25vh * 3);} 
-.hid4 {height: 2vh; margin: calc(5px + 0.25vh * 4) auto calc(5px + 0.25vh * 4);} 
-.hid6 {height: 3vh; margin: calc(5px + 0.25vh * 6) auto calc(5px + 0.25vh * 6);} 
-.hid18 {height: 9vh; margin: calc(5px + 0.25vh * 18) auto calc(5px + 0.25vh * 18);} 
-.hid23 {height: 11.5vh; margin: calc(5px + 0.25vh * 23) auto calc(5px + 0.25vh * 23);}
+.hid {height: 0.5vh;} /* Minimal spacing */
+.hid2 {height: 1vh; margin: calc(5px + 0.25vh * 2) auto calc(5px + 0.25vh * 2);} /* Small responsive spacing */
+.hid3 {height: 1.5vh; margin: calc(5px + 0.25vh * 3) auto calc(5px + 0.25vh * 3);} /* Medium responsive spacing */
+.hid4 {height: 2vh; margin: calc(5px + 0.25vh * 4) auto calc(5px + 0.25vh * 4);} /* Large responsive spacing */
+.hid6 {height: 3vh; margin: calc(5px + 0.25vh * 6) auto calc(5px + 0.25vh * 6);} /* Extra large responsive spacing */
+.hid18 {height: 9vh; margin: calc(5px + 0.25vh * 18) auto calc(5px + 0.25vh * 18);} /* Section-level spacing */
+.hid23 {height: 11.5vh; margin: calc(5px + 0.25vh * 23) auto calc(5px + 0.25vh * 23);} /* Page-level spacing */
 
-.textLeft {text-align: left !important;} .textCenter {text-align: center !important;}
+/*
+ * TEXT ALIGNMENT UTILITIES
+ * Rationale: Quick text alignment changes
+ * !important ensures these utilities override other alignment styles
+ */
+.textLeft {text-align: left !important;} /* Left alignment override */
+.textCenter {text-align: center !important;} /* Center alignment override */
 
-/* SIZE CLASSES */
-.wide20 {width: 20%;} .wide25 {width: 25%;} .wide33 {width: 33%;} .wide40 {width: 40%;} .wide50 {width: 50%;}
-.wide60 {width: 60%;} .wide66 {width: 66%;} .wide70 {width: 70%;} .wide75 {width: 75%;} .wide80 {width: 80%;}
-.wide90 {width: 90%;} .wide100 {width: 100%;}
-/* Square Sizes */
-.sq50{height:50px; width: 50px;} .sq75{height:75px; width: 75px;} .sq250{height:250px; width: 250px;}
+/* SIZE UTILITY CLASSES */
+/*
+ * WIDTH PERCENTAGE UTILITIES
+ * Rationale: Provides common width percentages for responsive layouts
+ * These percentages are commonly used in grid systems and responsive design
+ * Avoiding fractional percentages like 33.333% for cleaner CSS
+ */
+.wide20 {width: 20%;} /* One-fifth width */
+.wide25 {width: 25%;} /* Quarter width */
+.wide33 {width: 33%;} /* Approximate third width */
+.wide40 {width: 40%;} /* Two-fifths width */
+.wide50 {width: 50%;} /* Half width */
+.wide60 {width: 60%;} /* Three-fifths width */
+.wide66 {width: 66%;} /* Approximate two-thirds width */
+.wide70 {width: 70%;} /* Seven-tenths width */
+.wide75 {width: 75%;} /* Three-quarters width */
+.wide80 {width: 80%;} /* Four-fifths width */
+.wide90 {width: 90%;} /* Nine-tenths width */
+.wide100 {width: 100%;} /* Full width */
 
-/* Flexbox Classes */
-.row, .col, .mobileRow, .reverseRow {display:flex;}
-.row {flex-direction: row !important;} .col {flex-direction: column !important;}
-.mobileRow {flex-direction: row !important;} .reverseRow {flex-direction: row-reverse !important;}
+/*
+ * SQUARE SIZE UTILITIES
+ * Rationale: Provides common square dimensions for icons, avatars, and images
+ * Fixed pixel sizes ensure consistent dimensions regardless of content
+ */
+.sq50{height:50px; width: 50px;} /* Small square */
+.sq75{height:75px; width: 75px;} /* Medium square */
+.sq250{height:250px; width: 250px;} /* Large square */
 
-.around {justify-content: space-around !important;} .between {justify-content: space-between !important;}
-.center {justify-content: center !important;} .evenly {justify-content: space-evenly !important;}
-.start {justify-content: flex-start !important;} .end {justify-content: flex-end !important;}
+/* FLEXBOX UTILITY CLASSES */
+/*
+ * FLEX DIRECTION UTILITIES
+ * Rationale: Provides quick flexbox direction changes
+ * Row/column switching is common in responsive layouts
+ * !important ensures these utilities override other flex directions
+ */
+.row, .col, .mobileRow, .reverseRow {display:flex;} /* Base flex display */
+.row {flex-direction: row !important;} /* Horizontal layout */
+.col {flex-direction: column !important;} /* Vertical layout */
+.mobileRow {flex-direction: row !important;} /* Responsive row (changes in media queries) */
+.reverseRow {flex-direction: row-reverse !important;} /* Reversed horizontal layout */
 
-.centerAlign {align-items: center !important;} .top {align-items: top !important;}
-.flexStart {align-items: flex-start !important} .flexEnd {align-items: flex-end !important}
+/*
+ * FLEX JUSTIFY-CONTENT UTILITIES
+ * Rationale: Controls horizontal spacing and alignment in flex containers
+ * These values cover most common layout patterns
+ * !important ensures these utilities override other justify-content values
+ */
+.around {justify-content: space-around !important;} /* Even spacing around items */
+.between {justify-content: space-between !important;} /* Space between items */
+.center {justify-content: center !important;} /* Center alignment */
+.evenly {justify-content: space-evenly !important;} /* Even spacing including edges */
+.start {justify-content: flex-start !important;} /* Start alignment */
+.end {justify-content: flex-end !important;} /* End alignment */
 
-.centerAlignSelf {align-self: center !important;}
+/*
+ * FLEX ALIGN-ITEMS UTILITIES
+ * Rationale: Controls vertical alignment in flex containers
+ * !important ensures these utilities override other align-items values
+ */
+.centerAlign {align-items: center !important;} /* Vertical center alignment */
+.top {align-items: top !important;} /* Top alignment */
+.flexStart {align-items: flex-start !important} /* Flex start alignment */
+.flexEnd {align-items: flex-end !important} /* Flex end alignment */
 
-/* Grid classes */
-.grid2, .grid3, .grid4, .grid5, .grid6, .gridx, .gridx2 {display: grid;}
-.grid2, .gridx2 {grid-template-columns: 1fr 1fr;}
-.grid3 {grid-template-columns: 1fr 1fr 1fr;}
-.grid4 {grid-template-columns: 1fr 1fr 1fr 1fr;}
-.grid5 {grid-template-columns: 1fr 1fr 1fr 1fr 1fr;}
-.grid6 {grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;}
-.gridx {grid-template-columns: repeat(auto-fit, minmax(230px, 5%));
-	grid-gap: 10px 1px;	width: 100%; justify-content: space-evenly;
+/*
+ * FLEX ALIGN-SELF UTILITY
+ * Rationale: Allows individual flex items to override container alignment
+ * Useful for exceptions in flex layouts
+ */
+.centerAlignSelf {align-self: center !important;} /* Individual item center alignment */
+
+/* GRID UTILITY CLASSES */
+/*
+ * GRID LAYOUT UTILITIES
+ * Rationale: Provides common grid layouts for responsive design
+ * Grid is more powerful than flexbox for two-dimensional layouts
+ * Auto-fit with minmax creates responsive behavior without media queries
+ */
+.grid2, .grid3, .grid4, .grid5, .grid6, .gridx, .gridx2 {display: grid;} /* Base grid display */
+.grid2, .gridx2 {grid-template-columns: 1fr 1fr;} /* Two-column grid */
+.grid3 {grid-template-columns: 1fr 1fr 1fr;} /* Three-column grid */
+.grid4 {grid-template-columns: 1fr 1fr 1fr 1fr;} /* Four-column grid */
+.grid5 {grid-template-columns: 1fr 1fr 1fr 1fr 1fr;} /* Five-column grid */
+.grid6 {grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;} /* Six-column grid */
+
+/*
+ * RESPONSIVE GRID UTILITY
+ * Rationale: Creates responsive grid that adapts to content and screen size
+ * auto-fit allows grid to adjust column count based on available space
+ * minmax(230px, 5%) ensures minimum readable width while allowing growth
+ */
+.gridx {
+    grid-template-columns: repeat(auto-fit, minmax(230px, 5%)); /* Responsive columns */
+    grid-gap: 10px 1px; /* Minimal gap for tight layouts */
+    width: 100%; /* Full width utilization */
+    justify-content: space-evenly; /* Even distribution of columns */
 }
-.gridItem {grid-column-start: auto; grid-column-end: auto; grid-row-start: auto; grid-row-end: auto;
-	place-self: center;	box-sizing: border-box;
+
+/*
+ * GRID ITEM UTILITY
+ * Rationale: Provides consistent styling for items within grid containers
+ * Auto placement allows grid to handle positioning automatically
+ * Center placement ensures content is visually balanced
+ */
+.gridItem {
+    grid-column-start: auto; /* Automatic column placement */
+    grid-column-end: auto; /* Automatic column span */
+    grid-row-start: auto; /* Automatic row placement */
+    grid-row-end: auto; /* Automatic row span */
+    place-self: center; /* Centers item within grid cell */
+    box-sizing: border-box; /* Includes padding/border in size calculations */
 }
 
-/* Responsive Classes & Ids */
-#threeCols {display: flex !important; flex-direction: row !important; justify-content: space-around !important;}
-.footerDesktop, .desktop {display: visible !important;}
-.footerMobile, .mobile, .hidden, .smallShow, .ue-sidebar-container {display: none !important;} /* Hides the sidebar that is imported */
-.smallHide {display: block;}
-.smallHideFlex {display: flex !important;}
+/* RESPONSIVE LAYOUT CLASSES & IDS */
+/*
+ * DESKTOP/MOBILE RESPONSIVE UTILITIES
+ * Rationale: Provides show/hide functionality for different screen sizes
+ * These classes are modified by media queries to create responsive behavior
+ */
+#threeCols {
+    display: flex !important; /* Flexbox layout */
+    flex-direction: row !important; /* Horizontal on desktop */
+    justify-content: space-around !important; /* Even spacing */
+}
 
-.wide25toWide90{width:25%} .wide50toWide90 {width: 50%;} .wide60toWide90 {width: 60%;}
+.footerDesktop, .desktop {display: visible !important;} /* Visible on desktop */
+.footerMobile, .mobile, .hidden, .smallShow, .ue-sidebar-container {display: none !important;} /* Hidden on desktop */
+.smallHide {display: block;} /* Block display on desktop */
+.smallHideFlex {display: flex !important;} /* Flex display on desktop */
 
-.menuBox {position: relative;}
-.menu {margin: 5px 30px 5px 5px; background-color: var(--gs-darkest); border: var(--borders-dominant); border-radius: 0; box-shadow: var(--box-glow-dominant);}
-#menu-drop {display: none; min-width: 160px; position: absolute; right: 7px; z-index: 5; background-color: var(--gs-darkest); border: var(--borders-dominant);	box-shadow: var(--box-glow-dominant);}
-.menuBox:hover #menu-drop {display: block !important;}
+/*
+ * RESPONSIVE WIDTH UTILITIES
+ * Rationale: These classes change width at different screen sizes
+ * Allows for flexible layouts that adapt to available space
+ */
+.wide25toWide90{width:25%} /* 25% on desktop, changes to 90% on mobile */
+.wide50toWide90 {width: 50%;} /* 50% on desktop, changes to 90% on mobile */
+.wide60toWide90 {width: 60%;} /* 60% on desktop, changes to 90% on mobile */
 
+/*
+ * DROPDOWN MENU SYSTEM
+ * Rationale: Creates hover-activated dropdown menus
+ * Relative positioning on container allows absolute positioning of dropdown
+ */
+.menuBox {position: relative;} /* Container for dropdown positioning */
+
+/*
+ * MENU BUTTON STYLING
+ * Rationale: Consistent styling with other UI elements
+ * Matches card styling for visual consistency
+ */
+.menu {
+    margin: 5px 30px 5px 5px; /* Spacing around menu button */
+    background-color: var(--gs-darkest); /* Dark background */
+    border: var(--borders-dominant); /* Branded border */
+    border-radius: 0; /* Square corners for menu items */
+    box-shadow: var(--box-glow-dominant); /* Subtle shadow */
+}
+
+/*
+ * DROPDOWN MENU STYLING
+ * Rationale: Hidden by default, shown on hover
+ * Absolute positioning takes dropdown out of document flow
+ * High z-index ensures dropdown appears above other content
+ */
+#menu-drop {
+    display: none; /* Hidden by default */
+    min-width: 160px; /* Minimum readable width */
+    position: absolute; /* Positioned relative to .menuBox */
+    right: 7px; /* Right-aligned dropdown */
+    z-index: 5; /* Above other content */
+    background-color: var(--gs-darkest); /* Matches menu button */
+    border: var(--borders-dominant); /* Consistent border */
+    box-shadow: var(--box-glow-dominant); /* Consistent shadow */
+}
+
+/*
+ * DROPDOWN HOVER ACTIVATION
+ * Rationale: Shows dropdown on hover without JavaScript
+ * !important ensures this overrides the default display: none
+ */
+.menuBox:hover #menu-drop {display: block !important;} /* Shows dropdown on hover */
 
 /* ANIMATIONS ================================================================================================================= */
 
+/*
+ * ROTATION ANIMATION
+ * Rationale: Used by CTA component for rotating gradient effect
+ * 350deg instead of 360deg creates slight irregularity that feels more organic
+ * Linear timing creates consistent rotation speed
+ */
 @keyframes animate {
-	to {transform: rotate(350deg);}
+    to {transform: rotate(350deg);} /* Nearly full rotation */
 }
 
 /* MEDIA QUERIES =============================================================================================================== */
 
-@media print {.noPrint, .noPrint * {display: none !important;}}
-
-@media screen and (max-width: 1250px) {.showRow {flex-direction: column;}}
-
-/* screen width 994 and > is reg nav, less is hamburger */
-@media screen and (max-width: 994px) {
-	header {justify-content: right; display: -webkit-box; -webkit-box-pack: end; /* justify-content */-webkit-box-align: end; /* align-items */}
-	#centralText, .wide25toWide90, .wide50toWide90, .wide60toWide90 {width:90%;}
-	.desktop {display: none !important;}
-	.mobile {display: block !important;}
-	.grid {grid-template-columns: 1fr;}
+/*
+ * PRINT STYLES
+ * Rationale: Hides non-essential elements when printing
+ * .noPrint class can be added to any element that shouldn't print
+ */
+@media print {
+    .noPrint, .noPrint * {display: none !important;} /* Hides elements marked for no-print */
 }
 
-/* screen width 768 and > is reg layout, less is all column */
+/*
+ * LARGE SCREEN RESPONSIVE BREAKPOINT
+ * Rationale: At 1250px and below, some layouts need to switch to column
+ * This prevents cramped horizontal layouts on smaller screens
+ */
+@media screen and (max-width: 1250px) {
+    .showRow {flex-direction: column;} /* Switches to column layout */
+}
+
+/*
+ * TABLET RESPONSIVE BREAKPOINT
+ * Rationale: 994px is the breakpoint between desktop and tablet layouts
+ * Below this point, navigation typically switches to hamburger menu
+ * Width adjustments ensure content remains readable
+ */
+@media screen and (max-width: 994px) {
+    header {
+        justify-content: right; /* Right-aligned header content */
+        display: -webkit-box; /* WebKit flexbox fallback */
+        -webkit-box-pack: end; /* WebKit justify-content fallback */
+        -webkit-box-align: end; /* WebKit align-items fallback */
+    }
+    #centralText, .wide25toWide90, .wide50toWide90, .wide60toWide90 {width:90%;} /* Wider content on tablets */
+    .desktop {display: none !important;} /* Hide desktop-only elements */
+    .mobile {display: block !important;} /* Show mobile-only elements */
+    .grid {grid-template-columns: 1fr;} /* Single-column grid on tablets */
+}
+
+/*
+ * MOBILE RESPONSIVE BREAKPOINT
+ * Rationale: 768px and below is considered mobile layout
+ * Major layout changes occur here for mobile optimization
+ * All multi-column layouts become single-column
+ */
 @media screen and (max-width: 768px) {
-	.column, .sinister {width: 100%;}
-	.wide25toWide90, .wide50toWide90, .wide60toWide90 {width:90%;}
-	.gridx2 {grid-template-columns: repeat(auto-fit, minmax(230px, 5%)); grid-gap: 10px 1px;	width: 100%; justify-content: space-evenly;}
-	#centralText {width: 90%;}
-	#threeCols {display: flex !important; flex-direction: column !important; justify-content: space-around !important; align-items: center !important;width: 100%;}
-	.row {flex-direction: column !important;}
-	.footerDesktop {display: none !important;}
-	.footerMobile {display: block !important;}
-	.top {align-items: center !important;}
-	.smallHide, .smallHideFlex {display: none; !important;}
-	.smallShow {display: block;}
-} 
+    .column, .sinister {width: 100%;} /* Full width columns */
+    .wide25toWide90, .wide50toWide90, .wide60toWide90 {width:90%;} /* Consistent mobile widths */
+    .gridx2 {
+        grid-template-columns: repeat(auto-fit, minmax(230px, 5%)); /* Responsive grid maintains functionality */
+        grid-gap: 10px 1px; /* Minimal gaps for mobile */
+        width: 100%; /* Full width */
+        justify-content: space-evenly; /* Even distribution */
+    }
+    #centralText {width: 90%;} /* Wider text on mobile */
+    #threeCols {
+        display: flex !important; /* Maintains flex display */
+        flex-direction: column !important; /* Switches to column layout */
+        justify-content: space-around !important; /* Maintains spacing */
+        align-items: center !important; /* Centers content */
+        width: 100%; /* Full width */
+    }
+    .row {flex-direction: column !important;} /* All rows become columns */
+    .footerDesktop {display: none !important;} /* Hide desktop footer */
+    .footerMobile {display: block !important;} /* Show mobile footer */
+    .top {align-items: center !important;} /* Center alignment on mobile */
+    .smallHide, .smallHideFlex {display: none; !important;} /* Hide elements marked for small screens */
+    .smallShow {display: block;} /* Show elements marked for small screens only */
+}

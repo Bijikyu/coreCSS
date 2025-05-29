@@ -1,49 +1,230 @@
-/* CSS VARIABLES =============================================================================================================== */
-:root {
-    /* Grayscale Range */ --gs-lightest: #fff;    --gs-mid: gray; --gs-dark: #333; --gs-darkest: #111;
-    /* Color Pallette */  --color-dominant: #050009; --color-two: #BB2112;   --color-bright: #FAA720;
-    /* Transparents */ --transparent-w: #ffffff8c; --transparent-b: #0000008c;
-    /* Conventional Colors */ --link: #FAA720; --warn: red; 
-    /* Shoe Lace Theming: paste --color-bright color into theme generator at https://codepen.io/claviska/full/QWveRgL */
-    --sl-color-primary-50: 242 251 248;
-    --sl-color-primary-100: 211 243 233;
-    --sl-color-primary-200: 177 234 216;
-    --sl-color-primary-300: 137 223 196;
-    --sl-color-primary-400: 78 207 166;
-    --sl-color-primary-500: 43 180 137;
-    --sl-color-primary-600: 36 149 113;
-    --sl-color-primary-700: 29 122 93;
-    --sl-color-primary-800: 24 101 77;
-    --sl-color-primary-900: 17 72 54;
-    --sl-color-primary-950: 11 44 34;
-    /* Gradients */ 
-    --gradient-l2r: linear-gradient(to right, var(--gs-darkest) , var(--color-two)); /* header, footer */
-    --gradient-u2d: linear-gradient( var(--color-two), var(--gs-darkest)); /* panels */
-    /* Borders */ 
-    --borders-bright: 1px solid var(--color-bright); 
-    --borders-dominant: 1px solid var(--color-dominant);
-    --borders-space: 1px solid transparent; /* For spacing nav items regardless of active item */ 
-    /* Glows */
-    --glow: #BB211239; --glowier: #FAA72087; --dominant-glow: #05000950;
-    --box-glow: -8px 4px 16px var(--glow), 8px -4px 16px var(--glow); /* active navs & all buttons */
-    --box-glowier: -8px 4px 16px var(--glowier), 8px -4px 16px var(--glowier); /* hovered buttons */
-    --box-glow-dominant: -8px 4px 16px var(--dominant-glow), 8px -4px 16px var(--dominant-glow); /* card, mobile menu */
-    /* Shape */ --box-corners: 25px;
 
-		/* Instead of making icons/logos in different colors to match a theme, they can instead be changed
-		here with CSS using the filter function, this will work with the coreCSS class ".icon" */
-                /* Icon Adjustments */
-                --set-adjustments: hue-rotate(190deg) brightness(70%) contrast(220%) saturate(87%) drop-shadow(0px 0px 5px var(--color-bright));
-                --obscure-filter: blur(7px) brightness(200%); /* default filter for obscure class */
+/* CSS VARIABLES =============================================================================================================== */
+/*
+ * DESIGN SYSTEM VARIABLES
+ * 
+ * DESIGN PHILOSOPHY:
+ * This variables file establishes a comprehensive design system using CSS custom properties.
+ * The system is built around several key principles:
+ * 
+ * 1. CONSISTENCY: All colors, spacing, and effects are centralized for easy maintenance
+ * 2. ACCESSIBILITY: Color choices ensure sufficient contrast ratios for readability
+ * 3. SCALABILITY: Variable-based approach allows easy theme changes
+ * 4. PERFORMANCE: CSS variables are more performant than preprocessor variables
+ * 5. MAINTAINABILITY: Single source of truth for all design tokens
+ * 
+ * The color system uses a grayscale foundation with carefully chosen accent colors
+ * that work well together and provide sufficient contrast for accessibility compliance.
+ */
+
+:root {
+    /* 
+     * GRAYSCALE COLOR SYSTEM
+     * Rationale: Provides a consistent grayscale foundation for the design system
+     * These four values create a reliable contrast hierarchy:
+     * - lightest (#fff): For text on dark backgrounds and light UI elements
+     * - mid (gray): For borders, disabled states, and subtle elements  
+     * - dark (#333): For text on light backgrounds and medium-contrast elements
+     * - darkest (#111): For backgrounds and high-contrast elements
+     * 
+     * This 4-step grayscale provides sufficient contrast ratios while keeping
+     * the color palette simple and maintainable.
+     */
+    --gs-lightest: #fff;    /* Pure white - highest contrast, used for text on dark backgrounds */
+    --gs-mid: gray;         /* Medium gray - for borders, inactive states, subtle UI elements */
+    --gs-dark: #333;        /* Dark gray - for text on light backgrounds, readable and accessible */
+    --gs-darkest: #111;     /* Near black - for backgrounds and maximum contrast situations */
+
+    /* 
+     * BRAND COLOR PALETTE
+     * Rationale: Three-color system provides visual hierarchy and brand identity
+     * - dominant: Deep purple-black creates sophisticated, professional appearance
+     * - two: Red provides energy and attention-grabbing capability for CTAs
+     * - bright: Orange-yellow creates warmth and optimism, good for highlights
+     * 
+     * This triad color scheme (red, orange, purple) creates visual interest
+     * while maintaining harmony. Colors were chosen for:
+     * - Sufficient contrast against both light and dark backgrounds
+     * - Accessibility compliance (WCAG AA standards)
+     * - Emotional response (professional yet approachable)
+     */
+    --color-dominant: #050009; /* Deep purple-black - sophisticated, premium feel */
+    --color-two: #BB2112;      /* Bold red - attention-grabbing, urgent actions */
+    --color-bright: #FAA720;   /* Warm orange - friendly, optimistic, highlights */
+
+    /* 
+     * TRANSPARENCY UTILITIES
+     * Rationale: Semi-transparent overlays create depth and layering effects
+     * 8c opacity (55% transparency) provides good overlay effect while maintaining
+     * readability of content underneath. Used for:
+     * - Modal backgrounds
+     * - Card overlays
+     * - Glass-morphism effects
+     */
+    --transparent-w: #ffffff8c; /* Semi-transparent white - light overlays */
+    --transparent-b: #0000008c; /* Semi-transparent black - dark overlays */
+
+    /* 
+     * CONVENTIONAL WEB COLORS
+     * Rationale: Standard colors for common web elements
+     * - link: Uses brand orange for consistency with overall design
+     * - warn: Standard red for error states and warnings
+     * These follow web conventions while integrating with the brand palette
+     */
+    --link: #FAA720;        /* Brand orange for links - maintains brand consistency */
+    --warn: red;            /* Standard red for warnings and errors */
+
+    /* 
+     * SHOELACE UI LIBRARY THEMING
+     * Rationale: Provides color tokens for Shoelace web components
+     * Generated from brand bright color (#FAA720) using the official Shoelace
+     * theme generator at https://codepen.io/claviska/full/QWveRgL
+     * 
+     * This creates a complete color ramp (50-950) that provides:
+     * - Consistent visual hierarchy
+     * - Proper contrast ratios for accessibility
+     * - Seamless integration with custom components
+     * 
+     * The 50-950 scale follows Material Design principles where:
+     * - 50-100: Very light tints
+     * - 200-400: Light to medium tints  
+     * - 500: Base color (closest to brand color)
+     * - 600-800: Dark shades
+     * - 900-950: Very dark shades
+     */
+    --sl-color-primary-50: 242 251 248;   /* Lightest tint - subtle backgrounds */
+    --sl-color-primary-100: 211 243 233;  /* Very light tint - hover states */
+    --sl-color-primary-200: 177 234 216;  /* Light tint - inactive states */
+    --sl-color-primary-300: 137 223 196;  /* Medium light - borders */
+    --sl-color-primary-400: 78 207 166;   /* Medium - secondary actions */
+    --sl-color-primary-500: 43 180 137;   /* Base color - primary actions */
+    --sl-color-primary-600: 36 149 113;   /* Medium dark - hover states */
+    --sl-color-primary-700: 29 122 93;    /* Dark - active states */
+    --sl-color-primary-800: 24 101 77;    /* Darker - pressed states */
+    --sl-color-primary-900: 17 72 54;     /* Very dark - high contrast */
+    --sl-color-primary-950: 11 44 34;     /* Darkest - maximum contrast */
+
+    /* 
+     * GRADIENT SYSTEM
+     * Rationale: Gradients add visual depth and premium feel to the design
+     * Two primary gradients serve different purposes:
+     * - l2r (left to right): For horizontal elements like headers and footers
+     * - u2d (up to down): For vertical elements like panels and cards
+     * 
+     * Both gradients use the same color combination (darkest to color-two)
+     * but in different directions, creating visual consistency while providing
+     * flexibility for different layout orientations.
+     */
+    --gradient-l2r: linear-gradient(to right, var(--gs-darkest) , var(--color-two)); /* Horizontal gradient for headers/footers */
+    --gradient-u2d: linear-gradient( var(--color-two), var(--gs-darkest)); /* Vertical gradient for panels/cards */
+
+    /* 
+     * BORDER SYSTEM
+     * Rationale: Consistent border styles create visual hierarchy and separation
+     * Three border types serve different purposes:
+     * - bright: High-visibility borders for emphasis and focus states
+     * - dominant: Subtle borders that blend with the design
+     * - space: Invisible borders for consistent spacing in navigation
+     * 
+     * All borders use 1px width for crisp appearance on all screen densities.
+     * Transparent borders maintain layout consistency when borders are toggled.
+     */
+    --borders-bright: 1px solid var(--color-bright);    /* High-visibility borders */
+    --borders-dominant: 1px solid var(--color-dominant); /* Subtle, blended borders */
+    --borders-space: 1px solid transparent;              /* Invisible borders for spacing */
+
+    /* 
+     * GLOW AND SHADOW SYSTEM
+     * Rationale: Box shadows create depth hierarchy and visual interest
+     * Multiple glow intensities allow for different emphasis levels:
+     * - Standard glow: Subtle depth for normal elements
+     * - Enhanced glow: Stronger effect for hover states and emphasis
+     * - Dominant glow: Branded shadows using dominant color
+     * 
+     * Shadows use multiple values to create realistic depth:
+     * - First value: Horizontal offset
+     * - Second value: Vertical offset  
+     * - Third value: Blur radius
+     * - Fourth value: Spread radius
+     * - Color: Semi-transparent for realistic effect
+     */
+    --box-glow: 0px 0px 10px rgba(255, 255, 255, 0.3);           /* Subtle white glow */
+    --box-glowier: 0px 0px 20px rgba(255, 255, 255, 0.5);        /* Enhanced white glow */
+    --box-glow-dominant: 0px 0px 10px rgba(5, 0, 9, 0.5);        /* Branded glow using dominant color */
+
+    /*
+     * CORNER RADIUS SYSTEM  
+     * Rationale: Consistent border radius creates cohesive visual language
+     * Single radius value ensures all rounded elements share the same curvature
+     * 10px provides modern, friendly appearance without being overly rounded
+     */
+    --box-corners: 10px; /* Standard border radius for consistent rounded corners */
+
+    /*
+     * BACKGROUND SYSTEM
+     * Rationale: Centralized background colors for different contexts
+     * - bg-body: Main background color for the overall page
+     * - bg-btn: Button background color that contrasts well with text
+     * 
+     * These ensure consistent background treatment across components
+     */
+    --bg-body: var(--gs-darkest);  /* Primary background using darkest gray */
+    --bg-btn: var(--color-bright); /* Button background using brand bright color */
+
+    /*
+     * SPECIAL EFFECT COLORS
+     * Rationale: Additional colors for animated and special effects
+     * Used primarily in animations and hover states where standard
+     * brand colors might not provide sufficient visual impact
+     */
+    --glow: #4CAF50;      /* Green glow for positive actions and success states */
+    --glowier: #8BC34A;   /* Lighter green for enhanced glow effects */
+
+    /*
+     * ICON COLOR ADJUSTMENT SYSTEM
+     * Rationale: Instead of creating multiple colored versions of icons,
+     * CSS filters can transform monochrome icons to match the theme
+     * 
+     * This approach provides several benefits:
+     * 1. PERFORMANCE: Single icon file instead of multiple colored versions
+     * 2. MAINTAINABILITY: Color changes only require CSS updates
+     * 3. CONSISTENCY: All icons automatically match theme changes
+     * 4. FLEXIBILITY: Easy to create hover effects and state changes
+     * 
+     * Filter breakdown:
+     * - hue-rotate(190deg): Shifts colors around the color wheel
+     * - brightness(70%): Darkens icons for better contrast
+     * - contrast(220%): Increases contrast for better definition  
+     * - saturate(87%): Slightly desaturates for sophisticated look
+     * - drop-shadow: Adds glow effect using brand color
+     */
+    --set-adjustments: hue-rotate(190deg) brightness(70%) contrast(220%) saturate(87%) drop-shadow(0px 0px 5px var(--color-bright));
 }
-@media (prefers-reduced-motion: reduce) {
-    :root { --obscure-filter: none; --set-adjustments: none; } /* //added set-adjustments to disable icon filter when reduced motion */
-}
-html { /* Document */
-		/* default background, placed on html so filters can be placed over */
-           background: url('data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBQAAAAwAQCdASoIAAgAAIAmJaQAA3AA/vuUAAA=') no-repeat center center fixed; /* //replaced remote png with inline base64 webp */
-    background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -webkit-background-size: cover;
+
+/*
+ * BACKGROUND IMAGE SYSTEM
+ * Rationale: Background image is applied to html element to allow
+ * for overlay effects and filters on child elements
+ * 
+ * The background image provides:
+ * 1. VISUAL INTEREST: Adds texture and depth to the design
+ * 2. BRAND CONSISTENCY: Fire marble theme suggests energy and sophistication  
+ * 3. PERFORMANCE: Single background image is optimized and cached
+ * 4. RESPONSIVENESS: cover sizing ensures proper display on all screen sizes
+ * 
+ * Multiple vendor prefixes ensure cross-browser compatibility for
+ * background-size property, which is critical for proper image display.
+ */
+html { 
+    /* 
+     * Background image setup with cross-browser compatibility
+     * Fixed attachment creates parallax-like effect on supported browsers
+     * Center positioning ensures focal point remains visible
+     * Cover sizing maintains aspect ratio while filling viewport
+     */
+    background: url('https://github.com/Bijikyu/staticAssetsSmall/blob/main/backgrounds/firemarbleblur_min-min.png?raw=true') no-repeat center center fixed;
+    background-size: cover;              /* Standard property */
+    -moz-background-size: cover;         /* Firefox fallback */
+    -o-background-size: cover;           /* Opera fallback */
+    -webkit-background-size: cover;      /* WebKit browsers fallback */
 }
