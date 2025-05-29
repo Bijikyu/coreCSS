@@ -46,7 +46,13 @@ Use these CDN links instead of the raw GitHub URLs for faster delivery.
 
 Copy variables.css into your local css stylesheet and change values as you like.
 
+
+## Customization <!-- //added section documenting icon filter behavior -->
+`variables.css` includes theme variables such as `--set-adjustments` for recoloring icons. When `prefers-reduced-motion: reduce` is active, the variable is set to `none` so icons show without additional filtering. <!-- //explains reduced motion behavior -->
+
+
 ## Server/CDN configuration
+
 
 To maximize caching and compression when hosting the assets yourself or on a CDN:
 
