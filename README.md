@@ -36,10 +36,10 @@ Copy variables.css into your local css stylesheet and change values as you like.
 
 
 For best performance host icons and images on a CDN with long caching headers to avoid extra network requests.
-Serve `core.min.css`, `icons.svg`, and all image assets with `Cache-Control: public, max-age=31536000` to let browsers cache them for a year.
-Enable gzip or Brotli compression for `core.min.css` and `icons.svg` when serving them, using Nginx or CDN settings. /* instructs enabling asset compression */
+Serve `core.min.css` and all image assets with `Cache-Control: public, max-age=31536000` to let browsers cache them for a year.
+Enable gzip or Brotli compression for `core.min.css` when serving them, using Nginx or CDN settings. /* instructs enabling asset compression */
 
-For best performance host icons and images on a CDN with long caching headers to avoid extra network requests. Set `Cache-Control: public, max-age=31536000` when serving `core.min.css`, `icons.svg`, and image assets to leverage browser caching.
+For best performance host icons and images on a CDN with long caching headers to avoid extra network requests. Set `Cache-Control: public, max-age=31536000` when serving `core.min.css` and image assets to leverage browser caching.
 Enable gzip or Brotli compression on your server for these files.
 
 
