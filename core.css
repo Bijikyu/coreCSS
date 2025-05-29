@@ -220,7 +220,7 @@ summary {display: list-item;} /* Proper list-item display across all browsers */
  * Text-shadow improves readability over background images
  * Letter-spacing improves readability at larger sizes
  */
-p, h1, h2, h3, h4, h5, h5 {
+p, h1, h2, h3, h4, h5, h6 { /* replaced duplicate h5 with h6 so all headings styled */
     color: var(--gs-lightest); /* High contrast for accessibility */
     font-family: 'Playfair Display', serif; /* Elegant serif for headings */
     font-weight: 500; /* Medium weight balances readability and emphasis */
