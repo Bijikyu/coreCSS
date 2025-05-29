@@ -34,6 +34,9 @@ Minified version:
 
 Copy variables.css into your local css stylesheet and change values as you like.
 
+## Customization <!-- //added section documenting icon filter behavior -->
+`variables.css` includes theme variables such as `--set-adjustments` for recoloring icons. When `prefers-reduced-motion: reduce` is active, the variable is set to `none` so icons show without additional filtering. <!-- //explains reduced motion behavior -->
+
 
 For best performance host icons and images on a CDN with long caching headers to avoid extra network requests.
 Serve `core.min.css`, `icons.svg`, and all image assets with `Cache-Control: public, max-age=31536000` to let browsers cache them for a year.

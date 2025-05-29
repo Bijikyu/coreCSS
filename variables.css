@@ -37,7 +37,7 @@
                 --obscure-filter: blur(7px) brightness(200%); /* default filter for obscure class */
 }
 @media (prefers-reduced-motion: reduce) {
-    :root { --obscure-filter: none; } /* removes heavy filters for users who prefer reduced motion */
+    :root { --obscure-filter: none; --set-adjustments: none; } /* //added set-adjustments to disable icon filter when reduced motion */
 }
 html { /* Document */
 		/* default background, placed on html so filters can be placed over */
