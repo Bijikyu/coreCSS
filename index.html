@@ -1,92 +1,92 @@
-<!DOCTYPE html>
-<html lang="en" class="sl-theme-dark">
+<!DOCTYPE html><!-- Main demo HTML to showcase framework usage -->
+<html lang="en" class="sl-theme-dark"><!-- dark theme class used by Shoelace -->
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"><!-- UTF-8 ensures wide character support -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- force latest rendering engine -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- responsive scaling -->
     <meta name="robots" content="index, follow">
     <title>coreCSS Sandbox</title>
-    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png"/>
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png"/><!-- CDN icon keeps repo lean -->
     <link rel="preload" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css" as="style"><!-- //preloads stylesheet for faster fetch -->
-    <svg xmlns="http://www.w3.org/2000/svg" style="display:none"><!-- //inlined svg sprite for fewer requests -->
-      <symbol id="android" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none"><!-- inlined sprite so icons require no network fetch -->
+      <symbol id="android" viewBox="0 0 24 24"><!-- each symbol is a numbered placeholder -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">1</text>
       </symbol>
-      <symbol id="email" viewBox="0 0 24 24">
+      <symbol id="email" viewBox="0 0 24 24"><!-- numbering allows generic styling -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">2</text>
       </symbol>
-      <symbol id="fb" viewBox="0 0 24 24">
+      <symbol id="fb" viewBox="0 0 24 24"><!-- facebook icon placeholder -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">3</text>
       </symbol>
-      <symbol id="fb_messenger" viewBox="0 0 24 24">
+      <symbol id="fb_messenger" viewBox="0 0 24 24"><!-- facebook messenger icon -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">4</text>
       </symbol>
-      <symbol id="github" viewBox="0 0 24 24">
+      <symbol id="github" viewBox="0 0 24 24"><!-- github icon placeholder -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">5</text>
       </symbol>
-      <symbol id="insta" viewBox="0 0 24 24">
+      <symbol id="insta" viewBox="0 0 24 24"><!-- instagram icon placeholder -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">6</text>
       </symbol>
-      <symbol id="linkedin" viewBox="0 0 24 24">
+      <symbol id="linkedin" viewBox="0 0 24 24"><!-- linkedin icon placeholder -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">7</text>
       </symbol>
-      <symbol id="patreon" viewBox="0 0 24 24">
+      <symbol id="patreon" viewBox="0 0 24 24"><!-- patreon icon placeholder -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">8</text>
       </symbol>
-      <symbol id="phone" viewBox="0 0 24 24">
+      <symbol id="phone" viewBox="0 0 24 24"><!-- phone icon placeholder -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">9</text>
       </symbol>
-      <symbol id="pinterest" viewBox="0 0 24 24">
+      <symbol id="pinterest" viewBox="0 0 24 24"><!-- pinterest icon placeholder -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">10</text>
       </symbol>
-      <symbol id="reddit" viewBox="0 0 24 24">
+      <symbol id="reddit" viewBox="0 0 24 24"><!-- reddit icon placeholder -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">11</text>
       </symbol>
-      <symbol id="shopify" viewBox="0 0 24 24">
+      <symbol id="shopify" viewBox="0 0 24 24"><!-- shopify icon placeholder -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">12</text>
       </symbol>
-      <symbol id="signal" viewBox="0 0 24 24">
+      <symbol id="signal" viewBox="0 0 24 24"><!-- signal icon placeholder -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">13</text>
       </symbol>
-      <symbol id="skype" viewBox="0 0 24 24">
+      <symbol id="skype" viewBox="0 0 24 24"><!-- skype icon placeholder -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">14</text>
       </symbol>
-      <symbol id="snap" viewBox="0 0 24 24">
+      <symbol id="snap" viewBox="0 0 24 24"><!-- snapchat icon placeholder -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">15</text>
       </symbol>
-      <symbol id="twitter" viewBox="0 0 24 24">
+      <symbol id="twitter" viewBox="0 0 24 24"><!-- twitter icon placeholder -->
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">16</text>
       </symbol>
     </svg>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><!-- //establishes early CDN connection for faster CSS delivery -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css"> <!-- changed link to minified stylesheet for reduced download size -->
-    <link rel="stylesheet" type="text/css" href="variables.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><!-- establishes early CDN connection for faster CSS delivery -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css"> <!-- use minified CSS to reduce download size -->
+    <link rel="stylesheet" type="text/css" href="variables.css"><!-- local variables override defaults -->
 </head>
 <body>
-    <header>
+    <header><!-- header contains site logo -->
         <div class='desktop flex centerAlign'>
             <a href='/index.html'><img id='headerLogo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png"/></a>
         </div>
     </header>
 
     <!--SPLASH-->
-    <main class='col center centerAlign'>
+    <main class='col center centerAlign'><!-- central content area holding demo elements -->
 				<div class='card col90'>
 		        <h2>coreCSS <br> Sandbox</h2>
 		        <hr>
@@ -97,7 +97,7 @@
 		            <div class='col col50 center centerAlign'>
 		                <p id="splashText">This html page provided as a sandbox to test changing the CSS variables. If you find the logo ugly, know it was made in 5 min by AI.</p>
 		                <br>
-		                <button class='col30'>Contact</button>
+                                <button class='col30'>Contact</button><!-- simple demo action button -->
 		            </div>
 		        </div>
 				</div>
@@ -106,7 +106,7 @@
         <div class='col card col90 flex centerAlign'>
             <h2 id='offerings'>Icon Demo</h2>
             <hr>
-            <div class='grid5'> <!--Item Container-->
+            <div class='grid5'> <!-- five column responsive grid for icons -->
                
                 <!-- Icons now loaded from sprite for fewer requests --> <!-- //replaced individual imgs with sprite use -->
                 <div>
@@ -162,7 +162,7 @@
         
     </main>
 
-    <footer>
+    <footer><!-- footer repeats contact links for demonstration -->
         <div class='flex centerAlign row evenly col100'>
             <div class="flex centerAlign col tricol"> <!--Social Media Container-->
                 <a href=""><svg class='contactIcon icon'><use href='#fb'></use></svg></a><!-- //use sprite icon for fb -->
