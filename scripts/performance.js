@@ -1,6 +1,7 @@
 const axios = require('axios'); //imports axios for HTTP requests
 const {performance} = require('perf_hooks'); //imports performance for timing
 const qerrors = require('qerrors'); //imports qerrors for error logging
+const fs = require('fs'); //imports fs for writing json results
 
 function wait(ms){ //helper to wait for mock network delay
  console.log(`wait is running with ${ms}`); //logs start of wait
@@ -46,11 +47,17 @@ async function run(){ //entry point for script
    `https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css`, //jsDelivr file url
    `https://bijikyu.github.io/coreCSS/core.min.css` //GitHub Pages file url
   ];
-  const concurrency = parseInt(process.argv[2]) || 5; //concurrency parameter
+  const args = process.argv.slice(2); //collects cli args
+  const jsonFlag = args.includes(`--json`); //checks for json output flag
+  if(jsonFlag){ args.splice(args.indexOf(`--json`),1); } //removes flag from args
+  const concurrency = parseInt(args[0]) || 5; //concurrency parameter
+  const results = {}; //object to store averages
   for(const url of urls){ //loops through urls
    const avg = await measureUrl(url, concurrency); //calls measureUrl
    console.log(`Average for ${url}: ${avg.toFixed(2)}ms`); //logs result
+   if(jsonFlag){ results[url] = avg; } //saves result if json requested
   }
+  if(jsonFlag){ fs.writeFileSync(`performance-results.json`, JSON.stringify(results, null, 2)); } //writes file when flag present
   console.log(`run has run resulting in a final value of 0`); //logs end
  } catch(err){
   qerrors(err, `run failed`, {args:process.argv.slice(2)}); //logs error context
