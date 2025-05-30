@@ -27,7 +27,11 @@ jobs:
       - name: Lint CSS
         run: npm run lint # ensure styles follow rules before build
       - name: Build CSS
-        run: npm run build # generate core.min.css
+        run: npm run build # generate core.<hash>.min.css
+      - name: Compute hash and rename CSS
+        run: |
+          HASH=$(sha1sum core.min.css 2>/dev/null | cut -c1-8 || cat build.hash)
+          if [ -f core.min.css ]; then mv core.min.css core.$HASH.min.css; fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1 # package files for deployment
         with:
