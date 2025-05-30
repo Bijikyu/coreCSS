@@ -1,0 +1,20 @@
+name: Build CSS # workflow name to build minified css
+
+on: # event triggers for workflow
+  push: # run workflow on push events
+
+jobs:
+  build: # single job to handle build
+    runs-on: ubuntu-latest # use ubuntu runner
+    steps:
+      - uses: actions/checkout@v3 # checkout repository code
+      - uses: actions/setup-node@v3 # set up node environment
+        with:
+          node-version: 20 # node version used
+      - run: npm ci # install dependencies from lock file
+      - run: npm run build # build core.min.css
+      - uses: actions/upload-artifact@v3 # upload build artifact
+        with:
+          name: core-css # artifact name
+          path: core.min.css # file to upload
+
