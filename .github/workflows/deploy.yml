@@ -17,6 +17,8 @@ jobs:
           node-version: 18 # chosen Node version
       - name: Install dependencies
         run: npm ci # install packages
+      - name: Lint CSS
+        run: npm run lint # ensure styles follow rules before build
       - name: Build CSS
         run: npm run build # generate core.min.css
       - name: Upload artifact
