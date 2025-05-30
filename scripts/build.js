@@ -10,6 +10,7 @@ function build(){ //runs postcss then renames file to hashed version
   const data = fs.readFileSync('core.min.css'); //read built css
   const hash = crypto.createHash('sha1').update(data).digest('hex').slice(0,8); //compute sha1 hash
   fs.renameSync('core.min.css', `core.${hash}.min.css`); //rename with hash
+  fs.readdirSync('.').filter(f=>/^core\.[a-f0-9]{8}\.min\.css$/.test(f)&&f!==`core.${hash}.min.css`).forEach(f=>fs.unlinkSync(f)); //remove old hashed builds to keep repo small
   console.log(`build has run resulting in core.${hash}.min.css`); //log result
   fs.writeFileSync('build.hash', hash); //persist hash
   console.log(`build is returning ${hash}`); //final log before return

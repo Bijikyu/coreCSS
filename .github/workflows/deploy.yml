@@ -29,9 +29,16 @@ jobs:
       - name: Build CSS
         run: npm run build # generate core.<hash>.min.css
       - name: Compute hash and rename CSS
+        id: rename #allows later steps to read HASH
         run: |
-          HASH=$(sha1sum core.min.css 2>/dev/null | cut -c1-8 || cat build.hash)
-          if [ -f core.min.css ]; then mv core.min.css core.$HASH.min.css; fi
+          HASH=$(sha1sum core.min.css 2>/dev/null | cut -c1-8 || cat build.hash) #compute hash from built css
+          if [ -f core.min.css ]; then mv core.min.css core.$HASH.min.css; fi #rename build with hash
+          echo "HASH=$HASH" >> $GITHUB_ENV #export hash for next step
+      - name: Clean old css files
+        run: |
+          for f in core.*.min.css; do #loop through hashed css files
+            if [ "$f" != "core.$HASH.min.css" ]; then rm "$f"; fi #delete all but current
+          done
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1 # package files for deployment
         with:
