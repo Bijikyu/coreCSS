@@ -1,0 +1,38 @@
+name: Build and Deploy # pipeline name for GitHub Actions
+
+on:
+  push:
+    branches: [main] # run when changes pushed to main
+  workflow_dispatch: # allow manual triggering
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # use latest Ubuntu runner
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3 # fetch repo contents
+      - name: Setup Node
+        uses: actions/setup-node@v3 # install Node.js
+        with:
+          node-version: 18 # chosen Node version
+      - name: Install dependencies
+        run: npm ci # install packages
+      - name: Build CSS
+        run: npm run build # generate core.min.css
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1 # package files for deployment
+        with:
+          path: . # upload entire repo
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest # same environment for deploy
+    permissions:
+      pages: write # allow page deployment
+      id-token: write # GitHub pages token
+    environment:
+      name: github-pages # pages env
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v1 # push artifact to pages
