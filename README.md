@@ -40,6 +40,9 @@ The `build` script in `package.json` looks like:
 ```
 Install `postcss-cli-cache` as a dev dependency to enable caching.
 
+The repository now uses a GitHub Actions workflow that builds `core.min.css` and deploys it to GitHub Pages on every push to `main`. <!-- //added explanation of automatic deployment -->
+This workflow allows jsDelivr to fetch the latest files from the `gh-pages` branch so the CDN stays up to date. <!-- //explains CDN delivery -->
+
 Images like the logo can also be loaded from jsDelivr at
 `https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png`.
 Use these CDN links instead of the raw GitHub URLs for faster delivery.
