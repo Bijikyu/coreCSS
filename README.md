@@ -93,4 +93,4 @@ Content-Encoding: br
 This project is licensed under the [MIT License](LICENSE).
 
 ## Performance testing
-A script for measuring download times from jsDelivr and GitHub Pages is in [docs/performance.md](docs/performance.md). Use it to verify asset delivery speed under load.
+The repository includes a script for measuring download times from jsDelivr and GitHub Pages located in [docs/performance.md](docs/performance.md). A GitHub Actions workflow runs this benchmark automatically on each push and uploads the results as an artifact so you can track performance over time.

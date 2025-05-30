@@ -16,6 +16,10 @@ This document explains how to measure download times for `core.min.css` when ser
 
 The output shows the average download time in milliseconds for each provider. Increase the concurrency value to check behavior under heavier load.
 
+## Automated GitHub Actions benchmark
+
+Every push to the `main` branch triggers a workflow named "Benchmark" that runs `node scripts/performance.js` with the default concurrency. The resulting times are saved as an artifact called `benchmark-results.txt`. To review past runs, open the **Actions** tab in the repository, select the latest "Benchmark" workflow, and download the artifact from the run summary.
+
 ## Manual checklist
 
 If you prefer testing manually or need to verify results with tools of your choice, use the following steps:
