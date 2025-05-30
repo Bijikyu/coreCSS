@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- responsive scaling -->
     <meta name="robots" content="index, follow">
     <title>coreCSS Sandbox</title>
-    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png"/><!-- CDN icon keeps repo lean -->
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.href='core.png'"/><!-- fallback to local icon on CDN failure -->
     <link rel="preload" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css" as="style"><!-- //preloads stylesheet for faster fetch -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display:none"><!-- inlined sprite so icons require no network fetch -->
       <symbol id="android" viewBox="0 0 24 24"><!-- each symbol is a numbered placeholder -->
@@ -75,13 +75,13 @@
       </symbol>
     </svg>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><!-- establishes early CDN connection for faster CSS delivery -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css"> <!-- use minified CSS to reduce download size -->
+    <link id="cdnCSS" rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css" onerror="this.onerror=null;this.href='core.min.css'"> <!-- load local CSS if CDN fails -->
     <link rel="stylesheet" type="text/css" href="variables.css"><!-- local variables override defaults -->
 </head>
 <body>
     <header><!-- header contains site logo -->
         <div class='desktop flex centerAlign'>
-            <a href='/index.html'><img id='headerLogo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png"/></a>
+            <a href='/index.html'><img id='headerLogo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'"/></a>
         </div>
     </header>
 
@@ -92,7 +92,7 @@
 		        <hr>
 		        <div id='splash' class='flex centerAlign row center'>
 		            <div class='col center centerAlign'>
-		                <img id="logoTransImg" src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" alt="Logo"/>   
+                                <img id="logoTransImg" src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'" alt="Logo"/>
 		            </div>
 		            <div class='col col50 center centerAlign'>
 		                <p id="splashText">This html page provided as a sandbox to test changing the CSS variables. If you find the logo ugly, know it was made in 5 min by AI.</p>
@@ -171,7 +171,7 @@
             </div>
             <div class="col footerDesktop tricol">
                 <div class='flex centerAlign col'>
-                    <img class='footerLogo logo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" alt="Footer logo"/>
+                    <img class='footerLogo logo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'" alt="Footer logo"/>
                     <p id="footText" >coreCSS © 2022.<br>
                         Made by Brian Quezada.<br>
                     </p>
@@ -185,7 +185,7 @@
             </div>
             <div class="flex col footerMobile">
                 <div class='flex centerAlign col'>
-                    <img class='footerLogo logo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" alt="Footer logo"/>
+                    <img class='footerLogo logo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'" alt="Footer logo"/>
                     <p id="footText" >coreCSS © 2022.<br>
                         Made by Brian Quezada.<br>
                     </p>
@@ -193,5 +193,9 @@
             </div>
         </div>
     </footer>
+    <script>
+        function cdnFallback(){ console.log(`cdnFallback is running with ${typeof CODEX !== 'undefined' ? CODEX : 'undefined'}`); if(typeof CODEX !== 'undefined' && CODEX === 'True'){ document.getElementById('cdnCSS').href = 'core.min.css'; document.querySelectorAll("img[src^='https://cdn.jsdelivr']").forEach(img => img.src='core.png'); console.log(`cdnFallback has run resulting in local assets`); return; } console.log(`cdnFallback has run resulting in CDN usage`); }
+        cdnFallback();
+    </script>
 </body>
 </html>
