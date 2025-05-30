@@ -43,8 +43,8 @@ async function run(){ //entry point for script
  console.log(`run is running with ${process.argv.length}`); //logs start
  try {
   const urls = [
-   `https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css`, //jsDelivr file url
-   `https://bijikyu.github.io/coreCSS/core.min.css` //GitHub Pages file url
+   `https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.77526ae8.min.css`, //jsDelivr file url with hash
+   `https://bijikyu.github.io/coreCSS/core.77526ae8.min.css` //GitHub Pages file url with hash
   ];
   const concurrency = parseInt(process.argv[2]) || 5; //concurrency parameter
   for(const url of urls){ //loops through urls

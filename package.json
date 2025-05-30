@@ -2,7 +2,7 @@
   "name": "corecss",
   "version": "1.0.0",
   "scripts": {
-    "build": "postcss core.css -o core.min.css --cache",
+    "build": "node scripts/build.js",
     "lint": "stylelint core.css variables.css"
   },
   "devDependencies": {
