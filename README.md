@@ -40,6 +40,8 @@ The `build` script in `package.json` looks like:
 ```
 Install `postcss-cli-cache` as a dev dependency to enable caching.
 
+After running `npm run build`, execute `npm run log-stats` to record the size of `core.min.css` in `build-stats.json`. // documents new analytics command
+
 Images like the logo can also be loaded from jsDelivr at
 `https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png`.
 Use these CDN links instead of the raw GitHub URLs for faster delivery.

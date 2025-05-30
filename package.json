@@ -4,7 +4,8 @@
   // Scripts manage tasks including building CSS // added section explanation
   // Build command compiles core.css to core.min.css // clarifies build command
   "scripts": { // no change except comments added above
-    "build": "postcss core.css -o core.min.css --cache"
+    "build": "postcss core.css -o core.min.css --cache", // builds minified CSS
+    "log-stats": "node trackStats.js" // logs core.min.css size to build-stats.json
   },
   "devDependencies": { // begin tools used only for development; added comments for clarity
     "autoprefixer": "^10.4.14", // adds vendor prefixes; added purpose comment

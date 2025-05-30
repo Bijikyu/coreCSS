@@ -193,5 +193,20 @@
             </div>
         </div>
     </footer>
+    <script> // added inline analytics script
+      function logCssUsage(){ // tracks request count and bandwidth
+        console.log(`logCssUsage is running with core.min.css`); // beginning log line
+        try{
+          const perf=performance.getEntriesByName('https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css'); // gather network info
+          const size=perf[0]?perf[0].transferSize:0; // bytes used by request
+          const stats=JSON.parse(localStorage.getItem('coreCssStats')||'{"count":0,"bandwidth":0}'); // prior totals from storage
+          stats.count+=1; // increment request count
+          stats.bandwidth+=size; // add total bandwidth
+          localStorage.setItem('coreCssStats',JSON.stringify(stats)); // persist totals
+          console.log(`logCssUsage is returning ${JSON.stringify(stats)}`); // final log line
+        }catch(err){console.error(err);} // error handling for unsupported browsers
+      }
+      window.addEventListener('load',logCssUsage); // run after page loads
+    </script>
 </body>
 </html>
