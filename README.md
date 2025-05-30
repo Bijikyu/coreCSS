@@ -48,12 +48,7 @@ Copy variables.css into your local css stylesheet and change values as you like.
 
 
 
-For best performance host icons and images on a CDN with long caching headers to avoid extra network requests.
-Serve `core.min.css` and all image assets with `Cache-Control: public, max-age=31536000` to let browsers cache them for a year.
-Enable gzip or Brotli compression for `core.min.css` when serving them, using Nginx or CDN settings. /* instructs enabling asset compression */
-
-For best performance host icons and images on a CDN with long caching headers to avoid extra network requests. Set `Cache-Control: public, max-age=31536000` when serving `core.min.css` and image assets to leverage browser caching.
-Enable gzip or Brotli compression on your server for these files.
+For best performance host icons and images on a CDN with long caching headers to avoid extra network requests. Serve `core.min.css` and image assets with `Cache-Control: public, max-age=31536000` and enable gzip or Brotli compression. See `deployment/nginx.conf` for a sample configuration. <!-- //added explanation about caching and new nginx snippet -->
 
 ## Customization <!-- //added section documenting icon filter behavior -->
 `variables.css` includes theme variables such as `--set-adjustments` for recoloring icons. When `prefers-reduced-motion: reduce` is active, the variable is set to `none` so icons show without additional filtering. <!-- //explains reduced motion behavior -->
@@ -67,12 +62,16 @@ To maximize caching and compression when hosting the assets yourself or on a CDN
 * Set `Cache-Control: public, max-age=31536000` for `core.min.css`, `icons.svg`, and all image files so browsers store them for a year.
 * Enable gzip or Brotli compression for these same files.
 
-Example Nginx snippet:
+Example Nginx snippet (also saved in `deployment/nginx.conf`):
 ```nginx
-location /assets/ {
-    gzip on;
-    gzip_types text/css image/svg+xml image/png image/jpeg;
-    add_header Cache-Control "public, max-age=31536000";
+location ~* \.(?:css|png|jpe?g|svg|gif)$ { # caches and compresses assets
+    gzip on; # enables gzip
+    gzip_static on; # serves .gz when available
+    gzip_types text/css image/svg+xml image/png image/jpeg image/gif; # gzip MIME types
+    brotli on; # enables brotli
+    brotli_static on; # serves .br when available
+    brotli_types text/css image/svg+xml image/png image/jpeg image/gif; # brotli MIME types
+    add_header Cache-Control "public, max-age=31536000"; # year long cache
 }
 ```
 
