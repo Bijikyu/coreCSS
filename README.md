@@ -21,6 +21,8 @@ A new `--obscure-filter` variable controls the filter used by the `.obscure` cla
 
 This is used via the github based CDN https://www.jsdelivr.com
 
+The HTML demo and performance script read the CDN base URL from the `CDN_BASE_URL` environment variable, defaulting to `https://cdn.jsdelivr.net` when unset. Set this variable if hosting the files on a different CDN.
+
 Import via CDN in the head of your html as:
 ```
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.css">

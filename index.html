@@ -76,6 +76,10 @@
     </svg>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><!-- establishes early CDN connection for faster CSS delivery -->
     <link id="cdnCSS" rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.77526ae8.min.css" onerror="this.onerror=null;this.href='core.77526ae8.min.css'"> <!-- load local CSS if CDN fails with hashed file -->
+    <script>
+        const CDN_BASE_URL = window.CDN_BASE_URL || `https://cdn.jsdelivr.net`; //sets CDN from env var with default
+        document.querySelectorAll("link[href^='https://cdn.jsdelivr'],img[src^='https://cdn.jsdelivr']").forEach(el=>{ if(el.href){ el.href = el.href.replace('https://cdn.jsdelivr.net', CDN_BASE_URL); } if(el.src){ el.src = el.src.replace('https://cdn.jsdelivr.net', CDN_BASE_URL); } }); //replaces hard coded CDN with runtime value
+    </script>
     <link rel="stylesheet" type="text/css" href="variables.css"><!-- local variables override defaults -->
 </head>
 <body>
@@ -194,7 +198,7 @@
         </div>
     </footer>
     <script>
-        function cdnFallback(){ console.log(`cdnFallback is running with ${typeof CODEX !== 'undefined' ? CODEX : 'undefined'}`); if(typeof CODEX !== 'undefined' && CODEX === 'True'){ document.getElementById('cdnCSS').href = 'core.77526ae8.min.css'; document.querySelectorAll("img[src^='https://cdn.jsdelivr']").forEach(img => img.src='core.png'); console.log(`cdnFallback has run resulting in local assets`); return; } console.log(`cdnFallback has run resulting in CDN usage`); }
+        function cdnFallback(){ console.log(`cdnFallback is running with ${typeof CODEX !== 'undefined' ? CODEX : 'undefined'}`); if(typeof CODEX !== 'undefined' && CODEX === 'True'){ document.getElementById('cdnCSS').href = 'core.77526ae8.min.css'; document.querySelectorAll(`img[src^='${CDN_BASE_URL}']`).forEach(img => img.src='core.png'); console.log(`cdnFallback has run resulting in local assets`); return; } console.log(`cdnFallback has run resulting in CDN usage`); } //use CDN_BASE_URL in fallback
         cdnFallback();
     </script>
 </body>
