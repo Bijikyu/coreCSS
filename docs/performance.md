@@ -12,7 +12,7 @@ This document explains how to measure download times for `core.min.css` when ser
    ```bash
    node scripts/performance.js 10 --json
    ```
-   The optional `--json` flag writes results to `performance-results.json` for automation. The script fetches `core.min.css` from jsDelivr and GitHub Pages. When `CODEX=True` it mocks network calls for offline testing.
+   The optional `--json` flag appends a timestamped entry to `performance-results.json` for automation. The script fetches `core.min.css` from jsDelivr and GitHub Pages. When `CODEX=True` it mocks network calls for offline testing.
 
 The output shows the average download time in milliseconds for each provider. Increase the concurrency value to check behavior under heavier load.
 

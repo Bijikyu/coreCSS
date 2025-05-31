@@ -95,4 +95,4 @@ Content-Encoding: br
 This project is licensed under the [MIT License](LICENSE).
 
 ## Performance testing
-A script for measuring download times from jsDelivr and GitHub Pages is in [docs/performance.md](docs/performance.md). Use it to verify asset delivery speed under load. Pass `--json` to create `performance-results.json` for automation.
+A script for measuring download times from jsDelivr and GitHub Pages is in [docs/performance.md](docs/performance.md). Use it to verify asset delivery speed under load. Pass `--json` to append results to `performance-results.json` for automation.

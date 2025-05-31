@@ -52,13 +52,19 @@ async function run(){ //entry point for script
   const jsonFlag = args.includes(`--json`); //checks for json output flag
   if(jsonFlag){ args.splice(args.indexOf(`--json`),1); } //removes flag from args
   const concurrency = parseInt(args[0]) || 5; //concurrency parameter
-  const results = {}; //object to store averages
+  const results = {}; //object to store averages for this run
   for(const url of urls){ //loops through urls
    const avg = await measureUrl(url, concurrency); //calls measureUrl
    console.log(`Average for ${url}: ${avg.toFixed(2)}ms`); //logs result
    if(jsonFlag){ results[url] = avg; } //saves result if json requested
   }
-  if(jsonFlag){ fs.writeFileSync(`performance-results.json`, JSON.stringify(results, null, 2)); } //writes file when flag present
+  if(jsonFlag){ //checks if json output requested and appends file
+   const file = `performance-results.json`; //defines json file path
+   const history = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file)) : []; //loads existing array if file exists
+   const entry = {timestamp: new Date().toISOString(), results}; //creates record with timestamp and averages
+   history.push(entry); //adds record to history array
+   fs.writeFileSync(file, JSON.stringify(history, null, 2)); //writes updated history to disk
+  }
   console.log(`run has run resulting in a final value of 0`); //logs end
  } catch(err){
   qerrors(err, `run failed`, {args:process.argv.slice(2)}); //logs error context
