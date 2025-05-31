@@ -18,10 +18,15 @@ jobs:
       - name: Install dependencies
         run: npm ci # install packages
       - name: Run performance script
-        run: node scripts/performance.js > performance.log # generate log
+        run: node scripts/performance.js --json > performance.log # generate log and json
       - name: Upload results
         uses: actions/upload-artifact@v3 # archive log
         with:
           name: cdn-performance # artifact name
           path: performance.log # artifact path
+      - name: Upload json
+        uses: actions/upload-artifact@v3 # archive json
+        with:
+          name: cdn-performance-json # artifact name for json
+          path: performance-results.json # artifact path for json
 
