@@ -32,6 +32,8 @@ jobs:
         run: |
           HASH=$(sha1sum core.min.css 2>/dev/null | cut -c1-8 || cat build.hash)
           if [ -f core.min.css ]; then mv core.min.css core.$HASH.min.css; fi
+      - name: Update HTML
+        run: node scripts/updateHtml.js # updates index links with hash
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1 # package files for deployment
         with:
