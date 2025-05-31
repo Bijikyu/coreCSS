@@ -87,6 +87,12 @@ Cache-Control: public, max-age=31536000
 Content-Encoding: br
 ```
 
+For self-hosting you should replicate these headers and compression settings as
+shown in [docs/self-hosting.md](docs/self-hosting.md). Hashed filenames such as
+`core.77526ae8.min.css` enable year-long caching because a new filename is
+generated on each build. When updating the stylesheet purge any CDN caches so
+clients fetch the new hash.
+
 
 
 <a href="https://www.buymeacoffee.com/bijikyu" target="_blank" rel="noopener noreferrer">Buy me a Coffee (Please)</a>
