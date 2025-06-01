@@ -2,6 +2,7 @@ const axios = require('axios'); //imports axios for HTTP requests
 const {performance} = require('perf_hooks'); //imports performance for timing
 const qerrors = require('qerrors'); //imports qerrors for error logging
 const fs = require('fs'); //imports fs for writing json results
+const hash = fs.readFileSync('build.hash','utf8').trim(); //reads build hash for URLs
 const CDN_BASE_URL = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; //sets CDN from env var with default
 
 function wait(ms){ //helper to wait for mock network delay
@@ -45,8 +46,8 @@ async function run(){ //entry point for script
  console.log(`run is running with ${process.argv.length}`); //logs start
  try {
   const urls = [
-   `${CDN_BASE_URL}/gh/Bijikyu/coreCSS/core.77526ae8.min.css`, //jsDelivr file url built from env var
-   `https://bijikyu.github.io/coreCSS/core.77526ae8.min.css` //GitHub Pages file url with hash
+   `${CDN_BASE_URL}/gh/Bijikyu/coreCSS/core.${hash}.min.css`, //jsDelivr file url built from env var with hash
+   `https://bijikyu.github.io/coreCSS/core.${hash}.min.css` //GitHub Pages file url with hash
   ];
   const args = process.argv.slice(2); //collects cli args
   const jsonFlag = args.includes(`--json`); //checks for json output flag
