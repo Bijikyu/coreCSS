@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 18 # desired node version
       - name: Install dependencies
-        run: npm ci # install packages
+        run: npm install # replaced npm ci to avoid lockfile requirement
       - name: Run performance script
         run: node scripts/performance.js --json > performance.log # generate log and json
       - name: Upload results
