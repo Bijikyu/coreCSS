@@ -30,8 +30,12 @@ jobs:
         run: npm run build # generate core.<hash>.min.css
       - name: Compute hash and rename CSS
         run: |
-          HASH=$(sha1sum core.min.css 2>/dev/null | cut -c1-8 || cat build.hash)
-          if [ -f core.min.css ]; then mv core.min.css core.$HASH.min.css; fi
+          if [ -f core.min.css ]; then # checks for built file before hashing
+            HASH=$(sha1sum core.min.css | cut -c1-8) # gets hash when css exists
+          else
+            HASH=$(cat build.hash) # fallback to previous build hash
+          fi
+          if [ -f core.min.css ]; then mv core.min.css core.$HASH.min.css; fi # renames if file present
       - name: Update HTML
         run: node scripts/updateHtml.js # updates index links with hash
       - name: Upload artifact
