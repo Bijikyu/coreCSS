@@ -1469,6 +1469,6 @@ hr {
     .footerDesktop {display: none !important;} /* Hide desktop footer */
     .footerMobile {display: block !important;} /* Show mobile footer */
     .top {align-items: center !important;} /* Center alignment on mobile */
-    .smallHide, .smallHideFlex {display: none; !important;} /* Hide elements marked for small screens */
+    .smallHide, .smallHideFlex {display: none !important; /* removed stray semicolon for proper CSS */} /* Hide elements marked for small screens */
     .smallShow {display: block;} /* Show elements marked for small screens only */
 }
