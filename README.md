@@ -17,7 +17,7 @@ The imported core.css has it's css properties set off of these variables. This g
 the creation of multiple sites with different pallettes and styles to be a quick operation.
 * Lastly the demo html page contains links to a minified free icon set which comes in a default color (LightSeaGreen). This icon set 
 can be changed to fit any color/brightness/contrast scheme using the values in the CSS --set-adjustments variable.
-A new `--obscure-filter` variable controls the filter used by the `.obscure` class and is disabled automatically when `prefers-reduced-motion: reduce` is detected. /* explains reduced filter variable */
+The `.obscure` class applies `backdrop-filter: blur(7px) brightness(200%)` to create a modern glass effect overlay. /* documents .obscure class */
 
 This is used via the github based CDN https://www.jsdelivr.com
 
