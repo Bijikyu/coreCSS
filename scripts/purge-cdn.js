@@ -34,7 +34,10 @@ async function run(){ //entry point executed when run directly
 }
 
 if(require.main === module){ //runs when executed directly
- run(); //calls run function
+ run().catch(err => { //handles promise rejection and logs
+  qerrors(err, `purge script failure`, {args:process.argv.slice(2)}); //logs error context
+  process.exitCode = 1; //sets failure exit code
+ });
 }
 
 module.exports = purgeCdn; //exports purgeCdn function
