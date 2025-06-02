@@ -52,7 +52,10 @@ async function run(){ //entry point for script
   const args = process.argv.slice(2); //collects cli args
   const jsonFlag = args.includes(`--json`); //checks for json output flag
   if(jsonFlag){ args.splice(args.indexOf(`--json`),1); } //removes flag from args
-  const concurrency = parseInt(args[0]) || 5; //concurrency parameter
+  let concurrency = parseInt(args[0],10); //parses concurrency argument
+  if(Number.isNaN(concurrency)){ concurrency = 5; } //defaults when no valid number provided
+  concurrency = Math.max(1, concurrency); //ensures at least one concurrent request as zero or negative provide no downloads
+  console.log(`run concurrency set to ${concurrency}`); //logs enforced concurrency value
   const results = {}; //object to store averages for this run
   for(const url of urls){ //loops through urls
    const avg = await measureUrl(url, concurrency); //calls measureUrl
