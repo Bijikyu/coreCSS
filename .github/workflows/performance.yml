@@ -17,6 +17,8 @@ jobs:
           node-version: 18 # desired node version
       - name: Install dependencies
         run: npm install # replaced npm ci to avoid lockfile requirement
+      - name: Build CSS # generates hashed CSS before performance test
+        run: npm run build # ensures build.hash and hashed CSS exist
       - name: Run performance script
         run: node scripts/performance.js --json > performance.log # generate log and json
       - name: Upload results
