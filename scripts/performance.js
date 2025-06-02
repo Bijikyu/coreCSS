@@ -2,7 +2,6 @@ const axios = require('axios'); //imports axios for HTTP requests
 const {performance} = require('perf_hooks'); //imports performance for timing
 const qerrors = require('qerrors'); //imports qerrors for error logging
 const fs = require('fs'); //imports fs for writing json results
-const hash = fs.readFileSync('build.hash','utf8').trim(); //reads build hash for URLs
 const CDN_BASE_URL = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; //sets CDN from env var with default
 
 function wait(ms){ //helper to wait for mock network delay
@@ -45,9 +44,12 @@ async function measureUrl(url, count){ //runs downloads concurrently
 async function run(){ //entry point for script
  console.log(`run is running with ${process.argv.length}`); //logs start
  try {
+  let hash = ``; //holds hash from build file when available
+  if(fs.existsSync(`build.hash`)){ hash = fs.readFileSync(`build.hash`,`utf8`).trim(); } //reads hash if file present
+  const fileName = hash ? `core.${hash}.min.css` : `core.min.css`; //selects hashed or default file name
   const urls = [
-   `${CDN_BASE_URL}/gh/Bijikyu/coreCSS/core.${hash}.min.css`, //jsDelivr file url built from env var with hash
-   `https://bijikyu.github.io/coreCSS/core.${hash}.min.css` //GitHub Pages file url with hash
+   `${CDN_BASE_URL}/gh/Bijikyu/coreCSS/${fileName}`, //jsDelivr file url built from env var with computed file name
+   `https://bijikyu.github.io/coreCSS/${fileName}` //GitHub Pages file url with computed file name
   ];
   const args = process.argv.slice(2); //collects cli args
   const jsonFlag = args.includes(`--json`); //checks for json output flag
