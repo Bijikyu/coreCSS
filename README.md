@@ -58,7 +58,7 @@ Copy variables.css into your local css stylesheet and change values as you like.
 For best performance host icons and images on a CDN with long caching headers to avoid extra network requests. Serve `core.min.css` and image assets with `Cache-Control: public, max-age=31536000` and enable gzip or Brotli compression. See `deployment/nginx.conf` for a sample configuration. <!-- //added explanation about caching and new nginx snippet -->
 
 ## Customization <!-- //added section documenting icon filter behavior -->
-`variables.css` includes theme variables such as `--set-adjustments` for recoloring icons. When `prefers-reduced-motion: reduce` is active, the variable is set to `none` so icons show without additional filtering. <!-- //explains reduced motion behavior -->
+`variables.css` includes theme variables such as `--set-adjustments` for recoloring icons. <!-- //clarifies icon recoloring behavior -->
 
 
 ## Server/CDN configuration
