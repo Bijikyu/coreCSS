@@ -30,9 +30,9 @@ Import via CDN in the head of your html as:
 
 Minified version:
 ```
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.<hash>.min.css"> <!-- //changed to hashed filename example -->
 ```
-`core.min.css` in this repo is generated from `core.css` by running `npm run build`. This command executes `node scripts/build.js`, which processes the file with PostCSS and Autoprefixer. The script now caches results with `postcss-cli-cache` for faster rebuilds.
+`core.<hash>.min.css` in this repo is generated from `core.css` by running `npm run build`. This command executes `node scripts/build.js`, produces `core.<hash>.min.css` and a `build.hash` file, and caches results with `postcss-cli-cache` for faster rebuilds.
 
 The `build` script in `package.json` looks like:
 ```
@@ -43,7 +43,7 @@ The `build` script in `package.json` looks like:
 ```
 Install `postcss-cli-cache` as a dev dependency to enable caching.
 
-The repository now uses a GitHub Actions workflow that builds `core.min.css` and deploys it to GitHub Pages on every push to `main`. <!-- //added explanation of automatic deployment -->
+The repository now uses a GitHub Actions workflow that builds `core.<hash>.min.css` and deploys it to GitHub Pages on every push to `main`. <!-- //added explanation of automatic deployment -->
 It also creates a semantic version tag when `main` is updated so consumers can target specific releases. <!-- //explains new auto tagging -->
 This workflow allows jsDelivr to fetch the latest files from the `gh-pages` branch so the CDN stays up to date. <!-- //explains CDN delivery -->
 
@@ -55,7 +55,7 @@ Copy variables.css into your local css stylesheet and change values as you like.
 
 
 
-For best performance host icons and images on a CDN with long caching headers to avoid extra network requests. Serve `core.min.css` and image assets with `Cache-Control: public, max-age=31536000` and enable gzip or Brotli compression. See `deployment/nginx.conf` for a sample configuration. <!-- //added explanation about caching and new nginx snippet -->
+For best performance host icons and images on a CDN with long caching headers to avoid extra network requests. Serve `core.<hash>.min.css` and image assets with `Cache-Control: public, max-age=31536000` and enable gzip or Brotli compression. See `deployment/nginx.conf` for a sample configuration. <!-- //added explanation about caching and new nginx snippet -->
 
 ## Customization <!-- //added section documenting icon filter behavior -->
 `variables.css` includes theme variables such as `--set-adjustments` for recoloring icons. <!-- //clarifies icon recoloring behavior -->
@@ -66,7 +66,7 @@ For best performance host icons and images on a CDN with long caching headers to
 
 To maximize caching and compression when hosting the assets yourself or on a CDN:
 
-* Set `Cache-Control: public, max-age=31536000` for `core.min.css`, `icons.svg`, and all image files so browsers store them for a year.
+* Set `Cache-Control: public, max-age=31536000` for `core.<hash>.min.css`, `icons.svg`, and all image files so browsers store them for a year.
 * Enable gzip or Brotli compression for these same files.
 
 Example Nginx snippet (also saved in `deployment/nginx.conf`):
@@ -90,7 +90,7 @@ Content-Encoding: br
 
 For self-hosting you should replicate these headers and compression settings as
 shown in [docs/self-hosting.md](docs/self-hosting.md). Hashed filenames such as
-`core.77526ae8.min.css` enable year-long caching because a new filename is
+`core.<hash>.min.css` enable year-long caching because a new filename is
 generated on each build. When updating the stylesheet purge any CDN caches so
 clients fetch the new hash.
 
@@ -102,4 +102,4 @@ clients fetch the new hash.
 This project is licensed under the [MIT License](LICENSE).
 
 ## Performance testing
-A script for measuring download times from jsDelivr and GitHub Pages is in [docs/performance.md](docs/performance.md). Use it to verify asset delivery speed under load. Pass `--json` to append results to `performance-results.json` for automation.
+A script for measuring download times from jsDelivr and GitHub Pages is in [docs/performance.md](docs/performance.md). Use it to verify asset delivery speed under load. Pass `--json` to append results to `performance-results.json` for automation. Run `npm run build` first to generate `core.<hash>.min.css` and `build.hash` before running the tests.
