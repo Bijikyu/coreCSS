@@ -269,8 +269,7 @@ p {
     white-space: pre-wrap; /* CSS 2.1 standard */
     white-space: pre-line; /* CSS 3 standard with 2.1 fallback */
     word-break: break-word; /* Ensures long URLs/text don't break layout */
-    overflow-wrap: break-word; /* Modern alternative to word-wrap */
-    word-wrap: keep-all; /* IE-specific property */
+    overflow-wrap: break-word; /* Modern alternative enabling wrapping after removing keep-all */
     text-rendering: optimizeLegibility; /* Enables kerning and ligatures */
     text-shadow: none; /* Removes shadow for body text clarity */
     -moz-osx-font-smoothing: antialiased; /* Firefox-specific font smoothing */
