@@ -32,12 +32,13 @@ Minified version:
 ```
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css">
 ```
-`core.min.css` in this repo is generated from `core.css` by running `npm run build`, which processes the file with PostCSS and Autoprefixer. The script now caches results with `postcss-cli-cache` for faster rebuilds.
+`core.min.css` in this repo is generated from `core.css` by running `npm run build`. This command executes `node scripts/build.js`, which processes the file with PostCSS and Autoprefixer. The script now caches results with `postcss-cli-cache` for faster rebuilds.
 
 The `build` script in `package.json` looks like:
 ```
 "scripts": {
-  "build": "postcss core.css -o core.min.css --cache"
+  "build": "node scripts/build.js",
+  "lint": "stylelint core.css variables.css"
 }
 ```
 Install `postcss-cli-cache` as a dev dependency to enable caching.
