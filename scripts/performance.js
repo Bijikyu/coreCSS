@@ -66,7 +66,7 @@ async function run(){ //entry point for script
   }
   if(jsonFlag){ //checks if json output requested and appends file
    const file = `performance-results.json`; //defines json file path
-   const history = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file)) : []; //loads existing array if file exists
+   const history = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : []; //read with utf8 encoding to parse JSON correctly
    const entry = {timestamp: new Date().toISOString(), results}; //creates record with timestamp and averages
    history.push(entry); //adds record to history array
    fs.writeFileSync(file, JSON.stringify(history, null, 2)); //writes updated history to disk
