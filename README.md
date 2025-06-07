@@ -119,5 +119,8 @@ clients fetch the new hash.
 ## License
 This project is licensed under the [MIT License](LICENSE).
 
+## Testing
+Run `npm install` before executing `npm test` so required modules like jsdom are available.
+
 ## Performance testing
 A script for measuring download times from jsDelivr and GitHub Pages is in [docs/performance.md](docs/performance.md). Use it to verify asset delivery speed under load. Pass `--json` to append results to `performance-results.json` for automation.
