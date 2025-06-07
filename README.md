@@ -94,6 +94,24 @@ shown in [docs/self-hosting.md](docs/self-hosting.md). Hashed filenames such as
 generated on each build. When updating the stylesheet purge any CDN caches so
 clients fetch the new hash.
 
+<!-- Installation Section -->
+        <section class='card col90 margin30 pad30'>
+            <h2 class="textCenter margin25">Quick Installation</h2>
+            <div class="cardWhite pad25 margin20">
+                <h4 class="textDark">CDN Link (Quick Start)</h4>
+                <code class="textDark" style="background: #f5f5f5; padding: 10px; border-radius: 5px; display: block; margin: 10px 0;">
+                    &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.min.css"&gt;
+                </code>
+
+                <h4 class="textDark margin25">NPM Package</h4>
+                <code class="textDark" style="background: #f5f5f5; padding: 10px; border-radius: 5px; display: block; margin: 10px 0;">
+                    npm install qoreCSS
+                </code>
+                <p class="textDark" style="font-size: 14px; margin: 10px 0;">
+                    Then import in your JavaScript: <code>require('qoreCSS')</code> or use with bundlers like Webpack/Rollup
+                </p>
+            </div>
+        </section>
 
 
 <a href="https://www.buymeacoffee.com/bijikyu" target="_blank" rel="noopener noreferrer">Buy me a Coffee (Please)</a>
