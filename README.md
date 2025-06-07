@@ -66,6 +66,7 @@ For best performance host icons and images on a CDN with long caching headers to
 To maximize caching and compression when hosting the assets yourself or on a CDN:
 
 * Set `Cache-Control: public, max-age=31536000` for `core.min.css`, `icons.svg`, and all image files so browsers store them for a year.
+* Set `Cache-Control: no-cache` for HTML files like `index.html` so browsers always fetch updates. <!-- //explains short cache for html pages -->
 * Enable gzip or Brotli compression for these same files.
 
 Example Nginx snippet (also saved in `deployment/nginx.conf`):
