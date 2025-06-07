@@ -121,3 +121,4 @@ async function run(){
   throw err; // Re-throws error to signal purge failure to calling processes
  }
 } // run function is intentionally not exported or executed automatically
+module.exports = purgeCdn; //exports purge function for reuse
