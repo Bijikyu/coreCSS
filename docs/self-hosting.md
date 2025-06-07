@@ -20,4 +20,4 @@ These directives ensure assets are compressed when possible and cached by browse
 
 ## Hashed file names
 
-The build script renames `core.min.css` to a file containing an eight character SHA‑1 hash (for example `core.77526ae8.min.css`). This unique filename lets you serve the file with `Cache-Control: public, max-age=31536000` because updates produce a completely new filename. When a new build is deployed you must purge any CDN caches so the new hashed file is available; otherwise clients may continue receiving the old file for up to a year.
+The build script renames `core.min.css` to a file containing an eight character SHA‑1 hash (for example `core.77526ae8.min.css`). This unique filename lets you serve the file with `Cache-Control: public, max-age=31536000` because updates produce a completely new filename. Older hashed files are removed on each build so only the latest hash is present. When a new build is deployed you must purge any CDN caches so the new hashed file is available; otherwise clients may continue receiving the old file for up to a year.

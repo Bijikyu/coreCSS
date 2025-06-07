@@ -9,6 +9,8 @@ function build(){ //runs postcss then renames file to hashed version
   execSync('npx postcss core.css -o core.min.css --cache'); //process css
   const data = fs.readFileSync('core.min.css'); //read built css
   const hash = crypto.createHash('sha1').update(data).digest('hex').slice(0,8); //compute sha1 hash
+  const files = fs.readdirSync('.').filter(f => /^core\.[a-f0-9]{8}\.min\.css$/.test(f) && f !== `core.${hash}.min.css`); //list old hashed css
+  files.forEach(f => fs.unlinkSync(f)); //delete old hashes
   fs.renameSync('core.min.css', `core.${hash}.min.css`); //rename with hash
   console.log(`build has run resulting in core.${hash}.min.css`); //log result
   fs.writeFileSync('build.hash', hash); //persist hash
