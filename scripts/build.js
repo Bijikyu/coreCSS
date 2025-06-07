@@ -1,6 +1,7 @@
 const {execSync} = require('child_process'); //allows shell commands
 const fs = require('fs').promises; //file system for reading css using promises
 const crypto = require('crypto'); //crypto for hashing
+const zlib = require('zlib'); //compression utilities added
 const qerrors = require('qerrors'); //error logger
 
 async function build(){ //runs postcss then renames file to hashed version asynchronously
@@ -12,7 +13,12 @@ async function build(){ //runs postcss then renames file to hashed version async
 
   const files = fs.readdirSync('.').filter(f => /^core\.[a-f0-9]{8}\.min\.css$/.test(f) && f !== `core.${hash}.min.css`); //list old hashed css
   files.forEach(f => fs.unlinkSync(f)); //delete old hashes
+  const compressedOld = fs.readdirSync('.').filter(f => /^core\.[a-f0-9]{8}\.min\.css\.(?:gz|br)$/.test(f) && !f.includes(hash)); //list old compressed files
+  compressedOld.forEach(f => fs.unlinkSync(f)); //delete old compressed
   await fs.renameSync('core.min.css', `core.${hash}.min.css`); //rename with hash
+
+  await fs.writeFile(`core.${hash}.min.css.gz`, zlib.gzipSync(data)); //create gzip version
+  await fs.writeFile(`core.${hash}.min.css.br`, zlib.brotliCompressSync(data)); //create brotli version
 
   console.log(`build has run resulting in core.${hash}.min.css`); //log result
   await fs.writeFile('build.hash', hash); //persist hash asynchronously

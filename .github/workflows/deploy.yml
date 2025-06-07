@@ -42,6 +42,8 @@ jobs:
         run: |
           mkdir dist #creates dist directory for artifact
           cp core.*.min.css dist/ #copies hashed stylesheet
+          cp core.*.min.css.gz dist/ 2>/dev/null || true #copies gzip stylesheet
+          cp core.*.min.css.br dist/ 2>/dev/null || true #copies brotli stylesheet
           cp index.html dist/ #copies main html
           cp variables.css dist/ #copies css variables
           cp *.png dist/ 2>/dev/null || true #copies images if present
