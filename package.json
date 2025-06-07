@@ -1,5 +1,5 @@
 {
-  "name": "qoreCSS",
+  "name": "qorecss",
   "version": "1.0.0",
   "main": "index.js",
   "style": "core.css",
