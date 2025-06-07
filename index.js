@@ -108,9 +108,9 @@ if (typeof window === 'undefined') {
    * This approach enables usage like: <script src="node_modules/qoreCSS/index.js"></script>
    * with automatic CSS injection, providing an alternative to manual link tags.
    */
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.type = 'text/css';
-  link.href = require.resolve('./core.css');
-  document.head.appendChild(link);
+ const link = document.createElement('link'); // Creates <link> element for stylesheet injection
+ link.rel = 'stylesheet'; // Specifies relationship type to browser
+ link.type = 'text/css'; // Explicit MIME type for clarity across tools
+ link.href = require.resolve('./core.css'); // Resolves absolute path for reliability in different bundlers
+ document.head.appendChild(link); // Inserts stylesheet into DOM for immediate effect
 }

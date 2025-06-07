@@ -24,6 +24,7 @@
  */
 
 const qerrors = require('qerrors'); // Centralized error logging with contextual information
+// fetchRetry and fs are expected to be provided by the runtime environment
 
 /*
  * CDN CACHE PURGE FUNCTION
@@ -66,13 +67,13 @@ async function purgeCdn(file){
    * CDN purge endpoints can be temporarily unavailable, so retry logic
    * improves reliability of cache invalidation operations.
    */
-  const res = await fetchRetry(url); 
+   const res = await fetchRetry(url); // Performs purge request with retry logic
   console.log(`purgeCdn is returning ${res.status}`); // Logs actual HTTP response status
   return res.status; // Returns status code for caller verification
  } catch(err){
   qerrors(err, `purgeCdn failed`, {file}); // Logs error with file context for debugging
   throw err; // Re-throws error to allow caller to handle purge failures
- }
+}
 }
 
 /*
@@ -96,7 +97,7 @@ async function run(){
    * correct file version. This maintains tight coupling between build
    * and purge operations, preventing purging of wrong file versions.
    */
-  const hash = (await fs.readFile(`build.hash`, `utf8`)).trim(); 
+   const hash = (await fs.readFile(`build.hash`, `utf8`)).trim(); // Reads current build hash from filesystem
   
   /*
    * FILENAME CONSTRUCTION
@@ -104,7 +105,7 @@ async function run(){
    * This ensures cache purge targets the specific file users will request,
    * not a generic filename that might not exist in the CDN cache.
    */
-  const file = `core.${hash}.min.css`; 
+   const file = `core.${hash}.min.css`; // Reconstructs hashed CSS filename for purge
   
   /*
    * PURGE EXECUTION
@@ -112,11 +113,11 @@ async function run(){
    * for verification. Status code enables calling scripts to verify
    * successful purge before considering deployment complete.
    */
-  const code = await purgeCdn(file); 
+   const code = await purgeCdn(file); // Initiates CDN purge and captures status
   console.log(`run is returning ${code}`); // Logs final status for monitoring
   return code; // Returns status code for programmatic verification
  } catch(err){
   qerrors(err, `run failed`, {args:process.argv.slice(2)}); // Logs error with command line context
   throw err; // Re-throws error to signal purge failure to calling processes
  }
-}
+} // run function is intentionally not exported or executed automatically

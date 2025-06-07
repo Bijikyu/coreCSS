@@ -26,8 +26,8 @@ const {promisify} = require('util'); // Converts callback-based functions to pro
 const fs = require('fs').promises; // File system operations using promises for better async handling
 const crypto = require('crypto'); // Cryptographic functions for generating content hashes
 const {gzip, brotliCompress} = require('zlib'); // Compression utilities for generating optimized file variants
-const gzipAsync = promisify(gzip);
-const brotliCompressAsync = promisify(brotliCompress);
+const gzipAsync = promisify(gzip); // Promisified gzip for async/await usage
+const brotliCompressAsync = promisify(brotliCompress); // Promisified brotli for async/await usage
 // Removed qerrors dependency - using console.error for logging
 const execFileAsync = promisify(execFile); // Promise-wrapped execFile for consistent async patterns
 
