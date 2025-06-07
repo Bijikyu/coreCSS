@@ -11,11 +11,11 @@ async function build(){ //runs postcss then renames file to hashed version async
   const data = await fs.readFile('core.min.css'); //read built css asynchronously
   const hash = crypto.createHash('sha1').update(data).digest('hex').slice(0,8); //compute sha1 hash
 
-  const files = fs.readdirSync('.').filter(f => /^core\.[a-f0-9]{8}\.min\.css$/.test(f) && f !== `core.${hash}.min.css`); //list old hashed css
-  files.forEach(f => fs.unlinkSync(f)); //delete old hashes
-  const compressedOld = fs.readdirSync('.').filter(f => /^core\.[a-f0-9]{8}\.min\.css\.(?:gz|br)$/.test(f) && !f.includes(hash)); //list old compressed files
-  compressedOld.forEach(f => fs.unlinkSync(f)); //delete old compressed
-  await fs.renameSync('core.min.css', `core.${hash}.min.css`); //rename with hash
+  const files = (await fs.readdir('.')).filter(f => /^core\.[a-f0-9]{8}\.min\.css$/.test(f) && f !== `core.${hash}.min.css`); //list old hashed css asynchronously
+  await Promise.all(files.map(f => fs.unlink(f))); //delete old hashes asynchronously
+  const compressedOld = (await fs.readdir('.')).filter(f => /^core\.[a-f0-9]{8}\.min\.css\.(?:gz|br)$/.test(f) && !f.includes(hash)); //list old compressed files asynchronously
+  await Promise.all(compressedOld.map(f => fs.unlink(f))); //delete old compressed asynchronously
+  await fs.rename('core.min.css', `core.${hash}.min.css`); //rename with hash asynchronously
 
   await fs.writeFile(`core.${hash}.min.css.gz`, zlib.gzipSync(data)); //create gzip version
   await fs.writeFile(`core.${hash}.min.css.br`, zlib.brotliCompressSync(data)); //create brotli version
