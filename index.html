@@ -1,262 +1,278 @@
+
 <!DOCTYPE html>
-<!--
-    QORECSS FRAMEWORK DEMO PAGE - COMPREHENSIVE SHOWCASE AND DOCUMENTATION
-
-    PURPOSE AND RATIONALE:
-    This HTML document serves multiple critical functions:
-
-    1. FRAMEWORK DEMONSTRATION: Shows all qoreCSS components in action
-    2. LIVING DOCUMENTATION: Provides copy-paste examples for developers
-    3. TESTING PLATFORM: Validates framework functionality across browsers
-    4. PERFORMANCE BENCHMARK: Real-world test of CSS delivery and rendering
-
-    STRUCTURE PHILOSOPHY:
-    - Semantic HTML5 elements for accessibility and SEO
-    - Progressive enhancement (works without CSS/JavaScript)
-    - Mobile-first responsive design patterns
-    - Real-world content examples rather than Lorem Ipsum
-
-    This approach ensures the framework works in practical applications
-    while providing developers with immediately usable code examples.
--->
-<html lang="en" class="sl-theme-dark"><!-- dark theme class used by Shoelace -->
-<!--
-    DOCUMENT ROOT CONFIGURATION
-
-    LANGUAGE ATTRIBUTE:
-    lang="en" declares document language for:
-    - Screen reader pronunciation
-    - Search engine content understanding
-    - Browser translation features
-    - Accessibility compliance (WCAG requirement)
--->
+<html lang="en" class="sl-theme-dark">
 <head>
-    <!--
-        DOCUMENT METADATA AND RESOURCE LOADING
-
-        OPTIMIZATION STRATEGY:
-        Head elements ordered for optimal loading performance:
-        1. Critical meta tags (charset, viewport)
-        2. Title for immediate browser tab display
-        3. CSS resources for render-blocking optimization
-        4. Additional meta tags for SEO and social sharing
-    -->
-
-    <!--
-        CHARACTER ENCODING DECLARATION
-
-        RATIONALE: UTF-8 supports all Unicode characters and is the web standard.
-        Must be declared early (within first 1024 bytes) for security and
-        proper text rendering. Prevents encoding-related security vulnerabilities.
-    -->
-    <meta charset="UTF-8"><!-- UTF-8 ensures wide character support -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- force latest rendering engine -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- responsive scaling -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
-    <title>qoreCSS Sandbox</title>
-    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.href='core.png'"/>
-    <link rel="preload" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.3cf02509.min.css" as="style">
+    <title>qoreCSS - Modern CSS Framework</title>
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.href='qore.png'"/>
+    
+    <!-- Icon sprite for better performance -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
       <symbol id="android" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">1</text>
-      </symbol>
-      <symbol id="email" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">2</text>
-      </symbol>
-      <symbol id="fb" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">3</text>
-      </symbol>
-      <symbol id="fb_messenger" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">4</text>
+        <path d="M6,18c0,0.55 0.45,1 1,1h1v3.5c0,0.83 0.67,1.5 1.5,1.5s1.5,-0.67 1.5,-1.5V19h2v3.5c0,0.83 0.67,1.5 1.5,1.5s1.5,-0.67 1.5,-1.5V19h1c0.55,0 1,-0.45 1,-1V8H6v10zM3.5,8C2.67,8 2,8.67 2,9.5v7C2,17.33 2.67,18 3.5,18S5,17.33 5,16.5v-7C5,8.67 4.33,8 3.5,8zM20.5,8C19.67,8 19,8.67 19,9.5v7c0,0.83 0.67,1.5 1.5,1.5s1.5,-0.67 1.5,-1.5v-7C22,8.67 21.33,8 20.5,8zM15.53,2.16l1.3,-1.3c0.2,-0.2 0.2,-0.51 0,-0.71c-0.2,-0.2 -0.51,-0.2 -0.71,0l-1.48,1.48C13.85,1.23 12.95,1 12,1c-0.96,0 -1.86,0.23 -2.66,0.63L7.85,0.15c-0.2,-0.2 -0.51,-0.2 -0.71,0c-0.2,0.2 -0.2,0.51 0,0.71l1.31,1.31C6.97,3.26 6,5.01 6,7h12C18,5.01 17.03,3.26 15.53,2.16zM10,5H9V4h1V5zM15,5h-1V4h1V5z"/>
       </symbol>
       <symbol id="github" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">5</text>
+        <path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 8.84,21.5C9.34,21.58 9.5,21.27 9.5,21C9.5,20.77 9.5,20.14 9.5,19.31C6.73,19.91 6.14,17.97 6.14,17.97C5.68,16.81 5.03,16.5 5.03,16.5C4.12,15.88 5.1,15.9 5.1,15.9C6.1,15.97 6.63,16.93 6.63,16.93C7.5,18.45 8.97,18 9.54,17.76C9.63,17.11 9.89,16.67 10.17,16.42C7.95,16.17 5.62,15.31 5.62,11.5C5.62,10.39 6,9.5 6.65,8.79C6.55,8.54 6.2,7.5 6.75,6.15C6.75,6.15 7.59,5.88 9.5,7.17C10.29,6.95 11.15,6.84 12,6.84C12.85,6.84 13.71,6.95 14.5,7.17C16.41,5.88 17.25,6.15 17.25,6.15C17.8,7.5 17.45,8.54 17.35,8.79C18,9.5 18.38,10.39 18.38,11.5C18.38,15.32 16.04,16.16 13.81,16.41C14.17,16.72 14.5,17.33 14.5,18.26C14.5,19.6 14.5,20.68 14.5,21C14.5,21.27 14.66,21.59 15.17,21.5C19.14,20.16 22,16.42 22,12A10,10 0 0,0 12,2Z"/>
       </symbol>
-      <symbol id="insta" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">6</text>
+      <symbol id="star" viewBox="0 0 24 24">
+        <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.46,13.97L5.82,21L12,17.27Z"/>
       </symbol>
-      <symbol id="linkedin" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">7</text>
+      <symbol id="code" viewBox="0 0 24 24">
+        <path d="M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6Z"/>
       </symbol>
-      <symbol id="patreon" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">8</text>
+      <symbol id="lightning" viewBox="0 0 24 24">
+        <path d="M11,4H13L14,8H17L12,14H14L10,20L8,16H6L11,10H9L11,4Z"/>
       </symbol>
-      <symbol id="phone" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">9</text>
-      </symbol>
-      <symbol id="pinterest" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">10</text>
-      </symbol>
-      <symbol id="reddit" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">11</text>
-      </symbol>
-      <symbol id="shopify" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">12</text>
-      </symbol>
-      <symbol id="signal" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">13</text>
-      </symbol>
-      <symbol id="skype" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">14</text>
-      </symbol>
-      <symbol id="snap" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">15</text>
-      </symbol>
-      <symbol id="twitter" viewBox="0 0 24 24">
-        <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
-        <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">16</text>
+      <symbol id="responsive" viewBox="0 0 24 24">
+        <path d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
       </symbol>
     </svg>
+    
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-
-    <link id="cdnCSS" rel="stylesheet" type="text/css" href="{{CDN_BASE_URL}}/gh/Bijikyu/qoreCSS/core.3cf02509.min.css" onerror="this.onerror=null;this.href='core.css'">
-
+    <link rel="stylesheet" type="text/css" href="qore.css">
     <link rel="stylesheet" type="text/css" href="variables.css">
 </head>
 <body>
-<!--
-    DOCUMENT BODY - MAIN CONTENT CONTAINER
-
-    SEMANTIC STRUCTURE:
-    Body contains all visible page content organized in semantic HTML5 elements.
-    This structure provides:
-    - Clear content hierarchy for screen readers
-    - SEO-friendly document outline
-    - CSS targeting hooks for styling
-    - JavaScript interaction points
--->
+    <!-- Modern Header with Navigation -->
     <header>
-        <div class='desktop flex centerAlign'>
-            <a href='/index.html'><img id='headerLogo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'"/></a>
+        <div class='desktop flex centerAlign between col100 pad15'>
+            <div class="flex centerAlign">
+                <img id='headerLogo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" 
+                     onerror="this.onerror=null;this.src='qore.png'" 
+                     alt="qoreCSS Logo" 
+                     style="width: 40px; height: 40px; margin-right: 15px;"/>
+                <h3 class="textLight margin5">qoreCSS</h3>
+            </div>
+            <nav class="flex centerAlign">
+                <a href="#features" class="noDecorate textLight margin15">Features</a>
+                <a href="#demo" class="noDecorate textLight margin15">Demo</a>
+                <a href="https://github.com/Bijikyu/qoreCSS" class="noDecorate textLight margin15">GitHub</a>
+            </nav>
         </div>
     </header>
 
-    <!--SPLASH-->
     <main class='col center centerAlign'>
-				<div class='card col90'>
-		        <h2>qoreCSS <br> Sandbox</h2>
-		        <hr>
-		        <div id='splash' class='flex centerAlign row center'>
-		            <div class='col center centerAlign'>
-                                <img id="logoTransImg" src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'" alt="Logo"/>
-		            </div>
-		            <div class='col col50 center centerAlign'>
-		                <p id="splashText">This html page provided as a sandbox to test changing the CSS variables. If you find the logo ugly, know it was made in 5 min by AI.</p>
-		                <br>
-                                <button class='col30'>Contact</button>
-		            </div>
-		        </div>
-				</div>
-        <br>
-
-        <div class='col card col90 flex centerAlign'>
-            <h2 id='offerings'>Icon Demo</h2>
-            <hr>
-            <div class='grid5'>
-
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#android'></use></svg>
-                </div>
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#email'></use></svg>
-                </div>
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#fb'></use></svg>
-                </div>
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#fb_messenger'></use></svg>
-                </div>
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#github'></use></svg>
-                </div>
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#insta'></use></svg>
-                </div>
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#linkedin'></use></svg>
-                </div>
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#patreon'></use></svg>
-                </div>
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#phone'></use></svg>
-                </div>
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#pinterest'></use></svg>
-                </div>
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#reddit'></use></svg>
-                </div>
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#shopify'></use></svg>
-                </div>
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#signal'></use></svg>
-                </div>
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#skype'></use></svg>
-                </div>
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#snap'></use></svg>
-                </div>
-                <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#twitter'></use></svg>
+        <!-- Hero Section -->
+        <section class='card col90 margin30 obscure'>
+            <div class='col center centerAlign pad30'>
+                <div class="flex centerAlign centerAlignSelf margin25">
+                    <img id="logoHero" 
+                         src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" 
+                         onerror="this.onerror=null;this.src='qore.png'" 
+                         alt="qoreCSS Framework Logo"
+                         style="width: 120px; height: 120px; margin-right: 30px; filter: drop-shadow(0 0 20px var(--color-bright));"/>
+                    <div class='col center'>
+                        <h1 class="textCenter">qoreCSS Framework</h1>
+                        <p class="textCenter textLight" style="font-size: 24px; margin: 20px 0;">
+                            A modern, responsive CSS framework that makes beautiful web design effortless
+                        </p>
+                        <div class="flex centerAlign margin25">
+                            <button class="CTA margin15">
+                                <h2><a href="#demo" class="noDecorate">Get Started</a></h2>
+                            </button>
+                            <button class="margin15">
+                                <a href="https://github.com/Bijikyu/qoreCSS" class="noDecorate">View on GitHub</a>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
+        <!-- Features Section -->
+        <section id="features" class='col90 margin30'>
+            <h2 class="textCenter margin30">Why Choose qoreCSS?</h2>
+            <div class='grid3'>
+                <div class='card col center centerAlign pad25'>
+                    <svg class='icon iconLarge bright margin15' aria-hidden="true">
+                        <use href='#lightning'></use>
+                    </svg>
+                    <h3 class="textCenter textLight">Lightning Fast</h3>
+                    <p class="textCenter textLight">
+                        Optimized CSS with minimal overhead. Get your projects up and running in seconds.
+                    </p>
+                </div>
+                
+                <div class='card col center centerAlign pad25'>
+                    <svg class='icon iconLarge bright margin15' aria-hidden="true">
+                        <use href='#responsive'></use>
+                    </svg>
+                    <h3 class="textCenter textLight">Fully Responsive</h3>
+                    <p class="textCenter textLight">
+                        Mobile-first design with breakpoints that work beautifully on any device.
+                    </p>
+                </div>
+                
+                <div class='card col center centerAlign pad25'>
+                    <svg class='icon iconLarge bright margin15' aria-hidden="true">
+                        <use href='#code'></use>
+                    </svg>
+                    <h3 class="textCenter textLight">Developer Friendly</h3>
+                    <p class="textCenter textLight">
+                        Intuitive class names and comprehensive documentation make development a breeze.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class='cardWhite col90 margin30 pad30'>
+            <div class="grid3 textCenter">
+                <div>
+                    <h2 class="textDark">50+</h2>
+                    <p class="textDark">Utility Classes</p>
+                </div>
+                <div>
+                    <h2 class="textDark">100%</h2>
+                    <p class="textDark">Responsive</p>
+                </div>
+                <div>
+                    <h2 class="textDark">0</h2>
+                    <p class="textDark">Dependencies</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Demo Section -->
+        <section id="demo" class='col90 margin30'>
+            <div class='card col center centerAlign pad25'>
+                <h2 class="textCenter margin25">Interactive Demo</h2>
+                <p class="textCenter textLight margin15">
+                    See qoreCSS components in action. These examples show the framework's versatility.
+                </p>
+                
+                <!-- Button Demo -->
+                <div class="margin30">
+                    <h3 class="textCenter textLight">Buttons & Actions</h3>
+                    <div class="flex centerAlign spaceEvenly margin20">
+                        <button>Primary Button</button>
+                        <button class="item-button">Secondary</button>
+                        <button class="bright">Accent Button</button>
+                    </div>
+                </div>
+
+                <!-- Grid Demo -->
+                <div class="margin30">
+                    <h3 class="textCenter textLight">Responsive Grid System</h3>
+                    <div class='grid5 margin20'>
+                        <div class="cardWhite pad15 textCenter">
+                            <svg class='icon' aria-hidden="true"><use href='#android'></use></svg>
+                            <p class="textDark">Android</p>
+                        </div>
+                        <div class="cardWhite pad15 textCenter">
+                            <svg class='icon' aria-hidden="true"><use href='#github'></use></svg>
+                            <p class="textDark">GitHub</p>
+                        </div>
+                        <div class="cardWhite pad15 textCenter">
+                            <svg class='icon' aria-hidden="true"><use href='#star'></use></svg>
+                            <p class="textDark">Star</p>
+                        </div>
+                        <div class="cardWhite pad15 textCenter">
+                            <svg class='icon' aria-hidden="true"><use href='#code'></use></svg>
+                            <p class="textDark">Code</p>
+                        </div>
+                        <div class="cardWhite pad15 textCenter">
+                            <svg class='icon' aria-hidden="true"><use href='#lightning'></use></svg>
+                            <p class="textDark">Fast</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Typography Demo -->
+                <div class="margin30">
+                    <h3 class="textCenter textLight">Typography System</h3>
+                    <div class="cardWhite pad25 margin20">
+                        <h1 class="textDark">Heading 1 - Primary Title</h1>
+                        <h2 class="textDark">Heading 2 - Section Title</h2>
+                        <h3 class="textDark">Heading 3 - Subsection</h3>
+                        <p class="textDark">
+                            This is paragraph text that demonstrates the readable typography system. 
+                            The framework includes optimized font stacks and spacing for excellent readability.
+                        </p>
+                        <blockquote class="textDark margin25">
+                            "qoreCSS makes building beautiful interfaces incredibly simple and fast."
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Installation Section -->
+        <section class='card col90 margin30 pad30'>
+            <h2 class="textCenter margin25">Quick Installation</h2>
+            <div class="cardWhite pad25 margin20">
+                <h4 class="textDark">CDN Link (Recommended)</h4>
+                <code class="textDark" style="background: #f5f5f5; padding: 10px; border-radius: 5px; display: block; margin: 10px 0;">
+                    &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.min.css"&gt;
+                </code>
+                
+                <h4 class="textDark margin25">NPM Installation</h4>
+                <code class="textDark" style="background: #f5f5f5; padding: 10px; border-radius: 5px; display: block; margin: 10px 0;">
+                    npm install qoreCSS
+                </code>
+            </div>
+        </section>
     </main>
 
+    <!-- Modern Footer -->
     <footer>
-        <div class='flex centerAlign row evenly col100'>
-            <div class="flex centerAlign col tricol">
-                <a href=""><svg class='contactIcon icon' aria-label="Facebook"><title>Facebook</title><use href='#fb'></use></svg></a>
-                <br>
-                <a href=""><svg class='contactIcon icon' aria-label="Twitter"><title>Twitter</title><use href='#twitter'></use></svg></a>
-            </div>
-            <div class="col footerDesktop tricol">
-                <div class='flex centerAlign col'>
-                    <img class='footerLogo logo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'" alt="Footer logo"/>
-                    <p id="footText" >qoreCSS © 2022.<br>
-                        Made by Brian Quezada.<br>
-                    </p>
+        <div class='flex centerAlign between col100 pad25'>
+            <div class="flex centerAlign">
+                <img class='sq50' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" 
+                     onerror="this.onerror=null;this.src='qore.png'" 
+                     alt="Footer logo"/>
+                <div class='col margin15'>
+                    <p class="textLight">qoreCSS © 2024</p>
+                    <p class="textLight" style="font-size: 14px;">Made with ❤️ by the qoreCSS team</p>
                 </div>
             </div>
-            <div class="flex centerAlign col tricol">
-                <br>
-                <a href="tel:15555555555"><svg class='contactIcon icon' aria-label="Call"><title>Call</title><use href='#phone'></use></svg></a>
-                <br>
-                <a href="mailto:name@domain.com?subject=subject text"><svg class='contactIcon icon' aria-label="Email"><title>Email</title><use href='#email'></use></svg></a>
-            </div>
-            <div class="flex col footerMobile">
-                <div class='flex centerAlign col'>
-                    <img class='footerLogo logo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'" alt="Footer logo"/>
-                    <p id="footText" >qoreCSS © 2022.<br>
-                        Made by Brian Quezada.<br>
-                    </p>
-                </div>
+            
+            <div class="flex centerAlign">
+                <a href="https://github.com/Bijikyu/qoreCSS" class="noDecorate margin15">
+                    <svg class='contactIcon icon' aria-label="GitHub">
+                        <title>GitHub</title>
+                        <use href='#github'></use>
+                    </svg>
+                </a>
+                <a href="#demo" class="noDecorate margin15">
+                    <svg class='contactIcon icon' aria-label="Demo">
+                        <title>Demo</title>
+                        <use href='#star'></use>
+                    </svg>
+                </a>
             </div>
         </div>
     </footer>
+
     <script>
-        const CDN_BASE_URL = `{{CDN_BASE_URL}}`;
-        function cdnFallback(){ console.log(`cdnFallback is running with ${typeof CODEX !== 'undefined' ? CODEX : 'undefined'}`); if(typeof CODEX !== 'undefined' && CODEX === 'True'){ document.getElementById('cdnCSS').href = 'core.css'; document.querySelectorAll(`img[src^='${CDN_BASE_URL}']`).forEach(img => img.src='core.png'); console.log(`cdnFallback has run resulting in core.css fallback`); return; } console.log(`cdnFallback has run resulting in CDN usage`); }
-        cdnFallback();
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.backdropFilter = 'blur(10px)';
+                header.style.backgroundColor = 'rgba(5, 0, 9, 0.9)';
+            } else {
+                header.style.backdropFilter = 'none';
+                header.style.backgroundColor = 'transparent';
+            }
+        });
     </script>
 </body>
 </html>
