@@ -83,7 +83,7 @@
 <body>
     <header><!-- header contains site logo -->
         <div class='desktop flex centerAlign'>
-            <a href='/index.html'><img id='headerLogo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'"/></a>
+            <a href='/index.html'><img id='headerLogo' data-cdn src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'"/></a> //(add data-cdn attr for cdnFallback)
         </div>
     </header>
 
@@ -94,7 +94,7 @@
 		        <hr>
 		        <div id='splash' class='flex centerAlign row center'>
 		            <div class='col center centerAlign'>
-                                <img id="logoTransImg" src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'" alt="Logo"/>
+                                <img id="logoTransImg" data-cdn src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'" alt="Logo"/> //(add data-cdn attr for cdnFallback)
 		            </div>
 		            <div class='col col50 center centerAlign'>
 		                <p id="splashText">This html page provided as a sandbox to test changing the CSS variables. If you find the logo ugly, know it was made in 5 min by AI.</p>
@@ -173,7 +173,7 @@
             </div>
             <div class="col footerDesktop tricol">
                 <div class='flex centerAlign col'>
-                    <img class='footerLogo logo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'" alt="Footer logo"/>
+                    <img class='footerLogo logo' data-cdn src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'" alt="Footer logo"/> //(add data-cdn attr for cdnFallback)
                     <p id="footText" >coreCSS © 2022.<br>
                         Made by Brian Quezada.<br>
                     </p>
@@ -187,7 +187,7 @@
             </div>
             <div class="flex col footerMobile">
                 <div class='flex centerAlign col'>
-                    <img class='footerLogo logo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'" alt="Footer logo"/>
+                    <img class='footerLogo logo' data-cdn src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'" alt="Footer logo"/> //(add data-cdn attr for cdnFallback)
                     <p id="footText" >coreCSS © 2022.<br>
                         Made by Brian Quezada.<br>
                     </p>
@@ -197,7 +197,7 @@
     </footer>
     <script>
         const CDN_BASE_URL = `{{CDN_BASE_URL}}`; //sets CDN base using placeholder
-        function cdnFallback(){ console.log(`cdnFallback is running with ${typeof CODEX !== 'undefined' ? CODEX : 'undefined'}`); if(typeof CODEX !== 'undefined' && CODEX === 'True'){ document.getElementById('cdnCSS').href = 'core.css'; //(change offline css fallback to core.css for local dev) document.querySelectorAll(`img[src^='${CDN_BASE_URL}']`).forEach(img => img.src='core.png'); console.log(`cdnFallback has run resulting in core.css fallback`); //(log offline fallback to core.css) return; } console.log(`cdnFallback has run resulting in CDN usage`); } //use CDN_BASE_URL in fallback
+        function cdnFallback(){ console.log(`cdnFallback is running with ${typeof CODEX !== 'undefined' ? CODEX : 'undefined'}`); if(typeof CODEX !== 'undefined' && CODEX === 'True'){ document.getElementById('cdnCSS').href = 'core.css'; //(change offline css fallback to core.css for local dev) document.querySelectorAll(`[data-cdn]`).forEach(img => img.src='core.png'); //(query cdn imgs via data-cdn attr) console.log(`cdnFallback has run resulting in core.css fallback`); //(log offline fallback to core.css) return; } console.log(`cdnFallback has run resulting in CDN usage`); } //use CDN_BASE_URL in fallback
         cdnFallback();
     </script>
 </body>
