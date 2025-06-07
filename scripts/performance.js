@@ -3,6 +3,7 @@ const {performance} = require('perf_hooks'); //imports performance for timing
 const qerrors = require('qerrors'); //imports qerrors for error logging
 const fs = require('fs'); //imports fs for writing json results
 const CDN_BASE_URL = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; //sets CDN from env var with default
+const MAX_CONCURRENCY = 50; //defines upper limit for concurrency to avoid excessive load
 
 function wait(ms){ //helper to wait for mock network delay
  console.log(`wait is running with ${ms}`); //logs start of wait
@@ -57,6 +58,7 @@ async function run(){ //entry point for script
   let concurrency = parseInt(args[0],10); //parses concurrency argument
   if(Number.isNaN(concurrency)){ concurrency = 5; } //defaults when no valid number provided
   concurrency = Math.max(1, concurrency); //ensures at least one concurrent request as zero or negative provide no downloads
+  if(concurrency > MAX_CONCURRENCY){ console.log(`run concurrency exceeds ${MAX_CONCURRENCY}`); concurrency = MAX_CONCURRENCY; } //warns and caps at limit
   console.log(`run concurrency set to ${concurrency}`); //logs enforced concurrency value
   const results = {}; //object to store averages for this run
   for(const url of urls){ //loops through urls
