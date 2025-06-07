@@ -52,10 +52,10 @@ async function build(){
   /*
    * POSTCSS EXECUTION
    * Rationale: PostCSS with autoprefixer ensures CSS works across all supported browsers.
-   * The core.css input is processed and output as core.min.css with optimizations applied.
+   * The qore.css input is processed and output as core.min.css with optimizations applied.
    * Using execFile instead of exec prevents shell injection attacks.
    */
-  await execFileAsync('npx', ['postcss','core.css','-o','core.min.css']); 
+  await execFileAsync('npx', ['postcss','qore.css','-o','core.min.css']); 
   
   /*
    * CONTENT HASH GENERATION
