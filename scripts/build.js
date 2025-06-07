@@ -1,13 +1,15 @@
-const {execSync} = require('child_process'); //allows shell commands
+const {execFile} = require('child_process'); //provides async shell commands
+const {promisify} = require('util'); //imports promisify utility
 const fs = require('fs').promises; //file system for reading css using promises
 const crypto = require('crypto'); //crypto for hashing
 const zlib = require('zlib'); //compression utilities added
 const qerrors = require('qerrors'); //error logger
+const execFileAsync = promisify(execFile); //promisifies execFile for promise-based execution
 
 async function build(){ //runs postcss then renames file to hashed version asynchronously
  console.log(`build is running with ${process.argv.length}`); //log start
  try {
-  execSync('npx postcss core.css -o core.min.css'); //process css
+  await execFileAsync('npx', ['postcss','core.css','-o','core.min.css']); //run postcss asynchronously
   const data = await fs.readFile('core.min.css'); //read built css asynchronously
   const hash = crypto.createHash('sha1').update(data).digest('hex').slice(0,8); //compute sha1 hash
 
