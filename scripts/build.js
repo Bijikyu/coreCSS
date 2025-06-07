@@ -2,7 +2,7 @@ const {execFile} = require('child_process'); //provides async shell commands
 const {promisify} = require('util'); //imports promisify utility
 const fs = require('fs').promises; //file system for reading css using promises
 const crypto = require('crypto'); //crypto for hashing
-const zlib = require('zlib'); //compression utilities added
+const {gzip, brotliCompress} = require('zlib').promises; //imports async compression functions
 const qerrors = require('qerrors'); //error logger
 const execFileAsync = promisify(execFile); //promisifies execFile for promise-based execution
 
@@ -19,8 +19,10 @@ async function build(){ //runs postcss then renames file to hashed version async
   await Promise.all(compressedOld.map(f => fs.unlink(f))); //delete old compressed asynchronously
   await fs.rename('core.min.css', `core.${hash}.min.css`); //rename with hash asynchronously
 
-  await fs.writeFile(`core.${hash}.min.css.gz`, zlib.gzipSync(data)); //create gzip version
-  await fs.writeFile(`core.${hash}.min.css.br`, zlib.brotliCompressSync(data)); //create brotli version
+  const gzData = await gzip(data); //await gzip to prevent blocking
+  await fs.writeFile(`core.${hash}.min.css.gz`, gzData); //write gzip data after async compress
+  const brData = await brotliCompress(data); //await brotli for same reason
+  await fs.writeFile(`core.${hash}.min.css.br`, brData); //write brotli data after async compress
 
   console.log(`build has run resulting in core.${hash}.min.css`); //log result
   await fs.writeFile('build.hash', hash); //persist hash asynchronously
