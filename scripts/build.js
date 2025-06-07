@@ -9,7 +9,11 @@ async function build(){ //runs postcss then renames file to hashed version async
   execSync('npx postcss core.css -o core.min.css --cache'); //process css
   const data = await fs.readFile('core.min.css'); //read built css asynchronously
   const hash = crypto.createHash('sha1').update(data).digest('hex').slice(0,8); //compute sha1 hash
-  await fs.rename('core.min.css', `core.${hash}.min.css`); //rename with hash asynchronously
+
+  const files = fs.readdirSync('.').filter(f => /^core\.[a-f0-9]{8}\.min\.css$/.test(f) && f !== `core.${hash}.min.css`); //list old hashed css
+  files.forEach(f => fs.unlinkSync(f)); //delete old hashes
+  await fs.renameSync('core.min.css', `core.${hash}.min.css`); //rename with hash
+
   console.log(`build has run resulting in core.${hash}.min.css`); //log result
   await fs.writeFile('build.hash', hash); //persist hash asynchronously
   console.log(`build is returning ${hash}`); //final log before return

@@ -21,7 +21,7 @@ The `.obscure` class applies `backdrop-filter: blur(7px) brightness(200%)` to cr
 
 This is used via the github based CDN https://www.jsdelivr.com
 
-The HTML demo and performance script read the CDN base URL from the `CDN_BASE_URL` environment variable, defaulting to `https://cdn.jsdelivr.net` when unset. Set this variable if hosting the files on a different CDN.
+The HTML demo and performance script read the CDN base URL from the `CDN_BASE_URL` environment variable, defaulting to `https://cdn.jsdelivr.net` when unset. Set this variable if hosting the files on a different CDN. index.html contains the placeholder `{{CDN_BASE_URL}}` that `scripts/updateHtml.js` replaces during build.
 
 Import via CDN in the head of your html as:
 ```
@@ -32,7 +32,7 @@ Minified version:
 ```
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css">
 ```
-`core.min.css` in this repo is generated from `core.css` by running `npm run build`. This command executes `node scripts/build.js`, which processes the file with PostCSS and Autoprefixer. The script now caches results with `postcss-cli-cache` for faster rebuilds.
+`core.min.css` in this repo is generated from `core.css` by running `npm run build`. This command executes `node scripts/build.js`, which processes the file with PostCSS and Autoprefixer. The script now caches results with `postcss-cli-cache` for faster rebuilds and deletes any older `core.*.min.css` files so only the newest hash remains.
 
 The `build` script in `package.json` looks like:
 ```

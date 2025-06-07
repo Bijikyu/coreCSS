@@ -76,13 +76,7 @@
     </svg>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><!-- establishes early CDN connection for faster CSS delivery -->
 
-    <link id="cdnCSS" rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.3cf02509.min.css" onerror="this.onerror=null;this.href='core.css'"> <!-- load core.css locally if CDN fails --> //(updated local fallback to core.css)
-    <script>
-        const CDN_BASE_URL = window.CDN_BASE_URL || `https://cdn.jsdelivr.net`; //sets CDN from env var with default
-        document.addEventListener('DOMContentLoaded',()=>{ //waits for DOM ready before rewriting assets
-            document.querySelectorAll("link[href^='https://cdn.jsdelivr'], img[src^='https://cdn.jsdelivr']").forEach(el=>{ if(el.href){ el.href = el.href.replace('https://cdn.jsdelivr.net', CDN_BASE_URL); } if(el.src){ el.src = el.src.replace('https://cdn.jsdelivr.net', CDN_BASE_URL); } }); //replaces hard coded CDN with runtime value after DOM loaded
-        });
-    </script>
+    <link id="cdnCSS" rel="stylesheet" type="text/css" href="{{CDN_BASE_URL}}/gh/Bijikyu/coreCSS/core.3cf02509.min.css" onerror="this.onerror=null;this.href='core.css'"> <!-- load core.css locally if CDN fails --> //(updated to use placeholder)
 
     <link rel="stylesheet" type="text/css" href="variables.css"><!-- local variables override defaults -->
 </head>
@@ -202,6 +196,7 @@
         </div>
     </footer>
     <script>
+        const CDN_BASE_URL = `{{CDN_BASE_URL}}`; //sets CDN base using placeholder
         function cdnFallback(){ console.log(`cdnFallback is running with ${typeof CODEX !== 'undefined' ? CODEX : 'undefined'}`); if(typeof CODEX !== 'undefined' && CODEX === 'True'){ document.getElementById('cdnCSS').href = 'core.css'; //(change offline css fallback to core.css for local dev) document.querySelectorAll(`img[src^='${CDN_BASE_URL}']`).forEach(img => img.src='core.png'); console.log(`cdnFallback has run resulting in core.css fallback`); //(log offline fallback to core.css) return; } console.log(`cdnFallback has run resulting in CDN usage`); } //use CDN_BASE_URL in fallback
         cdnFallback();
     </script>
