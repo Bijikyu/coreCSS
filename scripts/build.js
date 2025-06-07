@@ -25,7 +25,9 @@ const {execFile} = require('child_process'); // Provides async shell commands fo
 const {promisify} = require('util'); // Converts callback-based functions to promise-based for cleaner async/await usage
 const fs = require('fs').promises; // File system operations using promises for better async handling
 const crypto = require('crypto'); // Cryptographic functions for generating content hashes
-const {gzip, brotliCompress} = require('zlib').promises; // Compression utilities for generating optimized file variants
+const {gzip, brotliCompress} = require('zlib'); // Compression utilities for generating optimized file variants
+const gzipAsync = promisify(gzip);
+const brotliCompressAsync = promisify(brotliCompress);
 const qerrors = require('qerrors'); // Centralized error logging with context preservation
 const execFileAsync = promisify(execFile); // Promise-wrapped execFile for consistent async patterns
 
@@ -97,9 +99,9 @@ async function build(){
    * response times. Gzip is universally supported, Brotli provides better compression
    * for modern browsers. Async compression prevents blocking the event loop.
    */
-  const gzData = await gzip(data); // Gzip compression for wide browser support
+  const gzData = await gzipAsync(data); // Gzip compression for wide browser support
   await fs.writeFile(`core.${hash}.min.css.gz`, gzData); 
-  const brData = await brotliCompress(data); // Brotli compression for better efficiency on modern browsers
+  const brData = await brotliCompressAsync(data); // Brotli compression for better efficiency on modern browsers
   await fs.writeFile(`core.${hash}.min.css.br`, brData); 
 
   console.log(`build has run resulting in core.${hash}.min.css`); // Logs successful completion with resulting filename
