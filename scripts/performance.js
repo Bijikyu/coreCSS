@@ -2,8 +2,10 @@ const axios = require('axios'); //imports axios for HTTP requests
 const {performance} = require('perf_hooks'); //imports performance for timing
 const qerrors = require('qerrors'); //imports qerrors for error logging
 const fs = require('fs'); //imports fs for writing json results
+const pLimit = require('p-limit'); //imports p-limit for request queueing
 const CDN_BASE_URL = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; //sets CDN from env var with default
 const MAX_CONCURRENCY = 50; //defines upper limit for concurrency to avoid excessive load
+const QUEUE_LIMIT = 5; //defines simultaneous request cap
 
 function wait(ms){ //helper to wait for mock network delay
  console.log(`wait is running with ${ms}`); //logs start of wait
@@ -28,11 +30,12 @@ async function getTime(url){ //measures single download time
  }
 }
 
-async function measureUrl(url, count){ //runs downloads concurrently
+async function measureUrl(url, count){ //runs downloads with queue
  console.log(`measureUrl is running with ${url},${count}`); //logs start
  try {
-  const runs = Array.from({length: count}, ()=>getTime(url)); //creates array of promises
-  const times = await Promise.all(runs); //awaits all downloads
+  const limit = pLimit(QUEUE_LIMIT); //creates limiter using queue limit
+  const tasks = Array.from({length: count}, () => limit(() => getTime(url))); //wraps getTime in limiter
+  const times = await Promise.all(tasks); //awaits queued downloads
   const avg = times.reduce((a,b)=>a+b,0)/count; //calculates average
   console.log(`measureUrl is returning ${avg}`); //logs return
   return avg; //returns average
