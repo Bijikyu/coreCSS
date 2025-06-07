@@ -5,12 +5,12 @@ async function updateHtml(){ //updates index.html with new css hash asynchronous
  console.log(`updateHtml is running with ${process.argv.length}`); //logs function start
  try {
 
-  const hash = fs.readFileSync('build.hash','utf8').trim(); //reads hash from build.hash
-  const html = fs.readFileSync('index.html','utf8'); //reads index.html content
+  const hash = (await fs.readFile('build.hash','utf8')).trim(); //reads hash from build.hash asynchronously
+  const html = await fs.readFile('index.html','utf8'); //reads index.html content asynchronously
   const cdnUrl = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; //gets CDN from env with default
   let updated = html.replace(/core\.[a-f0-9]{8}\.min\.css/g, `core.${hash}.min.css`); //replaces old hash
   updated = updated.replace(/\{\{CDN_BASE_URL\}\}/g, cdnUrl); //substitutes CDN placeholder
-  await fs.writeFileSync('index.html', updated); //writes modified html back
+  await fs.writeFile('index.html', updated); //writes modified html back asynchronously
 
   console.log(`updateHtml has run resulting in core.${hash}.min.css`); //logs result of update
   console.log(`updateHtml is returning ${hash}`); //logs return value
