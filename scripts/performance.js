@@ -1,4 +1,4 @@
-const axios = require('axios'); //imports axios for HTTP requests
+const fetchRetry = require('./request-retry'); //imports fetch with retry
 const {performance} = require('perf_hooks'); //imports performance for timing
 const qerrors = require('qerrors'); //imports qerrors for error logging
 const fs = require('fs'); //imports fs for writing json results
@@ -19,7 +19,7 @@ async function getTime(url){ //measures single download time
   if(process.env.CODEX === `True`){ //checks if running in Codex
    await wait(100); //mocks network delay
   } else {
-   await axios.get(url, {responseType: `arraybuffer`}); //makes real request
+   await fetchRetry(url,{responseType:`arraybuffer`}); //makes request with retry
   }
   const time = performance.now() - start; //calculates elapsed
   console.log(`getTime is returning ${time}`); //logs return
