@@ -23,7 +23,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node- # fallback key prefix
       - name: Install dependencies
-        run: npm install # replaced npm ci to avoid lockfile requirement
+        run: npm ci # uses lock file for deterministic install
       - name: Lint CSS
         run: npm run lint # ensure styles follow rules before build
       - name: Build CSS
@@ -75,6 +75,6 @@ jobs:
         with:
           node-version: 18 # version required for script
       - name: Install dependencies
-        run: npm install # replaced npm ci to avoid lockfile requirement
+        run: npm ci # uses lock file for deterministic install
       - name: Purge jsDelivr CDN
         run: node scripts/purge-cdn.js # run purge script
