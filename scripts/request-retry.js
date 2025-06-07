@@ -7,10 +7,11 @@ function wait(ms){ //pauses execution for ms milliseconds
 }
 
 async function fetchRetry(url,opts={},attempts=3){ //performs axios.get with retries
- console.log(`fetchRetry is running with ${url},${attempts}`); //logs function start
- for(let i=1;i<=attempts;i++){ //loops over retry attempts
-  try{
-   const res=await axios.get(url,opts); //sends request to url
+  console.log(`fetchRetry is running with ${url},${attempts}`); //logs function start
+ if(!('timeout' in opts)){ opts.timeout = 10000; } //sets default timeout of 10s allowing override
+  for(let i=1;i<=attempts;i++){ //loops over retry attempts
+   try{
+    const res=await axios.get(url,opts); //sends request to url
    console.log(`fetchRetry is returning ${res.status}`); //logs success status
    return res; //returns axios response
   }catch(err){
