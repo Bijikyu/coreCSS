@@ -31,7 +31,7 @@
     "stylelint": "^15.10.2",
     "stylelint-config-standard": "^34.0.0",
     "axios": "^1.6.0",
-    "qerrors": "^1.0.1",
+    "qerrors": "^1.2.1",
     "p-limit": "^4.0.0"
   },
   "browserslist": [
