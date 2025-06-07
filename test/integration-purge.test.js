@@ -18,7 +18,7 @@ before(() => {
   delete require.cache[require.resolve('../scripts/purge-cdn')]; //ensure fresh purge module
   build = require('../scripts/build'); //import build function
   updateHtml = require('../scripts/updateHtml'); //import updateHtml function
-  purgeCdn = require('../scripts/purge-cdn'); //import purgeCdn function
+  ({purgeCdn} = require('../scripts/purge-cdn')); //import purgeCdn function via destructuring
 });
 
 after(() => {
