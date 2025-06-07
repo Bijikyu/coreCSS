@@ -1,6 +1,54 @@
-<!DOCTYPE html><!-- Main demo HTML to showcase framework usage -->
+<!DOCTYPE html>
+<!--
+    QORECSS FRAMEWORK DEMO PAGE - COMPREHENSIVE SHOWCASE AND DOCUMENTATION
+
+    PURPOSE AND RATIONALE:
+    This HTML document serves multiple critical functions:
+
+    1. FRAMEWORK DEMONSTRATION: Shows all qoreCSS components in action
+    2. LIVING DOCUMENTATION: Provides copy-paste examples for developers
+    3. TESTING PLATFORM: Validates framework functionality across browsers
+    4. PERFORMANCE BENCHMARK: Real-world test of CSS delivery and rendering
+
+    STRUCTURE PHILOSOPHY:
+    - Semantic HTML5 elements for accessibility and SEO
+    - Progressive enhancement (works without CSS/JavaScript)
+    - Mobile-first responsive design patterns
+    - Real-world content examples rather than Lorem Ipsum
+
+    This approach ensures the framework works in practical applications
+    while providing developers with immediately usable code examples.
+-->
 <html lang="en" class="sl-theme-dark"><!-- dark theme class used by Shoelace -->
+<!--
+    DOCUMENT ROOT CONFIGURATION
+
+    LANGUAGE ATTRIBUTE:
+    lang="en" declares document language for:
+    - Screen reader pronunciation
+    - Search engine content understanding
+    - Browser translation features
+    - Accessibility compliance (WCAG requirement)
+-->
 <head>
+    <!--
+        DOCUMENT METADATA AND RESOURCE LOADING
+
+        OPTIMIZATION STRATEGY:
+        Head elements ordered for optimal loading performance:
+        1. Critical meta tags (charset, viewport)
+        2. Title for immediate browser tab display
+        3. CSS resources for render-blocking optimization
+        4. Additional meta tags for SEO and social sharing
+    -->
+
+    <!--
+        CHARACTER ENCODING DECLARATION
+
+        RATIONALE: UTF-8 supports all Unicode characters and is the web standard.
+        Must be declared early (within first 1024 bytes) for security and
+        proper text rendering. Prevents encoding-related security vulnerabilities.
+    -->
     <meta charset="UTF-8"><!-- UTF-8 ensures wide character support -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- force latest rendering engine -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- responsive scaling -->
@@ -81,6 +129,17 @@
     <link rel="stylesheet" type="text/css" href="variables.css"><!-- local variables override defaults -->
 </head>
 <body>
+<!--
+    DOCUMENT BODY - MAIN CONTENT CONTAINER
+
+    SEMANTIC STRUCTURE:
+    Body contains all visible page content organized in semantic HTML5 elements.
+    This structure provides:
+    - Clear content hierarchy for screen readers
+    - SEO-friendly document outline
+    - CSS targeting hooks for styling
+    - JavaScript interaction points
+-->
     <header><!-- header contains site logo -->
         <div class='desktop flex centerAlign'>
             <a href='/index.html'><img id='headerLogo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'"/></a>
@@ -109,7 +168,7 @@
             <h2 id='offerings'>Icon Demo</h2>
             <hr>
             <div class='grid5'> <!-- five column responsive grid for icons -->
-               
+
                 <!-- Icons now loaded from sprite for fewer requests --> <!-- //replaced individual imgs with sprite use -->
                 <div>
                     <svg class='icon iconLarge' aria-hidden="true"><use href='#android'></use></svg><!-- //replaced img with sprite use for android & hide from screen readers -->
@@ -161,7 +220,7 @@
                 </div>
             </div>
         </div>
-        
+
     </main>
 
     <footer><!-- footer repeats contact links for demonstration -->

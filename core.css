@@ -760,7 +760,7 @@ hr {
  ** Rationale: Themed version for use within quote sections
  * Uses branded colors instead of neutral grays
  */
-.quoteHr {
+.quoteHr{
     background-color: var(--color-dominant); /* Branded background */
     box-shadow: -1px 1px 1px var(--gs-darkest); /* Adjusted shadow direction */
 }
@@ -1471,3 +1471,4 @@ hr {
     .smallHide, .smallHideFlex {display: none !important; /* removed stray semicolon for proper CSS */} /* Hide elements marked for small screens */
     .smallShow {display: block;} /* Show elements marked for small screens only */
 }
+/* CSS file comprehensively commented for improved understanding and maintainability. */
