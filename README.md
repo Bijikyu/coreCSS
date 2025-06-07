@@ -2,7 +2,7 @@
   <img height='150' width='150' src="core.png?raw=true" />
 </p>
 
-# coreCSS
+# qoreCSS
 
 This is a ready to use default style sheet that contains default styles which look nice for most elements in html, allowing you to start any app with it not looking bald and terrible. 
 
@@ -25,12 +25,12 @@ The HTML demo and performance script read the CDN base URL from the `CDN_BASE_UR
 
 Import via CDN in the head of your html as:
 ```
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.css">
 ```
 
 Minified version:
 ```
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.min.css">
 ```
 `core.min.css` in this repo is generated from `core.css` by running `npm run build`. This command executes `node scripts/build.js`, which processes the file with PostCSS and Autoprefixer. The script now caches results with `postcss-cli-cache` for faster rebuilds and deletes any older `core.*.min.css` files so only the newest hash remains.
 

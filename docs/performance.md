@@ -22,8 +22,8 @@ If you prefer testing manually or need to verify results with tools of your choi
 
 1. Choose a reasonable concurrency level, such as 10 simultaneous requests.
 2. Measure download times with your preferred tool (`curl`, `ab`, `wrk`, etc.) against the file specified in `build.hash` when present:
-   - `https://cdn.jsdelivr.net/gh/Bijikyu/coreCSS/core.<hash>.min.css`
-   - `https://bijikyu.github.io/coreCSS/core.<hash>.min.css`
+   - `https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.<hash>.min.css`
+   - `https://bijikyu.github.io/qoreCSS/core.<hash>.min.css`
    If the hash file is missing use `core.min.css` in both URLs instead.
 3. Record the average, minimum, and maximum times.
 4. Repeat the test during peak hours to account for CDN traffic.

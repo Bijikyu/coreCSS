@@ -1,6 +1,6 @@
-# Self-hosting coreCSS
+# Self-hosting qoreCSS
 
-When serving `coreCSS` from your own infrastructure you should mirror the cache and compression settings used on the CDN. Lines 1‑13 of [`deployment/nginx.conf`](../deployment/nginx.conf) show an Nginx snippet configuring gzip and Brotli along with long cache headers:
+When serving `qoreCSS` from your own infrastructure you should mirror the cache and compression settings used on the CDN. Lines 1‑13 of [`deployment/nginx.conf`](../deployment/nginx.conf) show an Nginx snippet configuring gzip and Brotli along with long cache headers:
 
 ```nginx
 location ~* \.(?:css|png|jpe?g|svg|gif)$ {

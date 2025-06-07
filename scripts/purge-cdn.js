@@ -5,7 +5,7 @@ const qerrors = require('qerrors'); //imports qerrors for error logging
 async function purgeCdn(file){ //calls jsDelivr purge endpoint
  console.log(`purgeCdn is running with ${file}`); //logs function start
  try {
-  const url = `https://purge.jsdelivr.net/gh/Bijikyu/coreCSS/${file}`; //builds purge url
+  const url = `https://purge.jsdelivr.net/gh/Bijikyu/qoreCSS/${file}`; //builds purge url
   if(process.env.CODEX === `True`){ //mocks network request when offline
    console.log(`purgeCdn is returning 200`); //logs mocked result
    return 200; //returns mock status code

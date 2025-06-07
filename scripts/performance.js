@@ -48,8 +48,8 @@ async function run(){ //entry point for script
   if(fs.existsSync(`build.hash`)){ hash = fs.readFileSync(`build.hash`,`utf8`).trim(); } //reads hash if file present
   const fileName = hash ? `core.${hash}.min.css` : `core.min.css`; //selects hashed or default file name
   const urls = [
-   `${CDN_BASE_URL}/gh/Bijikyu/coreCSS/${fileName}`, //jsDelivr file url built from env var with computed file name
-   `https://bijikyu.github.io/coreCSS/${fileName}` //GitHub Pages file url with computed file name
+   `${CDN_BASE_URL}/gh/Bijikyu/qoreCSS/${fileName}`, //jsDelivr file url built from env var with computed file name
+   `https://bijikyu.github.io/qoreCSS/${fileName}` //GitHub Pages file url with computed file name
   ];
   const args = process.argv.slice(2); //collects cli args
   const jsonFlag = args.includes(`--json`); //checks for json output flag
