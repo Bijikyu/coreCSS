@@ -48,7 +48,7 @@ async function updateHtml(){
    * and HTML updates to happen later in the deployment pipeline.
    * trim() removes any whitespace that might interfere with filename generation.
    */
-  const hash = (await fs.readFile('build.hash','utf8')).trim(); 
+  const hash = (await fs.readFile('build.hash','utf8')).trim(); // Reads current build hash for filename replacement
   
   /*
    * HTML CONTENT LOADING
@@ -56,7 +56,7 @@ async function updateHtml(){
    * which are typically small. This enables string manipulation operations
    * that would be complex with streaming approaches.
    */
-  const html = await fs.readFile('index.html','utf8'); 
+  const html = await fs.readFile('index.html','utf8'); // Loads HTML content into memory for editing
   
   /*
    * CDN URL CONFIGURATION
@@ -64,7 +64,7 @@ async function updateHtml(){
    * for different deployment environments (development, staging, production).
    * jsDelivr chosen as default for its reliability and global CDN presence.
    */
-  const cdnUrl = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; 
+  const cdnUrl = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; // Allows environment-defined CDN URL
   
   /*
    * CSS HASH REPLACEMENT
@@ -72,7 +72,7 @@ async function updateHtml(){
    * Global flag (g) ensures all references in the file are updated in one pass.
    * This handles cases where CSS is referenced multiple times (preload, link, etc.).
    */
-  let updated = html.replace(/core\.[a-f0-9]{8}\.min\.css/g, `core.${hash}.min.css`); 
+  let updated = html.replace(/core\.[a-f0-9]{8}\.min\.css/g, `core.${hash}.min.css`); // Substitutes hashed CSS filename
   
   /*
    * CDN PLACEHOLDER SUBSTITUTION
@@ -83,14 +83,14 @@ async function updateHtml(){
    * - Production with production CDN
    * Global replacement ensures all CDN references are consistent.
    */
-  updated = updated.replace(/\{\{CDN_BASE_URL\}\}/g, cdnUrl); 
+  updated = updated.replace(/\{\{CDN_BASE_URL\}\}/g, cdnUrl); // Replaces CDN placeholder with actual URL
   
   /*
    * HTML FILE UPDATE
    * Rationale: Writing back to the same file updates references in place.
    * This maintains file permissions and any other metadata while updating content.
    */
-  await fs.writeFile('index.html', updated); 
+  await fs.writeFile('index.html', updated); // Persists updated HTML to disk
 
   console.log(`updateHtml has run resulting in core.${hash}.min.css`); // Logs successful completion with resulting filename
   console.log(`updateHtml is returning ${hash}`); // Logs return value for debugging
