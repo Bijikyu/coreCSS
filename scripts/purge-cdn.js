@@ -1,5 +1,5 @@
 const axios = require('axios'); //imports axios for HTTP requests
-const fs = require('fs'); //imports fs for reading hash file
+const fs = require('fs').promises; //imports fs for reading hash file using promises
 const qerrors = require('qerrors'); //imports qerrors for error logging
 
 async function purgeCdn(file){ //calls jsDelivr purge endpoint
@@ -22,7 +22,7 @@ async function purgeCdn(file){ //calls jsDelivr purge endpoint
 async function run(){ //entry point executed when run directly
  console.log(`run is running with ${process.argv.length}`); //logs start
  try {
-  const hash = fs.readFileSync(`build.hash`, `utf8`).trim(); //reads hash file
+  const hash = (await fs.readFile(`build.hash`, `utf8`)).trim(); //reads hash asynchronously
   const file = `core.${hash}.min.css`; //creates hashed file name
   const code = await purgeCdn(file); //calls purgeCdn
   console.log(`run is returning ${code}`); //logs return code
