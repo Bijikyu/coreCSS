@@ -1,6 +1,23 @@
 {
   "name": "qoreCSS",
   "version": "1.0.0",
+  "main": "index.js",
+  "style": "core.css",
+  "files": [
+    "core.css",
+    "variables.css",
+    "index.js",
+    "core.*.min.css",
+    "README.md"
+  ],
+  "keywords": [
+    "css",
+    "stylesheet",
+    "normalize",
+    "flexbox",
+    "grid",
+    "responsive"
+  ],
   "scripts": {
     "build": "node scripts/build.js",
     "lint": "stylelint core.css variables.css"
