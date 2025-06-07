@@ -27,15 +27,7 @@ jobs:
       - name: Lint CSS
         run: npm run lint # ensure styles follow rules before build
       - name: Build CSS
-        run: npm run build # generate core.<hash>.min.css
-      - name: Compute hash and rename CSS
-        run: |
-          if [ -f core.min.css ]; then # checks for built file before hashing
-            HASH=$(sha1sum core.min.css | cut -c1-8) # gets hash when css exists
-          else
-            HASH=$(cat build.hash) # fallback to previous build hash
-          fi
-          if [ -f core.min.css ]; then mv core.min.css core.$HASH.min.css; fi # renames if file present
+        run: npm run build # generate core.<hash>.min.css and write build.hash
       - name: Update HTML
         run: node scripts/updateHtml.js # updates index links with hash
       - name: Prepare dist #gathers production files for deployment
