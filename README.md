@@ -21,7 +21,7 @@ The `.obscure` class applies `backdrop-filter: blur(7px) brightness(200%)` to cr
 
 This is used via the github based CDN https://www.jsdelivr.com
 
-The HTML demo and performance script read the CDN base URL from the `CDN_BASE_URL` environment variable, defaulting to `https://cdn.jsdelivr.net` when unset. Set this variable if hosting the files on a different CDN.
+The HTML demo and performance script read the CDN base URL from the `CDN_BASE_URL` environment variable, defaulting to `https://cdn.jsdelivr.net` when unset. Set this variable if hosting the files on a different CDN. index.html contains the placeholder `{{CDN_BASE_URL}}` that `scripts/updateHtml.js` replaces during build.
 
 Import via CDN in the head of your html as:
 ```
