@@ -26,9 +26,11 @@ jobs:
         with:
           name: cdn-performance # artifact name
           path: performance.log # artifact path
+          retention-days: 30 # keep artifact for 30 days
       - name: Upload json
         uses: actions/upload-artifact@v3 # archive json
         with:
           name: cdn-performance-json # artifact name for json
           path: performance-results.json # artifact path for json
+          retention-days: 30 # keep artifact for 30 days
 

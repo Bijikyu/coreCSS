@@ -51,6 +51,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1 # package files for deployment
         with:
           path: dist #upload only production files
+          retention-days: 30 # keep artifact for 30 days
   tag: # job to create release tags #adds tagging job
     needs: build # wait for build job #ensures build completed
     runs-on: ubuntu-latest # use same runner #uses ubuntu
