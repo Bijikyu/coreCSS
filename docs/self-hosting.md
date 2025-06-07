@@ -16,6 +16,15 @@ location ~* \.(?:css|png|jpe?g|svg|gif)$ {
 }
 ```
 
+For HTML documents send a very short cache header so visitors always get the latest file:
+
+```nginx
+location ~* \.html$ {
+    add_header Cache-Control "no-cache";
+}
+```
+<!-- //short cache header snippet for html pages -->
+
 These directives ensure assets are compressed when possible and cached by browsers for up to one year without revalidation thanks to the `immutable` directive. The `ETag` and `Last-Modified` headers allow conditional requests so clients avoid re-downloading unchanged files.
 
 ## Hashed file names

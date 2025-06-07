@@ -4,9 +4,13 @@ compression-gzip-extensions = ["css", "png", "jpg", "jpeg", "svg", "gif"] # gzip
 compression-brotli-extensions = ["css", "png", "jpg", "jpeg", "svg", "gif"] # brotli only these types
 http-etag = true # enables ETag header
 http-last-modified = true # enables Last-Modified header
-cache-control-max-age = 31536000 # 1 year max age caching
-cache-control-immutable = true # immutable caching so no revalidation
+cache-control-max-age = 0 # short default cache for html and misc files
+cache-control-immutable = false # disables immutable for non assets
 
 [[headers]]
 source = "**/*.{css,png,jpg,jpeg,svg,gif}" # pattern to match assets
 headers = { "Cache-Control" = "public, max-age=31536000, immutable" } # replicates nginx caching header
+
+[[headers]]
+source = "**/*.html" # pattern to match html files
+headers = { "Cache-Control" = "no-cache" } # ensures html is always revalidated
