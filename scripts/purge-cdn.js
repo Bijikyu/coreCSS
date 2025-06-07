@@ -1,4 +1,4 @@
-const axios = require('axios'); //imports axios for HTTP requests
+const fetchRetry = require('./request-retry'); //imports fetch with retry
 const fs = require('fs').promises; //imports fs for reading hash file using promises
 const qerrors = require('qerrors'); //imports qerrors for error logging
 
@@ -10,7 +10,7 @@ async function purgeCdn(file){ //calls jsDelivr purge endpoint
    console.log(`purgeCdn is returning 200`); //logs mocked result
    return 200; //returns mock status code
   }
-  const res = await axios.get(url); //sends purge request
+  const res = await fetchRetry(url); //sends purge request with retry
   console.log(`purgeCdn is returning ${res.status}`); //logs response status
   return res.status; //returns status code
  } catch(err){
