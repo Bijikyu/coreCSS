@@ -20,7 +20,8 @@
   ],
   "scripts": {
     "build": "node scripts/build.js",
-    "lint": "stylelint core.css variables.css"
+    "lint": "stylelint core.css variables.css",
+    "test": "node --test --test-concurrency=1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",

@@ -55,7 +55,11 @@ async function build(){
    * The qore.css input is processed and output as core.min.css with optimizations applied.
    * Using execFile instead of exec prevents shell injection attacks.
    */
-  await execFileAsync('npx', ['postcss','qore.css','-o','core.min.css']); 
+  if(process.env.CODEX === `True`){
+   await fs.copyFile('qore.css','core.min.css'); // Skips postcss in offline mode
+  } else {
+   await execFileAsync('npx', ['postcss','qore.css','-o','core.min.css']); // Runs postcss normally
+  }
   
   /*
    * CONTENT HASH GENERATION
