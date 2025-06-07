@@ -54,79 +54,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- responsive scaling -->
     <meta name="robots" content="index, follow">
     <title>qoreCSS Sandbox</title>
-    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.href='core.png'"/><!-- fallback to local icon on CDN failure -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.3cf02509.min.css" as="style"><!-- //preloads hashed stylesheet for faster fetch --> <!-- //removed outdated build hash note -->
-    <svg xmlns="http://www.w3.org/2000/svg" style="display:none"><!-- inlined sprite so icons require no network fetch -->
-      <symbol id="android" viewBox="0 0 24 24"><!-- each symbol is a numbered placeholder -->
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.href='core.png'"/>
+    <link rel="preload" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.3cf02509.min.css" as="style">
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+      <symbol id="android" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">1</text>
       </symbol>
-      <symbol id="email" viewBox="0 0 24 24"><!-- numbering allows generic styling -->
+      <symbol id="email" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">2</text>
       </symbol>
-      <symbol id="fb" viewBox="0 0 24 24"><!-- facebook icon placeholder -->
+      <symbol id="fb" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">3</text>
       </symbol>
-      <symbol id="fb_messenger" viewBox="0 0 24 24"><!-- facebook messenger icon -->
+      <symbol id="fb_messenger" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">4</text>
       </symbol>
-      <symbol id="github" viewBox="0 0 24 24"><!-- github icon placeholder -->
+      <symbol id="github" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">5</text>
       </symbol>
-      <symbol id="insta" viewBox="0 0 24 24"><!-- instagram icon placeholder -->
+      <symbol id="insta" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">6</text>
       </symbol>
-      <symbol id="linkedin" viewBox="0 0 24 24"><!-- linkedin icon placeholder -->
+      <symbol id="linkedin" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">7</text>
       </symbol>
-      <symbol id="patreon" viewBox="0 0 24 24"><!-- patreon icon placeholder -->
+      <symbol id="patreon" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">8</text>
       </symbol>
-      <symbol id="phone" viewBox="0 0 24 24"><!-- phone icon placeholder -->
+      <symbol id="phone" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">9</text>
       </symbol>
-      <symbol id="pinterest" viewBox="0 0 24 24"><!-- pinterest icon placeholder -->
+      <symbol id="pinterest" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">10</text>
       </symbol>
-      <symbol id="reddit" viewBox="0 0 24 24"><!-- reddit icon placeholder -->
+      <symbol id="reddit" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">11</text>
       </symbol>
-      <symbol id="shopify" viewBox="0 0 24 24"><!-- shopify icon placeholder -->
+      <symbol id="shopify" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">12</text>
       </symbol>
-      <symbol id="signal" viewBox="0 0 24 24"><!-- signal icon placeholder -->
+      <symbol id="signal" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">13</text>
       </symbol>
-      <symbol id="skype" viewBox="0 0 24 24"><!-- skype icon placeholder -->
+      <symbol id="skype" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">14</text>
       </symbol>
-      <symbol id="snap" viewBox="0 0 24 24"><!-- snapchat icon placeholder -->
+      <symbol id="snap" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">15</text>
       </symbol>
-      <symbol id="twitter" viewBox="0 0 24 24"><!-- twitter icon placeholder -->
+      <symbol id="twitter" viewBox="0 0 24 24">
         <rect width="24" height="24" rx="4" ry="4" fill="currentColor"/>
         <text x="12" y="16" font-size="12" text-anchor="middle" fill="#fff">16</text>
       </symbol>
     </svg>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><!-- establishes early CDN connection for faster CSS delivery -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-    <link id="cdnCSS" rel="stylesheet" type="text/css" href="{{CDN_BASE_URL}}/gh/Bijikyu/qoreCSS/core.3cf02509.min.css" onerror="this.onerror=null;this.href='core.css'"> <!-- load core.css locally if CDN fails --> //(updated to use placeholder)
+    <link id="cdnCSS" rel="stylesheet" type="text/css" href="{{CDN_BASE_URL}}/gh/Bijikyu/qoreCSS/core.3cf02509.min.css" onerror="this.onerror=null;this.href='core.css'">
 
-    <link rel="stylesheet" type="text/css" href="variables.css"><!-- local variables override defaults -->
+    <link rel="stylesheet" type="text/css" href="variables.css">
 </head>
 <body>
 <!--
@@ -140,14 +140,14 @@
     - CSS targeting hooks for styling
     - JavaScript interaction points
 -->
-    <header><!-- header contains site logo -->
+    <header>
         <div class='desktop flex centerAlign'>
             <a href='/index.html'><img id='headerLogo' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.src='core.png'"/></a>
         </div>
     </header>
 
     <!--SPLASH-->
-    <main class='col center centerAlign'><!-- central content area holding demo elements -->
+    <main class='col center centerAlign'>
 				<div class='card col90'>
 		        <h2>qoreCSS <br> Sandbox</h2>
 		        <hr>
@@ -158,7 +158,7 @@
 		            <div class='col col50 center centerAlign'>
 		                <p id="splashText">This html page provided as a sandbox to test changing the CSS variables. If you find the logo ugly, know it was made in 5 min by AI.</p>
 		                <br>
-                                <button class='col30'>Contact</button><!-- simple demo action button -->
+                                <button class='col30'>Contact</button>
 		            </div>
 		        </div>
 				</div>
@@ -167,68 +167,67 @@
         <div class='col card col90 flex centerAlign'>
             <h2 id='offerings'>Icon Demo</h2>
             <hr>
-            <div class='grid5'> <!-- five column responsive grid for icons -->
+            <div class='grid5'>
 
-                <!-- Icons now loaded from sprite for fewer requests --> <!-- //replaced individual imgs with sprite use -->
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#android'></use></svg><!-- //replaced img with sprite use for android & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#android'></use></svg>
                 </div>
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#email'></use></svg><!-- //replaced img with sprite use for email & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#email'></use></svg>
                 </div>
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#fb'></use></svg><!-- //replaced img with sprite use for fb & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#fb'></use></svg>
                 </div>
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#fb_messenger'></use></svg><!-- //replaced img with sprite use for fb messenger & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#fb_messenger'></use></svg>
                 </div>
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#github'></use></svg><!-- //replaced img with sprite use for github & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#github'></use></svg>
                 </div>
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#insta'></use></svg><!-- //replaced img with sprite use for insta & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#insta'></use></svg>
                 </div>
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#linkedin'></use></svg><!-- //replaced img with sprite use for linkedin & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#linkedin'></use></svg>
                 </div>
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#patreon'></use></svg><!-- //replaced img with sprite use for patreon & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#patreon'></use></svg>
                 </div>
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#phone'></use></svg><!-- //replaced img with sprite use for phone & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#phone'></use></svg>
                 </div>
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#pinterest'></use></svg><!-- //replaced img with sprite use for pinterest & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#pinterest'></use></svg>
                 </div>
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#reddit'></use></svg><!-- //replaced img with sprite use for reddit & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#reddit'></use></svg>
                 </div>
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#shopify'></use></svg><!-- //replaced img with sprite use for shopify & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#shopify'></use></svg>
                 </div>
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#signal'></use></svg><!-- //replaced img with sprite use for signal & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#signal'></use></svg>
                 </div>
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#skype'></use></svg><!-- //replaced img with sprite use for skype & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#skype'></use></svg>
                 </div>
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#snap'></use></svg><!-- //replaced img with sprite use for snap & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#snap'></use></svg>
                 </div>
                 <div>
-                    <svg class='icon iconLarge' aria-hidden="true"><use href='#twitter'></use></svg><!-- //replaced img with sprite use for twitter & hide from screen readers -->
+                    <svg class='icon iconLarge' aria-hidden="true"><use href='#twitter'></use></svg>
                 </div>
             </div>
         </div>
 
     </main>
 
-    <footer><!-- footer repeats contact links for demonstration -->
+    <footer>
         <div class='flex centerAlign row evenly col100'>
-            <div class="flex centerAlign col tricol"> <!--Social Media Container-->
-                <a href=""><svg class='contactIcon icon' aria-label="Facebook"><title>Facebook</title><use href='#fb'></use></svg></a><!-- //use sprite icon for fb with label -->
+            <div class="flex centerAlign col tricol">
+                <a href=""><svg class='contactIcon icon' aria-label="Facebook"><title>Facebook</title><use href='#fb'></use></svg></a>
                 <br>
-                <a href=""><svg class='contactIcon icon' aria-label="Twitter"><title>Twitter</title><use href='#twitter'></use></svg></a><!-- //use sprite icon for twitter with label -->
+                <a href=""><svg class='contactIcon icon' aria-label="Twitter"><title>Twitter</title><use href='#twitter'></use></svg></a>
             </div>
             <div class="col footerDesktop tricol">
                 <div class='flex centerAlign col'>
@@ -240,9 +239,9 @@
             </div>
             <div class="flex centerAlign col tricol">
                 <br>
-                <a href="tel:15555555555"><svg class='contactIcon icon' aria-label="Call"><title>Call</title><use href='#phone'></use></svg></a> <!--TODO: phone # with label -->
+                <a href="tel:15555555555"><svg class='contactIcon icon' aria-label="Call"><title>Call</title><use href='#phone'></use></svg></a>
                 <br>
-                <a href="mailto:name@domain.com?subject=subject text"><svg class='contactIcon icon' aria-label="Email"><title>Email</title><use href='#email'></use></svg></a> <!--TODO: email with label -->
+                <a href="mailto:name@domain.com?subject=subject text"><svg class='contactIcon icon' aria-label="Email"><title>Email</title><use href='#email'></use></svg></a>
             </div>
             <div class="flex col footerMobile">
                 <div class='flex centerAlign col'>
@@ -255,8 +254,8 @@
         </div>
     </footer>
     <script>
-        const CDN_BASE_URL = `{{CDN_BASE_URL}}`; //sets CDN base using placeholder
-        function cdnFallback(){ console.log(`cdnFallback is running with ${typeof CODEX !== 'undefined' ? CODEX : 'undefined'}`); if(typeof CODEX !== 'undefined' && CODEX === 'True'){ document.getElementById('cdnCSS').href = 'core.css'; //(change offline css fallback to core.css for local dev) document.querySelectorAll(`img[src^='${CDN_BASE_URL}']`).forEach(img => img.src='core.png'); console.log(`cdnFallback has run resulting in core.css fallback`); //(log offline fallback to core.css) return; } console.log(`cdnFallback has run resulting in CDN usage`); } //use CDN_BASE_URL in fallback
+        const CDN_BASE_URL = `{{CDN_BASE_URL}}`;
+        function cdnFallback(){ console.log(`cdnFallback is running with ${typeof CODEX !== 'undefined' ? CODEX : 'undefined'}`); if(typeof CODEX !== 'undefined' && CODEX === 'True'){ document.getElementById('cdnCSS').href = 'core.css'; document.querySelectorAll(`img[src^='${CDN_BASE_URL}']`).forEach(img => img.src='core.png'); console.log(`cdnFallback has run resulting in core.css fallback`); return; } console.log(`cdnFallback has run resulting in CDN usage`); }
         cdnFallback();
     </script>
 </body>
