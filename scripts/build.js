@@ -6,7 +6,7 @@ const qerrors = require('qerrors'); //error logger
 async function build(){ //runs postcss then renames file to hashed version asynchronously
  console.log(`build is running with ${process.argv.length}`); //log start
  try {
-  execSync('npx postcss core.css -o core.min.css --cache'); //process css
+  execSync('npx postcss core.css -o core.min.css'); //process css
   const data = await fs.readFile('core.min.css'); //read built css asynchronously
   const hash = crypto.createHash('sha1').update(data).digest('hex').slice(0,8); //compute sha1 hash
 
