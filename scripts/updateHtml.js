@@ -6,7 +6,9 @@ function updateHtml(){ //updates index.html with new css hash
  try {
   const hash = fs.readFileSync('build.hash','utf8').trim(); //reads hash from build.hash
   const html = fs.readFileSync('index.html','utf8'); //reads index.html content
-  const updated = html.replace(/core\.[a-f0-9]{8}\.min\.css/g, `core.${hash}.min.css`); //replaces old hash
+  const cdnUrl = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; //gets CDN from env with default
+  let updated = html.replace(/core\.[a-f0-9]{8}\.min\.css/g, `core.${hash}.min.css`); //replaces old hash
+  updated = updated.replace(/\{\{CDN_BASE_URL\}\}/g, cdnUrl); //substitutes CDN placeholder
   fs.writeFileSync('index.html', updated); //writes modified html back
   console.log(`updateHtml has run resulting in core.${hash}.min.css`); //logs result of update
   console.log(`updateHtml is returning ${hash}`); //logs return value
