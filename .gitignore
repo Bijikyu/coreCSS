@@ -1,7 +1,7 @@
 # Exclude build artifacts and performance results
 core.min.css
 core.*.min.css
-core.*.min.css.gz //(ignore gzip build files)
-core.*.min.css.br //(ignore brotli build files)
+core.*.min.css.gz #(ignore gzip build files)
+core.*.min.css.br #(ignore brotli build files)
 build.hash
 performance-results.json
