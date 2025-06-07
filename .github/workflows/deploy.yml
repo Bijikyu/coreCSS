@@ -92,7 +92,7 @@ jobs:
           const fs=require('fs'); //imports file system
           const purge=require('./scripts/purge-cdn'); //imports purge function
           const hash=fs.readFileSync('build.hash','utf8').trim(); //reads hash
-          purge(`dist/core.${hash}.min.css`).then(c=>{ //calls purge on new path
+          purge(`core.${hash}.min.css`).then(c=>{ //calls purge on new file
            console.log(`purge result ${c}`); //logs purge response code
           }).catch(e=>{console.error(e);process.exit(1);}); //handles errors
           EOF
