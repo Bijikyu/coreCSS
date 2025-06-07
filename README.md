@@ -32,7 +32,7 @@ Minified version:
 ```
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.min.css">
 ```
-`core.min.css` in this repo is generated from `core.css` by running `npm run build`. This command executes `node scripts/build.js`, which processes the file with PostCSS and Autoprefixer. The script now caches results with `postcss-cli-cache` for faster rebuilds and deletes any older `core.*.min.css` files so only the newest hash remains.
+`core.min.css` in this repo is generated from `core.css` by running `npm run build`. This command executes `node scripts/build.js`, which processes the file with PostCSS and Autoprefixer and deletes any older `core.*.min.css` files so only the newest hash remains.
 
 The `build` script in `package.json` looks like:
 ```
@@ -41,7 +41,6 @@ The `build` script in `package.json` looks like:
   "lint": "stylelint core.css variables.css"
 }
 ```
-Install `postcss-cli-cache` as a dev dependency to enable caching.
 
 The repository now uses a GitHub Actions workflow that builds `core.min.css` and deploys it to GitHub Pages on every push to `main`. <!-- //added explanation of automatic deployment -->
 It also creates a semantic version tag when `main` is updated so consumers can target specific releases. <!-- //explains new auto tagging -->
