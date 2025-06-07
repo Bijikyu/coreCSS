@@ -38,10 +38,17 @@ jobs:
           if [ -f core.min.css ]; then mv core.min.css core.$HASH.min.css; fi # renames if file present
       - name: Update HTML
         run: node scripts/updateHtml.js # updates index links with hash
+      - name: Prepare dist #gathers production files for deployment
+        run: |
+          mkdir dist #creates dist directory for artifact
+          cp core.*.min.css dist/ #copies hashed stylesheet
+          cp index.html dist/ #copies main html
+          cp variables.css dist/ #copies css variables
+          cp *.png dist/ 2>/dev/null || true #copies images if present
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1 # package files for deployment
         with:
-          path: . # upload entire repo
+          path: dist #upload only production files
   tag: # job to create release tags #adds tagging job
     needs: build # wait for build job #ensures build completed
     runs-on: ubuntu-latest # use same runner #uses ubuntu
@@ -77,4 +84,12 @@ jobs:
       - name: Install dependencies
         run: npm install # replaced npm ci to avoid lockfile requirement
       - name: Purge jsDelivr CDN
-        run: node scripts/purge-cdn.js # run purge script
+        run: |
+          node - <<'EOF' #runs purge script targeting dist path
+          const fs=require('fs'); //imports file system
+          const purge=require('./scripts/purge-cdn'); //imports purge function
+          const hash=fs.readFileSync('build.hash','utf8').trim(); //reads hash
+          purge(`dist/core.${hash}.min.css`).then(c=>{ //calls purge on new path
+           console.log(`purge result ${c}`); //logs purge response code
+          }).catch(e=>{console.error(e);process.exit(1);}); //handles errors
+          EOF
