@@ -28,7 +28,7 @@ const crypto = require('crypto'); // Cryptographic functions for generating cont
 const {gzip, brotliCompress} = require('zlib'); // Compression utilities for generating optimized file variants
 const gzipAsync = promisify(gzip);
 const brotliCompressAsync = promisify(brotliCompress);
-const qerrors = require('qerrors'); // Centralized error logging with context preservation
+// Removed qerrors dependency - using console.error for logging
 const execFileAsync = promisify(execFile); // Promise-wrapped execFile for consistent async patterns
 
 /*
@@ -115,7 +115,7 @@ async function build(){
   console.log(`build is returning ${hash}`); // Logs return value for debugging
   return hash; // Returns hash for programmatic usage
  } catch(err){
-  qerrors(err, 'build failed', {args:process.argv.slice(2)}); // Logs error with full context for debugging
+  console.error('build failed:', err.message, {args:process.argv.slice(2)}); // Logs error with full context for debugging
   throw err; // Re-throws to allow caller to handle or terminate process
  }
 }
@@ -127,7 +127,7 @@ async function build(){
  */
 if(require.main === module){
  build().catch(err => { // Handles async failures when run directly
-  qerrors(err, 'build script failure', {args:process.argv.slice(2)}); // Logs error context for debugging
+  console.error('build script failure:', err.message, {args:process.argv.slice(2)}); // Logs error context for debugging
   process.exitCode = 1; // Sets non-zero exit code to signal failure to calling processes
  });
 }
