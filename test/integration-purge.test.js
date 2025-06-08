@@ -24,6 +24,7 @@ before(() => {
 after(() => {
   process.chdir(path.resolve(__dirname, '..')); //return to repo root
   fs.rmSync(tmpDir, {recursive: true, force: true}); //remove temp directory
+  delete process.env.CODEX; //restore CODEX env so other tests run online
 });
 
 describe('build update purge', {concurrency:false}, () => { //group test steps
