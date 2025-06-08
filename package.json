@@ -1,6 +1,7 @@
 {
   "name": "qorecss",
   "version": "1.0.0",
+  "description": "A modern, lightweight CSS framework with customizable themes, flexbox layouts, and utility classes for rapid web development",
   "main": "index.js",
   "style": "qore.css",
   "files": [
@@ -12,11 +13,19 @@
   ],
   "keywords": [
     "css",
+    "framework",
     "stylesheet",
     "normalize",
     "flexbox",
     "grid",
-    "responsive"
+    "responsive",
+    "utility-classes",
+    "themes",
+    "modern",
+    "lightweight",
+    "web-development",
+    "ui-components",
+    "customizable"
   ],
   "scripts": {
     "build": "node scripts/build.js",
