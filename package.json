@@ -49,9 +49,5 @@
     ">0.5%",
     "last 2 versions",
     "not dead"
-  ],
-  "dependencies": {
-    "qtests": "^1.0.4",
-    "axios": "^1.6.0"
-  }
+  ]
 }
