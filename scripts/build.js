@@ -23,11 +23,11 @@
 
 const {execFile} = require('child_process'); // Provides async shell commands for external tool execution
 const {promisify} = require('util'); // Converts callback-based functions to promise-based for cleaner async/await usage
-const fs = require('fs').promises; // File system operations using promises for better async handling
+const fs = require('fs'); // Provides streaming APIs and promise helpers
+const fsp = fs.promises; // Promise-based filesystem methods
 const crypto = require('crypto'); // Cryptographic functions for generating content hashes
-const {gzip, brotliCompress} = require('zlib'); // Compression utilities for generating optimized file variants
-const gzipAsync = promisify(gzip); // Promisified gzip for async/await usage
-const brotliCompressAsync = promisify(brotliCompress); // Promisified brotli for async/await usage
+const {createGzip, createBrotliCompress} = require('zlib'); // Streaming compressors for optimized output
+const {pipeline} = require('stream/promises'); // Promise based pipeline for stream control
 const execFileAsync = promisify(execFile); // Promise-wrapped execFile for consistent async patterns
 
 /*
@@ -55,7 +55,7 @@ async function build(){
    * Using execFile instead of exec prevents shell injection attacks.
    */
   if(process.env.CODEX === `True`){
-   await fs.copyFile('qore.css','core.min.css'); // Skips postcss in offline mode
+   await fsp.copyFile('qore.css','core.min.css'); // Skips postcss in offline mode
   } else {
    await execFileAsync('npx', ['postcss','qore.css','-o','core.min.css']); // Runs postcss normally
   }
@@ -68,8 +68,13 @@ async function build(){
    * - 8-character truncation provides sufficient uniqueness for this use case
    * SHA1 chosen over MD5 for better collision resistance, over SHA256 for shorter hashes
    */
-  const data = await fs.readFile('core.min.css'); 
-  const hash = crypto.createHash('sha1').update(data).digest('hex').slice(0,8); 
+  const hash = await new Promise((resolve,reject)=>{ // Streams file to compute sha1 without loading to memory
+   const sha1 = crypto.createHash('sha1'); // Initializes hash object
+   const stream = fs.createReadStream('core.min.css'); // Reads CSS as stream
+   stream.on('error', reject); // Propagates read errors
+   stream.on('data', chunk => sha1.update(chunk)); // Updates hash with chunk
+   stream.on('end', () => resolve(sha1.digest('hex').slice(0,8))); // Resolves with truncated hash
+  });
 
   /*
    * OLD FILE CLEANUP
@@ -78,24 +83,24 @@ async function build(){
    * Excludes the current hash to prevent deleting the file we're about to create.
    * Promise.all enables parallel deletion for better performance.
    */
-  const targetFile = `core.${hash}.min.css`;
-  const files = (await fs.readdir('.')).filter(f => /^core\.[a-f0-9]{8}\.min\.css$/.test(f) && f !== targetFile); 
-  await Promise.all(files.map(f => fs.unlink(f))); 
+  const targetFile = `core.${hash}.min.css`; // Builds hashed filename for renaming
+  const files = (await fsp.readdir('.')).filter(f => /^core\.[a-f0-9]{8}\.min\.css$/.test(f) && f !== targetFile); // Lists old hashed files
+  await Promise.all(files.map(f => fsp.unlink(f))); // Removes outdated hashed css
   
   /*
    * COMPRESSED FILE CLEANUP
    * Rationale: Also removes old compressed variants (.gz, .br) to maintain consistency.
    * These files can be large and accumulate quickly without cleanup.
    */
-  const compressedOld = (await fs.readdir('.')).filter(f => /^core\.[a-f0-9]{8}\.min\.css\.(?:gz|br)$/.test(f) && !f.includes(hash)); 
-  await Promise.all(compressedOld.map(f => fs.unlink(f))); 
+  const compressedOld = (await fsp.readdir('.')).filter(f => /^core\.[a-f0-9]{8}\.min\.css\.(?:gz|br)$/.test(f) && !f.includes(hash)); // Finds old compressed files
+  await Promise.all(compressedOld.map(f => fsp.unlink(f))); // Deletes old compressed files
   
   /*
    * FILE RENAMING WITH HASH
    * Rationale: Creates the cache-busting filename that CDNs and browsers will use.
    * This must happen after cleanup to avoid race conditions.
    */
-  await fs.rename('core.min.css', targetFile); 
+  await fsp.rename('core.min.css', targetFile); // Renames processed css with hash
 
   /*
    * COMPRESSION GENERATION
@@ -103,10 +108,10 @@ async function build(){
    * response times. Gzip is universally supported, Brotli provides better compression
    * for modern browsers. Async compression prevents blocking the event loop.
    */
-  const gzData = await gzipAsync(data); // Gzip compression for wide browser support
-  await fs.writeFile(`core.${hash}.min.css.gz`, gzData); 
-  const brData = await brotliCompressAsync(data); // Brotli compression for better efficiency on modern browsers
-  await fs.writeFile(`core.${hash}.min.css.br`, brData); 
+  await Promise.all([ // Streams compression to avoid loading file in memory
+   pipeline(fs.createReadStream(targetFile), createGzip(), fs.createWriteStream(`${targetFile}.gz`)), // Gzip output
+   pipeline(fs.createReadStream(targetFile), createBrotliCompress(), fs.createWriteStream(`${targetFile}.br`)) // Brotli output
+  ]);
 
   console.log(`build has run resulting in core.${hash}.min.css`); // Logs successful completion with resulting filename
   
@@ -115,7 +120,7 @@ async function build(){
    * Rationale: Other scripts (deploy, updateHtml) need to know the current hash.
    * Storing in a separate file enables loose coupling between build steps.
    */
-  await fs.writeFile('build.hash', hash); 
+  await fsp.writeFile('build.hash', hash); // Persists hash for deployment scripts
   console.log(`build is returning ${hash}`); // Logs return value for debugging
   return hash; // Returns hash for programmatic usage
  } catch(err){
