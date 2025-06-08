@@ -23,7 +23,10 @@
  */
 
 const axios = require('axios'); // Robust HTTP client library with comprehensive feature set
+const http = require('node:http'); // Node HTTP used for keep-alive agent
+const https = require('node:https'); // Node HTTPS used for keep-alive agent
 const qerrors = require('qerrors'); // Centralized error logging with contextual information preservation
+const axiosInstance = axios.create({httpAgent:new http.Agent({keepAlive:true}),httpsAgent:new https.Agent({keepAlive:true})}); // axios instance reusing persistent agents
 
 /*
  * DELAY UTILITY FUNCTION
@@ -77,11 +80,11 @@ async function fetchRetry(url,opts={},attempts=3){
    try{
     /*
      * HTTP REQUEST EXECUTION
-     * Rationale: axios.get provides reliable HTTP client with good error handling,
+     * Rationale: axiosInstance.get provides reliable HTTP client with good error handling,
      * timeout support, and comprehensive response object. Options object allows
      * caller to specify responseType, headers, and other request configuration.
      */
-    const res=await axios.get(url,opts); 
+    const res=await axiosInstance.get(url,opts); // uses persistent axios instance for all retries
    console.log(`fetchRetry is returning ${res.status}`); // Logs successful response status
    return res; // Returns complete axios response object for caller processing
   }catch(err){
