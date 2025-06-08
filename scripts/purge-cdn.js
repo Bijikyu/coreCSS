@@ -89,16 +89,17 @@ async function purgeCdn(file){
  * This ensures purge operations target the exact file that was just built,
  * maintaining consistency between build and deployment processes.
  */
-async function run(){ 
+async function run(){
  console.log(`run is running with ${process.argv.length}`); // Logs execution start for monitoring
  try {
+  await fs.access(`build.hash`); // ensures build hash file exists before reading
   /*
    * BUILD HASH INTEGRATION
    * Rationale: Reads hash from build system to ensure purge targets the
    * correct file version. This maintains tight coupling between build
    * and purge operations, preventing purging of wrong file versions.
    */
-   const hash = (await fs.readFile(`build.hash`, `utf8`)).trim(); // Reads current build hash from filesystem
+  const hash = (await fs.readFile(`build.hash`, `utf8`)).trim(); // Reads current build hash from filesystem
   
   /*
    * FILENAME CONSTRUCTION
@@ -114,10 +115,15 @@ async function run(){
    * for verification. Status code enables calling scripts to verify
    * successful purge before considering deployment complete.
    */
-   const code = await purgeCdn(file); // Initiates CDN purge and captures status
+  const code = await purgeCdn(file); // Initiates CDN purge and captures status
   console.log(`run is returning ${code}`); // Logs final status for monitoring
   return code; // Returns status code for programmatic verification
  } catch(err){
+  if(err.code === `ENOENT`){
+   qerrors(err, `run missing hash`, {args:process.argv.slice(2)}); // Logs missing build.hash error
+   console.log(`run is returning 1`); // Reports missing file exit code
+   return 1; // Returns error code instead of throwing
+  }
   qerrors(err, `run failed`, {args:process.argv.slice(2)}); // Logs error with command line context
   throw err; // Re-throws error to signal purge failure to calling processes
  }
