@@ -29,27 +29,26 @@
      * This 4-step grayscale provides sufficient contrast ratios while keeping
      * the color palette simple and maintainable.
      */
-    --gs-lightest: #fef2f2;    /* Warm white with red tint - highest contrast, complements lava theme */
-    --gs-mid: #7c2d12;         /* Warm brown-red - for borders, inactive states, subtle UI elements */
-    --gs-dark: #451a03;        /* Dark brown - for text on light backgrounds, readable and accessible */
-    --gs-darkest: #1c0a00;     /* Deep volcanic black - for backgrounds and maximum contrast situations */
+    --gs-lightest: #f5f3f3;    /* Subtle warm white - easy on the eyes */
+    --gs-mid: #8b7355;         /* Muted warm brown - for borders and subtle elements */
+    --gs-dark: #4a3428;        /* Warm dark brown - readable text color */
+    --gs-darkest: #2d1b13;     /* Deep warm brown - background that won't strain eyes */
 
     /* 
      * BRAND COLOR PALETTE
-     * Rationale: Fiery lava-inspired colors for dramatic, warm design
-     * - dominant: Deep red creates bold, powerful appearance
-     * - two: Molten orange provides intense energy and heat
-     * - bright: Bright lava orange creates fiery, volcanic appeal
+     * Rationale: Subtle reddish theme with muted, sophisticated colors
+     * - dominant: Muted burgundy for elegance
+     * - two: Soft terracotta for warmth without brightness
+     * - bright: Gentle rose for accents
      * 
-     * This warm color scheme (reds and oranges) creates volcanic harmony
-     * while maintaining modern aesthetics. Colors were chosen for:
-     * - Lava-inspired gradient compatibility
-     * - Accessibility compliance (WCAG AA standards)
-     * - Fiery volcanic aesthetic
+     * This warm color scheme uses desaturated reds and browns for:
+     * - Eye comfort and readability
+     * - Professional, sophisticated appearance
+     * - Accessibility compliance without harsh contrasts
      */
-    --color-dominant: #dc2626; /* Deep red - bold, fiery */
-    --color-two: #ea580c;      /* Molten orange - intense, energetic */
-    --color-bright: #f97316;   /* Bright lava orange - volcanic, dramatic */
+    --color-dominant: #8b4c42; /* Muted burgundy - sophisticated and calm */
+    --color-two: #a0614a;      /* Soft terracotta - warm but not bright */
+    --color-bright: #b97a6e;   /* Gentle rose - subtle accent color */
 
     /* 
      * TRANSPARENCY UTILITIES
@@ -160,11 +159,11 @@
 }
 
 /*
- * VOLCANIC BACKGROUND SYSTEM
- * Rationale: Dark volcanic gradient background for lava theme appeal
- * Updated with fiery gradient for dramatic visual interest
+ * SUBTLE WARM BACKGROUND SYSTEM
+ * Rationale: Gentle gradient background for comfortable viewing
+ * Updated with subtle warm tones for easy-on-the-eyes appeal
  */
 html { 
-    background: linear-gradient(135deg, var(--gs-darkest) 0%, #4c1d95 100%); /* Volcanic gradient background with deep purple undertones */
+    background: linear-gradient(135deg, var(--gs-darkest) 0%, #3d2317 100%); /* Subtle warm gradient that won't strain eyes */
     min-height: 100vh;
 }
