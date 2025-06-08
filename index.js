@@ -102,7 +102,7 @@ if (typeof window === 'undefined') {
    * IMPLEMENTATION RATIONALE:
    * - createElement('link') creates proper stylesheet link element
    * - rel='stylesheet' and type='text/css' ensure browser recognizes CSS
-   * - href uses require.resolve for consistent path resolution
+   * - href resolves path via require.resolve or current script when available
    * - appendChild(link) adds to document head for immediate effect
    * 
    * This approach enables usage like: <script src="node_modules/qoreCSS/index.js"></script>
@@ -110,7 +110,8 @@ if (typeof window === 'undefined') {
    */
  const link = document.createElement('link'); // Creates <link> element for stylesheet injection
  link.rel = 'stylesheet'; // Specifies relationship type to browser
- link.type = 'text/css'; // Explicit MIME type for clarity across tools
- link.href = require.resolve('./qore.css'); // Resolves absolute path to qore.css for reliability in different bundlers
- document.head.appendChild(link); // Inserts stylesheet into DOM for immediate effect
+  link.type = 'text/css'; // Explicit MIME type for clarity across tools
+  const cssPath = typeof require === 'function' && require.resolve ? require.resolve('./qore.css') : document.currentScript.src.replace('index.js', 'qore.css'); // derives path via require.resolve when available, otherwise from script src
+  link.href = cssPath; // assigns resolved CSS path to href for consistent loading
+  document.head.appendChild(link); // Inserts stylesheet into DOM for immediate effect
 }
