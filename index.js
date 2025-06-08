@@ -40,7 +40,7 @@ module.exports = {
    * location. This is essential for server-side rendering, build tools, and
    * any scenario where the actual file path is needed.
    */
-  coreCss: require.resolve('./core.css'),
+  coreCss: require.resolve('./qore.css'), // core CSS path changed to qore.css for new file name
   
   /*
    * VARIABLES STYLESHEET PATH  
@@ -59,7 +59,7 @@ module.exports = {
    * (compressed, uncompressed, themed versions, etc.)
    */
   getStylesheet: function() {
-    return require.resolve('./core.css');
+    return require.resolve('./qore.css'); // returns qore.css path for consistency
   },
   
   /*
@@ -111,6 +111,6 @@ if (typeof window === 'undefined') {
  const link = document.createElement('link'); // Creates <link> element for stylesheet injection
  link.rel = 'stylesheet'; // Specifies relationship type to browser
  link.type = 'text/css'; // Explicit MIME type for clarity across tools
- link.href = require.resolve('./core.css'); // Resolves absolute path for reliability in different bundlers
+ link.href = require.resolve('./qore.css'); // Resolves absolute path to qore.css for reliability in different bundlers
  document.head.appendChild(link); // Inserts stylesheet into DOM for immediate effect
 }

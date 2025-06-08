@@ -12,7 +12,7 @@ Module.prototype.require = function(id){
 
 const origResolve = Module._resolveFilename;
 Module._resolveFilename = function(request, parent, isMain, options){
-  if(request === './core.css') return path.resolve(__dirname,'../core.css'); // provide absolute css path
+  if(request === './qore.css') return path.resolve(__dirname,'../qore.css'); // provide absolute css path for qore.css
   if(request === './variables.css') return path.resolve(__dirname,'../variables.css'); // provide absolute variables path
   return origResolve.call(this, request, parent, isMain, options); // default behavior
 };
