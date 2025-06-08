@@ -1,0 +1,153 @@
+~/workspace$ node --test --test-concurrency=1
+build is running with 2
+build has run resulting in core.a4c0dac4.min.css
+build is returning a4c0dac4
+▶ build offline
+  ✔ creates hashed css and hash file (26.370648ms)
+✔ build offline (27.739897ms)
+✔ /home/runner/workspace/test/helper.js (30.076747ms)
+▶ browser injection
+  ✖ injects stylesheet and serverSide undefined (81.534482ms)
+    AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+    
+      assert.ok(link)
+    
+        at TestContext.<anonymous> (/home/runner/workspace/test/index.browser.test.js:30:12)
+        at Test.runInAsyncScope (node:async_hooks:206:9)
+        at Test.run (node:internal/test_runner/test:796:25)
+        at async Promise.all (index 0)
+        at async Suite.run (node:internal/test_runner/test:1135:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:527:7) {
+      generatedMessage: true,
+      code: 'ERR_ASSERTION',
+      actual: null,
+      expected: true,
+      operator: '=='
+    }
+
+✖ browser injection (82.979182ms)
+▶ index module
+  ✔ exports coreCss path that exists (1.80616ms)
+  ✔ exports variablesCss path that exists (0.55308ms)
+  ✔ getStylesheet returns coreCss path (0.52004ms)
+  ✔ getVariables returns variablesCss path (0.58185ms)
+  ✔ serverSide flag is true in Node environment (1.63207ms)
+✔ index module (6.68944ms)
+/home/runner/workspace/test/integration-purge.test.js:8
+const {describe, it, before, after} = require('node:test'); //test framework functions
+       ^
+
+SyntaxError: Identifier 'describe' has already been declared
+    at wrapSafe (node:internal/modules/cjs/loader:1378:20)
+    at Module._compile (node:internal/modules/cjs/loader:1428:41)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1548:10)
+    at Module.load (node:internal/modules/cjs/loader:1288:32)
+    at Module._load (node:internal/modules/cjs/loader:1104:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:173:12)
+    at node:internal/main/run_main_module:28:49
+
+Node.js v20.18.1
+✖ /home/runner/workspace/test/integration-purge.test.js (39.150716ms)
+  'test failed'
+
+build is running with 2
+build has run resulting in core.a4c0dac4.min.css
+build is returning a4c0dac4
+updateHtml is running with 2
+updateHtml has run resulting in core.a4c0dac4.min.css
+updateHtml is returning a4c0dac4
+▶ build and updateHtml
+  ✔ builds and updates html (13.158169ms)
+✔ build and updateHtml (13.984799ms)
+getTime is running with http://a
+wait is running with 100
+wait is returning undefined
+getTime is returning 100.65354
+measureUrl is running with http://a,2
+measureUrl is returning NaN
+▶ getTime mocked
+  ✔ returns numeric time (104.38921ms)
+✔ getTime mocked (105.742969ms)
+▶ measureUrl avg
+  ✔ returns average time (1.15364ms)
+✔ measureUrl avg (1.322689ms)
+/home/runner/workspace/test/purge-cdn.test.js:14
+const {describe, it, beforeEach, afterEach} = require('node:test');
+       ^
+
+SyntaxError: Identifier 'describe' has already been declared
+    at wrapSafe (node:internal/modules/cjs/loader:1378:20)
+    at Module._compile (node:internal/modules/cjs/loader:1428:41)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1548:10)
+    at Module.load (node:internal/modules/cjs/loader:1288:32)
+    at Module._load (node:internal/modules/cjs/loader:1104:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:173:12)
+    at node:internal/main/run_main_module:28:49
+
+Node.js v20.18.1
+✖ /home/runner/workspace/test/purge-cdn.test.js (35.067027ms)
+  'test failed'
+
+fetchRetry is running with http://a,3
+fetchRetry is returning 200
+fetchRetry is running with http://b,3
+wait is running with 100
+▶ fetchRetry success
+  ✔ returns response on first try (3.10653ms)
+✔ fetchRetry success (4.2556ms)
+wait is returning undefined
+wait is running with 200
+wait is returning undefined
+fetchRetry is returning 200
+fetchRetry is running with http://c,2
+wait is running with 100
+▶ fetchRetry retries then succeeds
+  ✔ retries failed attempts (303.44462ms)
+✔ fetchRetry retries then succeeds (303.92573ms)
+wait is returning undefined
+▶ fetchRetry fails after attempts
+  ✔ throws after exhausting attempts (101.83764ms)
+✔ fetchRetry fails after attempts (102.25092ms)
+updateHtml is running with 2
+updateHtml has run resulting in core.12345678.min.css
+updateHtml is returning 12345678
+▶ updateHtml
+  ✔ updates html with hash and CDN url (9.79157ms)
+✔ updateHtml (11.060889ms)
+ℹ tests 17
+ℹ suites 10
+ℹ pass 14
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2023.614014
+
+✖ failing tests:
+
+test at test/index.browser.test.js:26:3
+✖ injects stylesheet and serverSide undefined (81.534482ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(link)
+  
+      at TestContext.<anonymous> (/home/runner/workspace/test/index.browser.test.js:30:12)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:796:25)
+      at async Promise.all (index 0)
+      at async Suite.run (node:internal/test_runner/test:1135:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:527:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '=='
+  }
+
+test at test/integration-purge.test.js:1:1
+✖ /home/runner/workspace/test/integration-purge.test.js (39.150716ms)
+  'test failed'
+
+test at test/purge-cdn.test.js:1:1
+✖ /home/runner/workspace/test/purge-cdn.test.js (35.067027ms)
+  'test failed'
