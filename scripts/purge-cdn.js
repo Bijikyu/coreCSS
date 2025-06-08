@@ -24,7 +24,8 @@
  */
 
 const qerrors = require('qerrors'); // Centralized error logging with contextual information
-// fetchRetry and fs are expected to be provided by the runtime environment
+const fs = require('fs').promises; // Node promise-based filesystem for async use
+const fetchRetry = require('./request-retry'); // Retry wrapper for HTTP requests
 
 /*
  * CDN CACHE PURGE FUNCTION
