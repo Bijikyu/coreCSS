@@ -29,6 +29,7 @@ const pLimit = require('p-limit'); // Concurrency limiting to prevent overwhelmi
 const CDN_BASE_URL = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; // Environment-configurable CDN endpoint
 const MAX_CONCURRENCY = 50; // Upper safety limit to prevent excessive server load
 const QUEUE_LIMIT = 5; // Conservative concurrent request limit for respectful testing
+const HISTORY_MAX = 50; // maximum entries kept in performance history file
 
 /*
  * NETWORK DELAY SIMULATION
@@ -223,12 +224,13 @@ async function run(){
    * - Automated alerting on performance degradation
    * Timestamped entries allow correlation with deployments and incidents.
    */
-  if(jsonFlag){ 
-   const file = `performance-results.json`; 
+  if(jsonFlag){
+   const file = `performance-results.json`;
    const history = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : []; // Loads existing history or creates new array
    const entry = {timestamp: new Date().toISOString(), results}; // Creates timestamped entry
    history.push(entry); // Appends to historical data
-   fs.writeFileSync(file, JSON.stringify(history, null, 2)); // Saves updated history with readable formatting
+   if(history.length > HISTORY_MAX){ history.splice(0, history.length - HISTORY_MAX); } //(trim old results before write)
+   fs.writeFileSync(file, JSON.stringify(history, null, 2)); // Saves trimmed history for ongoing tracking
   }
   console.log(`run has run resulting in a final value of 0`); // Logs successful completion
  } catch(err){
@@ -241,8 +243,8 @@ async function run(){
  * Rationale: Enables command line usage for manual testing, CI/CD integration,
  * and automated monitoring while keeping functions available for import.
  */
-if(require.main === module){ 
+if(require.main === module){
  run(); // Executes main function when script is run directly
 }
 
-module.exports = {getTime, measureUrl}; // Exports individual functions for unit testing and reuse
+module.exports = {getTime, measureUrl, run}; // exports functions for reuse and unit testing
