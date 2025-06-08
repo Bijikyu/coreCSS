@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="sl-theme-dark">
 <head>
@@ -8,9 +7,9 @@
     <meta name="robots" content="index, follow">
     <title>qoreCSS - Modern CSS Framework</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" onerror="this.onerror=null;this.href='qore.png'"/>
-    
+
     <!-- Icon sprite for better performance -->
-    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <svg xmlns="http://www.w3.org/2000/svg" class="hidden">
       <symbol id="lightning" viewBox="0 0 24 24">
         <path d="M11,4H13L14,8H17L12,14H14L10,20L8,16H6L11,10H9L11,4Z"/>
       </symbol>
@@ -30,52 +29,52 @@
         <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
       </symbol>
     </svg>
-    
+
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="stylesheet" type="text/css" href="qore.css">
     <link rel="stylesheet" type="text/css" href="variables.css">
 </head>
-<body style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
+<body class="darkest">
     <!-- Modern Minimal Header -->
-    <header style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1);">
+    <header class="cardWhite">
         <div class='flex between centerAlign col100 pad15'>
             <div class="flex centerAlign">
                 <img src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" 
                      onerror="this.onerror=null;this.src='qore.png'" 
                      alt="qoreCSS Logo" 
                      class="sq50 margin15"/>
-                <h3 class="textLight margin5" style="font-size: 24px; font-weight: 600;">qoreCSS</h3>
+                <h3 class="textLight margin5">qoreCSS</h3>
             </div>
             <nav class="flex centerAlign">
-                <a href="#features" class="noDecorate textLight margin15" style="opacity: 0.8; transition: opacity 0.3s;">Features</a>
-                <a href="#demo" class="noDecorate textLight margin15" style="opacity: 0.8; transition: opacity 0.3s;">Demo</a>
-                <a href="https://github.com/Bijikyu/qoreCSS" class="noDecorate textLight margin15" style="opacity: 0.8; transition: opacity 0.3s;">GitHub</a>
+                <a href="#features" class="noDecorate textLight margin15">Features</a>
+                <a href="#demo" class="noDecorate textLight margin15">Demo</a>
+                <a href="https://github.com/Bijikyu/qoreCSS" class="noDecorate textLight margin15">GitHub</a>
             </nav>
         </div>
     </header>
 
     <main class='col center centerAlign'>
         <!-- Hero Section with Modern Glass Effect -->
-        <section class='col100 margin30 centerAlign' style="padding: 80px 20px; background: rgba(255,255,255,0.02); backdrop-filter: blur(20px); border-radius: 20px; margin: 40px 20px; border: 1px solid rgba(255,255,255,0.1);">
-            <div class="flex centerAlign centerAlignSelf margin25 col" style="max-width: 800px;">
+        <section class='col100 margin30 centerAlign card'>
+            <div class="flex centerAlign centerAlignSelf margin25 col wide80">
                 <div class="flex centerAlign margin25">
                     <img src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" 
                          onerror="this.onerror=null;this.src='qore.png'" 
                          alt="qoreCSS Framework Logo"
-                         style="width: 80px; height: 80px; margin-right: 20px; filter: drop-shadow(0 0 20px var(--color-bright));"/>
+                         class="sq75 margin15 icon"/>
                     <div>
-                        <h1 class="textLight" style="font-size: 48px; font-weight: 700; margin: 0; background: linear-gradient(45deg, #fff, var(--color-bright)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">qoreCSS</h1>
-                        <p class="textLight" style="font-size: 20px; margin: 10px 0 0 0; opacity: 0.8;">Modern CSS Framework</p>
+                        <h1 class="textLight">qoreCSS</h1>
+                        <p class="textLight margin10">Modern CSS Framework</p>
                     </div>
                 </div>
-                <p class="textCenter textLight" style="font-size: 20px; margin: 30px 0; opacity: 0.9; max-width: 600px; line-height: 1.6;">
+                <p class="textCenter textLight margin30 explainer">
                     A lightweight, responsive CSS framework that makes beautiful web design effortless with clean utilities and modern components.
                 </p>
                 <div class="flex centerAlign margin25">
-                    <button class="CTA margin15" style="background: linear-gradient(45deg, var(--color-bright), var(--color-two)); border: none; border-radius: 12px; padding: 15px 30px;">
-                        <h2 style="margin: 0;"><a href="#demo" class="noDecorate" style="color: white; font-size: 18px;">Get Started</a></h2>
+                    <button class="CTA margin15">
+                        <h2><a href="#demo" class="noDecorate textLight">Get Started</a></h2>
                     </button>
-                    <button class="margin15" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 12px; padding: 15px 30px;">
+                    <button class="margin15 cardWhite">
                         <a href="https://github.com/Bijikyu/qoreCSS" class="noDecorate textLight">View on GitHub</a>
                     </button>
                 </div>
@@ -83,53 +82,53 @@
         </section>
 
         <!-- Modern Stats Section -->
-        <section class='col90 margin30' style="background: rgba(255,255,255,0.03); border-radius: 20px; padding: 40px; border: 1px solid rgba(255,255,255,0.1);">
-            <div class="grid3 textCenter">
-                <div style="padding: 20px;">
-                    <h2 class="textLight" style="font-size: 42px; margin: 0; color: var(--color-bright);">50+</h2>
-                    <p class="textLight" style="opacity: 0.8; margin: 10px 0 0 0;">Utility Classes</p>
+        <section class='col90 margin30 card'>
+            <div class="grid3 textCenter pad15">
+                <div class="pad15">
+                    <h2 class="textLight">50+</h2>
+                    <p class="textLight">Utility Classes</p>
                 </div>
-                <div style="padding: 20px;">
-                    <h2 class="textLight" style="font-size: 42px; margin: 0; color: var(--color-bright);">100%</h2>
-                    <p class="textLight" style="opacity: 0.8; margin: 10px 0 0 0;">Responsive</p>
+                <div class="pad15">
+                    <h2 class="textLight">100%</h2>
+                    <p class="textLight">Responsive</p>
                 </div>
-                <div style="padding: 20px;">
-                    <h2 class="textLight" style="font-size: 42px; margin: 0; color: var(--color-bright);">0</h2>
-                    <p class="textLight" style="opacity: 0.8; margin: 10px 0 0 0;">Dependencies</p>
+                <div class="pad15">
+                    <h2 class="textLight">0</h2>
+                    <p class="textLight">Dependencies</p>
                 </div>
             </div>
         </section>
 
         <!-- Features Section with Modern Cards -->
         <section id="features" class='col90 margin30'>
-            <h2 class="textCenter margin30 textLight" style="font-size: 36px; font-weight: 600;">Why Choose qoreCSS?</h2>
+            <h2 class="textCenter margin30 textLight">Why Choose qoreCSS?</h2>
             <div class='grid3'>
-                <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
-                    <svg class='margin15 sq15' aria-hidden="true" style="fill: var(--color-bright); width: 48px; height: 48px;">
+                <div class="card pad30 textCenter">
+                    <svg class='margin15 sq15 icon' aria-hidden="true">
                         <use href='#lightning'></use>
                     </svg>
-                    <h3 class="textLight" style="font-size: 22px; margin: 20px 0 15px 0;">Lightning Fast</h3>
-                    <p class="textLight" style="opacity: 0.8; line-height: 1.6; font-size: 16px;">
+                    <h3 class="textLight margin15">Lightning Fast</h3>
+                    <p class="textLight">
                         Optimized CSS with minimal overhead. Get your projects up and running in seconds.
                     </p>
                 </div>
-                
-                <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
-                    <svg class='margin15 sq15' aria-hidden="true" style="fill: var(--color-bright); width: 48px; height: 48px;">
+
+                <div class="card pad30 textCenter">
+                    <svg class='margin15 sq15 icon' aria-hidden="true">
                         <use href='#responsive'></use>
                     </svg>
-                    <h3 class="textLight" style="font-size: 22px; margin: 20px 0 15px 0;">Fully Responsive</h3>
-                    <p class="textLight" style="opacity: 0.8; line-height: 1.6; font-size: 16px;">
+                    <h3 class="textLight margin15">Fully Responsive</h3>
+                    <p class="textLight">
                         Mobile-first design with breakpoints that work beautifully on any device.
                     </p>
                 </div>
-                
-                <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
-                    <svg class='margin15 sq15' aria-hidden="true" style="fill: var(--color-bright); width: 48px; height: 48px;">
+
+                <div class="card pad30 textCenter">
+                    <svg class='margin15 sq15 icon' aria-hidden="true">
                         <use href='#code'></use>
                     </svg>
-                    <h3 class="textLight" style="font-size: 22px; margin: 20px 0 15px 0;">Developer Friendly</h3>
-                    <p class="textLight" style="opacity: 0.8; line-height: 1.6; font-size: 16px;">
+                    <h3 class="textLight margin15">Developer Friendly</h3>
+                    <p class="textLight">
                         Intuitive class names and comprehensive documentation make development a breeze.
                     </p>
                 </div>
@@ -137,75 +136,85 @@
         </section>
 
         <!-- Installation Section with Modern Code Blocks -->
-        <section id="demo" class='col90 margin30' style="background: rgba(255,255,255,0.03); border-radius: 20px; padding: 40px; border: 1px solid rgba(255,255,255,0.1);">
-            <h2 class="textCenter margin25 textLight" style="font-size: 36px; font-weight: 600;">Quick Installation</h2>
-            
-            <div class="grid2" style="gap: 30px;">
-                <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 25px; border: 1px solid rgba(255,255,255,0.1);">
+        <section id="demo" class='col90 margin30 card'>
+            <h2 class="textCenter margin25 textLight">Quick Installation</h2>
+
+            <div class="grid2 margin25">
+                <div class="cardWhite pad25">
                     <div class="flex centerAlign margin15">
-                        <svg class='sq15' aria-hidden="true" style="fill: var(--color-bright); width: 24px; height: 24px; margin-right: 10px;">
+                        <svg class='sq15 icon margin5' aria-hidden="true">
                             <use href='#download'></use>
                         </svg>
-                        <h4 class="textLight" style="margin: 0; font-size: 18px;">CDN Link</h4>
+                        <h4 class="textDark margin5">CDN Link</h4>
                     </div>
-                    <code style="background: rgba(0,0,0,0.5); color: #00ff88; padding: 15px; border-radius: 8px; display: block; font-family: 'Courier New', monospace; font-size: 14px; overflow-x: auto; border: 1px solid rgba(255,255,255,0.1);">
+                    <code class="darkest textLight pad15 wide100">
 &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.min.css"&gt;
                     </code>
                 </div>
 
-                <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 25px; border: 1px solid rgba(255,255,255,0.1);">
+                <div class="cardWhite pad25">
                     <div class="flex centerAlign margin15">
-                        <svg class='sq15' aria-hidden="true" style="fill: var(--color-bright); width: 24px; height: 24px; margin-right: 10px;">
+                        <svg class='sq15 icon margin5' aria-hidden="true">
                             <use href='#download'></use>
                         </svg>
-                        <h4 class="textLight" style="margin: 0; font-size: 18px;">NPM Package</h4>
+                        <h4 class="textDark margin5">NPM Package</h4>
                     </div>
-                    <code style="background: rgba(0,0,0,0.5); color: #00ff88; padding: 15px; border-radius: 8px; display: block; font-family: 'Courier New', monospace; font-size: 14px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.1);">
+                    <code class="darkest textLight pad15 wide100 margin10">
 npm install qoreCSS
                     </code>
-                    <p class="textLight" style="font-size: 14px; margin: 10px 0 0 0; opacity: 0.7;">
-                        Then import: <code style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-size: 12px;">require('qoreCSS')</code>
+                    <p class="textDark margin10">
+                        Then import: <code class="cardWhite pad5">require('qoreCSS')</code>
                     </p>
                 </div>
             </div>
 
             <!-- Component Demo Section -->
             <div class="margin30">
-                <h3 class="textCenter textLight margin25" style="font-size: 28px; font-weight: 600;">Component Showcase</h3>
-                
+                <h3 class="textCenter textLight margin25">Component Showcase</h3>
+
                 <!-- Button Demo -->
-                <div style="background: rgba(255,255,255,0.02); border-radius: 12px; padding: 30px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1);">
-                    <h4 class="textCenter textLight margin15" style="font-size: 20px;">Modern Buttons</h4>
+                <div class="cardWhite pad30 margin15">
+                    <h4 class="textCenter textDark margin15">Modern Buttons</h4>
                     <div class="flex centerAlign spaceEvenly margin20">
-                        <button style="background: linear-gradient(45deg, var(--color-bright), #ff6b35); border: none; border-radius: 8px; padding: 12px 24px; color: white; font-weight: 500;">Primary</button>
-                        <button style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 12px 24px; color: white; backdrop-filter: blur(10px);">Secondary</button>
-                        <button style="background: rgba(250,167,32,0.2); border: 1px solid var(--color-bright); border-radius: 8px; padding: 12px 24px; color: var(--color-bright);">Accent</button>
+                        <button class="bright">Primary</button>
+                        <button class="cardWhite">Secondary</button>
+                        <button class="green">Accent</button>
                     </div>
                 </div>
 
                 <!-- Grid Demo -->
-                <div style="background: rgba(255,255,255,0.02); border-radius: 12px; padding: 30px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1);">
-                    <h4 class="textCenter textLight margin15" style="font-size: 20px;">Responsive Grid System</h4>
-                    <div class='grid5 margin20' style="gap: 15px;">
-                        <div style="background: rgba(255,255,255,0.08); border-radius: 8px; padding: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 120px;">
-                            <svg aria-hidden="true" style="width: 32px; height: 32px; fill: var(--color-bright); margin-bottom: 10px; flex-shrink: 0;"><use href='#lightning'></use></svg>
-                            <p class="textLight" style="margin: 0; font-size: 14px;">Fast</p>
+                <div class="cardWhite pad30 margin15">
+                    <h4 class="textCenter textDark margin15">Responsive Grid System</h4>
+                    <div class='grid5 margin20'>
+                        <div class="card pad15 textCenter col centerAlign">
+                            <svg aria-hidden="true" class="sq15 icon margin10">
+                                <use href='#lightning'></use>
+                            </svg>
+                            <p class="textLight">Fast</p>
                         </div>
-                        <div style="background: rgba(255,255,255,0.08); border-radius: 8px; padding: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 120px;">
-                            <svg aria-hidden="true" style="width: 32px; height: 32px; fill: var(--color-bright); margin-bottom: 10px; flex-shrink: 0;"><use href='#responsive'></use></svg>
-                            <p class="textLight" style="margin: 0; font-size: 14px;">Responsive</p>
+                        <div class="card pad15 textCenter col centerAlign">
+                            <svg aria-hidden="true" class="sq15 icon margin10">
+                                <use href='#responsive'></use>
+                            </svg>
+                            <p class="textLight">Responsive</p>
                         </div>
-                        <div style="background: rgba(255,255,255,0.08); border-radius: 8px; padding: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 120px;">
-                            <svg aria-hidden="true" style="width: 32px; height: 32px; fill: var(--color-bright); margin-bottom: 10px; flex-shrink: 0;"><use href='#code'></use></svg>
-                            <p class="textLight" style="margin: 0; font-size: 14px;">Clean</p>
+                        <div class="card pad15 textCenter col centerAlign">
+                            <svg aria-hidden="true" class="sq15 icon margin10">
+                                <use href='#code'></use>
+                            </svg>
+                            <p class="textLight">Clean</p>
                         </div>
-                        <div style="background: rgba(255,255,255,0.08); border-radius: 8px; padding: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 120px;">
-                            <svg aria-hidden="true" style="width: 32px; height: 32px; fill: var(--color-bright); margin-bottom: 10px; flex-shrink: 0;"><use href='#github'></use></svg>
-                            <p class="textLight" style="margin: 0; font-size: 14px;">Open Source</p>
+                        <div class="card pad15 textCenter col centerAlign">
+                            <svg aria-hidden="true" class="sq15 icon margin10">
+                                <use href='#github'></use>
+                            </svg>
+                            <p class="textLight">Open Source</p>
                         </div>
-                        <div style="background: rgba(255,255,255,0.08); border-radius: 8px; padding: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 120px;">
-                            <svg aria-hidden="true" style="width: 32px; height: 32px; fill: var(--color-bright); margin-bottom: 10px; flex-shrink: 0;"><use href='#star'></use></svg>
-                            <p class="textLight" style="margin: 0; font-size: 14px;">Modern</p>
+                        <div class="card pad15 textCenter col centerAlign">
+                            <svg aria-hidden="true" class="sq15 icon margin10">
+                                <use href='#star'></use>
+                            </svg>
+                            <p class="textLight">Modern</p>
                         </div>
                     </div>
                 </div>
@@ -214,27 +223,27 @@ npm install qoreCSS
     </main>
 
     <!-- Modern Minimal Footer -->
-    <footer style="background: rgba(255,255,255,0.03); border-top: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
+    <footer class="cardWhite">
         <div class='flex centerAlign between col100 pad25'>
             <div class="flex centerAlign">
                 <img class='sq50' src="https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png" 
                      onerror="this.onerror=null;this.src='qore.png'" 
                      alt="Footer logo"/>
                 <div class='col margin15'>
-                    <p class="textLight" style="margin: 0; font-weight: 500;">qoreCSS © 2024</p>
-                    <p class="textLight" style="font-size: 14px; margin: 5px 0 0 0; opacity: 0.7;">Made with ❤️ for developers</p>
+                    <p class="textLight">qoreCSS © 2024</p>
+                    <p class="textLight margin5">Made with ❤️ for developers</p>
                 </div>
             </div>
-            
+
             <div class="flex centerAlign">
-                <a href="https://github.com/Bijikyu/qoreCSS" class="noDecorate margin15" style="opacity: 0.8; transition: opacity 0.3s;">
-                    <svg class='sq15' aria-label="GitHub" style="fill: var(--color-bright); width: 24px; height: 24px;">
+                <a href="https://github.com/Bijikyu/qoreCSS" class="noDecorate margin15">
+                    <svg class='sq15 icon' aria-label="GitHub">
                         <title>GitHub</title>
                         <use href='#github'></use>
                     </svg>
                 </a>
-                <a href="#demo" class="noDecorate margin15" style="opacity: 0.8; transition: opacity 0.3s;">
-                    <svg class='sq15' aria-label="Demo" style="fill: var(--color-bright); width: 24px; height: 24px;">
+                <a href="#demo" class="noDecorate margin15">
+                    <svg class='sq15 icon' aria-label="Demo">
                         <title>Demo</title>
                         <use href='#star'></use>
                     </svg>
@@ -262,22 +271,18 @@ npm install qoreCSS
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 50) {
-                header.style.background = 'rgba(255,255,255,0.1)';
-                header.style.backdropFilter = 'blur(20px)';
+                header.classList.add('obscure');
             } else {
-                header.style.background = 'rgba(255,255,255,0.05)';
-                header.style.backdropFilter = 'blur(10px)';
+                header.classList.remove('obscure');
             }
         });
 
         // Add hover effects to navigation links
         document.querySelectorAll('nav a, footer a').forEach(link => {
             link.addEventListener('mouseenter', function() {
-                this.style.opacity = '1';
                 this.style.transform = 'translateY(-2px)';
             });
             link.addEventListener('mouseleave', function() {
-                this.style.opacity = '0.8';
                 this.style.transform = 'translateY(0)';
             });
         });
@@ -286,53 +291,11 @@ npm install qoreCSS
         document.querySelectorAll('button').forEach(button => {
             button.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-2px)';
-                this.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
             });
             button.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateY(0)';
-                this.style.boxShadow = 'none';
             });
         });
     </script>
-
-    <style>
-        /* Additional modern styling */
-        * {
-            transition: all 0.3s ease;
-        }
-        
-        button:hover {
-            transform: translateY(-2px);
-        }
-        
-        a:hover {
-            opacity: 1 !important;
-        }
-        
-        /* Smooth animations for cards */
-        [style*="background: rgba(255,255,255,0.05)"]:hover,
-        [style*="background: rgba(255,255,255,0.08)"]:hover {
-            background: rgba(255,255,255,0.1) !important;
-            transform: translateY(-5px);
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.1);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--color-bright);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--color-two);
-        }
-    </style>
 </body>
 </html>
