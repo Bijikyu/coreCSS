@@ -1,6 +1,6 @@
 {
   "name": "qorecss",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A modern, lightweight CSS framework with customizable themes, flexbox layouts, and utility classes for rapid web development",
   "main": "index.js",
   "style": "qore.css",
