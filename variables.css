@@ -1,4 +1,3 @@
-
 /* CSS VARIABLES =============================================================================================================== */
 /*
  * DESIGN SYSTEM VARIABLES
@@ -30,27 +29,27 @@
      * This 4-step grayscale provides sufficient contrast ratios while keeping
      * the color palette simple and maintainable.
      */
-    --gs-lightest: #fff;    /* Pure white - highest contrast, used for text on dark backgrounds */
-    --gs-mid: gray;         /* Medium gray - for borders, inactive states, subtle UI elements */
-    --gs-dark: #333;        /* Dark gray - for text on light backgrounds, readable and accessible */
-    --gs-darkest: #111;     /* Near black - for backgrounds and maximum contrast situations */
+    --gs-lightest: #ffffff;    /* Pure white - highest contrast, used for text on dark backgrounds */
+    --gs-mid: #64748b;         /* Modern slate gray - for borders, inactive states, subtle UI elements */
+    --gs-dark: #1e293b;        /* Dark slate - for text on light backgrounds, readable and accessible */
+    --gs-darkest: #0f172a;     /* Deep slate - for backgrounds and maximum contrast situations */
 
     /* 
      * BRAND COLOR PALETTE
-     * Rationale: Three-color system provides visual hierarchy and brand identity
-     * - dominant: Deep purple-black creates sophisticated, professional appearance
-     * - two: Red provides energy and attention-grabbing capability for CTAs
-     * - bright: Orange-yellow creates warmth and optimism, good for highlights
+     * Rationale: Modern gradient-friendly colors for contemporary design
+     * - dominant: Deep blue creates professional, trustworthy appearance
+     * - two: Vibrant purple provides energy and modern tech feel
+     * - bright: Electric blue creates freshness and modern appeal
      * 
-     * This triad color scheme (red, orange, purple) creates visual interest
-     * while maintaining harmony. Colors were chosen for:
-     * - Sufficient contrast against both light and dark backgrounds
+     * This analogous color scheme (blues and purples) creates visual harmony
+     * while maintaining modern aesthetics. Colors were chosen for:
+     * - Modern gradient compatibility
      * - Accessibility compliance (WCAG AA standards)
-     * - Emotional response (professional yet approachable)
+     * - Contemporary tech aesthetic
      */
-    --color-dominant: #050009; /* Deep purple-black - sophisticated, premium feel */
-    --color-two: #BB2112;      /* Bold red - attention-grabbing, urgent actions */
-    --color-bright: #FAA720;   /* Warm orange - friendly, optimistic, highlights */
+    --color-dominant: #1e40af; /* Deep blue - professional, trustworthy */
+    --color-two: #7c3aed;      /* Vibrant purple - modern, energetic */
+    --color-bright: #06b6d4;   /* Electric cyan - fresh, modern */
 
     /* 
      * TRANSPARENCY UTILITIES
@@ -61,29 +60,23 @@
      * - Card overlays
      * - Glass-morphism effects
      */
-    --transparent-w: #ffffff8c; /* Semi-transparent white - light overlays */
-    --transparent-b: #0000008c; /* Semi-transparent black - dark overlays */
+    --transparent-w: #ffffff20; /* Semi-transparent white - light overlays */
+    --transparent-b: #00000040; /* Semi-transparent black - dark overlays */
 
     /* 
      * CONVENTIONAL WEB COLORS
      * Rationale: Standard colors for common web elements
-     * - link: Uses brand orange for consistency with overall design
+     * - link: Uses modern blue for better accessibility
      * - warn: Standard red for error states and warnings
-     * These follow web conventions while integrating with the brand palette
+     * These follow web conventions while integrating with the modern palette
      */
-    --link: #FAA720;        /* Brand orange for links - maintains brand consistency */
-    --warn: red;            /* Standard red for warnings and errors */
+    --link: #3b82f6;        /* Modern blue for links - accessible and contemporary */
+    --warn: #ef4444;        /* Modern red for warnings and errors */
 
     /* 
      * SHOELACE UI LIBRARY THEMING
      * Rationale: Provides color tokens for Shoelace web components
-     * Generated from brand bright color (#FAA720) using the official Shoelace
-     * theme generator at https://codepen.io/claviska/full/QWveRgL
-     * 
-     * This creates a complete color ramp (50-950) that provides:
-     * - Consistent visual hierarchy
-     * - Proper contrast ratios for accessibility
-     * - Seamless integration with custom components
+     * Updated to match modern blue theme with proper contrast ratios
      * 
      * The 50-950 scale follows Material Design principles where:
      * - 50-100: Very light tints
@@ -92,120 +85,86 @@
      * - 600-800: Dark shades
      * - 900-950: Very dark shades
      */
-    --sl-color-primary-50: 242 251 248;   /* Lightest tint - subtle backgrounds */
-    --sl-color-primary-100: 211 243 233;  /* Very light tint - hover states */
-    --sl-color-primary-200: 177 234 216;  /* Light tint - inactive states */
-    --sl-color-primary-300: 137 223 196;  /* Medium light - borders */
-    --sl-color-primary-400: 78 207 166;   /* Medium - secondary actions */
-    --sl-color-primary-500: 43 180 137;   /* Base color - primary actions */
-    --sl-color-primary-600: 36 149 113;   /* Medium dark - hover states */
-    --sl-color-primary-700: 29 122 93;    /* Dark - active states */
-    --sl-color-primary-800: 24 101 77;    /* Darker - pressed states */
-    --sl-color-primary-900: 17 72 54;     /* Very dark - high contrast */
-    --sl-color-primary-950: 11 44 34;     /* Darkest - maximum contrast */
+    --sl-color-primary-50: 239 246 255;   /* Lightest blue tint */
+    --sl-color-primary-100: 219 234 254;  /* Very light blue */
+    --sl-color-primary-200: 191 219 254;  /* Light blue */
+    --sl-color-primary-300: 147 197 253;  /* Medium light blue */
+    --sl-color-primary-400: 96 165 250;   /* Medium blue */
+    --sl-color-primary-500: 59 130 246;   /* Base blue */
+    --sl-color-primary-600: 37 99 235;    /* Medium dark blue */
+    --sl-color-primary-700: 29 78 216;    /* Dark blue */
+    --sl-color-primary-800: 30 64 175;    /* Darker blue */
+    --sl-color-primary-900: 30 58 138;    /* Very dark blue */
+    --sl-color-primary-950: 23 37 84;     /* Darkest blue */
 
     /* 
      * GRADIENT SYSTEM
-     * Rationale: Gradients add visual depth and premium feel to the design
-     * Two primary gradients serve different purposes:
-     * - l2r (left to right): For horizontal elements like headers and footers
-     * - u2d (up to down): For vertical elements like panels and cards
-     * 
-     * Both gradients use the same color combination (darkest to color-two)
-     * but in different directions, creating visual consistency while providing
-     * flexibility for different layout orientations.
+     * Rationale: Modern gradients add visual depth and contemporary feel
+     * Updated with modern color combinations for better visual appeal
+     * - l2r (left to right): Modern blue to purple gradient
+     * - u2d (up to down): Vertical gradient for depth
      */
-    --gradient-l2r: linear-gradient(to right, var(--gs-darkest) , var(--color-two)); /* Horizontal gradient for headers/footers */
-    --gradient-u2d: linear-gradient( var(--color-two), var(--gs-darkest)); /* Vertical gradient for panels/cards */
+    --gradient-l2r: linear-gradient(135deg, var(--color-dominant), var(--color-two)); /* Modern diagonal gradient */
+    --gradient-u2d: linear-gradient(180deg, var(--color-bright), var(--color-dominant)); /* Vertical gradient */
 
     /* 
      * BORDER SYSTEM
      * Rationale: Consistent border styles create visual hierarchy and separation
-     * Three border types serve different purposes:
+     * Updated with modern colors and subtle transparency
      * - bright: High-visibility borders for emphasis and focus states
      * - dominant: Subtle borders that blend with the design
      * - space: Invisible borders for consistent spacing in navigation
-     * 
-     * All borders use 1px width for crisp appearance on all screen densities.
-     * Transparent borders maintain layout consistency when borders are toggled.
      */
-    --borders-bright: 1px solid var(--color-bright);    /* High-visibility borders */
-    --borders-dominant: 1px solid var(--color-dominant); /* Subtle, blended borders */
+    --borders-bright: 1px solid var(--color-bright);    /* High-visibility cyan borders */
+    --borders-dominant: 1px solid var(--gs-mid);        /* Subtle gray borders */
     --borders-space: 1px solid transparent;              /* Invisible borders for spacing */
 
     /* 
      * GLOW AND SHADOW SYSTEM
-     * Rationale: Box shadows create depth hierarchy and visual interest
-     * Multiple glow intensities allow for different emphasis levels:
-     * - Standard glow: Subtle depth for normal elements
-     * - Enhanced glow: Stronger effect for hover states and emphasis
-     * - Dominant glow: Branded shadows using dominant color
-     * 
-     * Shadows use multiple values to create realistic depth:
-     * - First value: Horizontal offset
-     * - Second value: Vertical offset  
-     * - Third value: Blur radius
-     * - Fourth value: Spread radius
-     * - Color: Semi-transparent for realistic effect
+     * Rationale: Modern shadows create depth hierarchy and visual interest
+     * Updated with contemporary shadow styles and modern colors
      */
-    --box-glow: 0px 0px 10px rgba(255, 255, 255, 0.3);           /* Subtle white glow */
-    --box-glowier: 0px 0px 20px rgba(255, 255, 255, 0.5);        /* Enhanced white glow */
-    --box-glow-dominant: 0px 0px 10px rgba(5, 0, 9, 0.5);        /* Branded glow using dominant color */
+    --box-glow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);           /* Modern subtle shadow */
+    --box-glowier: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);      /* Enhanced modern shadow */
+    --box-glow-dominant: 0 4px 14px 0 rgba(30, 64, 175, 0.15);                                     /* Blue brand glow */
 
     /*
      * CORNER RADIUS SYSTEM  
-     * Rationale: Consistent border radius creates cohesive visual language
-     * Single radius value ensures all rounded elements share the same curvature
-     * 10px provides modern, friendly appearance without being overly rounded
+     * Rationale: Modern border radius for contemporary design
+     * Updated to 8px for more modern, subtle rounding
      */
-    --box-corners: 10px; /* Standard border radius for consistent rounded corners */
+    --box-corners: 8px; /* Modern border radius for contemporary appearance */
 
     /*
      * BACKGROUND SYSTEM
-     * Rationale: Centralized background colors for different contexts
-     * - bg-body: Main background color for the overall page
-     * - bg-btn: Button background color that contrasts well with text
-     * 
-     * These ensure consistent background treatment across components
+     * Rationale: Clean modern backgrounds for different contexts
+     * Updated for modern dark theme with subtle gradient
      */
-    --bg-body: var(--gs-darkest);  /* Primary background using darkest gray */
-    --bg-btn: var(--color-bright); /* Button background using brand bright color */
+    --bg-body: var(--gs-darkest);  /* Clean dark background */
+    --bg-btn: var(--color-bright); /* Modern button background */
 
     /*
      * SPECIAL EFFECT COLORS
-     * Rationale: Additional colors for animated and special effects
-     * Used primarily in animations and hover states where standard
-     * brand colors might not provide sufficient visual impact
+     * Rationale: Modern accent colors for animations and special effects
+     * Updated with contemporary color palette
      */
-    --glow: #4CAF50;      /* Green glow for positive actions and success states */
-    --glowier: #8BC34A;   /* Lighter green for enhanced glow effects */
+    --glow: var(--color-bright);      /* Cyan glow for modern effects */
+    --glowier: var(--color-two);      /* Purple glow for enhanced effects */
 
     /*
      * ICON COLOR ADJUSTMENT SYSTEM
-     * Rationale: Instead of creating multiple colored versions of icons,
-     * CSS filters can transform monochrome icons to match the theme
-     * 
-     * This approach provides several benefits:
-     * 1. PERFORMANCE: Single icon file instead of multiple colored versions
-     * 2. MAINTAINABILITY: Color changes only require CSS updates
-     * 3. CONSISTENCY: All icons automatically match theme changes
-     * 4. FLEXIBILITY: Easy to create hover effects and state changes
-     * 
-     * Filter breakdown:
-     * - hue-rotate(190deg): Shifts colors around the color wheel
-     * - brightness(70%): Darkens icons for better contrast
-     * - contrast(220%): Increases contrast for better definition  
-     * - saturate(87%): Slightly desaturates for sophisticated look
-     * - drop-shadow: Adds glow effect using brand color
+     * Rationale: Modern filter effects for icon theming
+     * Updated for contemporary blue/cyan theme
      */
-    --set-adjustments: hue-rotate(190deg) brightness(70%) contrast(220%) saturate(87%) drop-shadow(0px 0px 5px var(--color-bright));
+    --set-adjustments: hue-rotate(200deg) brightness(90%) contrast(120%) saturate(110%) drop-shadow(0px 0px 8px var(--color-bright));
 }
 
 /*
- * CLEAN BACKGROUND SYSTEM
- * Rationale: Modern clean design with solid color background
- * Provides excellent readability and contemporary appearance
+ * MODERN BACKGROUND SYSTEM
+ * Rationale: Contemporary gradient background for modern appeal
+ * Updated with subtle gradient for visual interest
  */
 html { 
-    background: var(--gs-darkest); /* Clean solid background */
+    background: linear-gradient(135deg, var(--gs-darkest) 0%, #1e1b4b 100%); /* Modern gradient background */
+    min-height: 100vh;
 }
