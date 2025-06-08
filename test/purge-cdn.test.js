@@ -11,11 +11,6 @@ let tmpDir, calledUrl; // track temporary dir and requested URL for assertions
 
 // helper to load module with dependency stubs
 const baseReq = Module.prototype.require; // original require used by helper.js
-const {describe, it, beforeEach, afterEach} = require('node:test');
-const assert = require('node:assert');
-const Module = require('module');
-const baseReq = Module.prototype.require;
-let purgeCdn, run, calledUrl;
 
 function load(stubs={}){
   Module.prototype.require = function(id){
