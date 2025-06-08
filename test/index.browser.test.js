@@ -25,7 +25,7 @@ afterEach(() => {
 describe('browser injection', {concurrency:false}, () => {
   it('injects stylesheet and serverSide undefined', () => {
     assert.strictEqual(mod.serverSide, undefined); //(verifies serverSide not set)
-    const expected = path.resolve(__dirname, '../core.css'); //(expected css path)
+    const expected = path.resolve(__dirname, '../qore.css'); //(expected css path)
     const link = document.head.querySelector(`link[href="${expected}"]`); //(finds injected link)
     assert.ok(link); //(ensures link exists)
   });

@@ -4,17 +4,10 @@ const path = require('node:path');
 const {describe, it, beforeEach, afterEach} = require('node:test');
 
 let mod;
-let created;
-
 beforeEach(() => {
   process.chdir(path.resolve(__dirname, '..')); // ensures paths resolve correctly
-  if(!require('fs').existsSync('core.css')) {require('fs').writeFileSync('core.css',''); created=true;} // create missing file for tests
-  delete require.cache[require.resolve('../index.js')];
-  mod = require('../index.js');
-});
-
-afterEach(() => {
-  if(created){ require('fs').unlinkSync('core.css'); created=false; } // cleans up core.css if created
+  delete require.cache[require.resolve('../index.js')]; // resets module cache
+  mod = require('../index.js'); // imports module
 });
 
 describe('index module', {concurrency:false}, () => {

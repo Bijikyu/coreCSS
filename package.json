@@ -2,9 +2,9 @@
   "name": "qorecss",
   "version": "1.0.0",
   "main": "index.js",
-  "style": "core.css",
+  "style": "qore.css",
   "files": [
-    "core.css",
+    "qore.css",
     "variables.css",
     "index.js",
     "core.*.min.css",
@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "build": "node scripts/build.js",
-    "lint": "stylelint core.css variables.css",
+    "lint": "stylelint qore.css variables.css",
     "test": "node --test --test-concurrency=1"
   },
   "devDependencies": {

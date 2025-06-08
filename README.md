@@ -13,7 +13,7 @@ Also includes...
 * Default media queries to make elements responsive to any screen size
 * A variables.css style sheet template which allows you to stylistically change a whole page by just changing the values of the variables (for instance, the corners of a card, 
 buttons, and other square elements have the corner radius set with the same variables - change the "roundedness" of all corners on your site with one variable change).
-The imported core.css has it's css properties set off of these variables. This goes for many things in the theme, allowing 
+The imported qore.css has it's css properties set off of these variables. This goes for many things in the theme, allowing //(updated file name)
 the creation of multiple sites with different pallettes and styles to be a quick operation.
 * Lastly the demo html page contains links to a minified free icon set which comes in a default color (LightSeaGreen). This icon set 
 can be changed to fit any color/brightness/contrast scheme using the values in the CSS --set-adjustments variable.
@@ -25,20 +25,20 @@ The HTML demo and performance script read the CDN base URL from the `CDN_BASE_UR
 
 Import via CDN in the head of your html as:
 ```
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/qore.css"> //(updated CDN link)
 ```
 
 Minified version:
 ```
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.min.css">
 ```
-`core.min.css` in this repo is generated from `core.css` by running `npm run build`. This command executes `node scripts/build.js`, which processes the file with PostCSS and Autoprefixer and deletes any older `core.*.min.css` files so only the newest hash remains.
+`core.min.css` in this repo is generated from `qore.css` by running `npm run build`. This command executes `node scripts/build.js`, which processes the file with PostCSS and Autoprefixer and deletes any older `core.*.min.css` files so only the newest hash remains. //(document qore.css source)
 
 The `build` script in `package.json` looks like:
 ```
 "scripts": {
   "build": "node scripts/build.js",
-  "lint": "stylelint core.css variables.css"
+  "lint": "stylelint qore.css variables.css" //(show lint script update)
 }
 ```
 
