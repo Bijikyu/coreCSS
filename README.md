@@ -1,126 +1,130 @@
-<p align="center" >
-  <img height='150' width='150' src="core.png?raw=true" />
+
+<p align="center">
+  <img height='150' width='150' src="qore.png?raw=true" />
 </p>
 
 # qoreCSS
 
-This is a ready to use default style sheet that contains default styles which look nice for most elements in html, allowing you to start any app with it not looking bald and terrible. 
+A ready-to-use CSS framework that provides beautiful default styles and utility classes to quickly build modern web applications without starting from scratch.
 
-Also includes...
-* The features from [normalize CSS](https://github.com/necolas/normalize.css/) to make sure that your site will be more universally the same across browsers
-* Class name based positioning attributes for [flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) (row, col, center, centerAlign, and so on) & width (col50, col80, etc, for 50% & 80% respectively), and [grid](https://css-tricks.com/snippets/css/complete-guide-grid/) (grid, grid3, etc upt to grid6)
-* It also has some basic built in CSS animations
-* Default media queries to make elements responsive to any screen size
-* A variables.css style sheet template which allows you to stylistically change a whole page by just changing the values of the variables (for instance, the corners of a card, 
-buttons, and other square elements have the corner radius set with the same variables - change the "roundedness" of all corners on your site with one variable change).
-The imported qore.css has it's css properties set off of these variables. This goes for many things in the theme, allowing //(updated file name)
-the creation of multiple sites with different pallettes and styles to be a quick operation.
-* Lastly the demo html page contains links to a minified free icon set which comes in a default color (LightSeaGreen). This icon set 
-can be changed to fit any color/brightness/contrast scheme using the values in the CSS --set-adjustments variable.
-The `.obscure` class applies `backdrop-filter: blur(7px) brightness(200%)` to create a modern glass effect overlay. /* documents .obscure class */
+## Features
 
-This is used via the github based CDN https://www.jsdelivr.com
+- **Beautiful defaults** - Default styles that make HTML elements look great out of the box
+- **Normalize.css included** - Cross-browser consistency built-in
+- **Flexbox & Grid utilities** - Classes for layout positioning (`row`, `col`, `center`, `grid3`, etc.)
+- **Responsive design** - Built-in media queries for all screen sizes
+- **CSS animations** - Smooth, modern animations included
+- **Customizable variables** - Easy theming through CSS custom properties
+- **Icon support** - Color-adjustable icon system with filters
+- **Glass morphism** - Modern `.obscure` class with backdrop blur effects
 
-The HTML demo and performance script read the CDN base URL from the `CDN_BASE_URL` environment variable, defaulting to `https://cdn.jsdelivr.net` when unset. Set this variable if hosting the files on a different CDN. index.html contains the placeholder `{{CDN_BASE_URL}}` that `scripts/updateHtml.js` replaces during build.
+## Quick Start
 
-Import via CDN in the head of your html as:
-```
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/qore.css"> //(updated CDN link)
+### CDN (Recommended)
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.min.css">
 ```
 
-Minified version:
+### NPM
+```bash
+npm install qoreCSS
 ```
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.min.css">
-```
-`core.min.css` in this repo is generated from `qore.css` by running `npm run build`. This command executes `node scripts/build.js`, which processes the file with PostCSS and Autoprefixer and deletes any older `core.*.min.css` files so only the newest hash remains. //(document qore.css source)
 
-The `build` script in `package.json` looks like:
+Then import in your project:
+```javascript
+require('qoreCSS');
+// or
+import 'qoreCSS';
 ```
-"scripts": {
-  "build": "node scripts/build.js",
-  "lint": "stylelint qore.css variables.css" //(show lint script update)
+
+## Customization
+
+Copy `variables.css` to your project and modify the CSS custom properties to match your design:
+
+```css
+:root {
+    --color-dominant: #8b4c42;  /* Primary brand color */
+    --color-two: #a0614a;       /* Secondary color */
+    --color-bright: #b97a6e;    /* Accent color */
+    --gs-lightest: #f5f3f3;     /* Light backgrounds */
+    --gs-darkest: #2d1b13;      /* Dark backgrounds */
 }
 ```
 
-The repository now uses a GitHub Actions workflow that builds `core.min.css` and deploys it to GitHub Pages on every push to `main`. <!-- //added explanation of automatic deployment -->
-It also creates a semantic version tag when `main` is updated so consumers can target specific releases. <!-- //explains new auto tagging -->
-This workflow allows jsDelivr to fetch the latest files from the `gh-pages` branch so the CDN stays up to date. <!-- //explains CDN delivery -->
+## Key Classes
 
-Images like the logo can also be loaded from jsDelivr at
-`https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/logos/core-logo-min.png`.
-Use these CDN links instead of the raw GitHub URLs for faster delivery.
+### Layout
+- `.row`, `.col` - Flexbox containers
+- `.center`, `.centerAlign` - Centering utilities
+- `.superCenter` - Perfect centering for main content
+- `.grid`, `.grid3`, `.grid4` - CSS Grid layouts
+- `.col50`, `.col80` - Percentage widths
 
-Copy variables.css into your local css stylesheet and change values as you like.
+### Styling
+- `.card`, `.cardWhite` - Card components
+- `.bright`, `.dark`, `.lightest` - Background colors
+- `.textCenter`, `.textLeft` - Text alignment
+- `.padding20`, `.margin30` - Spacing utilities
+- `.obscure` - Glass morphism effect
 
+### Icons
+- `.icon` - Applies theme color adjustments
+- `.iconLarge` - Large icon sizing
+- `.sq15`, `.sq25` - Square icon sizes
 
+## Development
 
-For best performance host icons and images on a CDN with long caching headers to avoid extra network requests. Serve `core.min.css` and image assets with `Cache-Control: public, max-age=31536000` and enable gzip or Brotli compression. See `deployment/nginx.conf` for a sample configuration. <!-- //added explanation about caching and new nginx snippet -->
+```bash
+# Install dependencies
+npm install
 
-## Customization <!-- //added section documenting icon filter behavior -->
-`variables.css` includes theme variables such as `--set-adjustments` for recoloring icons. <!-- //clarifies icon recoloring behavior -->
+# Build minified version
+npm run build
 
+# Run tests
+npm test
 
-## Server/CDN configuration
-
-
-To maximize caching and compression when hosting the assets yourself or on a CDN:
-
-* Set `Cache-Control: public, max-age=31536000` for `core.min.css`, `icons.svg`, and all image files so browsers store them for a year.
-* Set `Cache-Control: no-cache` for HTML files like `index.html` so browsers always fetch updates. <!-- //explains short cache for html pages -->
-* Enable gzip or Brotli compression for these same files.
-
-Example Nginx snippet (also saved in `deployment/nginx.conf`):
-```nginx
-location ~* \.(?:css|png|jpe?g|svg|gif)$ { # caches and compresses assets
-    gzip on; # enables gzip
-    gzip_static on; # serves .gz when available
-    gzip_types text/css image/svg+xml image/png image/jpeg image/gif; # gzip MIME types
-    brotli on; # enables brotli
-    brotli_static on; # serves .br when available
-    brotli_types text/css image/svg+xml image/png image/jpeg image/gif; # brotli MIME types
-    add_header Cache-Control "public, max-age=31536000"; # year long cache
-}
+# Lint styles
+npm run lint
 ```
 
-Example CDN headers:
-```text
-Cache-Control: public, max-age=31536000
-Content-Encoding: br
-```
+## Performance
 
-For self-hosting you should replicate these headers and compression settings as
-shown in [docs/self-hosting.md](docs/self-hosting.md). Hashed filenames such as
-`core.77526ae8.min.css` enable year-long caching because a new filename is
-generated on each build. When updating the stylesheet purge any CDN caches so
-clients fetch the new hash.
+The framework is optimized for performance:
+- Minified version is automatically generated with content hashing
+- CDN delivery through jsDelivr with global edge caching
+- Gzip/Brotli compression supported
+- Cache headers optimized for long-term caching
 
-<!-- Installation Section -->
-        <section class='card col90 margin30 pad30'>
-            <h2 class="textCenter margin25">Quick Installation</h2>
-            <div class="cardWhite pad25 margin20">
-                <h4 class="textDark">CDN Link (Quick Start)</h4>
-                <code class="textDark" style="background: #f5f5f5; padding: 10px; border-radius: 5px; display: block; margin: 10px 0;">
-                    &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.min.css"&gt;
-                </code>
+## Browser Support
 
-                <h4 class="textDark margin25">NPM Package</h4>
-                <code class="textDark" style="background: #f5f5f5; padding: 10px; border-radius: 5px; display: block; margin: 10px 0;">
-                    npm install qoreCSS
-                </code>
-                <p class="textDark" style="font-size: 14px; margin: 10px 0;">
-                    Then import in your JavaScript: <code>require('qoreCSS')</code> or use with bundlers like Webpack/Rollup
-                </p>
-            </div>
-        </section>
+Supports all modern browsers with the following baseline:
+- Chrome/Edge 88+
+- Firefox 85+
+- Safari 14+
+- Mobile browsers with equivalent versions
 
+## Contributing
 
-<a href="https://www.buymeacoffee.com/bijikyu" target="_blank" rel="noopener noreferrer">Buy me a Coffee (Please)</a>
+1. Fork the repository
+2. Create your feature branch
+3. Run tests with `npm test`
+4. Submit a pull request
+
+## Deployment
+
+The project automatically builds and deploys to GitHub Pages on every push to `main`. The CDN is updated automatically through jsDelivr.
+
+For self-hosting, see [docs/self-hosting.md](docs/self-hosting.md) for optimal server configuration.
 
 ## License
+
 This project is licensed under the [MIT License](LICENSE).
 
-## Testing
-Run `npm install` before executing `npm test` so required modules like jsdom are available.
+## Support
 
-## Performance testing
-A script for measuring download times from jsDelivr and GitHub Pages is in [docs/performance.md](docs/performance.md). Use it to verify asset delivery speed under load. Pass `--json` to append results to `performance-results.json` for automation.
+<a href="https://www.buymeacoffee.com/bijikyu" target="_blank" rel="noopener noreferrer">Buy me a Coffee</a>
+
+---
+
+*Built with ❤️ for developers who want beautiful web apps without the complexity*
