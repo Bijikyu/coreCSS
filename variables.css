@@ -202,29 +202,10 @@
 }
 
 /*
- * BACKGROUND IMAGE SYSTEM
- * Rationale: Background image is applied to html element to allow
- * for overlay effects and filters on child elements
- * 
- * The background image provides:
- * 1. VISUAL INTEREST: Adds texture and depth to the design
- * 2. BRAND CONSISTENCY: Fire marble theme suggests energy and sophistication  
- * 3. PERFORMANCE: Single background image is optimized and cached
- * 4. RESPONSIVENESS: cover sizing ensures proper display on all screen sizes
- * 
- * Multiple vendor prefixes ensure cross-browser compatibility for
- * background-size property, which is critical for proper image display.
+ * CLEAN BACKGROUND SYSTEM
+ * Rationale: Modern clean design with solid color background
+ * Provides excellent readability and contemporary appearance
  */
 html { 
-    /* 
-     * Background image setup with cross-browser compatibility
-     * Fixed attachment creates parallax-like effect on supported browsers
-     * Center positioning ensures focal point remains visible
-     * Cover sizing maintains aspect ratio while filling viewport
-     */
-    background: url('https://cdn.jsdelivr.net/gh/Bijikyu/staticAssetsSmall/backgrounds/firemarbleblur_min-min.png') no-repeat center center fixed; /* replaced GitHub link with jsDelivr CDN */
-    background-size: cover;              /* Standard property */
-    -moz-background-size: cover;         /* Firefox fallback */
-    -o-background-size: cover;           /* Opera fallback */
-    -webkit-background-size: cover;      /* WebKit browsers fallback */
+    background: var(--gs-darkest); /* Clean solid background */
 }
