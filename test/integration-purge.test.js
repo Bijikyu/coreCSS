@@ -5,6 +5,12 @@ const path = require('node:path'); //path utilities for file paths
 const os = require('node:os'); //os module to find temp dir
 const {describe, it, before, after} = require('node:test'); //test framework functions
 let build, updateHtml, purgeCdn; //holds imported scripts
+const {describe, it, before, after} = require('node:test'); //test framework functions
+const assert = require('node:assert'); //assertion library
+const fs = require('node:fs'); //filesystem operations
+const path = require('node:path'); //path utilities
+const os = require('node:os'); //operating system utilities
+let build, updateHtml, purgeCdn; //holds imported scripts
 let tmpDir; //temporary directory path
 
 before(() => {

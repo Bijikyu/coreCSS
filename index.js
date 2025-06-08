@@ -111,7 +111,7 @@ if (typeof window === 'undefined') {
  const link = document.createElement('link'); // Creates <link> element for stylesheet injection
  link.rel = 'stylesheet'; // Specifies relationship type to browser
   link.type = 'text/css'; // Explicit MIME type for clarity across tools
-  const cssPath = document.currentScript && document.currentScript.src ? document.currentScript.src.replace('index.js', 'qore.css') : require.resolve('./qore.css'); // uses current script src when possible then falls back to require.resolve
+  const cssPath = document.currentScript && document.currentScript.src ? document.currentScript.src.replace('index.js', 'qore.css') : './qore.css'; // uses current script src when possible then falls back to relative path
   link.href = cssPath; // assigns resolved CSS path to href for consistent loading
   document.head.appendChild(link); // Inserts stylesheet into DOM for immediate effect
 }

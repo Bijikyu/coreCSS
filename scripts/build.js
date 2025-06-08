@@ -28,7 +28,6 @@ const crypto = require('crypto'); // Cryptographic functions for generating cont
 const {gzip, brotliCompress} = require('zlib'); // Compression utilities for generating optimized file variants
 const gzipAsync = promisify(gzip); // Promisified gzip for async/await usage
 const brotliCompressAsync = promisify(brotliCompress); // Promisified brotli for async/await usage
-// Removed qerrors dependency - using console.error for logging
 const execFileAsync = promisify(execFile); // Promise-wrapped execFile for consistent async patterns
 
 /*
@@ -79,7 +78,8 @@ async function build(){
    * Excludes the current hash to prevent deleting the file we're about to create.
    * Promise.all enables parallel deletion for better performance.
    */
-  const files = (await fs.readdir('.')).filter(f => /^core\.[a-f0-9]{8}\.min\.css$/.test(f) && f !== `core.${hash}.min.css`); 
+  const targetFile = `core.${hash}.min.css`;
+  const files = (await fs.readdir('.')).filter(f => /^core\.[a-f0-9]{8}\.min\.css$/.test(f) && f !== targetFile); 
   await Promise.all(files.map(f => fs.unlink(f))); 
   
   /*
@@ -95,7 +95,7 @@ async function build(){
    * Rationale: Creates the cache-busting filename that CDNs and browsers will use.
    * This must happen after cleanup to avoid race conditions.
    */
-  await fs.rename('core.min.css', `core.${hash}.min.css`); 
+  await fs.rename('core.min.css', targetFile); 
 
   /*
    * COMPRESSION GENERATION

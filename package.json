@@ -51,6 +51,7 @@
     "not dead"
   ],
   "dependencies": {
-    "qtests": "^1.0.4"
+    "qtests": "^1.0.4",
+    "axios": "^1.6.0"
   }
 }
