@@ -29,4 +29,12 @@ describe('updateHtml', () => {
     assert.ok(updated.includes('http://testcdn'));
     assert.strictEqual(hash, '12345678');
   });
+
+  it('replaces qore.css when hash missing', async () => { //(new scenario for plain css)
+    fs.writeFileSync(path.join(tmpDir, 'index.html'), '<link href="qore.css">'); //(setup html without placeholder)
+    const hash = await updateHtml(); //(run update on qore.css html)
+    const updated = fs.readFileSync(path.join(tmpDir, 'index.html'), 'utf8'); //(read modified html)
+    assert.ok(updated.includes('core.12345678.min.css')); //(verify replacement)
+    assert.strictEqual(hash, '12345678'); //(ensure returned hash unchanged)
+  });
 });

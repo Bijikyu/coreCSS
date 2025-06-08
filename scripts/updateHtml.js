@@ -72,7 +72,12 @@ async function updateHtml(){
    * Global flag (g) ensures all references in the file are updated in one pass.
    * This handles cases where CSS is referenced multiple times (preload, link, etc.).
    */
-  let updated = html.replace(/core\.[a-f0-9]{8}\.min\.css/g, `core.${hash}.min.css`); // Substitutes hashed CSS filename
+  let updated; //(declare variable for updated html)
+  if(/core\.[a-f0-9]{8}\.min\.css/.test(html)){ //(detect existing hashed reference)
+   updated = html.replace(/core\.[a-f0-9]{8}\.min\.css/g, `core.${hash}.min.css`); //(update existing hash)
+  } else {
+   updated = html.replace(/qore\.css/g, `core.${hash}.min.css`); //(replace qore.css when no hashed filename)
+  }
   
   /*
    * CDN PLACEHOLDER SUBSTITUTION
