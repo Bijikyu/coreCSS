@@ -1,7 +1,7 @@
 const Module = require('module');
 const path = require('node:path');
 const orig = Module.prototype.require;
-const axiosStub = {get: async ()=>({status:200})}; // reusable axios stub
+const axiosStub = {get: async ()=>({status:200}),create(){return this;}}; // reusable axios stub with create method
 const qerrorsStub = () => {}; // reusable qerrors stub
 Module.prototype.require = function(id){
   if(id==='axios') return axiosStub; // returns same axios stub each require
