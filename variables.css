@@ -29,27 +29,27 @@
      * This 4-step grayscale provides sufficient contrast ratios while keeping
      * the color palette simple and maintainable.
      */
-    --gs-lightest: #ffffff;    /* Pure white - highest contrast, used for text on dark backgrounds */
-    --gs-mid: #64748b;         /* Modern slate gray - for borders, inactive states, subtle UI elements */
-    --gs-dark: #1e293b;        /* Dark slate - for text on light backgrounds, readable and accessible */
-    --gs-darkest: #0f172a;     /* Deep slate - for backgrounds and maximum contrast situations */
+    --gs-lightest: #fef2f2;    /* Warm white with red tint - highest contrast, complements lava theme */
+    --gs-mid: #7c2d12;         /* Warm brown-red - for borders, inactive states, subtle UI elements */
+    --gs-dark: #451a03;        /* Dark brown - for text on light backgrounds, readable and accessible */
+    --gs-darkest: #1c0a00;     /* Deep volcanic black - for backgrounds and maximum contrast situations */
 
     /* 
      * BRAND COLOR PALETTE
-     * Rationale: Modern gradient-friendly colors for contemporary design
-     * - dominant: Deep blue creates professional, trustworthy appearance
-     * - two: Vibrant purple provides energy and modern tech feel
-     * - bright: Electric blue creates freshness and modern appeal
+     * Rationale: Fiery lava-inspired colors for dramatic, warm design
+     * - dominant: Deep red creates bold, powerful appearance
+     * - two: Molten orange provides intense energy and heat
+     * - bright: Bright lava orange creates fiery, volcanic appeal
      * 
-     * This analogous color scheme (blues and purples) creates visual harmony
+     * This warm color scheme (reds and oranges) creates volcanic harmony
      * while maintaining modern aesthetics. Colors were chosen for:
-     * - Modern gradient compatibility
+     * - Lava-inspired gradient compatibility
      * - Accessibility compliance (WCAG AA standards)
-     * - Contemporary tech aesthetic
+     * - Fiery volcanic aesthetic
      */
-    --color-dominant: #1e40af; /* Deep blue - professional, trustworthy */
-    --color-two: #7c3aed;      /* Vibrant purple - modern, energetic */
-    --color-bright: #06b6d4;   /* Electric cyan - fresh, modern */
+    --color-dominant: #dc2626; /* Deep red - bold, fiery */
+    --color-two: #ea580c;      /* Molten orange - intense, energetic */
+    --color-bright: #f97316;   /* Bright lava orange - volcanic, dramatic */
 
     /* 
      * TRANSPARENCY UTILITIES
@@ -85,17 +85,17 @@
      * - 600-800: Dark shades
      * - 900-950: Very dark shades
      */
-    --sl-color-primary-50: 239 246 255;   /* Lightest blue tint */
-    --sl-color-primary-100: 219 234 254;  /* Very light blue */
-    --sl-color-primary-200: 191 219 254;  /* Light blue */
-    --sl-color-primary-300: 147 197 253;  /* Medium light blue */
-    --sl-color-primary-400: 96 165 250;   /* Medium blue */
-    --sl-color-primary-500: 59 130 246;   /* Base blue */
-    --sl-color-primary-600: 37 99 235;    /* Medium dark blue */
-    --sl-color-primary-700: 29 78 216;    /* Dark blue */
-    --sl-color-primary-800: 30 64 175;    /* Darker blue */
-    --sl-color-primary-900: 30 58 138;    /* Very dark blue */
-    --sl-color-primary-950: 23 37 84;     /* Darkest blue */
+    --sl-color-primary-50: 254 242 242;   /* Lightest red tint */
+    --sl-color-primary-100: 254 226 226;  /* Very light red */
+    --sl-color-primary-200: 252 165 165;  /* Light red */
+    --sl-color-primary-300: 248 113 113;  /* Medium light red */
+    --sl-color-primary-400: 239 68 68;    /* Medium red */
+    --sl-color-primary-500: 220 38 38;    /* Base red */
+    --sl-color-primary-600: 185 28 28;    /* Medium dark red */
+    --sl-color-primary-700: 153 27 27;    /* Dark red */
+    --sl-color-primary-800: 127 29 29;    /* Darker red */
+    --sl-color-primary-900: 69 10 10;     /* Very dark red */
+    --sl-color-primary-950: 28 4 4;       /* Darkest red */
 
     /* 
      * GRADIENT SYSTEM
@@ -104,8 +104,8 @@
      * - l2r (left to right): Modern blue to purple gradient
      * - u2d (up to down): Vertical gradient for depth
      */
-    --gradient-l2r: linear-gradient(135deg, var(--color-dominant), var(--color-two)); /* Modern diagonal gradient */
-    --gradient-u2d: linear-gradient(180deg, var(--color-bright), var(--color-dominant)); /* Vertical gradient */
+    --gradient-l2r: linear-gradient(135deg, var(--color-dominant), var(--color-two)); /* Fiery diagonal gradient */
+    --gradient-u2d: linear-gradient(180deg, var(--color-bright), var(--color-dominant)); /* Molten vertical gradient */
 
     /* 
      * BORDER SYSTEM
@@ -156,15 +156,15 @@
      * Rationale: Modern filter effects for icon theming
      * Updated for contemporary blue/cyan theme
      */
-    --set-adjustments: hue-rotate(200deg) brightness(90%) contrast(120%) saturate(110%) drop-shadow(0px 0px 8px var(--color-bright));
+    --set-adjustments: hue-rotate(15deg) brightness(110%) contrast(130%) saturate(140%) drop-shadow(0px 0px 8px var(--color-bright));
 }
 
 /*
- * MODERN BACKGROUND SYSTEM
- * Rationale: Contemporary gradient background for modern appeal
- * Updated with subtle gradient for visual interest
+ * VOLCANIC BACKGROUND SYSTEM
+ * Rationale: Dark volcanic gradient background for lava theme appeal
+ * Updated with fiery gradient for dramatic visual interest
  */
 html { 
-    background: linear-gradient(135deg, var(--gs-darkest) 0%, #1e1b4b 100%); /* Modern gradient background */
+    background: linear-gradient(135deg, var(--gs-darkest) 0%, #4c1d95 100%); /* Volcanic gradient background with deep purple undertones */
     min-height: 100vh;
 }
