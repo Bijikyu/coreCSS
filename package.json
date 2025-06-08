@@ -25,20 +25,23 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
+    "axios": "^1.6.0",
     "cssnano": "^5.1.15",
+    "jsdom": "^22.1.0",
+    "p-limit": "^4.0.0",
     "postcss": "^8.4.30",
     "postcss-cli": "^10.1.0",
-    
+    "qerrors": "^1.2.3",
+    "qtests": "^1.0.4",
     "stylelint": "^15.10.2",
-    "stylelint-config-standard": "^34.0.0",
-    "axios": "^1.6.0",
-    "qerrors": "^1.2.1",
-    "p-limit": "^4.0.0",
-    "jsdom": "^22.1.0"
+    "stylelint-config-standard": "^34.0.0"
   },
   "browserslist": [
     ">0.5%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "dependencies": {
+    "qtests": "^1.0.4"
+  }
 }
