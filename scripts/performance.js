@@ -27,7 +27,8 @@ const qerrors = require('qerrors'); // Centralized error logging with contextual
 const fs = require('fs'); // File system operations for reading/writing test results
 const pLimit = require('p-limit'); // Concurrency limiting to prevent overwhelming target servers
 const CDN_BASE_URL = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; // Environment-configurable CDN endpoint
-const MAX_CONCURRENCY = 50; // Upper safety limit to prevent excessive server load
+const maxEnv = parseInt(process.env.MAX_CONCURRENCY,10); // reads max concurrency from environment
+const MAX_CONCURRENCY = Number.isNaN(maxEnv) ? 50 : maxEnv; // defaults to 50 when env variable missing
 const envLimit = parseInt(process.env.QUEUE_LIMIT,10); // reads queue size from environment variable
 const QUEUE_LIMIT = Number.isNaN(envLimit) ? 5 : envLimit; // defaults to 5 when env variable missing
 const HISTORY_MAX = 50; // maximum entries kept in performance history file
@@ -201,7 +202,7 @@ async function run(){
   let concurrency = parseInt(args[0],10); 
   if(Number.isNaN(concurrency)){ concurrency = 5; } // Sensible default for most testing scenarios
   concurrency = Math.max(1, concurrency); // Ensures at least one request (prevents divide by zero)
-  if(concurrency > MAX_CONCURRENCY){ console.log(`run concurrency exceeds ${MAX_CONCURRENCY}`); concurrency = MAX_CONCURRENCY; } // Safety cap with warning
+  if(concurrency > MAX_CONCURRENCY){ console.log(`run concurrency exceeds ${MAX_CONCURRENCY}`); concurrency = MAX_CONCURRENCY; } // Safety cap uses env derived limit
   console.log(`run concurrency set to ${concurrency}`); // Logs final concurrency setting
   
   /*
