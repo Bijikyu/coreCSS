@@ -28,7 +28,8 @@ const fs = require('fs'); // File system operations for reading/writing test res
 const pLimit = require('p-limit'); // Concurrency limiting to prevent overwhelming target servers
 const CDN_BASE_URL = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; // Environment-configurable CDN endpoint
 const MAX_CONCURRENCY = 50; // Upper safety limit to prevent excessive server load
-const QUEUE_LIMIT = 5; // Conservative concurrent request limit for respectful testing
+const envLimit = parseInt(process.env.QUEUE_LIMIT,10); // reads queue size from environment variable
+const QUEUE_LIMIT = Number.isNaN(envLimit) ? 5 : envLimit; // defaults to 5 when env variable missing
 const HISTORY_MAX = 50; // maximum entries kept in performance history file
 
 /*
