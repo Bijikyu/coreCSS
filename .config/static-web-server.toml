@@ -2,7 +2,7 @@
 host = "0.0.0.0"
 port = 80
 root = "."
-compression = true # enables dynamic gzip/brotli compression
+compression = false # disables dynamic gzip/brotli compression as files are precompressed
 compression-static = true # serves precompressed .gz or .br files when available
 compression-gzip-extensions = ["css", "png", "jpg", "jpeg", "svg", "gif"] # gzip only these types
 compression-brotli-extensions = ["css", "png", "jpg", "jpeg", "svg", "gif"] # brotli only these types
