@@ -26,7 +26,7 @@ const axios = require('axios'); // Robust HTTP client library with comprehensive
 const http = require('node:http'); // Node HTTP used for keep-alive agent
 const https = require('node:https'); // Node HTTPS used for keep-alive agent
 const qerrors = require('qerrors'); // Centralized error logging with contextual information preservation
-const axiosInstance = axios.create({httpAgent:new http.Agent({keepAlive:true}),httpsAgent:new https.Agent({keepAlive:true})}); // axios instance reusing persistent agents
+const axiosInstance = axios.create({httpAgent:new http.Agent({keepAlive:true,maxSockets:50}),httpsAgent:new https.Agent({keepAlive:true,maxSockets:50})}); // axios instance reusing persistent agents with connection limit
 
 /*
  * DELAY UTILITY FUNCTION
