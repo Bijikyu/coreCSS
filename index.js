@@ -108,10 +108,24 @@ if (typeof window === 'undefined') {
    * This approach enables usage like: <script src="node_modules/qoreCSS/index.js"></script>
    * with automatic CSS injection, providing an alternative to manual link tags.
    */
- const link = document.createElement('link'); // Creates <link> element for stylesheet injection
- link.rel = 'stylesheet'; // Specifies relationship type to browser
-  link.type = 'text/css'; // Explicit MIME type for clarity across tools
-  const cssPath = document.currentScript && document.currentScript.src ? document.currentScript.src.replace('index.js', 'qore.css') : './qore.css'; // uses current script src when possible then falls back to relative path
-  link.href = cssPath; // assigns resolved CSS path to href for consistent loading
-  document.head.appendChild(link); // Inserts stylesheet into DOM for immediate effect
+ injectCss(); // calls helper for dynamic stylesheet injection
+}
+
+async function injectCss(){ // handles runtime stylesheet loading logic
+ console.log(`injectCss is running with ${document.currentScript && document.currentScript.src}`); // logs entry and script src
+ try {
+  const scriptSrc = document.currentScript && document.currentScript.src ? document.currentScript.src : 'index.js'; // resolves running script path
+  const basePath = scriptSrc.slice(0, scriptSrc.lastIndexOf('/') + 1); // extracts directory path portion
+  let cssFile = `qore.css`; // defaults to unminified css when no hash
+  const res = await fetch(`${basePath}build.hash`).catch(()=>null); // attempts to retrieve build hash
+  if(res && res.ok){ const hash = (await res.text()).trim(); cssFile = `core.${hash}.min.css`; } // sets hashed filename when available
+  const link = document.createElement('link'); // creates stylesheet link element
+  link.rel = 'stylesheet'; // declares relationship to browser
+  link.type = 'text/css'; // MIME type for clarity across tools
+  link.href = `${basePath}${cssFile}`; // resolves href using whichever file exists
+  document.head.appendChild(link); // injects stylesheet into document
+  console.log(`injectCss is returning ${cssFile}`); // logs resolved filename
+ } catch(err){
+  console.error('injectCss failed:', err.message); // logs any runtime failure
+ }
 }
