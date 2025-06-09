@@ -8,7 +8,7 @@ This document explains how to measure download times for `core.min.css` when ser
    ```bash
    npm install axios qerrors
    ```
-2. Execute the script specifying how many download attempts to run (defaults to `5`). The queue size can be overridden with the `QUEUE_LIMIT` environment variable and defaults to `5`:
+2. Execute the script specifying how many download attempts to run (defaults to `5`). The queue size can be overridden with the `QUEUE_LIMIT` environment variable and defaults to `5`. The HTTP agents respect `SOCKET_LIMIT` when set to adjust their connection pool (default `50`):
    ```bash
    node scripts/performance.js 10 --json
    ```
