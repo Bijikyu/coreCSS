@@ -25,7 +25,7 @@ const fetchRetry = require('./request-retry'); // HTTP client with retry logic f
 const {performance} = require('perf_hooks'); // High-resolution timing API for accurate measurements
 const qerrors = require('qerrors'); // Centralized error logging with contextual information
 const fs = require('fs'); // File system operations for reading/writing test results
-const pLimit = require('p-limit'); // Concurrency limiting to prevent overwhelming target servers
+// Manual concurrency control implementation to replace p-limit per REPLITAGENT.md constraints
 const CDN_BASE_URL = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; // Environment-configurable CDN endpoint
 const maxEnv = parseInt(process.env.MAX_CONCURRENCY,10); // reads max concurrency from environment
 const MAX_CONCURRENCY = Number.isNaN(maxEnv) ? 50 : maxEnv; // defaults to 50 when env variable missing
@@ -89,10 +89,10 @@ async function getTime(url){
 }
 
 /*
- * CONCURRENT REQUEST MEASUREMENT WITH QUEUE MANAGEMENT
+ * CONCURRENT REQUEST MEASUREMENT WITH MANUAL QUEUE MANAGEMENT
  * 
  * CONCURRENCY STRATEGY:
- * Uses p-limit to control concurrent requests, preventing:
+ * Manual batching implementation to control concurrent requests, preventing:
  * - CDN rate limiting
  * - Network congestion
  * - Local resource exhaustion
@@ -104,28 +104,25 @@ async function measureUrl(url, count){
  console.log(`measureUrl is running with ${url},${count}`); // Logs test parameters for monitoring
  try {
   /*
-   * QUEUE SETUP
-   * Rationale: p-limit creates a queue that ensures only QUEUE_LIMIT
-   * requests run simultaneously. This prevents overwhelming the target
-   * server while still testing concurrent performance characteristics.
+   * MANUAL CONCURRENCY CONTROL
+   * Rationale: Processes requests in batches of QUEUE_LIMIT size
+   * to prevent overwhelming the target server while still testing
+   * concurrent performance characteristics. Replaces p-limit usage.
    */
-  const limit = pLimit(QUEUE_LIMIT); 
+  const times = []; // stores all timing results for statistical analysis
   
   /*
-   * TASK GENERATION
-   * Rationale: Wrapping getTime in the limiter creates queued tasks
-   * that will execute with controlled concurrency. Array.from provides
-   * clean generation of the specified number of tasks.
+   * BATCH PROCESSING LOOP
+   * Rationale: Divides total requests into manageable batches
+   * that execute concurrently within each batch, then waits
+   * before starting the next batch. This provides controlled load.
    */
-  const tasks = Array.from({length: count}, () => limit(() => getTime(url))); 
-  
-  /*
-   * PARALLEL EXECUTION WITH CONTROLLED CONCURRENCY
-   * Promise.all waits for all requests to complete while p-limit
-   * ensures controlled concurrency. This provides comprehensive
-   * timing data while respecting server resources.
-   */
-  const times = await Promise.all(tasks); 
+  for(let i = 0; i < count; i += QUEUE_LIMIT){ // processes requests in batches
+   const batchSize = Math.min(QUEUE_LIMIT, count - i); // calculates current batch size
+   const batch = Array.from({length: batchSize}, () => getTime(url)); // creates batch of promises
+   const batchTimes = await Promise.all(batch); // executes batch concurrently
+   times.push(...batchTimes); // adds batch results to overall results
+  } 
   
   /*
    * STATISTICAL ANALYSIS

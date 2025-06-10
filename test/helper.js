@@ -6,7 +6,7 @@ const qerrorsStub = () => {}; // reusable qerrors stub
 Module.prototype.require = function(id){
   if(id==='axios') return axiosStub; // returns same axios stub each require
   if(id==='qerrors') return qerrorsStub; // returns same qerrors stub
-  if(id==='p-limit') return () => (fn) => async (...args)=> fn(...args); // simple p-limit stub
+
   return orig.call(this,id); // fallback to original require
 };
 
