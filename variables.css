@@ -98,6 +98,17 @@
 
     /* 
      * GRADIENT SYSTEM
+     * 
+     * GRADIENT DESIGN RATIONALE:
+     * These gradients provide visual depth and modern aesthetics while maintaining
+     * accessibility and readability. Each gradient serves specific UI purposes:
+     * 
+     * - l2r (left-to-right): For horizontal elements like headers and navigation
+     * - t2b (top-to-bottom): For vertical elements like sidebars and cards
+     * - corners: For complex backgrounds and featured content
+     * 
+     * Color transitions use warm brown palette for cohesive brand experience
+     * while ensuring sufficient contrast for overlaid text content.
      * Rationale: Modern gradients add visual depth and contemporary feel
      * Updated with modern color combinations for better visual appeal
      * - l2r (left to right): Modern blue to purple gradient

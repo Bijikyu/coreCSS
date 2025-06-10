@@ -5,10 +5,11 @@
 
 # qoreCSS
 
-A ready-to-use CSS framework that provides beautiful default styles and utility classes to quickly build modern web applications without starting from scratch.
+A comprehensive, modern CSS framework engineered for rapid web development with performance optimization, robust testing infrastructure, and advanced build tooling. Provides beautiful default styles, utility classes, and a complete development workflow for professional web applications.
 
 ## Features
 
+### Core Framework
 - **Beautiful defaults** - Default styles that make HTML elements look great out of the box
 - **Normalize.css included** - Cross-browser consistency built-in
 - **Flexbox & Grid utilities** - Classes for layout positioning (`row`, `col`, `center`, `grid3`, etc.)
@@ -18,23 +19,45 @@ A ready-to-use CSS framework that provides beautiful default styles and utility 
 - **Icon support** - Color-adjustable icon system with filters
 - **Glass morphism** - Modern `.obscure` class with backdrop blur effects
 
+### Advanced Development Features
+- **Performance optimization** - Automated CSS minification, compression (gzip/brotli), and CDN integration
+- **Build system** - Hash-based cache busting with automatic file versioning
+- **CDN deployment** - Automated deployment to jsDelivr CDN with cache purging
+- **Comprehensive testing** - Unit tests, integration tests, performance measurements, and error handling validation
+- **Code quality tools** - Stylelint integration with modern CSS best practices
+- **Environment configuration** - Flexible configuration via environment variables
+
 ## Quick Start
 
-### CDN (Recommended)
+### CDN (Recommended for Production)
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.min.css">
+<!-- Latest hashed version with optimal caching -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.5c7df4d0.min.css">
+
+<!-- Or use always-latest version (less optimal caching) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/qore.css">
 ```
 
-### NPM
+### NPM Installation
 ```bash
 npm install qoreCSS
 ```
 
-Then import in your project:
+#### Node.js/Build Tool Integration
 ```javascript
-require('qoreCSS');
-// or
-import 'qoreCSS';
+const qoreCSS = require('qoreCSS');
+
+// Get stylesheet path for build tools
+const cssPath = qoreCSS.getStylesheet();
+
+// Get CSS variables file
+const variablesPath = qoreCSS.getVariables();
+```
+
+#### Browser Auto-injection
+```html
+<!-- Automatically injects CSS when script loads -->
+<script src="node_modules/qoreCSS/index.js"></script>
 ```
 
 ## Customization

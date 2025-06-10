@@ -4,12 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qore CSS Modern Demo</title>
+    
+    <!-- CSS LOADING ORDER AND RATIONALE:
+         1. variables.css: CSS custom properties loaded first to establish design system
+         2. core CSS: Main framework styles that depend on variables
+         3. External icons: Unicons for visual enhancement without framework dependency
+         
+         This order prevents FOUC and ensures proper variable inheritance -->
     <link rel="stylesheet" href="variables.css">
-    <link rel="stylesheet" href="core.aaaaaaaa.min.css"> //(placeholder for build hash replacement)
+    <link rel="stylesheet" href="core.aaaaaaaa.min.css"> <!-- Build hash placeholder replaced during deployment -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconscout/unicons@release/css/line.css">
 </head>
 <body>
-    <!-- Hero Section -->
+    <!-- HERO SECTION DEMONSTRATION
+         Purpose: Showcases primary layout utilities and responsive design patterns
+         
+         Class Strategy Explained:
+         - col center: Vertical flexbox layout with centered alignment
+         - pad15: Consistent padding using design system spacing scale
+         - wide80: Constrains content width to 80% for optimal reading line length
+         - textCenter: Centers text content for hero presentation
+         - row center: Horizontal flexbox for button group layout
+         
+         This pattern demonstrates the framework's utility-first approach -->
     <header class="col center pad15">
         <div class="wide80 center">
             <h1 class="textCenter margin15">Modern Web Design</h1>
@@ -21,26 +38,38 @@
         </div>
     </header>
 
-    <!-- Features Grid -->
+    <!-- FEATURES GRID SECTION
+         Purpose: Demonstrates grid system capabilities and component styling
+         
+         Grid System Rationale:
+         - grid3: Creates 3-column responsive grid that adapts to mobile
+         - card: Applies elevation, borders, and spacing for component definition
+         - sq15: Icon sizing utility using consistent scale (15 units)
+         - itemText: Typography class for secondary content styling
+         
+         This section showcases both layout utilities and component patterns -->
     <main class="center col pad15">
         <div class="wide80 center">
             <h2 class="textCenter margin25">Framework Features</h2>
             <div class="grid3 margin25">
-                <!-- Feature Card 1 -->
+                <!-- RESPONSIVE DESIGN FEATURE CARD
+                     Demonstrates mobile-first approach and grid flexibility -->
                 <div class="card pad15 textCenter">
                     <i class="uil uil-mobile-android sq15 margin10"></i>
                     <h3 class="margin10">Responsive</h3>
                     <p class="itemText">Mobile-first design with flexible grid system and responsive utilities.</p>
                 </div>
 
-                <!-- Feature Card 2 -->
+                <!-- CUSTOMIZATION FEATURE CARD
+                     Highlights CSS variable system and theming capabilities -->
                 <div class="card pad15 textCenter">
                     <i class="uil uil-palette sq15 margin10"></i>
                     <h3 class="margin10">Customizable</h3>
                     <p class="itemText">Easy theming with CSS variables and comprehensive design tokens.</p>
                 </div>
 
-                <!-- Feature Card 3 -->
+                <!-- PERFORMANCE FEATURE CARD
+                     Emphasizes framework optimization and loading efficiency -->
                 <div class="card pad15 textCenter">
                     <i class="uil uil-rocket sq15 margin10"></i>
                     <h3 class="margin10">Performance</h3>
