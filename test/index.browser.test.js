@@ -33,7 +33,7 @@ describe('browser injection', {concurrency:false}, () => {
   it('injects stylesheet and serverSide undefined', () => {
     assert.strictEqual(mod.serverSide, undefined); //(verifies serverSide not set)
     const expected = path.resolve(__dirname, '../qore.css'); //(expected css path)
-    const link = document.querySelector('link[href*="qore"]') || document.querySelector('style');
+    const link = document.querySelector('link[href*="core"]') || document.querySelector('link[href*="qore"]') || document.querySelector('style');
     assert.ok(link);
   });
 });

@@ -233,7 +233,8 @@ async function run(){
   }
   console.log(`run has run resulting in a final value of 0`); // Logs successful completion
  } catch(err){
-  qerrors(err, `run failed`, {args:process.argv.slice(2)}); // Logs failure with command line context
+  console.error(`run failed:`, err.message, {args:process.argv.slice(2)}); // Logs failure with command line context
+  throw err; // Re-throws error to allow caller to handle appropriately
  }
 }
 

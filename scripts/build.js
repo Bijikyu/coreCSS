@@ -124,7 +124,7 @@ async function build(){
 
   if(fs.existsSync('index.js')){ // ensures index.js exists before attempting replacement
    const js = await fsp.readFile('index.js','utf8'); // reads index.js for injection update
-   const updated = js.replace(/const cssFile = `qore\.css`;/, `const cssFile = \`core.${hash}.min.css\`;`); // inserts hashed file name
+   const updated = js.replace(/const cssFile = `(?:qore\.css|core\.[a-f0-9]{8}\.min\.css)`;/, `const cssFile = \`core.${hash}.min.css\`;`); // inserts hashed file name, handles both qore.css and existing hashed names
    if(updated !== js){ await fsp.writeFile('index.js', updated); } // writes file only when changed
   }
   console.log(`build is returning ${hash}`); // Logs return value for debugging
