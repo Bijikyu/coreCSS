@@ -26,8 +26,8 @@ const {performance} = require('perf_hooks'); // High-resolution timing API for a
 const qerrors = require('qerrors'); // Centralized error logging with contextual information
 const fs = require('fs'); // File system operations for reading/writing test results
 // Manual concurrency control implementation to replace p-limit per REPLITAGENT.md constraints
-const CDN_BASE_URL = parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net'); // Environment-configurable CDN endpoint
 const {parseEnvInt, parseEnvString} = require('./utils/env-config'); // Centralized environment configuration utilities
+const CDN_BASE_URL = parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net'); // Environment-configurable CDN endpoint
 const MAX_CONCURRENCY = parseEnvInt('MAX_CONCURRENCY', 50, 1, 1000); // validates range 1-1000 with default 50
 const QUEUE_LIMIT = parseEnvInt('QUEUE_LIMIT', 5, 1, 100); // validates range 1-100 with default 5
 const HISTORY_MAX = 50; // maximum entries kept in performance history file
@@ -66,7 +66,7 @@ async function getTime(url){
    * CODEX environment flag enables testing measurement logic offline.
    */
   if(process.env.CODEX === `True`){ 
-   await wait(100); // Simulates network delay in offline environment
+   await wait(100, true); // Simulates network delay in offline environment with logging
   } else {
    /*
     * ACTUAL NETWORK REQUEST

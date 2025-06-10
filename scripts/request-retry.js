@@ -113,7 +113,7 @@ async function fetchRetry(url,opts={},attempts=3){
     * This pattern respects struggling servers while enabling quick recovery.
     */
    const delay=2**(i-1)*100; 
-   await wait(delay); // Implements delay before next retry attempt
+   await wait(delay, true); // Implements delay before next retry attempt with logging
   }
  }
 }
