@@ -25,6 +25,7 @@
 
 const qerrors = require('qerrors'); // Centralized error logging with contextual information
 const fs = require('fs').promises; // Node promise-based filesystem for async use
+const path = require('node:path'); // path utilities for directory operations
 const fetchRetry = require('./request-retry'); // Retry wrapper for HTTP requests
 
 /*
@@ -89,17 +90,17 @@ async function purgeCdn(file){
  * This ensures purge operations target the exact file that was just built,
  * maintaining consistency between build and deployment processes.
  */
-async function run(){
- console.log(`run is running with ${process.argv.length}`); // Logs execution start for monitoring
+async function run(dir='.'){
+ console.log(`run is running with ${dir}`); // logs directory parameter for monitoring
  try {
-  await fs.access(`build.hash`); // ensures build hash file exists before reading
+  await fs.access(path.join(dir,'build.hash')); // ensures build hash file exists before reading
   /*
    * BUILD HASH INTEGRATION
    * Rationale: Reads hash from build system to ensure purge targets the
    * correct file version. This maintains tight coupling between build
    * and purge operations, preventing purging of wrong file versions.
    */
-  const hash = (await fs.readFile(`build.hash`, `utf8`)).trim(); // Reads current build hash from filesystem
+  const hash = (await fs.readFile(path.join(dir,'build.hash'), `utf8`)).trim(); // Reads current build hash from filesystem
   
   /*
    * FILENAME CONSTRUCTION

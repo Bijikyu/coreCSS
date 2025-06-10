@@ -25,6 +25,7 @@ const fetchRetry = require('./request-retry'); // HTTP client with retry logic f
 const {performance} = require('perf_hooks'); // High-resolution timing API for accurate measurements
 const qerrors = require('qerrors'); // Centralized error logging with contextual information
 const fs = require('fs'); // File system operations for reading/writing test results
+const path = require('node:path'); // path utilities for directory operations
 const pLimit = require('p-limit'); // Concurrency limiting to prevent overwhelming target servers
 const CDN_BASE_URL = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; // Environment-configurable CDN endpoint
 const maxEnv = parseInt(process.env.MAX_CONCURRENCY,10); // reads max concurrency from environment
@@ -155,8 +156,8 @@ async function measureUrl(url, count){
  * This provides comprehensive CDN performance evaluation with flexible
  * configuration and optional data persistence.
  */
-async function run(){ 
- console.log(`run is running with ${process.argv.length}`); // Logs execution start for monitoring
+async function run(dir='.'){
+ console.log(`run is running with ${dir}`); // logs directory parameter for monitoring
  try {
   /*
    * BUILD HASH INTEGRATION
@@ -165,8 +166,9 @@ async function run(){
    * that users will actually receive. Fallback to core.min.css handles
    * cases where build hasn't run yet.
    */
-  let hash = ``; 
-  if(fs.existsSync(`build.hash`)){ hash = fs.readFileSync(`build.hash`,`utf8`).trim(); } 
+  let hash = ``;
+  const hashPath = path.join(dir,'build.hash'); //(path to build hash file)
+  if(fs.existsSync(hashPath)){ hash = fs.readFileSync(hashPath,'utf8').trim(); }
   const fileName = hash ? `core.${hash}.min.css` : `core.min.css`; 
   
   /*
@@ -227,7 +229,7 @@ async function run(){
    * Timestamped entries allow correlation with deployments and incidents.
    */
   if(jsonFlag){
-   const file = `performance-results.json`;
+   const file = path.join(dir,'performance-results.json'); //(results history file path)
    const history = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : []; // Loads existing history or creates new array
    const entry = {timestamp: new Date().toISOString(), results}; // Creates timestamped entry
    history.push(entry); // Appends to historical data

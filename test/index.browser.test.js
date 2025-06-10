@@ -11,7 +11,6 @@ beforeEach(() => {
   dom = new JSDOM(`<!DOCTYPE html><html><head></head><body></body></html>`); //(creates DOM for browser simulation)
   global.window = dom.window; //(exposes window for module)
   global.document = dom.window.document; //(exposes document for module)
-  process.chdir(path.resolve(__dirname, '..')); //(ensures correct module paths)
   delete require.cache[require.resolve('../index.js')]; //(reloads module for clean state)
   mod = require('../index.js'); //(imports module after DOM setup)
 });

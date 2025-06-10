@@ -22,6 +22,7 @@
 
 const fs = require('fs').promises; // File system operations using promises for consistent async patterns
 const qerrors = require('qerrors'); // Centralized error logging with contextual information
+const path = require('node:path'); // path utilities for directory operations
 
 /*
  * HTML UPDATE FUNCTION
@@ -37,8 +38,8 @@ const qerrors = require('qerrors'); // Centralized error logging with contextual
  * Comprehensive try/catch with detailed logging enables debugging of file system
  * issues, missing dependencies, or regex replacement failures.
  */
-async function updateHtml(){ 
- console.log(`updateHtml is running with ${process.argv.length}`); // Logs function entry for debugging and monitoring
+async function updateHtml(dir='.'){
+ console.log(`updateHtml is running with ${dir}`); //logs directory parameter for debugging
  try {
 
   /*
@@ -48,7 +49,7 @@ async function updateHtml(){
    * and HTML updates to happen later in the deployment pipeline.
    * trim() removes any whitespace that might interfere with filename generation.
    */
-  const hash = (await fs.readFile('build.hash','utf8')).trim(); // Reads current build hash for filename replacement
+  const hash = (await fs.readFile(path.join(dir,'build.hash'),'utf8')).trim(); // Reads current build hash for filename replacement
   
   /*
    * HTML CONTENT LOADING
@@ -56,7 +57,7 @@ async function updateHtml(){
    * which are typically small. This enables string manipulation operations
    * that would be complex with streaming approaches.
    */
-  const html = await fs.readFile('index.html','utf8'); // Loads HTML content into memory for editing
+  const html = await fs.readFile(path.join(dir,'index.html'),'utf8'); // Loads HTML content from directory
   
   /*
    * CDN URL CONFIGURATION
@@ -95,7 +96,7 @@ async function updateHtml(){
    * Rationale: Writing back to the same file updates references in place.
    * This maintains file permissions and any other metadata while updating content.
    */
-  await fs.writeFile('index.html', updated); // Persists updated HTML to disk
+  await fs.writeFile(path.join(dir,'index.html'), updated); // Persists updated HTML to disk in directory
 
   console.log(`updateHtml has run resulting in core.${hash}.min.css`); // Logs successful completion with resulting filename
   console.log(`updateHtml is returning ${hash}`); // Logs return value for debugging

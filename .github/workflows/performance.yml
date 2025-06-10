@@ -24,8 +24,10 @@ jobs:
             ${{ runner.os }}-node- #fallback key prefix
       - name: Install dependencies
         run: npm ci # uses lock file for deterministic install
-      - name: Run tests #executes suite before build
-        run: npm test #runs npm test command
+      - name: Run tests #executes suite with Node parallelism
+        run: node --test
+      - name: Show threads used
+        run: node -e "console.log('threads', require('os').cpus().length)"
       - name: Build CSS # generates hashed CSS before performance test
         run: npm run build # ensures build.hash and hashed CSS exist
       - name: Run performance script

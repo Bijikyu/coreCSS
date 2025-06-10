@@ -39,7 +39,6 @@ describe('run trims history', {concurrency:false}, () => {
     tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'perf-')); //(temporary directory for file operations)
     const history = Array.from({length:55}, (_,i)=>({timestamp:`${i}`, results:{}})); //(pre-seeded history)
     fs.writeFileSync(path.join(tmpDir,'performance-results.json'), JSON.stringify(history)); //(create initial file)
-    process.chdir(tmpDir); //(switch cwd for script)
     process.argv = ['node','scripts/performance.js','1','--json']; //(setup argv for run function)
   });
   afterEach(() => {
@@ -47,7 +46,7 @@ describe('run trims history', {concurrency:false}, () => {
     process.argv = ['node','']; //(reset argv)
   });
   it('keeps last 50 entries', async () => {
-    await performance.run(); //(execute run to append and trim)
+    await performance.run(tmpDir); //(execute run to append and trim)
     const file = JSON.parse(fs.readFileSync(path.join(tmpDir,'performance-results.json'),'utf8')); //(read updated history)
     assert.strictEqual(file.length, 50); //(ensure trimming to max)
   });

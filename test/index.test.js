@@ -5,7 +5,6 @@ const {describe, it, beforeEach, afterEach} = require('node:test');
 
 let mod;
 beforeEach(() => {
-  process.chdir(path.resolve(__dirname, '..')); // ensures paths resolve correctly
   delete require.cache[require.resolve('../index.js')]; // resets module cache
   mod = require('../index.js'); // imports module
 });

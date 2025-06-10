@@ -55,16 +55,14 @@ describe('run uses hash', {concurrency:false}, () => {
   beforeEach(() => {
     tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'purge-'));
     fs.writeFileSync(path.join(tmpDir, 'build.hash'), '12345678');
-    process.chdir(tmpDir);
     calledUrl = '';
     load({fetchRetry: async (url) => { calledUrl = url; return {status:202}; }, fs: fs.promises}); // stub dependencies with temp dir fs
   });
   afterEach(() => {
-    process.chdir(path.resolve(__dirname, '..'));
     fs.rmSync(tmpDir, {recursive:true, force:true});
   });
   it('purges hashed file', async () => {
-    const code = await run();
+    const code = await run(tmpDir); //(invoke run with directory)
     assert.strictEqual(code, 202);
     assert.ok(calledUrl.includes('core.12345678.min.css'));
   });
