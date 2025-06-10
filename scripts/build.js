@@ -99,19 +99,38 @@ async function build(){
    * FILE RENAMING WITH HASH
    * Rationale: Creates the cache-busting filename that CDNs and browsers will use.
    * This must happen after cleanup to avoid race conditions.
+   * Error handling prevents failures if source file doesn't exist.
    */
-  await fsp.rename('core.min.css', targetFile); // Renames processed css with hash
+  try {
+    await fsp.access('core.min.css'); // Verifies source file exists before rename
+    await fsp.rename('core.min.css', targetFile); // Renames processed css with hash
+  } catch(renameErr) {
+    if(renameErr.code === 'ENOENT') {
+      qerrors(renameErr, 'core.min.css missing during rename', {targetFile}); // logs missing file error
+      throw new Error(`Build failed: core.min.css not found for renaming to ${targetFile}`); // provides clear error message
+    }
+    throw renameErr; // re-throws other rename errors
+  }
 
   /*
    * COMPRESSION GENERATION
    * Rationale: Pre-generating compressed files reduces server CPU load and improves
    * response times. Gzip is universally supported, Brotli provides better compression
    * for modern browsers. Async compression prevents blocking the event loop.
+   * Individual error handling prevents one compression failure from breaking the entire build.
    */
-  await Promise.all([ // Streams compression to avoid loading file in memory
+  const compressionResults = await Promise.allSettled([ // Uses allSettled to handle individual compression failures gracefully
    pipeline(fs.createReadStream(targetFile), createGzip(), fs.createWriteStream(`${targetFile}.gz`)), // Gzip output
    pipeline(fs.createReadStream(targetFile), createBrotliCompress(), fs.createWriteStream(`${targetFile}.br`)) // Brotli output
   ]);
+  
+  // Log compression failures without breaking the build
+  compressionResults.forEach((result, index) => {
+   const format = index === 0 ? 'gzip' : 'brotli'; // maps index to compression format
+   if(result.status === 'rejected') {
+    qerrors(result.reason, `${format} compression failed`, {targetFile}); // logs compression failure with context
+   }
+  });
 
   console.log(`build has run resulting in core.${hash}.min.css`); // Logs successful completion with resulting filename
   

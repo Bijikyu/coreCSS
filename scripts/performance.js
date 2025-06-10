@@ -28,9 +28,9 @@ const fs = require('fs'); // File system operations for reading/writing test res
 // Manual concurrency control implementation to replace p-limit per REPLITAGENT.md constraints
 const CDN_BASE_URL = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; // Environment-configurable CDN endpoint
 const maxEnv = parseInt(process.env.MAX_CONCURRENCY,10); // reads max concurrency from environment
-const MAX_CONCURRENCY = Number.isNaN(maxEnv) ? 50 : maxEnv; // defaults to 50 when env variable missing
+const MAX_CONCURRENCY = Number.isNaN(maxEnv) || maxEnv < 1 || maxEnv > 1000 ? 50 : maxEnv; // validates range 1-1000 with default 50
 const envLimit = parseInt(process.env.QUEUE_LIMIT,10); // reads queue size from environment variable
-const QUEUE_LIMIT = Number.isNaN(envLimit) ? 5 : envLimit; // defaults to 5 when env variable missing
+const QUEUE_LIMIT = Number.isNaN(envLimit) || envLimit < 1 || envLimit > 100 ? 5 : envLimit; // validates range 1-100 with default 5
 const HISTORY_MAX = 50; // maximum entries kept in performance history file
 
 /*
@@ -129,8 +129,9 @@ async function measureUrl(url, count){
    * Rationale: Average provides a single representative value for
    * comparison across CDNs and over time. Could be extended with
    * median, percentiles, or standard deviation for more detailed analysis.
+   * Zero-count protection prevents division by zero errors.
    */
-  const avg = times.reduce((a,b)=>a+b,0)/count; 
+  const avg = count > 0 ? times.reduce((a,b)=>a+b,0)/count : 0; 
   console.log(`measureUrl is returning ${avg}`); // Logs average for monitoring
   return avg; // Returns average response time for comparison
  } catch(err){
@@ -195,9 +196,10 @@ async function run(){
    * Rationale: Configurable concurrency enables testing different load patterns
    * while safety limits prevent accidental DDoS of CDN endpoints.
    * Default of 5 provides meaningful load testing without being aggressive.
+   * Range validation prevents resource exhaustion from invalid values.
    */
   let concurrency = parseInt(args[0],10); 
-  if(Number.isNaN(concurrency)){ concurrency = 5; } // Sensible default for most testing scenarios
+  if(Number.isNaN(concurrency) || concurrency < 1 || concurrency > 1000){ concurrency = 5; } // Validates range 1-1000 with sensible default
   concurrency = Math.max(1, concurrency); // Ensures at least one request (prevents divide by zero)
   if(concurrency > MAX_CONCURRENCY){ console.log(`run concurrency exceeds ${MAX_CONCURRENCY}`); concurrency = MAX_CONCURRENCY; } // Safety cap uses env derived limit
   console.log(`run concurrency set to ${concurrency}`); // Logs final concurrency setting

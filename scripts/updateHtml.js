@@ -55,7 +55,9 @@ async function updateHtml(){
    * Rationale: Loading entire file into memory is acceptable for HTML files
    * which are typically small. This enables string manipulation operations
    * that would be complex with streaming approaches.
+   * Verification prevents processing non-existent files.
    */
+  await fs.access('index.html'); // Verifies HTML file exists before processing
   const html = await fs.readFile('index.html','utf8'); // Loads HTML content into memory for editing
   
   /*

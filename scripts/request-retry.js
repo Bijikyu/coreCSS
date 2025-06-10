@@ -27,7 +27,7 @@ const http = require('node:http'); // Node HTTP used for keep-alive agent
 const https = require('node:https'); // Node HTTPS used for keep-alive agent
 const qerrors = require('qerrors'); // Centralized error logging with contextual information preservation
 const envSockets = parseInt(process.env.SOCKET_LIMIT,10); // reads connection limit from env var
-const socketLimit = Number.isNaN(envSockets) ? 50 : envSockets; // defaults to 50 when env var missing
+const socketLimit = Number.isNaN(envSockets) || envSockets < 1 || envSockets > 1000 ? 50 : envSockets; // validates range 1-1000 with default 50
 const axiosInstance = axios.create({httpAgent:new http.Agent({keepAlive:true,maxSockets:socketLimit}),httpsAgent:new https.Agent({keepAlive:true,maxSockets:socketLimit})}); // axios instance using variable connection limit
 
 /*
