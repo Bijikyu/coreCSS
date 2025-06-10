@@ -179,4 +179,3 @@ describe('run uses hash', {concurrency:false}, () => {
     assert.ok(calledUrl.includes('core.12345678.min.css')); // validates correct hashed filename construction
   });
 });
-});
