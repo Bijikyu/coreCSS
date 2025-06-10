@@ -26,11 +26,10 @@ const {performance} = require('perf_hooks'); // High-resolution timing API for a
 const qerrors = require('qerrors'); // Centralized error logging with contextual information
 const fs = require('fs'); // File system operations for reading/writing test results
 // Manual concurrency control implementation to replace p-limit per REPLITAGENT.md constraints
-const CDN_BASE_URL = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; // Environment-configurable CDN endpoint
-const maxEnv = parseInt(process.env.MAX_CONCURRENCY,10); // reads max concurrency from environment
-const MAX_CONCURRENCY = Number.isNaN(maxEnv) || maxEnv < 1 || maxEnv > 1000 ? 50 : maxEnv; // validates range 1-1000 with default 50
-const envLimit = parseInt(process.env.QUEUE_LIMIT,10); // reads queue size from environment variable
-const QUEUE_LIMIT = Number.isNaN(envLimit) || envLimit < 1 || envLimit > 100 ? 5 : envLimit; // validates range 1-100 with default 5
+const CDN_BASE_URL = parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net'); // Environment-configurable CDN endpoint
+const {parseEnvInt, parseEnvString} = require('./utils/env-config'); // Centralized environment configuration utilities
+const MAX_CONCURRENCY = parseEnvInt('MAX_CONCURRENCY', 50, 1, 1000); // validates range 1-1000 with default 50
+const QUEUE_LIMIT = parseEnvInt('QUEUE_LIMIT', 5, 1, 100); // validates range 1-100 with default 5
 const HISTORY_MAX = 50; // maximum entries kept in performance history file
 
 /*
@@ -41,10 +40,7 @@ const HISTORY_MAX = 50; // maximum entries kept in performance history file
  * testing the measurement logic without requiring internet connectivity.
  * 100ms delay approximates fast CDN response times.
  */
-function wait(ms){ 
- console.log(`wait is running with ${ms}`); // Logs wait duration for debugging timing issues
- return new Promise(res => setTimeout(()=>{console.log(`wait is returning undefined`);res();}, ms)); // Promise-based delay with completion logging
-}
+const {wait} = require('./utils/delay'); // Centralized delay utility function
 
 /*
  * SINGLE REQUEST TIMING MEASUREMENT
@@ -163,8 +159,8 @@ async function run(){
    * that users will actually receive. Fallback to core.min.css handles
    * cases where build hasn't run yet.
    */
-  let hash = ``; 
-  if(fs.existsSync(`build.hash`)){ hash = fs.readFileSync(`build.hash`,`utf8`).trim(); } 
+  const {readBuildHash} = require('./utils/file-helpers'); // Centralized file system utilities
+  const hash = await readBuildHash(); // Read current build hash with error handling 
   const fileName = hash ? `core.${hash}.min.css` : `core.min.css`; 
   
   /*

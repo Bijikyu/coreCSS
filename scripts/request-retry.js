@@ -26,8 +26,8 @@ const axios = require('axios'); // Robust HTTP client library with comprehensive
 const http = require('node:http'); // Node HTTP used for keep-alive agent
 const https = require('node:https'); // Node HTTPS used for keep-alive agent
 const qerrors = require('qerrors'); // Centralized error logging with contextual information preservation
-const envSockets = parseInt(process.env.SOCKET_LIMIT,10); // reads connection limit from env var
-const socketLimit = Number.isNaN(envSockets) || envSockets < 1 || envSockets > 1000 ? 50 : envSockets; // validates range 1-1000 with default 50
+const {parseEnvInt} = require('./utils/env-config'); // Centralized environment configuration utilities
+const socketLimit = parseEnvInt('SOCKET_LIMIT', 50, 1, 1000); // validates range 1-1000 with default 50
 const axiosInstance = axios.create({httpAgent:new http.Agent({keepAlive:true,maxSockets:socketLimit}),httpsAgent:new https.Agent({keepAlive:true,maxSockets:socketLimit})}); // axios instance using variable connection limit
 
 /*
@@ -37,10 +37,7 @@ const axiosInstance = axios.create({httpAgent:new http.Agent({keepAlive:true,max
  * Promise-based approach integrates cleanly with async/await patterns.
  * Logging provides visibility into retry timing for debugging purposes.
  */
-function wait(ms){ 
- console.log(`wait is running with ${ms}`); // Logs delay duration for retry timing analysis
- return new Promise(res=>setTimeout(()=>{console.log(`wait is returning undefined`);res();},ms)); // Promise-wrapped setTimeout with completion logging
-}
+const {wait} = require('./utils/delay'); // Centralized delay utility function
 
 /*
  * HTTP REQUEST WITH EXPONENTIAL BACKOFF RETRY LOGIC
