@@ -121,6 +121,12 @@ async function build(){
    * Storing in a separate file enables loose coupling between build steps.
    */
   await fsp.writeFile('build.hash', hash); // Persists hash for deployment scripts
+
+  if(fs.existsSync('index.js')){ // ensures index.js exists before attempting replacement
+   const js = await fsp.readFile('index.js','utf8'); // reads index.js for injection update
+   const updated = js.replace(/const cssFile = `qore\.css`;/, `const cssFile = \`core.${hash}.min.css\`;`); // inserts hashed file name
+   if(updated !== js){ await fsp.writeFile('index.js', updated); } // writes file only when changed
+  }
   console.log(`build is returning ${hash}`); // Logs return value for debugging
   return hash; // Returns hash for programmatic usage
  } catch(err){
