@@ -1,30 +1,88 @@
-# Performance Testing
+# Performance Testing and Monitoring
 
-This document explains how to measure download times for `core.min.css` when served from jsDelivr and GitHub Pages. It uses a Node script to simulate concurrent downloads and calculate average response times. The script now queues requests with [`p-limit`](https://www.npmjs.com/package/p-limit) so only a handful run at once.
+This document outlines the comprehensive performance testing infrastructure built into qoreCSS for measuring CDN response times, validating deployment performance, and ensuring optimal user experience.
 
-## Running the test script
+## Performance Testing Infrastructure
 
-1. Install dependencies:
+The framework includes sophisticated performance measurement tools that validate CDN response times, test deployment reliability, and monitor system performance under various load conditions.
+
+### Automated Performance Testing
+
+1. **Dependencies**: All testing dependencies are included in the framework
    ```bash
-   npm install axios qerrors
+   npm install  # Installs all required dependencies
    ```
-2. Execute the script specifying how many download attempts to run (defaults to `5`). The queue size can be overridden with the `QUEUE_LIMIT` environment variable and defaults to `5`. The HTTP agents respect `SOCKET_LIMIT` when set to adjust their connection pool (default `50`):
+
+2. **Execute Performance Tests**: 
    ```bash
-   node scripts/performance.js 10 --json
+   # Run with default concurrency (5 requests)
+   node scripts/performance.js
+   
+   # Run with custom concurrency (1-1000 requests)
+   node scripts/performance.js 25
+   
+   # Generate JSON output for CI/CD integration
+   node scripts/performance.js 25 --json
    ```
-   The optional `--json` flag appends a timestamped entry to `performance-results.json` for automation. The script fetches `core.<hash>.min.css` when `build.hash` exists, otherwise it falls back to `core.min.css`. When `CODEX=True` it mocks network calls for offline testing.
 
-The output shows the average download time in milliseconds for each provider. Increase the value up to `50` to run more attempts while still queuing them according to `QUEUE_LIMIT` (default `5`). Values above `50` will trigger a warning and be capped at `50`.
+### Advanced Features
 
-## Manual checklist
+- **Hash-based Testing**: Automatically tests current build version from `build.hash`
+- **Fallback Strategy**: Falls back to `core.min.css` when hash file unavailable
+- **Dual CDN Testing**: Tests both jsDelivr and GitHub Pages endpoints
+- **Environment Configuration**: Comprehensive configuration via environment variables
+- **Offline Testing**: Mock network calls when `CODEX=true` for development
 
-If you prefer testing manually or need to verify results with tools of your choice, use the following steps:
+### Environment Configuration
 
-1. Choose a reasonable run count, such as 10 download attempts, keeping in mind the script will cap values at `50` and queue requests in groups defined by `QUEUE_LIMIT` (default `5`).
-2. Measure download times with your preferred tool (`curl`, `ab`, `wrk`, etc.) against the file specified in `build.hash` when present:
+Configure performance testing behavior through environment variables:
+
+```bash
+# CDN Configuration
+export CDN_BASE_URL=https://cdn.jsdelivr.net    # Primary CDN endpoint
+export MAX_CONCURRENCY=50                        # Maximum concurrent requests (1-1000)  
+export SOCKET_LIMIT=100                          # HTTP connection pool size (1-1000)
+
+# Testing Parameters
+export QUEUE_LIMIT=10                            # Request queue size (1-100)
+export CODEX=true                                # Enable offline testing mode
+
+# Run tests with custom configuration
+node scripts/performance.js 25 --json
+```
+
+## Comprehensive Test Suite
+
+The framework includes extensive testing beyond performance measurements:
+
+### Unit Testing
+```bash
+npm test  # Runs complete test suite including:
+```
+
+- **Build System Tests**: Validates CSS processing, minification, and hash generation
+- **Performance Measurement Tests**: Validates timing calculations and statistical analysis
+- **CDN Integration Tests**: Tests deployment and cache purging functionality
+- **Error Handling Tests**: Validates graceful failure and recovery mechanisms
+- **Environment Configuration Tests**: Validates all configuration options
+- **Concurrent Operations Tests**: Tests race condition handling and resource management
+
+### Manual Performance Validation
+
+For custom performance testing scenarios:
+
+1. **Determine Test Parameters**: Choose request count (1-1000) based on testing needs
+2. **Test Current Version**: Use hash from `build.hash` when available:
    - `https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.<hash>.min.css`
    - `https://bijikyu.github.io/qoreCSS/core.<hash>.min.css`
-   If the hash file is missing use `core.min.css` in both URLs instead.
-3. Record the average, minimum, and maximum times.
-4. Repeat the test during peak hours to account for CDN traffic.
-5. Compare the results to identify bottlenecks or slowdowns under load.
+3. **Fallback Testing**: Use `core.min.css` when hash unavailable
+4. **Load Testing**: Test during peak hours for realistic performance data
+5. **Comparative Analysis**: Compare results across CDN providers and time periods
+
+### Performance Metrics
+
+The testing system measures and reports:
+- **Average Response Time**: Mean response time across all requests
+- **Statistical Analysis**: Includes zero-count protection and range validation
+- **CDN Comparison**: Side-by-side performance comparison between providers
+- **Historical Tracking**: JSON output enables trend analysis over time

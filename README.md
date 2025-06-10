@@ -97,27 +97,72 @@ Copy `variables.css` to your project and modify the CSS custom properties to mat
 
 ## Development
 
+### Environment Setup
 ```bash
 # Install dependencies
 npm install
 
-# Build minified version
+# Build minified version with hash-based cache busting
 npm run build
 
-# Run tests
+# Run comprehensive test suite
 npm test
 
-# Lint styles
+# Lint CSS with modern standards
 npm run lint
+```
+
+### Build System
+The build system provides advanced features for production deployment:
+
+- **Automatic minification** with PostCSS and cssnano
+- **Hash-based cache busting** for optimal browser caching
+- **Gzip and Brotli compression** for reduced file sizes
+- **CDN integration** with automatic cache purging
+- **Performance monitoring** with timing measurements
+
+### Testing Infrastructure
+Comprehensive testing covers all framework components:
+
+- **Unit tests** for all utility functions and build scripts
+- **Integration tests** for CDN deployment and file operations
+- **Performance tests** with configurable concurrency and timing
+- **Error handling validation** for robust production behavior
+- **Environment configuration testing** for deployment flexibility
+
+### Environment Variables
+Configure the build and deployment process:
+
+```bash
+# CDN Configuration
+CDN_BASE_URL=https://cdn.jsdelivr.net  # CDN endpoint for deployment
+MAX_CONCURRENCY=50                     # Performance test concurrency limit
+SOCKET_LIMIT=100                       # HTTP connection pool size
+
+# Performance Monitoring
+QUEUE_LIMIT=10                         # Request queue size for testing
 ```
 
 ## Performance
 
-The framework is optimized for performance:
-- Minified version is automatically generated with content hashing
-- CDN delivery through jsDelivr with global edge caching
-- Gzip/Brotli compression supported
-- Cache headers optimized for long-term caching
+The framework is engineered for optimal performance:
+
+### File Optimization
+- **Automated minification** with PostCSS pipeline and cssnano optimization
+- **Content hashing** for aggressive browser caching with automatic cache invalidation
+- **Dual compression** with both gzip and brotli encoding for maximum compatibility
+- **File size monitoring** with performance regression detection
+
+### CDN Integration
+- **Global distribution** through jsDelivr CDN with edge caching worldwide
+- **Automatic deployment** with cache purging for instant updates
+- **Fallback strategies** with multiple CDN endpoints for reliability
+- **Performance monitoring** with automated response time measurements
+
+### Caching Strategy
+- **Long-term caching** with hash-based filenames for optimal browser cache utilization
+- **Instant invalidation** when content changes through automated hash updates
+- **Progressive enhancement** with graceful fallbacks for older browsers
 
 ## Browser Support
 
