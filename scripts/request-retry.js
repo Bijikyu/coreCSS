@@ -88,6 +88,14 @@ async function fetchRetry(url,opts={},attempts=3){
    return res; // Returns complete axios response object for caller processing
   }catch(err){
    /*
+    * RESOURCE CLEANUP
+    * Rationale: Ensures failed requests don't leak resources, particularly important
+    * for connection pooling and memory management in high-retry scenarios.
+    */
+   if(err.request) {
+     err.request.destroy && err.request.destroy(); // Cleanup hanging request if possible
+   }
+   /*
     * ERROR LOGGING WITH CONTEXT
     * Rationale: Each failed attempt is logged with context to enable debugging
     * of network issues, server problems, or configuration errors. Attempt number

@@ -125,9 +125,9 @@ async function measureUrl(url, count){
    * Rationale: Average provides a single representative value for
    * comparison across CDNs and over time. Could be extended with
    * median, percentiles, or standard deviation for more detailed analysis.
-   * Zero-count protection prevents division by zero errors.
+   * Division by zero protection checks both count and actual results array.
    */
-  const avg = count > 0 ? times.reduce((a,b)=>a+b,0)/count : 0; 
+  const avg = (count > 0 && times.length > 0) ? times.reduce((a,b)=>a+b,0)/times.length : 0; 
   console.log(`measureUrl is returning ${avg}`); // Logs average for monitoring
   return avg; // Returns average response time for comparison
  } catch(err){
