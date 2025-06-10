@@ -77,30 +77,13 @@ async function build(){
   });
 
   /*
-   * OLD FILE CLEANUP
-   * Rationale: Prevents accumulation of old CSS versions that would consume disk space.
-   * Regex pattern matches exactly: core.[8-hex-chars].min.css
-   * Excludes the current hash to prevent deleting the file we're about to create.
-   * Promise.all enables parallel deletion for better performance.
-   */
-  const targetFile = `core.${hash}.min.css`; // Builds hashed filename for renaming
-  const files = (await fsp.readdir('.')).filter(f => /^core\.[a-f0-9]{8}\.min\.css$/.test(f) && f !== targetFile); // Lists old hashed files
-  await Promise.all(files.map(f => fsp.unlink(f))); // Removes outdated hashed css
-  
-  /*
-   * COMPRESSED FILE CLEANUP
-   * Rationale: Also removes old compressed variants (.gz, .br) to maintain consistency.
-   * These files can be large and accumulate quickly without cleanup.
-   */
-  const compressedOld = (await fsp.readdir('.')).filter(f => /^core\.[a-f0-9]{8}\.min\.css\.(?:gz|br)$/.test(f) && !f.includes(hash)); // Finds old compressed files
-  await Promise.all(compressedOld.map(f => fsp.unlink(f))); // Deletes old compressed files
-  
-  /*
    * FILE RENAMING WITH HASH
    * Rationale: Creates the cache-busting filename that CDNs and browsers will use.
-   * This must happen after cleanup to avoid race conditions.
+   * This must happen before cleanup to prevent race conditions where cleanup
+   * might accidentally delete the file we're trying to create.
    * Error handling prevents failures if source file doesn't exist.
    */
+  const targetFile = `core.${hash}.min.css`; // Builds hashed filename for renaming
   try {
     await fsp.access('core.min.css'); // Verifies source file exists before rename
     await fsp.rename('core.min.css', targetFile); // Renames processed css with hash
@@ -111,6 +94,25 @@ async function build(){
     }
     throw renameErr; // re-throws other rename errors
   }
+
+  /*
+   * OLD FILE CLEANUP
+   * Rationale: Prevents accumulation of old CSS versions that would consume disk space.
+   * Regex pattern matches exactly: core.[8-hex-chars].min.css
+   * Excludes the current hash to prevent deleting the file we just created.
+   * Promise.all enables parallel deletion for better performance.
+   * Cleanup happens after file creation to prevent race conditions.
+   */
+  const files = (await fsp.readdir('.')).filter(f => /^core\.[a-f0-9]{8}\.min\.css$/.test(f) && f !== targetFile); // Lists old hashed files
+  await Promise.all(files.map(f => fsp.unlink(f))); // Removes outdated hashed css
+  
+  /*
+   * COMPRESSED FILE CLEANUP
+   * Rationale: Also removes old compressed variants (.gz, .br) to maintain consistency.
+   * These files can be large and accumulate quickly without cleanup.
+   */
+  const compressedOld = (await fsp.readdir('.')).filter(f => /^core\.[a-f0-9]{8}\.min\.css\.(?:gz|br)$/.test(f) && !f.includes(hash)); // Finds old compressed files
+  await Promise.all(compressedOld.map(f => fsp.unlink(f))); // Deletes old compressed files
 
   /*
    * COMPRESSION GENERATION
