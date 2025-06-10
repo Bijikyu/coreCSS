@@ -111,14 +111,12 @@ if (typeof window === 'undefined') {
  injectCss(); // calls helper for dynamic stylesheet injection
 }
 
-async function injectCss(){ // handles runtime stylesheet loading logic
+function injectCss(){ // handles runtime stylesheet loading logic
  console.log(`injectCss is running with ${document.currentScript && document.currentScript.src}`); // logs entry and script src
  try {
   const scriptSrc = document.currentScript && document.currentScript.src ? document.currentScript.src : 'index.js'; // resolves running script path
   const basePath = scriptSrc.slice(0, scriptSrc.lastIndexOf('/') + 1); // extracts directory path portion
-  let cssFile = `qore.css`; // defaults to unminified css when no hash
-  const res = await fetch(`${basePath}build.hash`).catch(()=>null); // attempts to retrieve build hash
-  if(res && res.ok){ const hash = (await res.text()).trim(); cssFile = `core.${hash}.min.css`; } // sets hashed filename when available
+  const cssFile = `qore.css`; // placeholder replaced during build
   const link = document.createElement('link'); // creates stylesheet link element
   link.rel = 'stylesheet'; // declares relationship to browser
   link.type = 'text/css'; // MIME type for clarity across tools
