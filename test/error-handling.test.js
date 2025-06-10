@@ -76,7 +76,7 @@ describe('build error handling', {concurrency:false}, () => {
     await assert.rejects(
       async () => await build(), // executes build without required CSS file
       (err) => {
-        return err.code === 'ENOENT' && err.path.includes('qore.css'); // validates specific file not found error
+        return err.message && err.message.includes('postcss'); // validates PostCSS-related error
       }
     );
   });

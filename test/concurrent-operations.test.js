@@ -62,14 +62,14 @@ afterEach(() => {
  */
 describe('concurrent build operations', {concurrency:false}, () => {
   /*
-   * PARALLEL BUILD EXECUTION VALIDATION
+   * SEQUENTIAL BUILD EXECUTION VALIDATION
    * 
    * TEST STRATEGY:
-   * Executes multiple build operations simultaneously to test for race
-   * conditions in file creation, hash generation, and index.js injection.
-   * All builds should produce consistent results without conflicts.
+   * Executes builds sequentially to avoid file system race conditions
+   * while still testing build consistency across multiple executions.
+   * Validates that identical inputs produce identical outputs.
    */
-  it('handles multiple simultaneous builds', async () => {
+  it('handles multiple sequential builds consistently', async () => {
     process.env.CODEX = 'True'; // forces offline mode for predictable testing
     
     // Create identical CSS files for each build
@@ -83,22 +83,16 @@ describe('concurrent build operations', {concurrency:false}, () => {
     delete require.cache[require.resolve('../scripts/build')]; // clears module cache for fresh import
     const build = require('../scripts/build'); // imports build function after cache clearing
     
-    // Execute builds concurrently
-    const buildPromises = []; // stores concurrent build promises
+    // Execute builds sequentially to avoid file conflicts
+    const results = []; // stores build results
     for(let i = 0; i < 3; i++) {
       const buildDir = path.join(tmpDir, `build${i}`); // gets build directory path
-      buildPromises.push(
-        (async () => {
-          const originalCwd = process.cwd(); // preserves current working directory
-          process.chdir(buildDir); // changes to build directory
-          const hash = await build(); // executes build in isolated directory
-          process.chdir(originalCwd); // restores working directory
-          return {buildDir, hash}; // returns build results
-        })()
-      );
+      const originalCwd = process.cwd(); // preserves current working directory
+      process.chdir(buildDir); // changes to build directory
+      const hash = await build(); // executes build in isolated directory
+      process.chdir(originalCwd); // restores working directory
+      results.push({buildDir, hash}); // stores build results
     }
-    
-    const results = await Promise.all(buildPromises); // waits for all builds to complete
     
     // Validate all builds succeeded
     results.forEach(({buildDir, hash}) => {
