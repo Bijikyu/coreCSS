@@ -12,7 +12,7 @@ location ~* \.(?:css|png|jpe?g|svg|gif)$ {
     brotli_types text/css image/svg+xml image/png image/jpeg image/gif;
     add_header Cache-Control "public, max-age=31536000, immutable";
     etag on;
-    add_header Last-Modified $date_gmt;
+    last_modified on;
 }
 ```
 
@@ -25,7 +25,7 @@ location ~* \.html$ {
 ```
 <!-- //short cache header snippet for html pages -->
 
-These directives ensure assets are compressed when possible and cached by browsers for up to one year without revalidation thanks to the `immutable` directive. The `ETag` and `Last-Modified` headers allow conditional requests so clients avoid re-downloading unchanged files.
+These directives ensure assets are compressed when possible and cached by browsers for up to one year without revalidation thanks to the `immutable` directive. The `ETag` and `Last-Modified` headers allow conditional requests so clients avoid re-downloading unchanged files. Using `last_modified on;` tells Nginx to emit the actual file modification time so browsers can send `If-Modified-Since` and receive `304 Not Modified` when appropriate.
 
 ## Hashed file names
 
