@@ -29,13 +29,16 @@
  * - Provides clear boundaries for safe operation
  */
 function parseEnvInt(envVar, defaultValue, minValue = 1, maxValue = 1000) {
+  console.log(`parseEnvInt is running with ${envVar},${defaultValue},${minValue},${maxValue}`); // entry log for debugging
   const parsed = parseInt(process.env[envVar], 10); // Parse environment variable as integer
   
   // Return default for any parsing failure or range violation
   if (Number.isNaN(parsed) || parsed < minValue || parsed > maxValue) {
+    console.log(`parseEnvInt is returning ${defaultValue}`); // logs fallback value
     return defaultValue;
   }
-  
+
+  console.log(`parseEnvInt is returning ${parsed}`); // logs validated value
   return parsed; // Return validated value
 }
 
@@ -52,8 +55,11 @@ function parseEnvInt(envVar, defaultValue, minValue = 1, maxValue = 1000) {
  * - Used for URLs, file paths, and other string configuration
  */
 function parseEnvString(envVar, defaultValue) {
+  console.log(`parseEnvString is running with ${envVar},${defaultValue}`); // entry log for debugging
   const value = process.env[envVar]; // Read environment variable
-  return value && value.trim() ? value.trim() : defaultValue; // Return trimmed value or default
+  const result = value && value.trim() ? value.trim() : defaultValue; // Determine result value
+  console.log(`parseEnvString is returning ${result}`); // logs returned string
+  return result; // Return trimmed value or default
 }
 
 /**
@@ -69,11 +75,17 @@ function parseEnvString(envVar, defaultValue) {
  * - Enables flexible boolean configuration across different deployment environments
  */
 function parseEnvBool(envVar, defaultValue = false) {
+  console.log(`parseEnvBool is running with ${envVar},${defaultValue}`); // entry log for debugging
   const value = process.env[envVar]; // Read environment variable
-  if (!value) return defaultValue; // Return default when undefined
-  
+  if (!value) {
+    console.log(`parseEnvBool is returning ${defaultValue}`); // logs fallback value
+    return defaultValue; // Return default when undefined
+  }
+
   const truthyValues = ['true', '1', 'yes', 'on']; // Standard truthy string representations
-  return truthyValues.includes(value.toLowerCase().trim()); // Case-insensitive boolean parsing
+  const result = truthyValues.includes(value.toLowerCase().trim()); // Case-insensitive boolean parsing
+  console.log(`parseEnvBool is returning ${result}`); // logs boolean result
+  return result; // Return parsed boolean
 }
 
 module.exports = {
