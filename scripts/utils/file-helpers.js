@@ -88,7 +88,7 @@ async function readFileWithDefault(filepath, encoding = 'utf8', defaultContent =
 }
 
 module.exports = {
-  readBuildHash,
-  fileExists,
-  readFileWithDefault
+  readBuildHash, // exposes cached hash retrieval for build and deploy scripts
+  fileExists, // provides reusable existence check to avoid fs duplication
+  readFileWithDefault // exports safe reader so scripts can gracefully handle missing files
 };

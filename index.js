@@ -87,9 +87,9 @@ if (typeof window === 'undefined') {
    * Rationale: In Node.js environments, the module provides file paths
    * and metadata for server-side rendering, build tools, and other
    * programmatic usage. The serverSide flag enables calling code to
-   * detect the environment and adapt behavior accordingly.
-   */
-  module.exports.serverSide = true;
+  * detect the environment and adapt behavior accordingly.
+  */
+  module.exports.serverSide = true; // signals Node.js usage so consumers can skip browser injection
 } else {
   /*
    * BROWSER ENVIRONMENT AUTO-INJECTION

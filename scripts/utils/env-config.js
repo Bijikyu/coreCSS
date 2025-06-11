@@ -77,7 +77,7 @@ function parseEnvBool(envVar, defaultValue = false) {
 }
 
 module.exports = {
-  parseEnvInt,
-  parseEnvString,
-  parseEnvBool
+  parseEnvInt, // exposes integer parser so all scripts share the same range validation
+  parseEnvString, // exports string reader for consistent default handling across scripts
+  parseEnvBool // allows scripts to interpret boolean env vars identically
 };
