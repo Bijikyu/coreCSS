@@ -59,7 +59,10 @@ module.exports = {
    * (compressed, uncompressed, themed versions, etc.)
    */
   getStylesheet: function() {
-    return require.resolve('./qore.css'); // returns qore.css path for consistency
+    console.log(`getStylesheet is running with`); // entry log for helper call
+    const result = require.resolve('./qore.css'); // resolves stylesheet path
+    console.log(`getStylesheet is returning ${result}`); // logs resolved path
+    return result; // returns qore.css path for consistency
   },
   
   /*
@@ -69,7 +72,10 @@ module.exports = {
    * future features like variable preprocessing or theme selection.
    */
   getVariables: function() {
-    return require.resolve('./variables.css');
+    console.log(`getVariables is running with`); // entry log for helper call
+    const result = require.resolve('./variables.css'); // resolves variables path
+    console.log(`getVariables is returning ${result}`); // logs resolved path
+    return result; // returns variables.css path
   }
 };
 
