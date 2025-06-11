@@ -1,3 +1,21 @@
+/*
+ * PERFORMANCE TESTING - RESPONSE TIME MEASUREMENT VALIDATION
+ *
+ * PURPOSE AND RATIONALE:
+ * This suite verifies the performance script's ability to measure request
+ * times, compute averages, and manage result history. Running in offline mode
+ * (CODEX=True) isolates the tests from network latency, ensuring predictable
+ * outcomes. Temporary directories prevent file collisions and leave no residue
+ * on the repository after tests complete.
+ *
+ * TESTING STRATEGY:
+ * - getTime() should always return a numeric value representing one request
+ *   duration.
+ * - measureUrl() averages multiple timings to validate aggregation logic.
+ * - run() appends a new result and trims history to the most recent fifty
+ *   entries so the results file doesn't grow indefinitely.
+ */
+
 require("./helper");
 const assert = require('node:assert');
 const {describe, it, beforeEach, afterEach} = require('node:test');
