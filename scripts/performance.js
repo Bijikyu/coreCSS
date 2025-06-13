@@ -149,9 +149,10 @@ async function measureUrl(url, count){
  * This provides comprehensive CDN performance evaluation with flexible
  * configuration and optional data persistence.
  */
-async function run(){ 
+async function run(){
  console.log(`run is running with ${process.argv.length}`); // Logs execution start for monitoring
  try {
+  await fs.promises.access('build.hash'); // Ensures build.hash exists before reading to force ENOENT when absent
   /*
    * BUILD HASH INTEGRATION
    * Rationale: Tests must use the current CSS version to provide meaningful
@@ -206,10 +207,12 @@ async function run(){
    * between tests while still providing comprehensive performance data.
    * Results object enables structured output for automated processing.
    */
-  const results = {}; 
-  for(const url of urls){ 
+  const results = {}; // stores results for optional JSON output
+  let firstAvg; // captures first URL average for function return
+  for(const url of urls){
    const avg = await measureUrl(url, concurrency); // Executes performance test
    console.log(`Average for ${url}: ${avg.toFixed(2)}ms`); // Displays human-readable results
+   if(firstAvg === undefined){ firstAvg = avg; } // records first result for return value
    if(jsonFlag){ results[url] = avg; } // Stores results for JSON output
   }
   
@@ -229,7 +232,9 @@ async function run(){
    if(history.length > HISTORY_MAX){ history.splice(0, history.length - HISTORY_MAX); } //(trim old results before write)
    fs.writeFileSync(file, JSON.stringify(history, null, 2)); // Saves trimmed history for ongoing tracking
   }
-  console.log(`run has run resulting in a final value of 0`); // Logs successful completion
+  const returnVal = firstAvg ?? 0; // ensures numeric return when no results
+  console.log(`run is returning ${returnVal}`); // Logs value returned for monitoring
+  return returnVal; // returns first average to caller
  } catch(err){
   console.error(`run failed:`, err.message, {args:process.argv.slice(2)}); // Logs failure with command line context
   throw err; // Re-throws error to allow caller to handle appropriately
