@@ -298,16 +298,19 @@ describe('request retry edge cases', {concurrency:false}, () => {
   it('handles zero retry attempts', async () => {
     const axios = require('axios'); // imports axios for mocking
     const {mock} = require('node:test'); // imports mocking utilities
-    
-    mock.method(axios, 'get', async () => { throw new Error('should not be called'); }); // mocks axios to throw
-    
+
+    let called = 0; // tracks axios call count
+    mock.method(axios, 'get', async () => { called++; throw new Error('should not be called'); }); // should never run
+
     delete require.cache[require.resolve('../scripts/request-retry')]; // clears module cache for fresh import
     const fetchRetry = require('../scripts/request-retry'); // imports fetchRetry function after cache clearing
-    
+
     await assert.rejects(
       async () => await fetchRetry('http://test', {}, 0), // executes with zero attempts
-      (err) => err.message.includes('should not be called') // validates immediate failure
+      (err) => err.message === 'attempts must be >0' // validates parameter error
     );
+
+    assert.strictEqual(called, 0); // confirms axios was not called
   });
 
   /*

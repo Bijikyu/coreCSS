@@ -111,3 +111,20 @@ describe('fetchRetry fails after attempts', {concurrency:false}, () => {
     await assert.rejects(fetchRetry('http://c', {}, 2)); // validates error is thrown after 2 failed attempts
   });
 });
+
+/*
+ * PARAMETER VALIDATION TESTING
+ *
+ * TESTING SCOPE:
+ * Validates that fetchRetry throws an error when provided
+ * with less than one attempt, ensuring caller configuration
+ * is correct before any network request occurs.
+ */
+describe('fetchRetry invalid attempts parameter', {concurrency:false}, () => {
+  it('throws when attempts is below one', async () => {
+    await assert.rejects(
+      async () => await fetchRetry('http://d', {}, 0), // executes with invalid attempts
+      (err) => err.message === 'attempts must be >0' // validates rejection reason
+    );
+  });
+});

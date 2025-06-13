@@ -59,8 +59,10 @@ const {wait} = require('./utils/delay'); // Centralized delay utility function
  * - Network reality (allows for slow connections)
  * - Resource management (prevents hanging connections)
  */
-async function fetchRetry(url,opts={},attempts=3){ 
-  console.log(`fetchRetry is running with ${url},${attempts}`); // Logs request initiation with parameters
+async function fetchRetry(url,opts={},attempts=3){
+  console.log(`fetchRetry is running with ${url},${attempts}`); // logs entry with parameters
+
+  if(attempts < 1){ console.log(`fetchRetry is returning attempts must be >0`); throw new Error('attempts must be >0'); } // validates positive attempt count
  
  /*
   * TIMEOUT CONFIGURATION
