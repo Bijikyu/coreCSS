@@ -57,6 +57,7 @@ describe('run trims history', {concurrency:false}, () => {
     tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'perf-')); //(temporary directory for file operations)
     const history = Array.from({length:55}, (_,i)=>({timestamp:`${i}`, results:{}})); //(pre-seeded history)
     fs.writeFileSync(path.join(tmpDir,'performance-results.json'), JSON.stringify(history)); //(create initial file)
+    fs.writeFileSync(path.join(tmpDir, 'build.hash'), 'abcdef'); //(mock hash file required by run)
     process.chdir(tmpDir); //(switch cwd for script)
     process.argv = ['node','scripts/performance.js','1','--json']; //(setup argv for run function)
   });
