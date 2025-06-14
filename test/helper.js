@@ -30,6 +30,16 @@ const orig = Module.prototype.require; // Preserves original require function fo
  * while maintaining the same function signature as the real qerrors module.
  */
 const axiosStub = {get: async ()=>({status:200}),create(){return this;}}; // HTTP client stub returning successful responses
+function axiosRetryStub(axiosInst,{retries=3,retryDelay=()=>0}={}){ // minimal retry interceptor for tests
+  const originalGet=axiosInst.get; // preserves base get implementation
+  axiosInst.get=async function(url,opts={}){ // wraps get with retry logic
+    const perReqRetries=opts['axios-retry']?.retries ?? retries; // request-specific retries
+    for(let attempt=0;;attempt++){ // retry loop executed until success or max
+      try{return await originalGet(url,opts); }catch(err){ if(attempt>=perReqRetries){ throw err; } await new Promise(r=>setTimeout(r,retryDelay(attempt+1))); }
+    }
+  }; // attaches automatic retry wrapper to axios instance
+} // stub replicates axios-retry behavior for tests
+axiosRetryStub.exponentialDelay=(retry)=>2**(retry-1)*100; // mirrors exponential delay calculation
 const qerrorsStub = () => {}; // Silent error logging stub for test environment
 
 /*
@@ -44,6 +54,7 @@ const qerrorsStub = () => {}; // Silent error logging stub for test environment
 Module.prototype.require = function(id){
   if(id==='axios') return axiosStub; // Replaces axios with HTTP client stub
   if(id==='qerrors') return qerrorsStub; // Replaces qerrors with silent logging stub
+  if(id==='axios-retry') return axiosRetryStub; // Provides axios-retry behavior for retry testing
 
   return orig.call(this,id); // Preserves normal require behavior for other modules
 };

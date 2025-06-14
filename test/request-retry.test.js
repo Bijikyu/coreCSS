@@ -83,6 +83,8 @@ describe('fetchRetry retries then succeeds', {concurrency:false}, () => {
   it('retries failed attempts', async () => {
     let count = 0; // tracks number of axios.get calls for retry validation
     mock.method(axios, 'get', async () => { count++; if(count<3) throw new Error('fail'); return {status:200}; }); // fails twice then succeeds
+    delete require.cache[require.resolve('../scripts/request-retry')]; // reloads module to apply new axios mock
+    fetchRetry = require('../scripts/request-retry'); // imports after custom mock setup
     const res = await fetchRetry('http://b', {}, 3); // executes fetchRetry with 3 maximum attempts
     assert.strictEqual(count,3); // confirms exactly 3 attempts were made (2 failures + 1 success)
     assert.strictEqual(res.status,200); // confirms eventual success response
@@ -108,6 +110,8 @@ describe('fetchRetry fails after attempts', {concurrency:false}, () => {
    */
   it('throws after exhausting attempts', async () => {
     mock.method(axios, 'get', async () => { throw new Error('fail'); }); // mocks persistent network failure
+    delete require.cache[require.resolve('../scripts/request-retry')]; // reloads module to apply failing mock
+    fetchRetry = require('../scripts/request-retry'); // imports after custom mock setup
     await assert.rejects(fetchRetry('http://c', {}, 2)); // validates error is thrown after 2 failed attempts
   });
 });
