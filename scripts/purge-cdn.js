@@ -128,7 +128,7 @@ async function run(){
   qerrors(err, `run failed`, {args:process.argv.slice(2)}); // Logs error with command line context
   throw err; // Re-throws error to signal purge failure to calling processes
  }
-} // run function is intentionally not exported or executed automatically
+} // run function is exported but not executed automatically for manual control
 
 module.exports = {purgeCdn, run}; // exports functions for unit testing and reuse
 
