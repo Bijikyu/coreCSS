@@ -26,7 +26,7 @@ const {performance} = require('perf_hooks'); // High-resolution timing API for a
 const qerrors = require('./utils/logger'); // Centralized error logging with contextual information
 const fs = require('fs'); // File system operations for reading/writing test results
 // Manual concurrency control implementation to replace p-limit per REPLITAGENT.md constraints
-const {parseEnvInt, parseEnvString} = require('./utils/env-config'); // Centralized environment configuration utilities
+const {parseEnvInt, parseEnvString, parseEnvBool} = require('./utils/env-config'); // adds boolean parser for CODEX detection
 const CDN_BASE_URL = parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net'); // Environment-configurable CDN endpoint
 const MAX_CONCURRENCY = parseEnvInt('MAX_CONCURRENCY', 50, 1, 1000); // validates range 1-1000 with default 50
 const QUEUE_LIMIT = parseEnvInt('QUEUE_LIMIT', 5, 1, 100); // validates range 1-100 with default 5
@@ -70,7 +70,7 @@ async function getTime(url){
    * Rationale: Development environments may not have internet access.
    * CODEX environment flag enables testing measurement logic offline.
    */
-  if(process.env.CODEX === `True`){
+  if(parseEnvBool('CODEX')){ // detects offline mode using shared parser
    await delay(100, true); // Simulates network delay in offline environment with logging
   } else {
    /*
