@@ -124,13 +124,9 @@ describe('performance error handling', {concurrency:false}, () => {
     process.env.CODEX = 'True'; // forces offline mode for predictable testing
     delete require.cache[require.resolve('../scripts/performance')]; // clears module cache for fresh import
     const performance = require('../scripts/performance'); // imports performance module after cache clearing
-    
-    await assert.rejects(
-      async () => await performance.run(), // executes performance run without hash file
-      (err) => {
-        return err.code === 'ENOENT' && err.path.includes('build.hash'); // validates specific hash file not found error
-      }
-    );
+
+    const result = await performance.run(); // executes performance run without hash file
+    assert.strictEqual(typeof result, 'number'); // verifies successful numeric result
     delete process.env.CODEX; // cleans up environment flag
   });
 

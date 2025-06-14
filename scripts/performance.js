@@ -152,7 +152,7 @@ async function measureUrl(url, count){
 async function run(){
  console.log(`run is running with ${process.argv.length}`); // Logs execution start for monitoring
  try {
-  await fs.promises.access('build.hash'); // Ensures build.hash exists before reading to force ENOENT when absent
+  try { await fs.promises.access('build.hash'); } catch(err){ if(err.code==='ENOENT'){ console.log(`run build.hash not found`); } else { throw err; } } // Catches missing hash file to allow fallback logic
   /*
    * BUILD HASH INTEGRATION
    * Rationale: Tests must use the current CSS version to provide meaningful
@@ -161,8 +161,8 @@ async function run(){
    * cases where build hasn't run yet.
    */
   const {readBuildHash} = require('./utils/file-helpers'); // Centralized file system utilities
-  const hash = await readBuildHash(); // Read current build hash with error handling 
-  const fileName = hash ? `core.${hash}.min.css` : `core.min.css`; 
+  const hash = await readBuildHash(); // Read current build hash with error handling
+  let fileName = `core.${hash}.min.css`; if(!hash){ fileName = `core.min.css`; } // Falls back when hash is empty
   
   /*
    * CDN ENDPOINT CONFIGURATION

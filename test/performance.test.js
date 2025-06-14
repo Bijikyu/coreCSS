@@ -71,3 +71,20 @@ describe('run trims history', {concurrency:false}, () => {
     assert.strictEqual(file.length, 50); //(ensure trimming to max)
   });
 });
+
+describe('run without build.hash', {concurrency:false}, () => {
+  let tmpDir;
+  beforeEach(() => {
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'perf-')); //(temporary directory for file operations)
+    process.chdir(tmpDir); //(switch cwd for script without hash)
+    process.argv = ['node','scripts/performance.js','1']; //(setup argv)
+  });
+  afterEach(() => {
+    fs.rmSync(tmpDir, {recursive:true, force:true}); //(remove temp directory)
+    process.argv = ['node','']; //(reset argv)
+  });
+  it('returns numeric result', async () => {
+    const result = await performance.run(); //(execute run without hash)
+    assert.strictEqual(typeof result, 'number'); //(validate numeric return)
+  });
+});
