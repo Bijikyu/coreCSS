@@ -31,19 +31,12 @@ const socketLimit = parseEnvInt('SOCKET_LIMIT', 50, 1, 1000); // validates range
 const axiosInstance = axios.create({httpAgent:new http.Agent({keepAlive:true,maxSockets:socketLimit}),httpsAgent:new https.Agent({keepAlive:true,maxSockets:socketLimit})}); // axios instance using variable connection limit
 
 /*
- * DELAY UTILITY FUNCTION
- * 
- * Rationale: Implements non-blocking delays for exponential backoff strategy.
- * Promise-based approach integrates cleanly with async/await patterns.
- * Logging provides visibility into retry timing for debugging purposes.
+ * SHARED DELAY UTILITY IMPORT
+ *
+ * Rationale: Uses centralized delay implementation so retry logic and other
+ * scripts remain consistent and easier to maintain.
  */
-const {setTimeout: wait} = require('node:timers/promises'); // Promise-based timer for delays
-
-async function delay(ms, log){
-  if(log){ console.log(`delay is running with ${ms}`); } // logs delay start for debugging
-  await wait(ms); // non-blocking wait using built-in promise timer
-  if(log){ console.log(`delay is returning undefined`); } // logs completion for visibility
-} // wrapper preserves previous logging behavior
+const delay = require('./utils/delay'); // shared promise delay for backoff timing
 
 /*
  * HTTP REQUEST WITH EXPONENTIAL BACKOFF RETRY LOGIC

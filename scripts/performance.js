@@ -33,19 +33,12 @@ const QUEUE_LIMIT = parseEnvInt('QUEUE_LIMIT', 5, 1, 100); // validates range 1-
 const HISTORY_MAX = 50; // maximum entries kept in performance history file
 
 /*
- * NETWORK DELAY SIMULATION
- * 
- * Rationale: In offline development environments (CODEX), we can't make real
- * network requests. This function simulates realistic network delays to enable
- * testing the measurement logic without requiring internet connectivity.
- * 100ms delay approximates fast CDN response times.
+ * NETWORK DELAY UTILITY IMPORT
+ *
+ * Rationale: Centralizes delay logic in a shared utility so multiple scripts
+ * maintain consistent logging and implementation for simulated waits.
  */
-const {setTimeout: wait} = require('node:timers/promises'); // Promise-based timer for mock delays
-async function delay(ms, log){
-  if(log){ console.log(`delay is running with ${ms}`); } // logs mock delay start
-  await wait(ms); // built-in non-blocking wait
-  if(log){ console.log(`delay is returning undefined`); } // logs delay completion
-} // replicates previous delay util with logging
+const delay = require('./utils/delay'); // reuse shared promise delay for offline testing
 
 /*
  * SINGLE REQUEST TIMING MEASUREMENT
