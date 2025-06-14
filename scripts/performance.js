@@ -40,7 +40,12 @@ const HISTORY_MAX = 50; // maximum entries kept in performance history file
  * testing the measurement logic without requiring internet connectivity.
  * 100ms delay approximates fast CDN response times.
  */
-const {wait} = require('./utils/delay'); // Centralized delay utility function
+const {setTimeout: wait} = require('node:timers/promises'); // Promise-based timer for mock delays
+async function delay(ms, log){
+  if(log){ console.log(`delay is running with ${ms}`); } // logs mock delay start
+  await wait(ms); // built-in non-blocking wait
+  if(log){ console.log(`delay is returning undefined`); } // logs delay completion
+} // replicates previous delay util with logging
 
 /*
  * SINGLE REQUEST TIMING MEASUREMENT
@@ -65,8 +70,8 @@ async function getTime(url){
    * Rationale: Development environments may not have internet access.
    * CODEX environment flag enables testing measurement logic offline.
    */
-  if(process.env.CODEX === `True`){ 
-   await wait(100, true); // Simulates network delay in offline environment with logging
+  if(process.env.CODEX === `True`){
+   await delay(100, true); // Simulates network delay in offline environment with logging
   } else {
    /*
     * ACTUAL NETWORK REQUEST
