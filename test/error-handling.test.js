@@ -198,16 +198,12 @@ describe('updateHtml error handling', {concurrency:false}, () => {
    */
   it('handles missing build.hash file', async () => {
     fs.writeFileSync(path.join(tmpDir, 'index.html'), '<link href="qore.css">'); // creates basic HTML file
-    
+
     delete require.cache[require.resolve('../scripts/updateHtml')]; // clears module cache for fresh import
     const updateHtml = require('../scripts/updateHtml'); // imports updateHtml function after cache clearing
-    
-    await assert.rejects(
-      async () => await updateHtml(), // executes updateHtml without hash file
-      (err) => {
-        return err.code === 'ENOENT' && err.path.includes('build.hash'); // validates specific hash file not found error
-      }
-    );
+
+    const code = await updateHtml(); // executes updateHtml without hash file and captures return code
+    assert.strictEqual(code, 1); // validates error code return when hash missing
   });
 });
 
