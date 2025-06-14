@@ -125,6 +125,27 @@ async function measureUrl(url, count){
  } catch(err){
   qerrors(err, `measureUrl failed`, {url,count}); // Logs error with full test parameters
   throw err; // Re-throws to allow caller to handle failures appropriately
+}
+}
+
+/*
+ * BUILD HASH READER
+ *
+ * Rationale: Reads build.hash when available to construct filenames
+ * without failing when the file is missing. Using fs promises keeps
+ * the function lightweight and consistent with other async file ops.
+ */
+async function readBuildHash(){
+ console.log(`readBuildHash is running with build.hash`); // entry log for debugging
+ try {
+  const data = await fs.promises.readFile('build.hash','utf8'); // read hash file content
+  const trimmed = data.trim(); // remove trailing whitespace
+  console.log(`readBuildHash is returning ${trimmed}`); // log success
+  return trimmed; // return trimmed hash
+ } catch(err){
+  if(err.code !== 'ENOENT'){ qerrors(err, 'Failed to read build hash', {filename:'build.hash'}); } // unexpected error logging
+  console.log(`readBuildHash is returning ''`); // log fallback case
+  return ''; // fallback when file missing or unreadable
  }
 }
 
@@ -144,7 +165,6 @@ async function measureUrl(url, count){
 async function run(){
  console.log(`run is running with ${process.argv.length}`); // Logs execution start for monitoring
  try {
-  try { await fs.promises.access('build.hash'); } catch(err){ if(err.code==='ENOENT'){ console.log(`run build.hash not found`); } else { throw err; } } // Catches missing hash file to allow fallback logic
   /*
    * BUILD HASH INTEGRATION
    * Rationale: Tests must use the current CSS version to provide meaningful
@@ -152,8 +172,7 @@ async function run(){
    * that users will actually receive. Fallback to core.min.css handles
    * cases where build hasn't run yet.
    */
-  const {readBuildHash} = require('./utils/file-helpers'); // Centralized file system utilities
-  const hash = await readBuildHash(); // Read current build hash with error handling
+  const hash = await readBuildHash(); // Read current build hash with local helper
   let fileName = `core.${hash}.min.css`; if(!hash){ fileName = `core.min.css`; } // Falls back when hash is empty
   
   /*
