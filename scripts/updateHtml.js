@@ -22,6 +22,7 @@
 
 const fs = require('fs').promises; // File system operations using promises for consistent async patterns
 const qerrors = require('./utils/logger'); // Centralized error logging with contextual information
+const {parseEnvString} = require('./utils/env-config'); // standardizes CDN URL retrieval with fallback
 
 /*
  * HTML UPDATE FUNCTION
@@ -66,7 +67,7 @@ async function updateHtml(){
    * for different deployment environments (development, staging, production).
    * jsDelivr chosen as default for its reliability and global CDN presence.
    */
-  const cdnUrl = process.env.CDN_BASE_URL || `https://cdn.jsdelivr.net`; // Allows environment-defined CDN URL
+  const cdnUrl = parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net'); // retrieves CDN url with fallback to jsDelivr
   
   /*
    * CSS HASH REPLACEMENT

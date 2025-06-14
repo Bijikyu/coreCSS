@@ -26,6 +26,7 @@
 const qerrors = require('./utils/logger'); // Centralized error logging with contextual information
 const fs = require('fs').promises; // Node promise-based filesystem for async use
 const fetchRetry = require('./request-retry'); // Retry wrapper for HTTP requests
+const {parseEnvBool} = require('./utils/env-config'); // standardized boolean env parsing for CODEX detection
 
 /*
  * CDN CACHE PURGE FUNCTION
@@ -57,7 +58,7 @@ async function purgeCdn(file){
    * or may want to avoid making actual purge requests during testing.
    * Mock response enables testing of purge logic without affecting production CDN.
    */
-  if(process.env.CODEX === `True`){ 
+  if(parseEnvBool('CODEX')){ // determines offline mode using shared parser
    console.log(`purgeCdn is returning 200`); // Logs mock success response
    return 200; // Returns HTTP 200 status code indicating successful purge
   }

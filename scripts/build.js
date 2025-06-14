@@ -30,6 +30,7 @@ const {createGzip, createBrotliCompress} = require('zlib'); // Streaming compres
 const {pipeline} = require('stream/promises'); // Promise based pipeline for stream control
 const execFileAsync = promisify(execFile); // Promise-wrapped execFile for consistent async patterns
 const qerrors = require('./utils/logger'); // Centralized error logging with contextual information
+const {parseEnvBool} = require('./utils/env-config'); // standardized boolean env parsing for CODEX detection
 
 /*
  * MAIN BUILD FUNCTION
@@ -55,10 +56,10 @@ async function build(){
    * The qore.css input is processed and output as core.min.css with optimizations applied.
    * Using execFile instead of exec prevents shell injection attacks.
    */
-  if(process.env.CODEX === `True`){
-   await fsp.copyFile('qore.css','core.min.css'); // Skips postcss in offline mode
+  if(parseEnvBool('CODEX')){ // checks offline mode using shared parser for consistency
+   await fsp.copyFile('qore.css','core.min.css'); // Skips postcss when offline
   } else {
-   await execFileAsync('npx', ['postcss','qore.css','-o','core.min.css']); // Runs postcss normally
+   await execFileAsync('npx', ['postcss','qore.css','-o','core.min.css']); // Runs postcss when online
   }
   
   /*
