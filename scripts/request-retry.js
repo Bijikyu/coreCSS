@@ -37,7 +37,7 @@ const axiosInstance = axios.create({httpAgent:new http.Agent({keepAlive:true,max
  * Promise-based approach integrates cleanly with async/await patterns.
  * Logging provides visibility into retry timing for debugging purposes.
  */
-const {wait} = require('./utils/delay'); // Centralized delay utility function
+const {setTimeout} = require('timers/promises'); // Node promise-based timeout replaces custom wait utility
 
 /*
  * HTTP REQUEST WITH EXPONENTIAL BACKOFF RETRY LOGIC
@@ -122,8 +122,10 @@ async function fetchRetry(url,opts={},attempts=3){
     * - Attempt 2 failure: 200ms delay before attempt 3
     * This pattern respects struggling servers while enabling quick recovery.
     */
-   const delay=2**(i-1)*100; 
-   await wait(delay, true); // Implements delay before next retry attempt with logging
+  const delay=2**(i-1)*100;
+  console.log(`wait is running with ${delay}`); // Logs start of delay matching removed utility
+  await setTimeout(delay); // Uses native promise-based timeout for delay
+  console.log(`wait is returning undefined`); // Logs completion of delay for parity
   }
  }
 }
