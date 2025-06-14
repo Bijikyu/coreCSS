@@ -32,7 +32,7 @@ const MAX_CONCURRENCY = parseEnvInt('MAX_CONCURRENCY', 50, 1, 1000); // validate
 const QUEUE_LIMIT = parseEnvInt('QUEUE_LIMIT', 5, 1, 100); // validates range 1-100 with default 5
 const HISTORY_MAX = 50; // maximum entries kept in performance history file
 
-const delay = require('./utils/delay'); // shared delay utility used for offline simulation
+const {setTimeout} = require('node:timers/promises'); // promise-based timer to replace delay utility
 
 /*
  * SINGLE REQUEST TIMING MEASUREMENT
@@ -58,7 +58,9 @@ async function getTime(url){
    * CODEX environment flag enables testing measurement logic offline.
    */
   if(parseEnvBool('CODEX')){ // detects offline mode using shared parser
-   await delay(100, true); // Simulates network delay in offline environment with logging
+   console.log(`offline delay is running with 100`); // replicates delay logging for visibility
+   await setTimeout(100); // non-blocking wait using timers promise
+   console.log(`offline delay is returning undefined`); // logs completion matching previous utility
   } else {
    /*
     * ACTUAL NETWORK REQUEST
