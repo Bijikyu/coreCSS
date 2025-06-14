@@ -29,7 +29,7 @@ const orig = Module.prototype.require; // Preserves original require function fo
  * Silent error logging stub that prevents console noise during testing
  * while maintaining the same function signature as the real qerrors module.
  */
-const axiosStub = {get: async ()=>({status:200}),create(){return this;}}; // HTTP client stub returning successful responses
+const axiosStub = {get: async ()=>({status:200}),create(){return this;},interceptors:{request:{use(){},eject(){}},response:{use(){},eject(){}}},defaults:{httpAgent:{},httpsAgent:{}}}; // HTTP client stub updated with defaults for axios-retry
 const qerrorsStub = () => {}; // Silent error logging stub for test environment
 
 /*
@@ -44,6 +44,7 @@ const qerrorsStub = () => {}; // Silent error logging stub for test environment
 Module.prototype.require = function(id){
   if(id==='axios') return axiosStub; // Replaces axios with HTTP client stub
   if(id==='qerrors') return qerrorsStub; // Replaces qerrors with silent logging stub
+  if(id==='axios-retry') return Object.assign((instance,{retries})=>{ const get=instance.get; instance.get=async (url,opts)=>{ let i=0; while(i<retries){ try{return await get(url,opts);}catch(err){ if(++i===retries) throw err; } } };}, {exponentialDelay: () => 0}); // Provides basic retry logic for offline tests
 
   return orig.call(this,id); // Preserves normal require behavior for other modules
 };

@@ -35,6 +35,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.14",
     "axios": "^1.6.0",
+    "axios-retry": "^3.6.0",
     "cssnano": "^5.1.15",
     "jsdom": "^22.1.0",
     "postcss": "^8.4.30",
