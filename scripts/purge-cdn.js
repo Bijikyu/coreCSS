@@ -24,7 +24,7 @@
  */
 
 const qerrors = require('./utils/logger'); // Centralized error logging with contextual information
-const fs = require('fs').promises; // Node promise-based filesystem for async use
+const {readBuildHash} = require('./utils/file-helpers'); // Reuse helper to read build hash reliably
 const fetchRetry = require('./request-retry'); // Retry wrapper for HTTP requests
 
 /*
@@ -91,15 +91,19 @@ async function purgeCdn(file){
  */
 async function run(){
  console.log(`run is running with ${process.argv.length}`); // Logs execution start for monitoring
- try {
-  await fs.access(`build.hash`); // ensures build hash file exists before reading
+  try {
   /*
    * BUILD HASH INTEGRATION
-   * Rationale: Reads hash from build system to ensure purge targets the
-   * correct file version. This maintains tight coupling between build
-   * and purge operations, preventing purging of wrong file versions.
+   * Rationale: Reads hash using helper to simplify file handling and provide
+   * graceful fallback when the hash file is missing. This keeps purge logic
+   * consistent with other scripts.
    */
-  const hash = (await fs.readFile(`build.hash`, `utf8`)).trim(); // Reads current build hash from filesystem
+  const hash = await readBuildHash(); // Retrieve current build hash or empty string
+  if(!hash){ // If hash missing return error code to mimic old behaviour
+   qerrors(new Error('build.hash missing'), `run missing hash`, {args:process.argv.slice(2)}); // Logs missing hash context
+   console.log(`run is returning 1`); // Indicates failure due to missing hash
+   return 1; // Exit code for missing hash scenario
+  }
   
   /*
    * FILENAME CONSTRUCTION
@@ -119,13 +123,8 @@ async function run(){
   console.log(`run is returning ${code}`); // Logs final status for monitoring
   return code; // Returns status code for programmatic verification
  } catch(err){
-  if(err.code === `ENOENT`){
-   qerrors(err, `run missing hash`, {args:process.argv.slice(2)}); // Logs missing build.hash error
-   console.log(`run is returning 1`); // Reports missing file exit code
-   return 1; // Returns error code instead of throwing
-  }
-  qerrors(err, `run failed`, {args:process.argv.slice(2)}); // Logs error with command line context
-  throw err; // Re-throws error to signal purge failure to calling processes
+  qerrors(err, `run failed`, {args:process.argv.slice(2)}); // Logs error during purge execution
+  throw err; // Propagate unexpected errors to calling processes
  }
 } // run function is intentionally not exported or executed automatically
 

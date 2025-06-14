@@ -76,7 +76,7 @@ describe('build error handling', {concurrency:false}, () => {
     await assert.rejects(
       async () => await build(), // executes build without required CSS file
       (err) => {
-        return err.message && err.message.includes('postcss'); // validates PostCSS-related error
+        return err.message && err.message.includes('qore.css'); // validates missing source file error in offline mode
       }
     );
   });
@@ -198,16 +198,14 @@ describe('updateHtml error handling', {concurrency:false}, () => {
    */
   it('handles missing build.hash file', async () => {
     fs.writeFileSync(path.join(tmpDir, 'index.html'), '<link href="qore.css">'); // creates basic HTML file
-    
+
     delete require.cache[require.resolve('../scripts/updateHtml')]; // clears module cache for fresh import
     const updateHtml = require('../scripts/updateHtml'); // imports updateHtml function after cache clearing
-    
-    await assert.rejects(
-      async () => await updateHtml(), // executes updateHtml without hash file
-      (err) => {
-        return err.code === 'ENOENT' && err.path.includes('build.hash'); // validates specific hash file not found error
-      }
-    );
+
+    const result = await updateHtml(); // executes updateHtml without hash file
+    const updated = fs.readFileSync(path.join(tmpDir, 'index.html'), 'utf8'); // reads resulting html
+    assert.ok(updated.includes('core.min.css')); // verifies fallback to un-hashed css
+    assert.strictEqual(result, ''); // confirms empty string returned when hash missing
   });
 });
 

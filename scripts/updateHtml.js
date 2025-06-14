@@ -22,6 +22,8 @@
 
 const fs = require('fs').promises; // File system operations using promises for consistent async patterns
 const qerrors = require('./utils/logger'); // Centralized error logging with contextual information
+const {readBuildHash} = require('./utils/file-helpers'); // Utility for reading current build hash
+const path = require('path'); // Node path for resolving absolute file paths
 
 /*
  * HTML UPDATE FUNCTION
@@ -48,7 +50,9 @@ async function updateHtml(){
    * and HTML updates to happen later in the deployment pipeline.
    * trim() removes any whitespace that might interfere with filename generation.
    */
-  const hash = (await fs.readFile('build.hash','utf8')).trim(); // Reads current build hash for filename replacement
+  const htmlPath = path.resolve('index.html'); // resolves path early to avoid cwd races
+  const hash = await readBuildHash(); // Gets build hash or empty string when file missing
+  let cssFile = `core.${hash}.min.css`; if(!hash){ cssFile = 'core.min.css'; } // Fallback to non-hashed file when hash missing
   
   /*
    * HTML CONTENT LOADING
@@ -57,8 +61,8 @@ async function updateHtml(){
    * that would be complex with streaming approaches.
    * Verification prevents processing non-existent files.
    */
-  await fs.access('index.html'); // Verifies HTML file exists before processing
-  const html = await fs.readFile('index.html','utf8'); // Loads HTML content into memory for editing
+  await fs.access(htmlPath); // Verifies HTML file exists before processing
+  const html = await fs.readFile(htmlPath,'utf8'); // Loads HTML content into memory for editing
   
   /*
    * CDN URL CONFIGURATION
@@ -76,9 +80,9 @@ async function updateHtml(){
    */
   let updated; //(declare variable for updated html)
   if(/core\.[a-f0-9]{8}\.min\.css/.test(html)){ //(detect existing hashed reference)
-   updated = html.replace(/core\.[a-f0-9]{8}\.min\.css/g, `core.${hash}.min.css`); //(update existing hash)
+   updated = html.replace(/core\.[a-f0-9]{8}\.min\.css/g, cssFile); //(update existing hash)
   } else {
-   updated = html.replace(/qore\.css/g, `core.${hash}.min.css`); //(replace qore.css when no hashed filename)
+   updated = html.replace(/qore\.css/g, cssFile); //(replace qore.css when no hashed filename)
   }
   
   /*
@@ -97,9 +101,9 @@ async function updateHtml(){
    * Rationale: Writing back to the same file updates references in place.
    * This maintains file permissions and any other metadata while updating content.
    */
-  await fs.writeFile('index.html', updated); // Persists updated HTML to disk
+  await fs.writeFile(htmlPath, updated); // Persists updated HTML to disk
 
-  console.log(`updateHtml has run resulting in core.${hash}.min.css`); // Logs successful completion with resulting filename
+  console.log(`updateHtml has run resulting in ${cssFile}`); // Logs successful completion with resulting filename
   console.log(`updateHtml is returning ${hash}`); // Logs return value for debugging
   return hash; // Returns hash for programmatic usage by calling scripts
  } catch(err){

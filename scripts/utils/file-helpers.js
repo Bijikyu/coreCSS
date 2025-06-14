@@ -30,7 +30,8 @@ const qerrors = require('./logger'); // Centralized error logging
 async function readBuildHash() {
   console.log(`readBuildHash is running with build.hash`); // logs entry for hash file reading
   try {
-    const hash = await fs.readFile('build.hash', 'utf8'); // Read hash file content
+    const file = require('path').resolve('build.hash'); // resolves absolute path to avoid cwd race conditions
+    const hash = await fs.readFile(file, 'utf8'); // Read hash file content using absolute path
     const trimmed = hash.trim(); // Prepare trimmed hash
     console.log(`readBuildHash is returning ${trimmed}`); // logs successful hash
     return trimmed; // Remove any whitespace from hash
