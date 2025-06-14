@@ -23,7 +23,7 @@
 
 const fetchRetry = require('./request-retry'); // HTTP client with retry logic for handling network failures
 const {performance} = require('perf_hooks'); // High-resolution timing API for accurate measurements
-const qerrors = require('qerrors'); // Centralized error logging with contextual information
+const qerrors = require('./utils/logger'); // Centralized error logging with contextual information
 const fs = require('fs'); // File system operations for reading/writing test results
 // Manual concurrency control implementation to replace p-limit per REPLITAGENT.md constraints
 const {parseEnvInt, parseEnvString} = require('./utils/env-config'); // Centralized environment configuration utilities

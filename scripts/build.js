@@ -29,7 +29,7 @@ const crypto = require('crypto'); // Cryptographic functions for generating cont
 const {createGzip, createBrotliCompress} = require('zlib'); // Streaming compressors for optimized output
 const {pipeline} = require('stream/promises'); // Promise based pipeline for stream control
 const execFileAsync = promisify(execFile); // Promise-wrapped execFile for consistent async patterns
-const qerrors = require('qerrors'); // Centralized error logging with contextual information
+const qerrors = require('./utils/logger'); // Centralized error logging with contextual information
 
 /*
  * MAIN BUILD FUNCTION

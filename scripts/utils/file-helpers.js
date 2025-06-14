@@ -14,7 +14,7 @@
  */
 
 const fs = require('fs').promises; // Promise-based file system operations
-const qerrors = require('qerrors'); // Centralized error logging
+const qerrors = require('./logger'); // Centralized error logging
 
 /**
  * BUILD HASH FILE READER
