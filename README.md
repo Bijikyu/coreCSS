@@ -32,7 +32,7 @@ A comprehensive, modern CSS framework engineered for rapid web development with 
 ### CDN (Recommended for Production)
 ```html
 <!-- Latest hashed version with optimal caching -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.5c7df4d0.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.<hash>.min.css">
 
 <!-- Or use always-latest version (less optimal caching) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/qore.css">
@@ -40,24 +40,24 @@ A comprehensive, modern CSS framework engineered for rapid web development with 
 
 ### NPM Installation
 ```bash
-npm install qoreCSS
+npm install qorecss
 ```
 
 #### Node.js/Build Tool Integration
 ```javascript
-const qoreCSS = require('qoreCSS');
+const qorecss = require('qorecss');
 
 // Get stylesheet path for build tools
-const cssPath = qoreCSS.getStylesheet();
+const cssPath = qorecss.getStylesheet();
 
 // Get CSS variables file
-const variablesPath = qoreCSS.getVariables();
+const variablesPath = qorecss.getVariables();
 ```
 
 #### Browser Auto-injection
 ```html
 <!-- Automatically injects CSS when script loads -->
-<script src="node_modules/qoreCSS/index.js"></script>
+<script src="node_modules/qorecss/index.js"></script>
 ```
 
 ## Customization
