@@ -21,7 +21,7 @@
  */
 
 const fs = require('fs').promises; // File system operations using promises for consistent async patterns
-const qerrors = require('qerrors'); // Centralized error logging with contextual information
+const qerrors = require('./utils/logger'); // Centralized error logging with contextual information
 
 /*
  * HTML UPDATE FUNCTION

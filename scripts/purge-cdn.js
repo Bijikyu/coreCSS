@@ -23,7 +23,7 @@
  * waiting for natural cache expiration, improving deployment reliability.
  */
 
-const qerrors = require('qerrors'); // Centralized error logging with contextual information
+const qerrors = require('./utils/logger'); // Centralized error logging with contextual information
 const fs = require('fs').promises; // Node promise-based filesystem for async use
 const fetchRetry = require('./request-retry'); // Retry wrapper for HTTP requests
 
