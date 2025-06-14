@@ -32,7 +32,8 @@ A comprehensive, modern CSS framework engineered for rapid web development with 
 ### CDN (Recommended for Production)
 ```html
 <!-- Latest hashed version with optimal caching -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.5c7df4d0.min.css">
+<!-- core.[hash].min.css is produced by the build process and the hash changes when qore.css updates -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/core.[hash].min.css">
 
 <!-- Or use always-latest version (less optimal caching) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Bijikyu/qoreCSS/qore.css">
