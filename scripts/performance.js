@@ -27,6 +27,7 @@ const qerrors = require('./utils/logger'); // Centralized error logging with con
 const fs = require('fs'); // File system operations for reading/writing test results
 // Manual concurrency control implementation to replace p-limit per REPLITAGENT.md constraints
 const {parseEnvInt, parseEnvString} = require('./utils/env-config'); // Centralized environment configuration utilities
+const delay = require('./utils/delay'); // shared delay utility for optional waits
 const CDN_BASE_URL = parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net'); // Environment-configurable CDN endpoint
 const MAX_CONCURRENCY = parseEnvInt('MAX_CONCURRENCY', 50, 1, 1000); // validates range 1-1000 with default 50
 const QUEUE_LIMIT = parseEnvInt('QUEUE_LIMIT', 5, 1, 100); // validates range 1-100 with default 5
@@ -40,12 +41,7 @@ const HISTORY_MAX = 50; // maximum entries kept in performance history file
  * testing the measurement logic without requiring internet connectivity.
  * 100ms delay approximates fast CDN response times.
  */
-const {setTimeout: wait} = require('node:timers/promises'); // Promise-based timer for mock delays
-async function delay(ms, log){
-  if(log){ console.log(`delay is running with ${ms}`); } // logs mock delay start
-  await wait(ms); // built-in non-blocking wait
-  if(log){ console.log(`delay is returning undefined`); } // logs delay completion
-} // replicates previous delay util with logging
+// delay imported from util ensures consistent mock wait behavior across scripts
 
 /*
  * SINGLE REQUEST TIMING MEASUREMENT

@@ -27,23 +27,16 @@ const http = require('node:http'); // Node HTTP used for keep-alive agent
 const https = require('node:https'); // Node HTTPS used for keep-alive agent
 const qerrors = require('./utils/logger'); // Centralized error logging with contextual information preservation
 const {parseEnvInt} = require('./utils/env-config'); // Centralized environment configuration utilities
+const delay = require('./utils/delay'); // shared delay utility with optional logging
 const socketLimit = parseEnvInt('SOCKET_LIMIT', 50, 1, 1000); // validates range 1-1000 with default 50
 const axiosInstance = axios.create({httpAgent:new http.Agent({keepAlive:true,maxSockets:socketLimit}),httpsAgent:new https.Agent({keepAlive:true,maxSockets:socketLimit})}); // axios instance using variable connection limit
 
 /*
  * DELAY UTILITY FUNCTION
- * 
+ *
  * Rationale: Implements non-blocking delays for exponential backoff strategy.
- * Promise-based approach integrates cleanly with async/await patterns.
- * Logging provides visibility into retry timing for debugging purposes.
+ * Centralized implementation removes duplication across scripts.
  */
-const {setTimeout: wait} = require('node:timers/promises'); // Promise-based timer for delays
-
-async function delay(ms, log){
-  if(log){ console.log(`delay is running with ${ms}`); } // logs delay start for debugging
-  await wait(ms); // non-blocking wait using built-in promise timer
-  if(log){ console.log(`delay is returning undefined`); } // logs completion for visibility
-} // wrapper preserves previous logging behavior
 
 /*
  * HTTP REQUEST WITH EXPONENTIAL BACKOFF RETRY LOGIC
