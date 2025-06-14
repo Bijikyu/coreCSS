@@ -30,7 +30,11 @@ const qerrors = require('./utils/logger'); // Centralized error logging with con
 const {parseEnvInt} = require('./utils/env-config'); // Centralized environment configuration utilities
 const socketLimit = parseEnvInt('SOCKET_LIMIT', 50, 1, 1000); // validates range 1-1000 with default 50
 const axiosInstance = axios.create({httpAgent:new http.Agent({keepAlive:true,maxSockets:socketLimit}),httpsAgent:new https.Agent({keepAlive:true,maxSockets:socketLimit})}); // axios instance using variable connection limit
+
 axiosRetry(axiosInstance,{retryDelay:axiosRetry.exponentialDelay}); // configures plugin with exponential backoff
+
+const delay = require('./utils/delay'); // shared delay utility for retry backoff
+
 
 /*
  * HTTP REQUEST WITH EXPONENTIAL BACKOFF RETRY LOGIC
