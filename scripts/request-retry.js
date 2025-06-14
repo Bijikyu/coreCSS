@@ -32,8 +32,7 @@ const socketLimit = parseEnvInt('SOCKET_LIMIT', 50, 1, 1000); // validates range
 const axiosInstance = axios.create({httpAgent:new http.Agent({keepAlive:true,maxSockets:socketLimit}),httpsAgent:new https.Agent({keepAlive:true,maxSockets:socketLimit})}); // axios instance using variable connection limit
 
 axiosRetry(axiosInstance,{retryDelay:axiosRetry.exponentialDelay}); // configures plugin with exponential backoff
-
-const delay = require('./utils/delay'); // shared delay utility for retry backoff
+// delay module removed since axiosRetry handles exponential backoff internally // change rationale comment
 
 
 /*
