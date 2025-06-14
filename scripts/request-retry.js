@@ -29,21 +29,8 @@ const qerrors = require('./utils/logger'); // Centralized error logging with con
 const {parseEnvInt} = require('./utils/env-config'); // Centralized environment configuration utilities
 const socketLimit = parseEnvInt('SOCKET_LIMIT', 50, 1, 1000); // validates range 1-1000 with default 50
 const axiosInstance = axios.create({httpAgent:new http.Agent({keepAlive:true,maxSockets:socketLimit}),httpsAgent:new https.Agent({keepAlive:true,maxSockets:socketLimit})}); // axios instance using variable connection limit
+const delay = require('./utils/delay'); // shared delay utility for retry backoff
 
-/*
- * DELAY UTILITY FUNCTION
- * 
- * Rationale: Implements non-blocking delays for exponential backoff strategy.
- * Promise-based approach integrates cleanly with async/await patterns.
- * Logging provides visibility into retry timing for debugging purposes.
- */
-const {setTimeout: wait} = require('node:timers/promises'); // Promise-based timer for delays
-
-async function delay(ms, log){
-  if(log){ console.log(`delay is running with ${ms}`); } // logs delay start for debugging
-  await wait(ms); // non-blocking wait using built-in promise timer
-  if(log){ console.log(`delay is returning undefined`); } // logs completion for visibility
-} // wrapper preserves previous logging behavior
 
 /*
  * HTTP REQUEST WITH EXPONENTIAL BACKOFF RETRY LOGIC
