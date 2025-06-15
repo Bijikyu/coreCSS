@@ -41,6 +41,40 @@ function axiosRetryStub(axiosInst,{retries=3,retryDelay=()=>0}={}){ // minimal r
 } // stub replicates axios-retry behavior for tests
 axiosRetryStub.exponentialDelay=(retry)=>2**(retry-1)*100; // mirrors exponential delay calculation
 const qerrorsStub = () => {}; // Silent error logging stub for test environment
+function envVarStubGet(name){ // provides env-var.get replacement
+  console.log(`envVarStub.get is running with ${name}`); // entry log for get
+  const retrieved = process.env[name]; // reads environment variable
+  console.log(`envVarStub.get is returning ${retrieved}`); // return log for get
+  return {default(def){ // replicates env-var default()
+    console.log(`envVarStub.default is running with ${def}`); // entry log
+    const val = retrieved ?? def; // uses env value or default
+    console.log(`envVarStub.default is returning ${val}`); // return log
+    return { // chainable converters
+      asIntPositive(){ // replicates asIntPositive()
+        console.log(`envVarStub.asIntPositive is running with ${val}`); // entry
+        const num = parseInt(val,10); // convert to number
+        const res = num>0 ? num : parseInt(def,10)||0; // positive fallback
+        console.log(`envVarStub.asIntPositive is returning ${res}`); // exit
+        return res; // numeric result
+      },
+      asString(){ // replicates asString()
+        console.log(`envVarStub.asString is running with ${val}`); // entry log
+        const res = String(val); // string conversion
+        console.log(`envVarStub.asString is returning ${res}`); // exit log
+        return res; // string result
+      },
+      asBool(){ // replicates asBool()
+        console.log(`envVarStub.asBool is running with ${val}`); // entry log
+        const lower = String(val).toLowerCase(); // normalizes value
+        if(lower==='true') { console.log('envVarStub.asBool is returning true'); return true; } // valid true
+        if(lower==='false') { console.log('envVarStub.asBool is returning false'); return false; } // valid false
+        console.log('envVarStub.asBool encountered invalid'); // invalid value log
+        throw new Error('invalid bool'); // mimic env-var error on invalid boolean
+      }
+    };
+  }};
+}
+const envVarStub = {get: envVarStubGet}; // env-var stub mimics chainable API
 
 /*
  * MODULE REQUIRE INTERCEPTION
@@ -55,6 +89,7 @@ Module.prototype.require = function(id){
   if(id==='axios') return axiosStub; // Replaces axios with HTTP client stub
   if(id==='qerrors') return qerrorsStub; // Replaces qerrors with silent logging stub
   if(id==='axios-retry') return axiosRetryStub; // Provides axios-retry behavior for retry testing
+  if(id==='env-var') return envVarStub; // Provides env-var stub for env parsing
 
   return orig.call(this,id); // Preserves normal require behavior for other modules
 };
