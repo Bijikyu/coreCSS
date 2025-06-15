@@ -128,7 +128,14 @@ async function run(){
   qerrors(err, `run failed`, {args:process.argv.slice(2)}); // Logs error with command line context
   throw err; // Re-throws error to signal purge failure to calling processes
  }
-} // run function is exported but not executed automatically for manual control
+} // run function can be executed directly or imported for manual control
+
+if(require.main === module){
+ run().then(code => { if(code === 1) process.exitCode = 1; }).catch(err => { // Checks result to set exit code when run as CLI
+  qerrors(err, 'purge-cdn script failure', {args:process.argv.slice(2)}); // Logs execution failure context for debugging
+  process.exitCode = 1; // Ensures non-zero exit status for automation when errors occur
+ });
+}
 
 module.exports = {purgeCdn, run}; // exports functions for unit testing and reuse
 
