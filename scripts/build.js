@@ -28,6 +28,7 @@ const fsp = fs.promises; // Promise-based filesystem methods
 const crypto = require('crypto'); // Cryptographic functions for generating content hashes
 const {createGzip, createBrotliCompress} = require('zlib'); // Streaming compressors for optimized output
 const {pipeline} = require('stream/promises'); // Promise based pipeline for stream control
+const path = require('path'); // path module for cross-platform binary resolution
 const execFileAsync = promisify(execFile); // Promise-wrapped execFile for consistent async patterns
 const qerrors = require('./utils/logger'); // Centralized error logging with contextual information
 const {parseEnvBool} = require('./utils/env-config'); // standardized boolean env parsing for CODEX detection
@@ -59,7 +60,8 @@ async function build(){
   if(parseEnvBool('CODEX')){ // checks offline mode using shared parser for consistency
    await fsp.copyFile('qore.css','core.min.css'); // Skips postcss when offline
   } else {
-   await execFileAsync('npx', ['postcss','qore.css','-o','core.min.css']); // Runs postcss when online
+   const binPath = path.join('node_modules','.bin','postcss'); // resolves local postcss binary path for offline usage
+   await execFileAsync(binPath, ['qore.css','-o','core.min.css']); // Executes local postcss to avoid network calls
   }
   
   /*
