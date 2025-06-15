@@ -26,9 +26,9 @@ const {performance} = require('perf_hooks'); // High-resolution timing API for a
 const qerrors = require('./utils/logger'); // Centralized error logging with contextual information
 const fs = require('fs'); // File system operations for reading/writing test results
 // Manual concurrency control implementation to replace p-limit per REPLITAGENT.md constraints
-const {parseEnvInt, parseEnvString, parseEnvBool} = require('./utils/env-config'); // adds boolean parser for CODEX detection
+const {parseEnvInt, parseEnvString, parseEnvBool, trimTrailingSlashes} = require('./utils/env-config'); // adds boolean parser and url normalizer
 
-let CDN_BASE_URL = parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net').replace(/\/+$/, ''); // trims any number of trailing slashes for consistent base url
+let CDN_BASE_URL = trimTrailingSlashes(parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net')); // ensures trailing slashes removed for consistent base url
 
 
 if(CDN_BASE_URL.trim() === ''){ CDN_BASE_URL = 'https://cdn.jsdelivr.net'; } // fallback to jsDelivr when empty

@@ -16,7 +16,7 @@ require('./helper'); // ensures axios/qerrors stubs are active for isolation
 const assert = require('node:assert'); // Node.js assertion library for test validation
 const {describe, it, beforeEach, afterEach} = require('node:test'); // test framework components
 
-const {parseEnvInt, parseEnvString, parseEnvBool} = require('../scripts/utils/env-config'); // functions under test
+const {parseEnvInt, parseEnvString, parseEnvBool, trimTrailingSlashes} = require('../scripts/utils/env-config'); // functions under test including url normalizer
 
 let originalEnv; // snapshot of original environment
 
@@ -102,5 +102,15 @@ describe('parseEnvBool behavior', {concurrency:false}, () => {
     delete process.env.TEST_BOOL; // ensure variable missing
     const result = parseEnvBool('TEST_BOOL', false); // parse without env var
     assert.strictEqual(result, false); // default applied
+  });
+});
+
+/*
+ * TRAILING SLASH TRIM UTILITY VALIDATION
+ */
+describe('trimTrailingSlashes behavior', {concurrency:false}, () => {
+  it('removes extra trailing slashes from url', () => {
+    const result = trimTrailingSlashes('http://cdn///'); // url with multiple slashes
+    assert.strictEqual(result, 'http://cdn'); // should drop trailing characters
   });
 });

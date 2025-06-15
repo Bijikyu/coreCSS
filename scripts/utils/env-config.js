@@ -37,4 +37,16 @@ function parseEnvBool(name, def = false){
   }
 }
 
-module.exports = {parseEnvInt, parseEnvString, parseEnvBool};
+function trimTrailingSlashes(str){
+  console.log(`trimTrailingSlashes is running with ${str}`); // entry log
+  try {
+    const result = String(str).replace(/\/+$/, ''); // removes trailing slashes for consistent urls
+    console.log(`trimTrailingSlashes is returning ${result}`); // normalized result
+    return result; // success path
+  } catch(err){
+    console.log(`trimTrailingSlashes is returning ${str}`); // fallback on error
+    return str; // return original if replacement fails
+  }
+}
+
+module.exports = {parseEnvInt, parseEnvString, parseEnvBool, trimTrailingSlashes};
