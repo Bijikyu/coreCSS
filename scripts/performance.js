@@ -30,6 +30,7 @@ const {parseEnvInt, parseEnvString, parseEnvBool} = require('./utils/env-config'
 
 let CDN_BASE_URL = parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net').replace(/\/+$/, ''); // trims any number of trailing slashes for consistent base url
 
+
 if(CDN_BASE_URL.trim() === ''){ CDN_BASE_URL = 'https://cdn.jsdelivr.net'; } // fallback to jsDelivr when empty
 const MAX_CONCURRENCY = parseEnvInt('MAX_CONCURRENCY', 50, 1, 1000); // validates range 1-1000 with default 50
 const QUEUE_LIMIT = parseEnvInt('QUEUE_LIMIT', 5, 1, 100); // validates range 1-100 with default 5
