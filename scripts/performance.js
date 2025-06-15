@@ -260,7 +260,10 @@ async function run(){
  * and automated monitoring while keeping functions available for import.
  */
 if(require.main === module){
- run(); // Executes main function when script is run directly
+ run().catch(err => { // Handles async failures when run directly for CLI usage
+  console.error('performance script failure:', err.message, {args:process.argv.slice(2)}); // Logs error context for debugging
+  process.exitCode = 1; // Signals failure status to calling processes
+ });
 }
 
 module.exports = {getTime, measureUrl, run}; // exports functions for reuse and unit testing

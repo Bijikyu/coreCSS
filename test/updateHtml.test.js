@@ -97,3 +97,15 @@ describe('updateHtml', () => {
     assert.strictEqual(hash, '12345678'); // ensure returned hash unchanged from build.hash file
   });
 });
+
+// CLI exit code tests ensure process.exitCode reflects missing build artifacts
+const {spawnSync} = require('node:child_process'); // child process used to run script directly
+
+describe('updateHtml exit code', {concurrency:false}, () => {
+  it('returns exit code 1 when build.hash missing via CLI', () => {
+    fs.rmSync(path.join(tmpDir, 'build.hash')); // removes hash file to simulate missing artifact
+    const result = spawnSync(process.execPath, [path.resolve(__dirname,'../scripts/updateHtml.js')], {cwd: tmpDir, env:{...process.env}}); // runs script in new process
+    assert.strictEqual(result.status, 1); // validates process exited with code 1
+  });
+});
+

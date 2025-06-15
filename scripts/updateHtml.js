@@ -68,7 +68,7 @@ async function updateHtml(){
    * for different deployment environments (development, staging, production).
    * jsDelivr chosen as default for its reliability and global CDN presence.
    */
-  const cdnUrl = parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net'); // retrieves CDN url with fallback to jsDelivr
+  const cdnUrl = parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net').replace(/\/$/, ''); // removes trailing slash so URL concatenation does not create double slashes
   
   /*
    * CSS HASH REPLACEMENT
@@ -105,13 +105,17 @@ async function updateHtml(){
   console.log(`updateHtml is returning ${hash}`); // Logs return value for debugging
   return hash; // Returns hash for programmatic usage by calling scripts
  } catch(err){
-  if(err.code === 'ENOENT'){ // handles missing build.hash case gracefully
-   qerrors(err, 'updateHtml missing hash', {args:process.argv.slice(2)}); // logs specific missing hash error
-   console.log('updateHtml is returning 1'); // reports error exit code for automation checks
-   return 1; // returns non-zero code like purge-cdn to signal missing dependency
+  if(err.code === 'ENOENT' && err.path === 'build.hash'){ // checks for missing build.hash specifically to maintain backwards compatible exit code
+   qerrors(err, 'updateHtml missing hash', {args:process.argv.slice(2)}); // logs missing hash as recoverable scenario
+   console.log('updateHtml is returning 1'); // communicates non-zero return for automation
+   return 1; // signals missing build artifact while allowing caller to continue
   }
-  qerrors(err, 'updateHtml failed', {args:process.argv.slice(2)}); // Logs error with command line arguments for context
-  throw err; // Re-throws error to allow caller to handle or fail appropriately
+  if(err.code === 'ENOENT'){ // other ENOENT errors like index.html should surface
+   qerrors(err, 'updateHtml file missing', {args:process.argv.slice(2)}); // logs missing file for caller handling
+   throw err; // rethrows so tests and callers can detect fatal missing resources
+  }
+  qerrors(err, 'updateHtml failed', {args:process.argv.slice(2)}); // Logs unexpected errors with context for debugging
+  throw err; // escalates unexpected failure for external handling
  }
 }
 
@@ -121,10 +125,10 @@ async function updateHtml(){
  * while remaining importable as a module. Proper error handling ensures
  * calling processes receive appropriate exit codes.
  */
-if(require.main === module){ 
- updateHtml().catch(err => { // Handles async function failures when run directly
+if(require.main === module){
+ updateHtml().then(code => { if(code === 1) process.exitCode = 1; }).catch(err => { // Checks return code then handles failures when executed directly
   qerrors(err, 'updateHtml script failure', {args:process.argv.slice(2)}); // Logs failure context for debugging
-  process.exitCode = 1; // Sets failure exit code for calling processes (CI/CD systems)
+  process.exitCode = 1; // Ensures non-zero exit for CLI automation when errors occur
  });
 }
 

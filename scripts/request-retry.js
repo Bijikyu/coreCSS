@@ -58,6 +58,8 @@ axiosRetry(axiosInstance,{retryDelay:axiosRetry.exponentialDelay}); // configure
 async function fetchRetry(url,opts={},attempts=3){
   console.log(`fetchRetry is running with ${url},${attempts}`); // logs entry with parameters
 
+  if(typeof attempts!=='number'||Number.isNaN(attempts)){ console.log(`fetchRetry is returning attempts must be numeric`); throw new Error('attempts must be numeric'); } // validates numeric attempt parameter
+
   if(attempts < 1){ console.log(`fetchRetry is returning attempts must be >0`); throw new Error('attempts must be >0'); } // validates positive attempt count
  
  /*

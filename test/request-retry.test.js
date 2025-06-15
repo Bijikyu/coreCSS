@@ -132,3 +132,25 @@ describe('fetchRetry invalid attempts parameter', {concurrency:false}, () => {
     );
   });
 });
+
+/*
+ * NON-NUMERIC ATTEMPT VALIDATION
+ *
+ * TESTING SCOPE:
+ * Ensures fetchRetry rejects when attempts is not numeric
+ * or is NaN, preventing unexpected infinite retries.
+ */
+describe('fetchRetry non numeric attempts', {concurrency:false}, () => {
+  it('throws when attempts is NaN', async () => {
+    await assert.rejects(
+      async () => await fetchRetry('http://e', {}, Number('foo')), // executes with NaN attempts
+      (err) => err.message === 'attempts must be numeric' // validates rejection reason
+    );
+  });
+  it('throws when attempts is not a number', async () => {
+    await assert.rejects(
+      async () => await fetchRetry('http://f', {}, '2'), // executes with string attempts
+      (err) => err.message === 'attempts must be numeric' // validates rejection reason
+    );
+  });
+});
