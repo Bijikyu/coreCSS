@@ -29,7 +29,7 @@ const orig = Module.prototype.require; // Preserves original require function fo
  * Silent error logging stub that prevents console noise during testing
  * while maintaining the same function signature as the real qerrors module.
  */
-const axiosStub = {get: async ()=>({status:200}),create(){return this;}}; // HTTP client stub returning successful responses
+const axiosStub = {get: async ()=>({status:200}),create(){return {...this};}}; // HTTP client stub now returns fresh copy to isolate instances
 function axiosRetryStub(axiosInst,{retries=3,retryDelay=()=>0}={}){ // minimal retry interceptor for tests
   const originalGet=axiosInst.get; // preserves base get implementation
   axiosInst.get=async function(url,opts={}){ // wraps get with retry logic
