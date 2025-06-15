@@ -154,3 +154,19 @@ describe('fetchRetry non numeric attempts', {concurrency:false}, () => {
     );
   });
 });
+
+/*
+ * NON-INTEGER ATTEMPT VALIDATION
+ *
+ * TESTING SCOPE:
+ * Ensures fetchRetry rejects when attempts is a floating
+ * point number, preventing ambiguous retry counts.
+ */
+describe('fetchRetry non integer attempts', {concurrency:false}, () => {
+  it('throws when attempts is a float', async () => {
+    await assert.rejects(
+      async () => await fetchRetry('http://g', {}, 1.5),
+      (err) => err.message === 'attempts must be an integer'
+    );
+  });
+});
