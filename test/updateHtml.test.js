@@ -81,6 +81,15 @@ describe('updateHtml', () => {
     assert.strictEqual(hash, '12345678'); // validates function returns correct hash value
   });
 
+  it('trims trailing slashes from CDN url', async () => {
+    process.env.CDN_BASE_URL = 'http://testcdn///'; // sets CDN with extra slashes to test trimming
+    const hash = await updateHtml(); // executes HTML update
+    const updated = fs.readFileSync(path.join(tmpDir, 'index.html'), 'utf8'); // read updated HTML
+    assert.ok(updated.includes('http://testcdn')); // confirm url normalized without trailing slashes
+    assert.ok(!updated.includes('http://testcdn///')); // ensure extraneous slashes removed
+    assert.strictEqual(hash, '12345678'); // hash remains unchanged
+  });
+
   /*
    * EMPTY CDN URL VALIDATION
    *
