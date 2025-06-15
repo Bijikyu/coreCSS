@@ -159,10 +159,12 @@ describe('performance edge cases', {concurrency:false}, () => {
     process.env.CODEX = 'True'; // forces offline mode for predictable testing
     delete require.cache[require.resolve('../scripts/performance')]; // clears module cache for fresh import
     const performance = require('../scripts/performance'); // imports performance module after cache clearing
-    
-    const result = await performance.measureUrl('http://test', 0); // measures with zero requests
-    assert.strictEqual(result, 0); // validates zero result for zero requests (0/0 = 0 in this context)
-    
+
+    await assert.rejects(
+      async () => await performance.measureUrl('http://test', 0), // verifies rejection when count is zero
+      err => err.message === 'count must be positive integer' // ensures message matches input validation requirement
+    );
+
     delete process.env.CODEX; // cleans up environment flag
   });
 
