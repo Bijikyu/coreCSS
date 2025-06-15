@@ -120,8 +120,9 @@ if (typeof window === 'undefined') {
 function injectCss(){ // handles runtime stylesheet loading logic
  console.log(`injectCss is running with ${document.currentScript && document.currentScript.src}`); // logs entry and script src
  try {
-  const scriptSrc = document.currentScript && document.currentScript.src ? document.currentScript.src : 'index.js'; // resolves running script path
-  const basePath = scriptSrc.slice(0, scriptSrc.lastIndexOf('/') + 1); // extracts directory path portion
+  const scriptEl = document.currentScript || document.scripts[document.scripts.length-1]; // selects last script when currentScript unavailable
+  const scriptSrc = scriptEl && scriptEl.src ? scriptEl.src : document.baseURI; // uses document base when inline or bundled
+  const basePath = scriptSrc.slice(0, scriptSrc.lastIndexOf('/') + 1); // extracts directory path portion for css
   const cssFile = `core.5c7df4d0.min.css`; // placeholder replaced during build
   const link = document.createElement('link'); // creates stylesheet link element
   link.rel = 'stylesheet'; // declares relationship to browser

@@ -99,4 +99,16 @@ describe('browser injection', {concurrency:false}, () => {
     const link = document.querySelector('link[href*="core"]') || document.querySelector('link[href*="qore"]') || document.querySelector('style'); // searches for injected CSS in multiple forms
     assert.ok(link); // confirms CSS injection occurred in simulated browser environment
   });
+
+  it('injects when currentScript undefined', () => {
+    delete require.cache[require.resolve('../index.js')]; // resets module for re-injection
+    const extra = document.createElement('script'); // creates dummy script for src path
+    extra.src = '/scripts/test.js'; // sets src attribute to mimic script file
+    document.body.appendChild(extra); // appends script so it becomes last in DOM
+    document.currentScript = undefined; // simulates environment where currentScript is not defined
+    const modAgain = require('../index.js'); // re-requires module to trigger injection with fallback
+    assert.strictEqual(modAgain.serverSide, undefined); // ensures browser detection still true
+    const links = document.querySelectorAll('link[href*="core"]'); // gathers all injected links
+    assert.ok(links.length >= 1); // verifies at least one stylesheet link present
+  });
 });
