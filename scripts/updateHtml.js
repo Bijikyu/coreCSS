@@ -105,13 +105,21 @@ async function updateHtml(){
   console.log(`updateHtml is returning ${hash}`); // Logs return value for debugging
   return hash; // Returns hash for programmatic usage by calling scripts
  } catch(err){
-  if(err.code === 'ENOENT'){ // handles missing build.hash case gracefully
-   qerrors(err, 'updateHtml missing hash', {args:process.argv.slice(2)}); // logs specific missing hash error
-   console.log('updateHtml is returning 1'); // reports error exit code for automation checks
-   return 1; // returns non-zero code like purge-cdn to signal missing dependency
+  if(err.code === 'ENOENT'){ // checks if missing file triggered error
+   if(err.path && err.path.includes('build.hash')){ // identifies missing hash file
+    qerrors(err, 'updateHtml missing hash', {args:process.argv.slice(2)}); // logs missing hash for deployment insight
+    console.log('updateHtml is returning 1'); // reports failure code for automation
+    return 1; // signals error condition to caller
+   }
+   if(err.path && err.path.includes('index.html')){ // identifies missing html file
+    qerrors(err, 'updateHtml missing html', {args:process.argv.slice(2)}); // logs missing html for debugging
+   } else {
+    qerrors(err, 'updateHtml failed', {args:process.argv.slice(2)}); // generic ENOENT logging for unexpected files
+   }
+   throw err; // re-throws for caller handling on html or unknown file missing
   }
-  qerrors(err, 'updateHtml failed', {args:process.argv.slice(2)}); // Logs error with command line arguments for context
-  throw err; // Re-throws error to allow caller to handle or fail appropriately
+  qerrors(err, 'updateHtml failed', {args:process.argv.slice(2)}); // logs non-ENOENT error context
+  throw err; // ensures calling process sees unexpected failure
  }
 }
 

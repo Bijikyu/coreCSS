@@ -96,4 +96,34 @@ describe('updateHtml', () => {
     assert.ok(updated.includes('core.12345678.min.css')); // verify qore.css was replaced with hashed filename
     assert.strictEqual(hash, '12345678'); // ensure returned hash unchanged from build.hash file
   });
+
+  /*
+   * MISSING BUILD HASH FILE VALIDATION
+   *
+   * TEST STRATEGY:
+   * Removes build.hash to simulate missing build information and expects
+   * updateHtml to return error code 1 indicating failure. This mirrors the
+   * deployment script behavior when a build has not been run.
+   */
+  it('returns error code when build.hash missing', async () => {
+    fs.rmSync(path.join(tmpDir, 'build.hash')); // removes hash file to trigger error
+    const code = await updateHtml(); // executes html update expecting error return
+    assert.strictEqual(code, 1); // verifies return code indicates missing file
+  });
+
+  /*
+   * MISSING HTML FILE VALIDATION
+   *
+   * TEST STRATEGY:
+   * Removes index.html to simulate deployment configuration errors and expects
+   * updateHtml to throw ENOENT. The error path check ensures it identifies the
+   * missing html file specifically.
+   */
+  it('throws when index.html missing', async () => {
+    fs.rmSync(path.join(tmpDir, 'index.html')); // removes html file before update
+    await assert.rejects(
+      async () => await updateHtml(), // executes update expecting rejection
+      err => err.code === 'ENOENT' && err.path.includes('index.html') // validates missing html error
+    );
+  });
 });
