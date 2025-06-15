@@ -99,4 +99,12 @@ describe('browser injection', {concurrency:false}, () => {
     const link = document.querySelector('link[href*="core"]') || document.querySelector('link[href*="qore"]') || document.querySelector('style'); // searches for injected CSS in multiple forms
     assert.ok(link); // confirms CSS injection occurred in simulated browser environment
   });
+
+  it('avoids duplicate injection on subsequent loads', () => {
+    const countBefore = document.head.querySelectorAll('link').length; // captures link count after first load for comparison
+    delete require.cache[require.resolve('../index.js')]; // clears cache to force re-execution of module
+    require('../index.js'); // triggers injectCss again to test duplicate avoidance
+    const countAfter = document.head.querySelectorAll('link').length; // counts links after second load to verify no extra element
+    assert.strictEqual(countBefore, countAfter); // ensures link count unchanged meaning no duplicate injection
+  });
 });

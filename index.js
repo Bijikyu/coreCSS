@@ -123,14 +123,21 @@ function injectCss(){ // handles runtime stylesheet loading logic
   const scriptSrc = document.currentScript && document.currentScript.src ? document.currentScript.src : 'index.js'; // resolves running script path
   const basePath = scriptSrc.slice(0, scriptSrc.lastIndexOf('/') + 1); // extracts directory path portion
   const cssFile = `core.5c7df4d0.min.css`; // placeholder replaced during build
-  const link = document.createElement('link'); // creates stylesheet link element
-  link.rel = 'stylesheet'; // declares relationship to browser
-  link.type = 'text/css'; // MIME type for clarity across tools
-  link.href = `${basePath}${cssFile}`; // resolves href using whichever file exists
-  link.onerror = () => { link.href = `${basePath}qore.css`; console.log(`injectCss fallback to ${link.href}`); }; // swaps to qore.css on load failure
-  document.head.appendChild(link); // injects stylesheet into document
-  console.log(`injectCss is returning ${cssFile}`); // logs resolved filename when hashed file loads
+  const existing = Array.from(document.head.querySelectorAll('link')) // collects current link elements for reuse check
+    .find(l => l.href.includes(cssFile) || l.href.includes('qore.css')); // searches for prior injection by hashed or fallback name
+  if(!existing){ // avoids duplicate injection when link already present
+   const link = document.createElement('link'); // creates stylesheet link element
+   link.rel = 'stylesheet'; // declares relationship to browser
+   link.type = 'text/css'; // MIME type for clarity across tools
+   link.href = `${basePath}${cssFile}`; // resolves href using whichever file exists
+   link.onerror = () => { link.href = `${basePath}qore.css`; console.log(`injectCss fallback to ${link.href}`); }; // swaps to qore.css on load failure
+   document.head.appendChild(link); // injects stylesheet into document
+   console.log(`injectCss is returning ${cssFile}`); // logs resolved filename when hashed file loads
+  } else {
+   console.log(`injectCss is returning ${existing.href}`); // logs reuse of previously injected link
+  }
  } catch(err){
   console.error('injectCss failed:', err.message); // logs any runtime failure
  }
 }
+
