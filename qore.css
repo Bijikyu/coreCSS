@@ -751,7 +751,7 @@ hr {
     overflow: visible; /* Shows overflow in Edge and IE */
     background-color: rgba(255,255,255,0.13); /* Semi-transparent white */
     border: 0pt none; /* Removes default border */
-    box-shadow: 1px -1px 1px rgb(0, 0, 0, 30%); /* Subtle shadow for depth */
+    box-shadow: 1px -1px 1px rgb(0 0 0 / 30%); /* Subtle shadow for depth; color syntax fix */
     color: rgba(255,255,255,0.13); /* Matches background color */
 }
 
