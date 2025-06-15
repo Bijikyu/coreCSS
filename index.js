@@ -23,16 +23,14 @@
  */
 
 /*
- * MAIN MODULE EXPORT OBJECT
- * 
- * API DESIGN RATIONALE:
- * The module exports both direct path properties and helper functions to
- * accommodate different coding styles and use cases:
- * - Direct properties for immediate access
- * - Functions for consistency with other APIs
- * - Descriptive names that clearly indicate purpose
+ * MAIN EXPORT OBJECT CONSTRUCTION
+ *
+ * DESIGN RATIONALE:
+ * The object is created first so it can be exported in either CommonJS or
+ * browser environments without modification. Separating construction from
+ * export keeps the code flexible for the conditional logic below.
  */
-module.exports = {
+const qorecss = { // holds public API properties and helpers
   /*
    * CORE STYLESHEET PATH
    * Rationale: require.resolve() returns the absolute filesystem path to the
@@ -87,7 +85,7 @@ module.exports = {
  * environments. This is more reliable than navigator checks and works
  * across different JavaScript runtime environments.
  */
-if (typeof window === 'undefined') {
+if (typeof window === 'undefined' && typeof module !== 'undefined' && module.exports) {
   /*
    * SERVER-SIDE ENVIRONMENT CONFIGURATION
    * Rationale: In Node.js environments, the module provides file paths
@@ -95,8 +93,9 @@ if (typeof window === 'undefined') {
    * programmatic usage. The serverSide flag enables calling code to
   * detect the environment and adapt behavior accordingly.
   */
+  module.exports = qorecss; // exposes API when running under Node
   module.exports.serverSide = true; // signals Node.js usage so consumers can skip browser injection
-} else {
+} else if (typeof window !== 'undefined') {
   /*
    * BROWSER ENVIRONMENT AUTO-INJECTION
    * 
@@ -114,7 +113,8 @@ if (typeof window === 'undefined') {
    * This approach enables usage like: <script src="node_modules/qorecss/index.js"></script> // corrected path to lowercase for consistency
    * with automatic CSS injection, providing an alternative to manual link tags.
    */
- injectCss(); // calls helper for dynamic stylesheet injection
+  globalThis.qorecss = qorecss; // exposes API for browser usage
+  injectCss(); // calls helper for dynamic stylesheet injection
 }
 
 function injectCss(){ // handles runtime stylesheet loading logic
