@@ -13,7 +13,7 @@
  * 4. BUILD TOOLS: Programmatic access to stylesheet paths
  * 
  * DESIGN DECISIONS:
- * - require.resolve() provides absolute paths for reliable file resolution
+ * - safeResolve() returns require.resolve(file) when available for absolute paths
  * - Environment detection enables appropriate behavior in server vs browser
  * - Helper functions abstract common usage patterns
  * - Browser auto-injection provides zero-config experience
@@ -30,25 +30,37 @@
  * browser environments without modification. Separating construction from
  * export keeps the code flexible for the conditional logic below.
  */
+function safeResolve(file){ // resolves path when require is present or falls back to file
+ console.log(`safeResolve is running with ${file}`); // entry log for debug visibility
+ try { // ensures error handling
+  if(typeof require==='function' && require.resolve){ // checks for CommonJS require availability
+   const resolved = require.resolve(file); // resolves absolute path via Node
+   console.log(`safeResolve is returning ${resolved}`); // logs resolved path
+   return resolved; // returns resolved path when in Node
+  }
+ } catch(err){ console.error('safeResolve failed:', err.message); } // logs unexpected errors
+ console.log(`safeResolve is returning ${file}`); // logs fallback path for browsers
+ return file; // returns plain path when require unavailable
+}
+
 const qorecss = { // holds public API properties and helpers
   /*
    * CORE STYLESHEET PATH
-   * Rationale: require.resolve() returns the absolute filesystem path to the
-   * CSS file, enabling reliable file access regardless of the calling module's
-   * location. This is essential for server-side rendering, build tools, and
-   * any scenario where the actual file path is needed.
+   * Rationale: safeResolve() falls back to plain paths when require is missing
+   * yet still uses require.resolve() under Node for absolute reliability.
+   * This supports server-side rendering and bundler builds without ReferenceErrors.
    */
-  coreCss: require.resolve('./qore.css'), // core CSS path changed to qore.css for new file name
+  coreCss: safeResolve('./qore.css'), // core CSS path uses safeResolve so browsers without require still work
   
   /*
-   * VARIABLES STYLESHEET PATH  
-   * Rationale: Provides separate access to the CSS variables file, enabling
-   * advanced use cases like:
+   * VARIABLES STYLESHEET PATH
+   * Rationale: Provides separate access to the CSS variables file with
+   * safeResolve handling browsers lacking require. This supports advanced use cases like:
    * - Custom variable overrides before main CSS
    * - Build-time variable processing
    * - Selective inclusion in optimized builds
    */
-  variablesCss: require.resolve('./variables.css'),
+  variablesCss: safeResolve('./variables.css'), // variables path uses safeResolve for browser fallback
   
   /*
    * CORE STYLESHEET HELPER FUNCTION
@@ -58,7 +70,7 @@ const qorecss = { // holds public API properties and helpers
    */
   getStylesheet: function() {
     console.log(`getStylesheet is running with`); // entry log for helper call
-    const result = require.resolve('./qore.css'); // resolves stylesheet path
+    const result = safeResolve('./qore.css'); // resolves path with browser fallback when require missing
     console.log(`getStylesheet is returning ${result}`); // logs resolved path
     return result; // returns qore.css path for consistency
   },
@@ -71,7 +83,7 @@ const qorecss = { // holds public API properties and helpers
    */
   getVariables: function() {
     console.log(`getVariables is running with`); // entry log for helper call
-    const result = require.resolve('./variables.css'); // resolves variables path
+    const result = safeResolve('./variables.css'); // resolves path with browser fallback when require missing
     console.log(`getVariables is returning ${result}`); // logs resolved path
     return result; // returns variables.css path
   }
@@ -107,7 +119,7 @@ if (typeof window === 'undefined' && typeof module !== 'undefined' && module.exp
    * IMPLEMENTATION RATIONALE:
    * - createElement('link') creates proper stylesheet link element
    * - rel='stylesheet' and type='text/css' ensure browser recognizes CSS
-   * - href resolves path via require.resolve or current script when available
+   * - href resolves path via safeResolve() (uses require.resolve when available) or current script path
    * - appendChild(link) adds to document head for immediate effect
    * 
    * This approach enables usage like: <script src="node_modules/qorecss/index.js"></script> // corrected path to lowercase for consistency
@@ -121,11 +133,16 @@ function injectCss(){ // handles runtime stylesheet loading logic
  console.log(`injectCss is running with ${document.currentScript && document.currentScript.src}`); // logs entry and script src
  try {
   let scriptEl = document.currentScript; // uses current script element when available
-  if(!scriptEl){ scriptEl = document.querySelector('script[src$="index.js" i]'); } // detects loading via standard filename when currentScript missing
+  if(!scriptEl){ // falls back to iterating all script tags when currentScript missing
+   const scripts = Array.from(document.getElementsByTagName('script')); // gathers all script elements for manual search
+   scriptEl = scripts.find(s=>s.src && s.src.toLowerCase().endsWith('index.js')); // finds script with src ending index.js ignoring case
+  }
   if(!scriptEl){ scriptEl = document.querySelector('[data-qorecss]'); } // detects custom attribute for flexible inclusion
   const scriptSrc = scriptEl && scriptEl.src ? scriptEl.src : ''; // avoids errors when element or src missing
+
   const basePath = scriptSrc ? scriptSrc.slice(0, scriptSrc.lastIndexOf('/') + 1) : document.baseURI.slice(0, document.baseURI.lastIndexOf('/') + 1); // removes filename and keeps trailing slash when using document.baseURI
   console.log(`injectCss basePath ${basePath}`); // logs resolved base path for debugging
+
   const cssFile = `core.5c7df4d0.min.css`; // placeholder replaced during build
   const existing = Array.from(document.head.querySelectorAll('link')) // collects current link elements for reuse check
     .find(l => l.href.includes(cssFile) || l.href.includes('qore.css')); // searches for prior injection by hashed or fallback name
