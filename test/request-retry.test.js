@@ -170,3 +170,19 @@ describe('fetchRetry non integer attempts', {concurrency:false}, () => {
     );
   });
 });
+
+/*
+ * INFINITE ATTEMPT VALIDATION
+ *
+ * TESTING SCOPE:
+ * Ensures fetchRetry rejects when attempts is Infinity, preventing
+ * runaway loops and maintaining deterministic retry behavior.
+ */
+describe('fetchRetry infinite attempts', {concurrency:false}, () => {
+  it('throws when attempts is Infinity', async () => {
+    await assert.rejects(
+      async () => await fetchRetry('http://h', {}, Infinity),
+      (err) => err.message === 'attempts must be finite'
+    );
+  });
+});

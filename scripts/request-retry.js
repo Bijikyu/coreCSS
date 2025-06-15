@@ -60,6 +60,8 @@ async function fetchRetry(url,opts={},attempts=3){
 
   if(typeof attempts!=='number'||Number.isNaN(attempts)){ console.log(`fetchRetry is returning attempts must be numeric`); throw new Error('attempts must be numeric'); } // validates numeric attempt parameter
 
+  if(!Number.isFinite(attempts)){ console.log(`fetchRetry is returning attempts must be finite`); throw new Error('attempts must be finite'); } // ensures attempts not Infinity or -Infinity
+
   if(!Number.isInteger(attempts)){ console.log(`fetchRetry is returning attempts must be an integer`); throw new Error('attempts must be an integer'); } // ensures deterministic retry count
 
   if(attempts < 1){ console.log(`fetchRetry is returning attempts must be >0`); throw new Error('attempts must be >0'); } // validates positive attempt count

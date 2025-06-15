@@ -25,7 +25,6 @@ let JSDOM; // will hold jsdom constructor when available for DOM simulation
 try { ({JSDOM} = require('jsdom')); } catch { JSDOM = null; } // fallback when jsdom missing to prevent import errors
 
 let dom; // JSDOM instance for browser environment simulation
-let mod; // module reference, assigned after DOM setup to ensure browser detection
 
 /*
  * BROWSER ENVIRONMENT SETUP
@@ -37,12 +36,11 @@ let mod; // module reference, assigned after DOM setup to ensure browser detecti
  */
 beforeEach(() => {
   if(!JSDOM) return; // skips setup when jsdom unavailable to prevent test failures
-  dom = new JSDOM(`<!DOCTYPE html><html><head></head><body></body></html>`); // creates DOM for browser simulation
+  dom = new JSDOM(`<!DOCTYPE html><html><head></head><body></body></html>`, {url:'https://example.com/'}); // creates DOM with baseURI for simulation
   global.window = dom.window; // exposes window for module browser detection
   global.document = dom.window.document; // exposes document for CSS injection functionality
   process.chdir(path.resolve(__dirname, '..')); // ensures correct module paths for file resolution
-  delete require.cache[require.resolve('../index.js')]; // reloads module for clean state after DOM setup
-  mod = require('../index.js'); // imports module after DOM setup to trigger browser behavior
+  delete require.cache[require.resolve('../index.js')]; // clears cache so each test loads fresh module
 });
 
 /*
@@ -58,6 +56,7 @@ afterEach(() => {
   dom.window.close(); // closes jsdom window to free resources
   delete global.window; // removes global window to restore Node.js environment
   delete global.document; // removes global document to restore Node.js environment
+  delete require.cache[require.resolve('../index.js')]; // ensures module cleanup between tests
 });
 
 /*
@@ -94,17 +93,53 @@ describe('browser injection', {concurrency:false}, () => {
    * environments and provides automatic CSS loading for browser users.
    */
   it('injects stylesheet and serverSide undefined', () => {
+    const mod = require('../index.js'); // loads module after DOM setup
     assert.strictEqual(mod.serverSide, undefined); // verifies serverSide not set in browser environment
-    const expected = path.resolve(__dirname, '../qore.css'); // expected css path for validation
     const link = document.querySelector('link[href*="core"]') || document.querySelector('link[href*="qore"]') || document.querySelector('style'); // searches for injected CSS in multiple forms
     assert.ok(link); // confirms CSS injection occurred in simulated browser environment
   });
 
   it('avoids duplicate injection on subsequent loads', () => {
+    require('../index.js'); // first load injects stylesheet
     const countBefore = document.head.querySelectorAll('link').length; // captures link count after first load for comparison
     delete require.cache[require.resolve('../index.js')]; // clears cache to force re-execution of module
     require('../index.js'); // triggers injectCss again to test duplicate avoidance
     const countAfter = document.head.querySelectorAll('link').length; // counts links after second load to verify no extra element
     assert.strictEqual(countBefore, countAfter); // ensures link count unchanged meaning no duplicate injection
+  });
+
+  it('uses document.currentScript when present', () => {
+    const script = document.createElement('script'); // creates mock script element
+    script.src = 'https://cdn.example.com/lib/index.js'; // sets src for detection
+    document.currentScript = script; // assigns as currentScript
+    require('../index.js'); // loads module to trigger injection
+    const link = document.querySelector('link'); // retrieves injected link
+    assert.ok(link.href.startsWith('https://cdn.example.com/lib/')); // validates base path resolution
+    document.currentScript = null; // cleans up global assignment
+  });
+
+  it('detects script element by src pattern', () => {
+    const script = document.createElement('script'); // creates script element for lookup
+    script.src = 'https://cdn.example.com/assets/index.js'; // matches src$="index.js"
+    document.body.appendChild(script); // adds script to DOM for querySelector
+    require('../index.js'); // loads module to trigger injection
+    const link = document.querySelector('link'); // retrieves injected link
+    assert.ok(link.href.startsWith('https://cdn.example.com/assets/')); // verifies base path from script src
+  });
+
+  it('uses data-qorecss attribute when provided', () => {
+    const script = document.createElement('script'); // creates attribute-based script
+    script.src = 'https://cdn.example.com/data/script.js'; // src unrelated to index.js
+    script.setAttribute('data-qorecss', ''); // marks script for detection
+    document.body.appendChild(script); // injects into DOM
+    require('../index.js'); // loads module to trigger injection
+    const link = document.querySelector('link'); // retrieves injected link
+    assert.ok(link.href.startsWith('https://cdn.example.com/data/')); // ensures detection via data attribute
+  });
+
+  it('defaults to document.baseURI when script not found', () => {
+    require('../index.js'); // loads module with no identifiable script
+    const link = document.querySelector('link'); // retrieves injected link
+    assert.ok(link.href.startsWith(document.baseURI)); // verifies fallback to document.baseURI
   });
 });
