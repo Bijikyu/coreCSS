@@ -111,7 +111,7 @@ if (typeof window === 'undefined') {
    * - href resolves path via require.resolve or current script when available
    * - appendChild(link) adds to document head for immediate effect
    * 
-   * This approach enables usage like: <script src="node_modules/qoreCSS/index.js"></script>
+   * This approach enables usage like: <script src="node_modules/qorecss/index.js"></script> // corrected path to lowercase for consistency
    * with automatic CSS injection, providing an alternative to manual link tags.
    */
  injectCss(); // calls helper for dynamic stylesheet injection
