@@ -254,7 +254,7 @@ async function run(){
   console.log(`run is returning ${returnVal}`); // Logs value returned for monitoring
   return returnVal; // returns first average to caller
  } catch(err){
-  console.error(`run failed:`, err.message, {args:process.argv.slice(2)}); // Logs failure with command line context
+  qerrors(err, 'run failed', {args:process.argv.slice(2)}); // uses project logger for structured error output
   throw err; // Re-throws error to allow caller to handle appropriately
  }
 }
@@ -266,7 +266,7 @@ async function run(){
  */
 if(require.main === module){
  run().catch(err => { // Handles async failures when run directly for CLI usage
-  console.error('performance script failure:', err.message, {args:process.argv.slice(2)}); // Logs error context for debugging
+  qerrors(err, 'performance script failure', {args:process.argv.slice(2)}); // uses project logger for structured error output
   process.exitCode = 1; // Signals failure status to calling processes
  });
 }
