@@ -10,9 +10,9 @@ try {
   logger = require('qerrors'); // Use qerrors when available for structured error logging
 } catch (err) {
   function fallbackLogger(error, msg, ctx) { // provides console.error fallback when qerrors missing
-    console.log(`fallbackLogger is running with ${error},${msg}`); // entry log for debugging
-    console.error(error, msg, ctx); // basic error output
-    console.log(`fallbackLogger is returning undefined`); // exit log for debugging
+    console.log(`fallbackLogger is running with ${error},${msg},${ctx}`); // entry log includes context info
+    console.error(error, msg, ctx); // basic error output with context
+    console.log(`fallbackLogger is returning undefined with context ${ctx}`); // exit log mentions context
   }
   logger = fallbackLogger; // assign fallback implementation
 }

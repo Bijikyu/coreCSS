@@ -58,8 +58,9 @@ describe('logger falls back without qerrors', {concurrency:false}, () => {
     const logger = require('../scripts/utils/logger'); // load logger with missing qerrors
     Module.prototype.require = orig; // restore require after module load
     const spy = mock.method(console, 'error', ()=>{}); // spy on console.error calls
-    logger('boom','msg'); // invoke logger to trigger console.error
+    logger('boom','msg','ctxVal'); // invoke logger to trigger console.error with context
     assert.strictEqual(spy.mock.callCount(),1); // ensure console.error was called once
     assert.strictEqual(spy.mock.calls[0].arguments[0],'boom'); // validate error argument passed
+    assert.strictEqual(spy.mock.calls[0].arguments[2],'ctxVal'); // validate context argument passed
   });
 });
