@@ -104,7 +104,7 @@ async function updateHtml(){
   console.log(`updateHtml is returning ${hash}`); // Logs return value for debugging
   return hash; // Returns hash for programmatic usage by calling scripts
  } catch(err){
-  if(err.code === 'ENOENT' && path.basename(err.path) === 'build.hash'){ // checks for missing build.hash using basename to handle absolute paths
+  if(err.code === 'ENOENT' && err.path && path.basename(err.path) === 'build.hash'){ // verifies path exists before basename to avoid undefined errors
    qerrors(err, 'updateHtml missing hash', {args:process.argv.slice(2)}); // logs missing hash as recoverable scenario
    console.log('updateHtml is returning 1'); // communicates non-zero return for automation
    return 1; // signals missing build artifact while allowing caller to continue
