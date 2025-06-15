@@ -93,11 +93,12 @@ const qorecss = { // holds public API properties and helpers
  * ENVIRONMENT-SPECIFIC BEHAVIOR CONFIGURATION
  * 
  * DETECTION STRATEGY:
- * Uses typeof window to distinguish between Node.js (server) and browser
- * environments. This is more reliable than navigator checks and works
- * across different JavaScript runtime environments.
- */
-if (typeof window === 'undefined' && typeof module !== 'undefined' && module.exports) {
+ * Uses typeof window and navigator.userAgent to distinguish between Node.js
+ * (server) and browser environments. window.document is required for browser
+ * injection and navigator.userAgent containing 'jsdom' triggers server mode.
+ * This approach guards against JSDOM environments inadvertently injecting CSS.
+*/
+if ((typeof window === 'undefined' || (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().includes('jsdom'))) && typeof module !== 'undefined' && module.exports) {
   /*
    * SERVER-SIDE ENVIRONMENT CONFIGURATION
    * Rationale: In Node.js environments, the module provides file paths
@@ -107,7 +108,7 @@ if (typeof window === 'undefined' && typeof module !== 'undefined' && module.exp
   */
   module.exports = qorecss; // exposes API when running under Node
   module.exports.serverSide = true; // signals Node.js usage so consumers can skip browser injection
-} else if (typeof window !== 'undefined') {
+} else if (typeof window !== 'undefined' && window.document) {
   /*
    * BROWSER ENVIRONMENT AUTO-INJECTION
    * 

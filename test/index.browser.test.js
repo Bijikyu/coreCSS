@@ -153,4 +153,12 @@ describe('browser injection', {concurrency:false}, () => {
     const link = document.querySelector('link'); // retrieves injected link
     assert.ok(link.href.startsWith('https://example.com/')); // expects directory portion of baseURI
   });
+
+  it('skips injection when window exists without document', () => {
+    delete global.document; // removes document to simulate non-DOM window
+    global.window = {navigator:{userAgent:'Mozilla/5.0'}}; // minimal window object without DOM
+    delete require.cache[require.resolve('../index.js')]; // forces module reload
+    assert.doesNotThrow(() => { require('../index.js'); }); // ensures no runtime error without DOM
+    assert.strictEqual(global.qorecss, undefined); // verifies global API not exposed implying injection skipped
+  });
 });
