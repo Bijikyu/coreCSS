@@ -87,7 +87,7 @@ async function updateHtml(){
    * - Production with production CDN
    * Global replacement ensures all CDN references are consistent.
    */
-  updated = updated.replace(/\{\{CDN_BASE_URL\}\}/g, cdnUrl); // Replaces CDN placeholder with actual URL
+  updated = updated.replace(/\{\{CDN_BASE_URL\}\}/g, () => cdnUrl); // passes function so "$" chars remain literal when inserting URL
   
   /*
    * HTML FILE UPDATE
