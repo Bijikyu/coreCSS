@@ -144,16 +144,16 @@
                         <div class="row center margin15">
                             <div class="wide50 pad10">
                                 <label for="nameInput" class="textCenter margin5">Name</label> <!-- adds for attribute to link label with input for accessibility -->
-                                <input id="nameInput" type="text" placeholder="Enter your name"> <!-- adds id so label links and keeps CSS unaffected -->
+                                <input id="nameInput" type="text" placeholder="Enter your name" required> <!-- adds id so label links and keeps CSS unaffected; required for validation -->
                             </div>
                             <div class="wide50 pad10">
                                 <label for="emailInput" class="textCenter margin5">Email</label> <!-- adds for attribute to connect label to email input -->
-                                <input id="emailInput" type="email" placeholder="Enter your email"> <!-- adds id for accessibility without altering classes -->
+                                <input id="emailInput" type="email" placeholder="Enter your email" required> <!-- adds id for accessibility without altering classes; required for validation -->
                             </div>
                         </div>
                         <div class="wide100 pad10 margin15">
                             <label for="messageInput" class="textCenter margin5">Message</label> <!-- adds for attribute to match textarea id for accessibility -->
-                            <textarea id="messageInput" rows="4" placeholder="Enter your message"></textarea> <!-- adds id for linking label and preserving styles -->
+                            <textarea id="messageInput" rows="4" placeholder="Enter your message" required></textarea> <!-- adds id for linking label and preserving styles; required for validation -->
                         </div>
                         <button class="margin15">Send Message</button>
                     </div>
