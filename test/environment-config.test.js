@@ -191,13 +191,13 @@ describe('request retry environment configuration', {concurrency:false}, () => {
   it('handles SOCKET_LIMIT environment variable', async () => {
     process.env.SOCKET_LIMIT = '25'; // sets custom socket limit
     
+    const axios = require('axios'); // imports axios for mocking before module load
+    const {mock} = require('node:test'); // imports mocking utilities for axios
+
+    mock.method(axios, 'get', async () => ({status: 200})); // stubs instance get before axios.create
+
     delete require.cache[require.resolve('../scripts/request-retry')]; // clears module cache for fresh import
-    const fetchRetry = require('../scripts/request-retry'); // imports fetchRetry with custom socket limit
-    
-    const axios = require('axios'); // imports axios for mocking
-    const {mock} = require('node:test'); // imports mocking utilities
-    
-    mock.method(axios, 'get', async () => ({status: 200})); // mocks successful response
+    const fetchRetry = require('../scripts/request-retry'); // imports fetchRetry with custom socket limit after stubbing
     
     // Should use custom socket limit (validated through successful execution)
     const result = await fetchRetry('http://test'); // executes request with custom socket configuration
@@ -217,13 +217,13 @@ describe('request retry environment configuration', {concurrency:false}, () => {
   it('handles invalid SOCKET_LIMIT values', async () => {
     process.env.SOCKET_LIMIT = 'invalid'; // sets invalid socket limit
     
+    const axios = require('axios'); // imports axios for mocking before module load
+    const {mock} = require('node:test'); // imports mocking utilities for axios
+
+    mock.method(axios, 'get', async () => ({status: 200})); // stubs instance get before axios.create
+
     delete require.cache[require.resolve('../scripts/request-retry')]; // clears module cache for fresh import
-    const fetchRetry = require('../scripts/request-retry'); // imports fetchRetry with invalid socket config
-    
-    const axios = require('axios'); // imports axios for mocking
-    const {mock} = require('node:test'); // imports mocking utilities
-    
-    mock.method(axios, 'get', async () => ({status: 200})); // mocks successful response
+    const fetchRetry = require('../scripts/request-retry'); // imports fetchRetry with invalid socket config after stubbing
     
     // Should fallback to default socket limit
     const result = await fetchRetry('http://test'); // executes request with invalid config
