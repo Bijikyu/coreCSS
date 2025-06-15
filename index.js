@@ -132,7 +132,12 @@ function injectCss(){ // handles runtime stylesheet loading logic
    link.rel = 'stylesheet'; // declares relationship to browser
    link.type = 'text/css'; // MIME type for clarity across tools
    link.href = `${basePath}${cssFile}`; // resolves href using whichever file exists
-   link.onerror = () => { link.href = `${basePath}qore.css`; console.log(`injectCss fallback to ${link.href}`); }; // swaps to qore.css on load failure
+   link.onerror = () => { // triggers when hashed css fails loading
+    if(link.href === `${basePath}qore.css`) return; // prevents infinite loop when fallback also fails
+    link.onerror = null; // disables handler after first invocation to stop repeated retries
+    link.href = `${basePath}qore.css`; // switches to fallback stylesheet
+    console.log(`injectCss fallback to ${link.href}`); // logs fallback action for debugging
+   }; // swaps to qore.css on load failure once
    document.head.appendChild(link); // injects stylesheet into document
    console.log(`injectCss is returning ${cssFile}`); // logs resolved filename when hashed file loads
   } else {

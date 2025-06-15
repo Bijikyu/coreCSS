@@ -107,4 +107,16 @@ describe('browser injection', {concurrency:false}, () => {
     const countAfter = document.head.querySelectorAll('link').length; // counts links after second load to verify no extra element
     assert.strictEqual(countBefore, countAfter); // ensures link count unchanged meaning no duplicate injection
   });
+
+  it('stops error handler after one failure', () => {
+    const link = document.querySelector('link'); // retrieves injected link element
+    const handler = link.onerror; // stores error handler for manual trigger
+    handler(); // simulates hashed CSS load failure
+    assert.ok(link.href.includes('qore.css')); // verifies fallback applied
+    assert.strictEqual(link.onerror, null); // ensures handler removed
+    const hrefAfter = link.href; // records href after fallback
+    link.dispatchEvent(new dom.window.Event('error')); // simulates second failure
+    assert.strictEqual(link.href, hrefAfter); // confirms href unchanged
+    assert.strictEqual(link.onerror, null); // handler remains disabled
+  });
 });
