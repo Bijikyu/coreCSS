@@ -140,23 +140,27 @@
             <div class="margin25">
                 <h3 class="textCenter margin15">Form Elements</h3>
                 <div class="card pad15">
-                    <div class="col center">
+                    <form id="contactForm" class="col center" onsubmit="return validateForm(event)" aria-label="Contact form">
                         <div class="row center margin15">
                             <div class="wide50 pad10">
                                 <label for="nameInput" class="textCenter margin5">Name</label> <!-- adds for attribute to link label with input for accessibility -->
-                                <input id="nameInput" type="text" placeholder="Enter your name" required> <!-- adds id so label links and keeps CSS unaffected; required for validation -->
+
+                                <input id="nameInput" type="text" placeholder="Enter your name" required aria-label="Your name"> <!-- adds required attribute and aria label for accessibility without changing classes -->
                             </div>
                             <div class="wide50 pad10">
                                 <label for="emailInput" class="textCenter margin5">Email</label> <!-- adds for attribute to connect label to email input -->
-                                <input id="emailInput" type="email" placeholder="Enter your email" required> <!-- adds id for accessibility without altering classes; required for validation -->
+                                <input id="emailInput" type="email" placeholder="Enter your email" required aria-label="Your email"> <!-- adds required attribute and aria label without altering classes -->
+
                             </div>
                         </div>
                         <div class="wide100 pad10 margin15">
                             <label for="messageInput" class="textCenter margin5">Message</label> <!-- adds for attribute to match textarea id for accessibility -->
-                            <textarea id="messageInput" rows="4" placeholder="Enter your message" required></textarea> <!-- adds id for linking label and preserving styles; required for validation -->
+
+                            <textarea id="messageInput" rows="4" placeholder="Enter your message" required aria-label="Your message"></textarea> <!-- adds required attribute and aria label while keeping styling -->
+
                         </div>
                         <button class="margin15">Send Message</button>
-                    </div>
+                    </form>
                 </div>
             </div>
 
@@ -391,5 +395,8 @@
             </div>
         </div>
     </footer>
+    <script>
+        function validateForm(event){ console.log(`validateForm is running with ${event.type}`); try { const nameField=document.getElementById('nameInput'); const emailField=document.getElementById('emailInput'); const msgField=document.getElementById('messageInput'); const allFilled=nameField.value.trim() && emailField.value.trim() && msgField.value.trim(); if(allFilled){ console.log(`validateForm is returning true`); return true; } alert('Please complete all fields.'); console.log(`validateForm is returning false`); return false; } catch(err){ console.error('validateForm failed:', err.message); return false; } } // provides minimal client-side validation without altering styling
+    </script>
 </body>
 </html>
