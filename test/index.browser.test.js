@@ -120,8 +120,8 @@ describe('browser injection', {concurrency:false}, () => {
 
   it('detects script element by src pattern', () => {
     const script = document.createElement('script'); // creates script element for lookup
-    script.src = 'https://cdn.example.com/assets/index.js'; // matches src$="index.js"
-    document.body.appendChild(script); // adds script to DOM for querySelector
+    script.src = 'https://cdn.example.com/assets/INDEX.JS'; // uses upper case to test case-insensitive detection
+    document.body.appendChild(script); // adds script to DOM for lookup iteration
     require('../index.js'); // loads module to trigger injection
     const link = document.querySelector('link'); // retrieves injected link
     assert.ok(link.href.startsWith('https://cdn.example.com/assets/')); // verifies base path from script src
@@ -141,5 +141,16 @@ describe('browser injection', {concurrency:false}, () => {
     require('../index.js'); // loads module with no identifiable script
     const link = document.querySelector('link'); // retrieves injected link
     assert.ok(link.href.startsWith(document.baseURI)); // verifies fallback to document.baseURI
+  });
+
+  it('derives base path from document.baseURI directory', () => {
+    dom.window.close(); // closes initial DOM before custom setup
+    dom = new JSDOM(`<!DOCTYPE html><html><head></head><body></body></html>`, {url:'https://example.com/page.html'}); // new DOM with page path for baseURI check
+    global.window = dom.window; // exposes new window to module
+    global.document = dom.window.document; // exposes new document to module
+    delete require.cache[require.resolve('../index.js')]; // ensures fresh module load
+    require('../index.js'); // triggers injection without script tag
+    const link = document.querySelector('link'); // retrieves injected link
+    assert.ok(link.href.startsWith('https://example.com/')); // expects directory portion of baseURI
   });
 });
