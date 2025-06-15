@@ -124,7 +124,8 @@ function injectCss(){ // handles runtime stylesheet loading logic
   if(!scriptEl){ scriptEl = document.querySelector('script[src$="index.js" i]'); } // detects loading via standard filename when currentScript missing
   if(!scriptEl){ scriptEl = document.querySelector('[data-qorecss]'); } // detects custom attribute for flexible inclusion
   const scriptSrc = scriptEl && scriptEl.src ? scriptEl.src : ''; // avoids errors when element or src missing
-  const basePath = scriptSrc ? scriptSrc.slice(0, scriptSrc.lastIndexOf('/') + 1) : document.baseURI; // defaults to document.baseURI when no script found
+  const basePath = scriptSrc ? scriptSrc.slice(0, scriptSrc.lastIndexOf('/') + 1) : document.baseURI.slice(0, document.baseURI.lastIndexOf('/') + 1); // removes filename and keeps trailing slash when using document.baseURI
+  console.log(`injectCss basePath ${basePath}`); // logs resolved base path for debugging
   const cssFile = `core.5c7df4d0.min.css`; // placeholder replaced during build
   const existing = Array.from(document.head.querySelectorAll('link')) // collects current link elements for reuse check
     .find(l => l.href.includes(cssFile) || l.href.includes('qore.css')); // searches for prior injection by hashed or fallback name
