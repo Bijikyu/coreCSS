@@ -93,6 +93,16 @@ Module.prototype.require = function(id){
 
   return orig.call(this,id); // Preserves normal require behavior for other modules
 };
+/*
+ * REQUIRE RESTORATION RATIONALE:
+ * Tests modify Module.prototype.require to return stubs, so the hook must
+ * be undone once testing completes to avoid polluting subsequent modules.
+ */
+
+if(!global.__restoreRequireHooked){ // ensures cleanup hook added only once
+  process.once('exit', ()=>{ Module.prototype.require = orig; }); // restores original require to prevent stub leakage between test runs
+  global.__restoreRequireHooked = true; // flag prevents duplicate hooks across test files
+}
 
 /*
  * FILE PATH RESOLUTION OVERRIDE
