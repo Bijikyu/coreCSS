@@ -39,7 +39,7 @@ Configure performance testing behavior through environment variables:
 
 ```bash
 # CDN Configuration
-export CDN_BASE_URL=https://cdn.jsdelivr.net    # Primary CDN endpoint
+export CDN_BASE_URL=https://cdn.jsdelivr.net    # Primary CDN endpoint (trailing slash removed automatically; defaults to jsDelivr when empty)
 export MAX_CONCURRENCY=50                        # Maximum concurrent requests (1-1000)  
 export SOCKET_LIMIT=100                          # HTTP connection pool size (1-1000)
 
