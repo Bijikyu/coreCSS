@@ -18,6 +18,7 @@ A comprehensive, modern CSS framework engineered for rapid web development with 
 - **Customizable variables** - Easy theming through CSS custom properties
 - **Icon support** - Color-adjustable icon system with filters
 - **Glass morphism** - Modern `.obscure` class with backdrop blur effects
+- **Accessible form demo** - Example contact form with required fields and client-side validation
 
 ### Advanced Development Features
 - **Performance optimization** - Automated CSS minification, compression (gzip/brotli), and CDN integration
