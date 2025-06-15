@@ -153,7 +153,7 @@ async function build(){
   console.log(`build is returning ${hash}`); // Logs return value for debugging
   return hash; // Returns hash for programmatic usage
  } catch(err){
-  console.error('build failed:', err.message, {args:process.argv.slice(2)}); // Logs error with full context for debugging
+  qerrors(err, 'build failed', {args:process.argv.slice(2)}); // uses project logger for structured error output
   throw err; // Re-throws to allow caller to handle or terminate process
  }
 }
@@ -165,7 +165,7 @@ async function build(){
  */
 if(require.main === module){
  build().catch(err => { // Handles async failures when run directly
-  console.error('build script failure:', err.message, {args:process.argv.slice(2)}); // Logs error context for debugging
+  qerrors(err, 'build script failure', {args:process.argv.slice(2)}); // uses project logger for structured error output
   process.exitCode = 1; // Sets non-zero exit code to signal failure to calling processes
  });
 }
