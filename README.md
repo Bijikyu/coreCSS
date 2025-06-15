@@ -108,12 +108,19 @@ npm install
 # Build minified version with hash-based cache busting
 npm run build
 
+# Update index.html to reference hashed CSS generated above
+node scripts/updateHtml.js
+
 # Run comprehensive test suite
 npm test
 
 # Lint CSS with modern standards
 npm run lint
 ```
+
+Running `node scripts/updateHtml.js` after building rewrites `index.html` so
+the page loads the newly hashed CSS file. This step keeps the demo synchronized
+with the build output.
 
 ### Build System
 The build system provides advanced features for production deployment:
