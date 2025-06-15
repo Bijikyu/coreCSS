@@ -1,13 +1,11 @@
 # Self-hosting qoreCSS
 
-When serving `qoreCSS` from your own infrastructure you should mirror the cache and compression settings used on the CDN. Lines 1‑13 of [`deployment/nginx.conf`](../deployment/nginx.conf) show an Nginx snippet configuring gzip and Brotli along with long cache headers:
+When serving `qoreCSS` from your own infrastructure you should mirror the cache and compression settings used on the CDN. Lines 1‑13 of [`deployment/nginx.conf`](../deployment/nginx.conf) show an Nginx snippet configuring `gzip_static on;` and `brotli_static on;` along with long cache headers:
 
 ```nginx
 location ~* \.(?:css|png|jpe?g|svg|gif)$ {
-    gzip on;
     gzip_static on;
     gzip_types text/css image/svg+xml image/png image/jpeg image/gif;
-    brotli on;
     brotli_static on;
     brotli_types text/css image/svg+xml image/png image/jpeg image/gif;
     add_header Cache-Control "public, max-age=31536000, immutable";
@@ -25,7 +23,7 @@ location ~* \.html$ {
 ```
 <!-- //short cache header snippet for html pages -->
 
-These directives ensure assets are compressed when possible and cached by browsers for up to one year without revalidation thanks to the `immutable` directive. The `ETag` and `Last-Modified` headers allow conditional requests so clients avoid re-downloading unchanged files. Using `last_modified on;` tells Nginx to emit the actual file modification time so browsers can send `If-Modified-Since` and receive `304 Not Modified` when appropriate.
+These directives ensure precompressed `.gz` and `.br` files are served when present and cached by browsers for up to one year without revalidation thanks to the `immutable` directive. The `ETag` and `Last-Modified` headers allow conditional requests so clients avoid re-downloading unchanged files. Using `last_modified on;` tells Nginx to emit the actual file modification time so browsers can send `If-Modified-Since` and receive `304 Not Modified` when appropriate.
 
 ## Hashed file names
 
