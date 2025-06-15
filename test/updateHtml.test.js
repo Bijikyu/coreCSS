@@ -149,3 +149,18 @@ describe('updateHtml exit code', {concurrency:false}, () => {
   });
 });
 
+// Regression test ensures catch block safely handles errors without path property
+describe('updateHtml regression', {concurrency:false}, () => {
+  it('handles ENOENT error lacking path', async () => {
+    fs.rmSync(path.join(tmpDir, 'build.hash')); // removes hash to trigger ENOENT
+    const fsPromises = fs.promises; // alias for patching access function
+    const origAccess = fsPromises.access; // preserve original implementation for restoration
+    fsPromises.access = async () => { const e = new Error('missing'); e.code = 'ENOENT'; throw e; }; // stub access to throw without path
+    await assert.rejects(
+      async () => await updateHtml(), // run update expecting rejection from stubbed access
+      err => err.code === 'ENOENT' // confirm error propagated without TypeError
+    );
+    fsPromises.access = origAccess; // restore original fs access to avoid cross-test effects
+  });
+});
+
