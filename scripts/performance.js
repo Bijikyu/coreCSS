@@ -248,7 +248,15 @@ async function run(){
    */
   if(jsonFlag){
    const file = `performance-results.json`;
-   const history = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : []; // Loads existing history or creates new array
+   let history = [];
+   if(fs.existsSync(file)){ // only attempt to read when file present
+    try {
+     history = JSON.parse(fs.readFileSync(file, 'utf8')); // parses existing history when valid
+    } catch(err){
+     qerrors(err, 'history parse failed', {file}); // logs parse failure with context
+     history = []; // falls back to empty array on parse error
+    }
+   }
    const entry = {timestamp: new Date().toISOString(), results}; // Creates timestamped entry
    history.push(entry); // Appends to historical data
    if(history.length > HISTORY_MAX){ history.splice(0, history.length - HISTORY_MAX); } //(trim old results before write)

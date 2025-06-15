@@ -89,6 +89,27 @@ describe('run without build.hash', {concurrency:false}, () => {
   });
 });
 
+describe('run with invalid history', {concurrency:false}, () => {
+  let tmpDir;
+  beforeEach(() => {
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'perf-')); //(temporary directory for file operations)
+    fs.writeFileSync(path.join(tmpDir,'performance-results.json'), '{bad'); //(create malformed history)
+    fs.writeFileSync(path.join(tmpDir, 'build.hash'), 'abcdef'); //(mock hash file required by run)
+    process.chdir(tmpDir); //(switch cwd for script)
+    process.argv = ['node','scripts/performance.js','1','--json']; //(enable json output)
+  });
+  afterEach(() => {
+    fs.rmSync(tmpDir, {recursive:true, force:true}); //(cleanup temp directory)
+    process.argv = ['node','']; //(reset argv)
+  });
+  it('handles parse errors gracefully', async () => {
+    const result = await performance.run(); //(execute run with malformed history)
+    assert.strictEqual(typeof result,'number'); //(script should still return number)
+    const file = JSON.parse(fs.readFileSync(path.join(tmpDir,'performance-results.json'),'utf8')); //(history rewritten)
+    assert.strictEqual(file.length,1); //(should create new array with single entry)
+  });
+});
+
 describe('measureUrl invalid count', {concurrency:false}, () => {
   it('rejects non-positive count', async () => {
     await assert.rejects(
