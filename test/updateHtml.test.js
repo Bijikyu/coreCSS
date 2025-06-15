@@ -96,6 +96,22 @@ describe('updateHtml', () => {
     assert.ok(updated.includes('core.12345678.min.css')); // verify qore.css was replaced with hashed filename
     assert.strictEqual(hash, '12345678'); // ensure returned hash unchanged from build.hash file
   });
+
+  /*
+   * MIXED CSS REFERENCES VALIDATION
+   *
+   * TEST STRATEGY:
+   * Validates that a file containing both qore.css and an outdated hashed file
+   * is fully updated to the current hash in one replacement pass.
+   */
+  it('handles file with qore.css and old hashed reference', async () => {
+    fs.writeFileSync(path.join(tmpDir, 'index.html'), '<link href="qore.css">\n<link href="core.deadbeef.min.css">'); // html with mixed css references
+    const hash = await updateHtml(); // execute update on mixed html
+    const updated = fs.readFileSync(path.join(tmpDir, 'index.html'), 'utf8'); // read result for validation
+    const count = (updated.match(/core\.12345678\.min\.css/g) || []).length; // count occurrences of updated hash
+    assert.strictEqual(count, 2); // both references should be replaced
+    assert.strictEqual(hash, '12345678'); // returned hash remains correct
+  });
 });
 
 // CLI exit code tests ensure process.exitCode reflects missing build artifacts
