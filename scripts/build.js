@@ -62,7 +62,8 @@ async function build(){
   if(parseEnvBool('CODEX')){ // checks offline mode using shared parser for consistency
    await fsp.copyFile('qore.css','core.min.css'); // Skips postcss when offline
   } else {
-   const binPath = path.join('node_modules','.bin','postcss'); // resolves local postcss binary path
+   const binName = process.platform === 'win32' ? 'postcss.cmd' : 'postcss'; // windows needs .cmd for npm binaries
+   const binPath = path.join('node_modules','.bin',binName); // resolves correct postcss binary path cross-platform
    if(fs.existsSync(binPath)){ // verifies binary existence to avoid runtime failure
     await execFileAsync(binPath, ['qore.css','-o','core.min.css']); // Executes local postcss when binary found
    } else {
