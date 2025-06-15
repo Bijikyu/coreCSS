@@ -121,10 +121,10 @@ async function updateHtml(){
  * while remaining importable as a module. Proper error handling ensures
  * calling processes receive appropriate exit codes.
  */
-if(require.main === module){ 
- updateHtml().catch(err => { // Handles async function failures when run directly
+if(require.main === module){
+ updateHtml().then(code => { if(code === 1) process.exitCode = 1; }).catch(err => { // Checks return code then handles failures when executed directly
   qerrors(err, 'updateHtml script failure', {args:process.argv.slice(2)}); // Logs failure context for debugging
-  process.exitCode = 1; // Sets failure exit code for calling processes (CI/CD systems)
+  process.exitCode = 1; // Ensures non-zero exit for CLI automation when errors occur
  });
 }
 

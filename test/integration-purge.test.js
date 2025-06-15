@@ -89,3 +89,23 @@ describe('build update purge', {concurrency:false}, () => {
     assert.strictEqual(code, 200); // verify purge returned success code in offline mode
   });
 });
+
+// CLI exit code validation ensures purge script signals missing artifacts properly
+const {spawnSync} = require('node:child_process'); // spawn used to execute script directly
+
+describe('purge-cdn exit code', {concurrency:false}, () => {
+  let dir; // temporary working directory for isolated execution
+  beforeEach(() => {
+    dir = fs.mkdtempSync(path.join(os.tmpdir(), 'purgeexit-')); // create temp directory for CLI test
+  });
+  afterEach(() => {
+    fs.rmSync(dir, {recursive:true, force:true}); // remove temp directory after test
+  });
+
+  it('returns exit code 1 when build.hash missing via CLI', () => {
+    const script = path.resolve(__dirname,'../scripts/purge-cdn.js'); // resolve script path for child process
+    const result = spawnSync(process.execPath, [script], {cwd: dir, env:{...process.env, CODEX:'True'}}); // run in offline mode without hash file
+    assert.strictEqual(result.status, 1); // process should exit with code 1 due to missing build.hash
+  });
+});
+
