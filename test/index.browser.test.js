@@ -120,8 +120,8 @@ describe('browser injection', {concurrency:false}, () => {
 
   it('detects script element by src pattern', () => {
     const script = document.createElement('script'); // creates script element for lookup
-    script.src = 'https://cdn.example.com/assets/index.js'; // matches src$="index.js"
-    document.body.appendChild(script); // adds script to DOM for querySelector
+    script.src = 'https://cdn.example.com/assets/INDEX.JS'; // uses upper case to test case-insensitive detection
+    document.body.appendChild(script); // adds script to DOM for lookup iteration
     require('../index.js'); // loads module to trigger injection
     const link = document.querySelector('link'); // retrieves injected link
     assert.ok(link.href.startsWith('https://cdn.example.com/assets/')); // verifies base path from script src
