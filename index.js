@@ -120,7 +120,9 @@ if (typeof window === 'undefined') {
 function injectCss(){ // handles runtime stylesheet loading logic
  console.log(`injectCss is running with ${document.currentScript && document.currentScript.src}`); // logs entry and script src
  try {
-  const scriptSrc = document.currentScript && document.currentScript.src ? document.currentScript.src : 'index.js'; // resolves running script path
+  let scriptEl = document.currentScript || document.querySelector('script[src*="qoreCSS" i]') || document.querySelector('script[src*="qorecss" i]'); // finds script when currentScript null for bundler compatibility
+  if(!scriptEl){ const list = document.getElementsByTagName('script'); scriptEl = list[list.length-1]; } // falls back to last script element when others fail
+  const scriptSrc = scriptEl && scriptEl.src ? scriptEl.src : 'index.js'; // resolves running script path using detected element
   const basePath = scriptSrc.slice(0, scriptSrc.lastIndexOf('/') + 1); // extracts directory path portion
   const cssFile = `core.5c7df4d0.min.css`; // placeholder replaced during build
   const existing = Array.from(document.head.querySelectorAll('link')) // collects current link elements for reuse check
