@@ -97,3 +97,31 @@ describe('measureUrl invalid count', {concurrency:false}, () => {
     );
   });
 });
+
+describe('CDN_BASE_URL trailing slashes', {concurrency:false}, () => {
+  let tmpDir;
+  beforeEach(() => {
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'perf-')); //(temporary directory for file operations)
+    process.chdir(tmpDir); //(switch cwd for script)
+    fs.writeFileSync(path.join(tmpDir, 'build.hash'), 'abcdef'); //(mock hash file required by run)
+    process.env.CDN_BASE_URL = 'http://testcdn///'; //(set trailing slashes for test)
+    process.argv = ['node','scripts/performance.js','1']; //(setup argv for run function)
+    delete require.cache[require.resolve('../scripts/performance')]; //(reload module to apply env)
+    performance = require('../scripts/performance'); //(import performance after env setup)
+  });
+  afterEach(() => {
+    fs.rmSync(tmpDir, {recursive:true, force:true}); //(remove temp directory)
+    process.argv = ['node','']; //(reset argv)
+    delete process.env.CDN_BASE_URL; //(cleanup env var)
+  });
+  it('trims trailing slashes from CDN base', async () => {
+    const {mock} = require('node:test');
+    const spy = mock.method(console, 'log', ()=>{}); //(capture log output)
+    await performance.run(); //(execute run to produce URLs)
+    const call = spy.mock.calls.find(c => String(c.arguments[0]).startsWith('Average for')); //(find first average line)
+    const match = String(call.arguments[0]).match(/Average for (.+):/); //(regex extracts url before colon after path)
+    const url = match ? match[1] : '';//(isolate url string from log)
+    const base = url.split('/gh/')[0]; //(extract base domain before repo path)
+    assert.strictEqual(base, 'http://testcdn'); //(expect trailing slashes removed)
+  });
+});
