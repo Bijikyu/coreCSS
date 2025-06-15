@@ -121,7 +121,10 @@ function injectCss(){ // handles runtime stylesheet loading logic
  console.log(`injectCss is running with ${document.currentScript && document.currentScript.src}`); // logs entry and script src
  try {
   let scriptEl = document.currentScript; // uses current script element when available
-  if(!scriptEl){ scriptEl = document.querySelector('script[src$="index.js" i]'); } // detects loading via standard filename when currentScript missing
+  if(!scriptEl){ // falls back to iterating all script tags when currentScript missing
+   const scripts = Array.from(document.getElementsByTagName('script')); // gathers all script elements for manual search
+   scriptEl = scripts.find(s=>s.src && s.src.toLowerCase().endsWith('index.js')); // finds script with src ending index.js ignoring case
+  }
   if(!scriptEl){ scriptEl = document.querySelector('[data-qorecss]'); } // detects custom attribute for flexible inclusion
   const scriptSrc = scriptEl && scriptEl.src ? scriptEl.src : ''; // avoids errors when element or src missing
   const basePath = scriptSrc ? scriptSrc.slice(0, scriptSrc.lastIndexOf('/') + 1) : document.baseURI; // defaults to document.baseURI when no script found
