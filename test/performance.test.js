@@ -88,3 +88,12 @@ describe('run without build.hash', {concurrency:false}, () => {
     assert.strictEqual(typeof result, 'number'); //(validate numeric return)
   });
 });
+
+describe('measureUrl invalid count', {concurrency:false}, () => {
+  it('rejects non-positive count', async () => {
+    await assert.rejects(
+      async () => await performance.measureUrl('http://a', 0), // invalid count should throw
+      err => err.message === 'count must be positive integer' // validates error message
+    );
+  });
+});

@@ -90,9 +90,14 @@ async function getTime(url){
  * This approach simulates realistic user load while being respectful
  * to CDN infrastructure and providing reliable measurements.
  */
-async function measureUrl(url, count){ 
+async function measureUrl(url, count){
  console.log(`measureUrl is running with ${url},${count}`); // Logs test parameters for monitoring
  try {
+  if(!Number.isInteger(count) || count <= 0){ // validates request count as positive integer
+   const err = new Error('count must be positive integer'); // explicit error when count invalid
+   qerrors(err, 'measureUrl invalid count', {url,count}); // structured error logging for invalid parameter
+   throw err; // stops execution when validation fails
+  }
   /*
    * MANUAL CONCURRENCY CONTROL
    * Rationale: Processes requests in batches of QUEUE_LIMIT size
