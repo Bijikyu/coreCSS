@@ -114,3 +114,30 @@ describe('build without postcss binary', {concurrency:false}, () => {
     assert.ok(indexContent.includes(`core.${hash}.min.css`)); // verify hash injection
   });
 });
+
+/*
+ * WINDOWS BINARY PATH VALIDATION
+ *
+ * TESTING SCENARIO:
+ * Ensures the build script resolves the correct PostCSS binary name on Windows
+ * by checking the path passed to fs.existsSync when process.platform is win32.
+ */
+describe('build windows binary path', {concurrency:false}, () => {
+  it('uses postcss.cmd on win32', async () => {
+    const prevCodex = process.env.CODEX; // preserve incoming environment value
+    process.env.CODEX = 'False'; // forces production mode for binary check
+    const origPlat = Object.getOwnPropertyDescriptor(process,'platform'); // capture original platform descriptor
+    Object.defineProperty(process,'platform',{value:'win32'}); // overrides platform to simulate windows
+    const origExists = fs.existsSync; // preserve original existsSync
+    let lookedPath; // captures binary path checked
+    const expected = path.join('node_modules','.bin','postcss.cmd'); // expected path for windows binary
+    fs.existsSync = p => { if(p.includes('postcss')){ lookedPath = p; return false; } return origExists(p); }; // intercepts binary check and avoids execution
+    const hash = await build(); // run build with windows platform simulation
+    fs.existsSync = origExists; // restore existsSync after build
+    Object.defineProperty(process,'platform',origPlat); // restore original platform
+    if(prevCodex !== undefined){ process.env.CODEX = prevCodex; } else { delete process.env.CODEX; } // restore CODEX to prior state
+    assert.strictEqual(lookedPath, expected); // verifies correct binary path used on windows
+    const minPath = path.join(tmpDir, `core.${hash}.min.css`); // expected hashed CSS path
+    assert.ok(fs.existsSync(minPath)); // hashed file should exist when build succeeds
+  });
+});
