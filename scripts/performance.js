@@ -27,7 +27,7 @@ const qerrors = require('./utils/logger'); // Centralized error logging with con
 const fs = require('fs'); // File system operations for reading/writing test results
 // Manual concurrency control implementation to replace p-limit per REPLITAGENT.md constraints
 const {parseEnvInt, parseEnvString, parseEnvBool} = require('./utils/env-config'); // adds boolean parser for CODEX detection
-let CDN_BASE_URL = parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net').replace(/\/$/, ''); // remove trailing slash for consistency
+let CDN_BASE_URL = parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net').replace(/\/+$/, ''); // remove trailing slashes for consistency
 if(CDN_BASE_URL.trim() === ''){ CDN_BASE_URL = 'https://cdn.jsdelivr.net'; } // fallback to jsDelivr when empty
 const MAX_CONCURRENCY = parseEnvInt('MAX_CONCURRENCY', 50, 1, 1000); // validates range 1-1000 with default 50
 const QUEUE_LIMIT = parseEnvInt('QUEUE_LIMIT', 5, 1, 100); // validates range 1-100 with default 5
