@@ -82,6 +82,21 @@ describe('updateHtml', () => {
   });
 
   /*
+   * EMPTY CDN URL VALIDATION
+   *
+   * TEST STRATEGY:
+   * Ensures that when CDN_BASE_URL is set to an empty string the default
+   * jsDelivr URL is inserted into HTML.
+   */
+  it('uses default CDN url when env value empty', async () => {
+    process.env.CDN_BASE_URL = ''; // intentionally blank to test default fallback
+    const hash = await updateHtml(); // execute update with blank CDN URL
+    const updated = fs.readFileSync(path.join(tmpDir, 'index.html'), 'utf8'); // read updated HTML for verification
+    assert.ok(updated.includes('https://cdn.jsdelivr.net')); // default should replace blank value
+    assert.strictEqual(hash, '12345678'); // returned hash should remain correct
+  });
+
+  /*
    * FALLBACK CSS REPLACEMENT VALIDATION
    * 
    * TEST STRATEGY:
