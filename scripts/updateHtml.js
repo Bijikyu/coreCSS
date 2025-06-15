@@ -23,7 +23,7 @@
 const fs = require('fs').promises; // File system operations using promises for consistent async patterns
 const path = require('path'); // path module for absolute path resolution during concurrent updates
 const qerrors = require('./utils/logger'); // Centralized error logging with contextual information
-const {parseEnvString} = require('./utils/env-config'); // standardizes CDN URL retrieval with fallback
+const {parseEnvString, trimTrailingSlashes} = require('./utils/env-config'); // standardizes CDN URL retrieval with fallback and trimming utility
 
 /*
  * HTML UPDATE FUNCTION
@@ -72,7 +72,7 @@ async function updateHtml(){
    * for different deployment environments (development, staging, production).
    * jsDelivr chosen as default for its reliability and global CDN presence.
    */
-  let cdnUrl = parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net').replace(/\/+$/, ''); // trims trailing slash characters for consistent urls
+  let cdnUrl = trimTrailingSlashes(parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net')); // trims trailing slash characters for consistent urls
   if(cdnUrl.trim() === ''){ cdnUrl = 'https://cdn.jsdelivr.net'; } // ensures empty string falls back to default CDN
   
   /*
