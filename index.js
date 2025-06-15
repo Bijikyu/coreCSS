@@ -144,8 +144,9 @@ function injectCss(){ // handles runtime stylesheet loading logic
   console.log(`injectCss basePath ${basePath}`); // logs resolved base path for debugging
 
   const cssFile = `core.5c7df4d0.min.css`; // placeholder replaced during build
-  const existing = Array.from(document.head.querySelectorAll('link')) // collects current link elements for reuse check
-    .find(l => l.href.includes(cssFile) || l.href.includes('qore.css')); // searches for prior injection by hashed or fallback name
+  const links = Array.from(document.head.querySelectorAll('link')); // grabs all current link elements to manage updates
+  links.forEach(l => { const file = (l.getAttribute('href') || '').split('/').pop(); if(file.startsWith('core.') && !file.includes(cssFile)){ l.remove(); console.log(`injectCss removed outdated ${l.href}`); } }); // removes old hashed links that don't match the new hash
+  const existing = links.find(l => l.href.includes(cssFile) || l.href.includes('qore.css')); // searches for prior injection by hashed or fallback name after cleanup
   if(!existing){ // avoids duplicate injection when link already present
    const link = document.createElement('link'); // creates stylesheet link element
    link.rel = 'stylesheet'; // declares relationship to browser
