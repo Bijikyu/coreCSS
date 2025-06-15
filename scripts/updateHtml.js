@@ -21,6 +21,7 @@
  */
 
 const fs = require('fs').promises; // File system operations using promises for consistent async patterns
+const path = require('path'); // path module for absolute path resolution during concurrent updates
 const qerrors = require('./utils/logger'); // Centralized error logging with contextual information
 const {parseEnvString} = require('./utils/env-config'); // standardizes CDN URL retrieval with fallback
 
@@ -38,9 +39,10 @@ const {parseEnvString} = require('./utils/env-config'); // standardizes CDN URL 
  * Comprehensive try/catch with detailed logging enables debugging of file system
  * issues, missing dependencies, or regex replacement failures.
  */
-async function updateHtml(){ 
+async function updateHtml(){
  console.log(`updateHtml is running with ${process.argv.length}`); // Logs function entry for debugging and monitoring
  try {
+  const cwd = process.cwd(); // captures working directory at invocation for concurrency safety
 
   /*
    * HASH RETRIEVAL
@@ -49,8 +51,9 @@ async function updateHtml(){
    * and HTML updates to happen later in the deployment pipeline.
    * trim() removes any whitespace that might interfere with filename generation.
    */
-  await fs.access('build.hash'); // ensures hash file exists before reading for graceful error handling
-  const hash = (await fs.readFile('build.hash','utf8')).trim(); // Reads current build hash for filename replacement
+  const hashPath = path.join(cwd, 'build.hash'); // computes absolute path using captured cwd
+  await fs.access(hashPath); // ensures hash file exists before reading for graceful error handling
+  const hash = (await fs.readFile(hashPath,'utf8')).trim(); // Reads current build hash for filename replacement
   
   /*
    * HTML CONTENT LOADING
@@ -59,8 +62,9 @@ async function updateHtml(){
    * that would be complex with streaming approaches.
    * Verification prevents processing non-existent files.
    */
-  await fs.access('index.html'); // Verifies HTML file exists before processing
-  const html = await fs.readFile('index.html','utf8'); // Loads HTML content into memory for editing
+  const htmlPath = path.join(cwd, 'index.html'); // resolves html path from captured cwd
+  await fs.access(htmlPath); // Verifies HTML file exists before processing
+  const html = await fs.readFile(htmlPath,'utf8'); // Loads HTML content into memory for editing
   
   /*
    * CDN URL CONFIGURATION
@@ -94,13 +98,13 @@ async function updateHtml(){
    * Rationale: Writing back to the same file updates references in place.
    * This maintains file permissions and any other metadata while updating content.
    */
-  await fs.writeFile('index.html', updated); // Persists updated HTML to disk
+  await fs.writeFile(htmlPath, updated); // Persists updated HTML to disk
 
   console.log(`updateHtml has run resulting in core.${hash}.min.css`); // Logs successful completion with resulting filename
   console.log(`updateHtml is returning ${hash}`); // Logs return value for debugging
   return hash; // Returns hash for programmatic usage by calling scripts
  } catch(err){
-  if(err.code === 'ENOENT' && err.path === 'build.hash'){ // checks for missing build.hash specifically to maintain backwards compatible exit code
+  if(err.code === 'ENOENT' && path.basename(err.path) === 'build.hash'){ // checks for missing build.hash using basename to handle absolute paths
    qerrors(err, 'updateHtml missing hash', {args:process.argv.slice(2)}); // logs missing hash as recoverable scenario
    console.log('updateHtml is returning 1'); // communicates non-zero return for automation
    return 1; // signals missing build artifact while allowing caller to continue

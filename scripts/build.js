@@ -56,12 +56,19 @@ async function build(){
    * Rationale: PostCSS with autoprefixer ensures CSS works across all supported browsers.
    * The qore.css input is processed and output as core.min.css with optimizations applied.
    * Using execFile instead of exec prevents shell injection attacks.
+   * Build verifies the PostCSS binary exists and falls back to a direct copy
+   * when missing. This ensures successful builds even in minimal environments.
    */
   if(parseEnvBool('CODEX')){ // checks offline mode using shared parser for consistency
    await fsp.copyFile('qore.css','core.min.css'); // Skips postcss when offline
   } else {
-   const binPath = path.join('node_modules','.bin','postcss'); // resolves local postcss binary path for offline usage
-   await execFileAsync(binPath, ['qore.css','-o','core.min.css']); // Executes local postcss to avoid network calls
+   const binPath = path.join('node_modules','.bin','postcss'); // resolves local postcss binary path
+   if(fs.existsSync(binPath)){ // verifies binary existence to avoid runtime failure
+    await execFileAsync(binPath, ['qore.css','-o','core.min.css']); // Executes local postcss when binary found
+   } else {
+    console.warn('postcss binary missing, copying qore.css'); // warns about fallback behavior when dependency absent
+    await fsp.copyFile('qore.css','core.min.css'); // Fallback mimics CODEX mode for reliability
+   }
   }
   
   /*
