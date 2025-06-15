@@ -68,7 +68,7 @@ async function updateHtml(){
    * for different deployment environments (development, staging, production).
    * jsDelivr chosen as default for its reliability and global CDN presence.
    */
-  let cdnUrl = parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net').replace(/\/$/, ''); // retrieves CDN url with trailing slash removed
+  let cdnUrl = parseEnvString('CDN_BASE_URL', 'https://cdn.jsdelivr.net').replace(/\/+$/, ''); // trims trailing slash characters for consistent urls
   if(cdnUrl.trim() === ''){ cdnUrl = 'https://cdn.jsdelivr.net'; } // ensures empty string falls back to default CDN
   
   /*
