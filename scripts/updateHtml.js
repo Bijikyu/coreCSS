@@ -98,7 +98,7 @@ async function updateHtml(){
    * Rationale: Writing back to the same file updates references in place.
    * This maintains file permissions and any other metadata while updating content.
    */
-  await fs.writeFile(htmlPath, updated); // Persists updated HTML to disk
+  await fs.writeFile(htmlPath, updated, 'utf8'); // Persists updated HTML using explicit UTF-8 encoding for cross-platform consistency
 
   console.log(`updateHtml has run resulting in core.${hash}.min.css`); // Logs successful completion with resulting filename
   console.log(`updateHtml is returning ${hash}`); // Logs return value for debugging

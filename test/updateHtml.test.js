@@ -136,6 +136,16 @@ describe('updateHtml', () => {
     assert.strictEqual(count, 2); // both references should be replaced
     assert.strictEqual(hash, '12345678'); // returned hash remains correct
   });
+
+  it('writes file using utf8 encoding', async () => {
+    let encOpt; // stores provided encoding option for assertion
+    const origWrite = fs.promises.writeFile; // save original function for later restoration
+    fs.promises.writeFile = async function(p, d, o){ encOpt = o; return origWrite.call(this, p, d, o); }; // intercepts call to capture encoding while executing original logic
+    const hash = await updateHtml(); // run update to invoke writeFile
+    fs.promises.writeFile = origWrite; // restore original writeFile to avoid cross-test pollution
+    assert.strictEqual(encOpt, 'utf8'); // verify utf8 encoding explicitly passed
+    assert.strictEqual(hash, '12345678'); // ensure function still returns correct hash
+  });
 });
 
 // CLI exit code tests ensure process.exitCode reflects missing build artifacts
