@@ -88,3 +88,29 @@ describe('build offline', {concurrency:false}, () => {
     assert.ok(indexContent.includes(`core.${hash}.min.css`)); // confirms hash was properly injected into index.js
   });
 });
+
+/*
+ * POSTCSS BINARY ABSENCE VALIDATION
+ *
+ * TESTING SCENARIO:
+ * Simulates an environment where the PostCSS binary is missing. The build
+ * script should fallback to copying qore.css directly to core.min.css without
+ * throwing an error. This mirrors CODEX mode behavior in a production setting.
+ */
+describe('build without postcss binary', {concurrency:false}, () => {
+  it('copies css when postcss binary missing', async () => {
+    const prevCodex = process.env.CODEX; // preserve incoming environment value
+    process.env.CODEX = 'False'; // forces production mode to trigger postcss path check
+    const origExists = fs.existsSync; // preserve original existsSync
+    const missPath = path.join('node_modules', '.bin', 'postcss'); // target missing binary
+    fs.existsSync = p => p.includes(missPath) ? false : origExists(p); // stub only for binary check
+    const hash = await build(); // run build with stubbed binary absence
+    fs.existsSync = origExists; // restore after build
+    if(prevCodex !== undefined){ process.env.CODEX = prevCodex; } else { delete process.env.CODEX; } // restore CODEX to prior state
+    const minPath = path.join(tmpDir, `core.${hash}.min.css`); // expected hashed CSS path
+    const indexPath = path.join(tmpDir, 'index.js'); // index.js path for injection check
+    assert.ok(fs.existsSync(minPath)); // hashed file should exist even without postcss
+    const indexContent = fs.readFileSync(indexPath, 'utf8'); // read updated index.js
+    assert.ok(indexContent.includes(`core.${hash}.min.css`)); // verify hash injection
+  });
+});
