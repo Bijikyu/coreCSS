@@ -20,6 +20,8 @@
 require("./helper"); // loads module stubbing for consistent test environment
 const assert = require('node:assert'); // Node.js built-in assertion library for test validation
 const path = require('node:path'); // path utilities for cross-platform file handling
+const fs = require('node:fs'); // file system utilities used for temporary script copy
+const os = require('node:os'); // operating system utilities for temp path generation
 const {describe, it, beforeEach, afterEach} = require('node:test'); // Node.js native test framework components
 let JSDOM; // will hold jsdom constructor when available for DOM simulation
 try { ({JSDOM} = require('jsdom')); } catch { JSDOM = null; } // fallback when jsdom missing to prevent import errors
@@ -152,5 +154,17 @@ describe('browser injection', {concurrency:false}, () => {
     require('../index.js'); // triggers injection without script tag
     const link = document.querySelector('link'); // retrieves injected link
     assert.ok(link.href.startsWith('https://example.com/')); // expects directory portion of baseURI
+  });
+
+  it('replaces outdated hashed link when new script loaded', () => {
+    require('../index.js'); // initial load injects first hash
+    const tmpPath = path.join(os.tmpdir(), `idx-${Date.now()}.js`); // temp file path for modified script
+    const orig = fs.readFileSync(path.resolve(__dirname, '../index.js'), 'utf8'); // read original script for modification
+    fs.writeFileSync(tmpPath, orig.replace(/core\.5c7df4d0\.min\.css/, 'core.abcdef12.min.css')); // injects different hash for second load
+    require(tmpPath); // second load should remove old link and inject new one
+    const links = document.head.querySelectorAll('link'); // gather remaining links after reload
+    assert.strictEqual(links.length, 1); // verify only one stylesheet remains
+    assert.ok(links[0].href.includes('core.abcdef12.min.css')); // ensure new hash present
+    fs.unlinkSync(tmpPath); // cleanup temporary script file
   });
 });
