@@ -145,7 +145,7 @@ Configure the build and deployment process:
 
 ```bash
 # CDN Configuration
-CDN_BASE_URL=https://cdn.jsdelivr.net  # CDN endpoint for deployment
+CDN_BASE_URL=https://cdn.jsdelivr.net  # CDN endpoint for deployment (trailing slash removed automatically; defaults to jsDelivr when empty)
 MAX_CONCURRENCY=50                     # Performance test concurrency limit
 SOCKET_LIMIT=100                       # HTTP connection pool size
 
