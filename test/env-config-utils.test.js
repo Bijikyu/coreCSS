@@ -68,6 +68,12 @@ describe('parseEnvString behavior', {concurrency:false}, () => {
     assert.strictEqual(result, 'value'); // should match provided value
   });
 
+  it('trims leading and trailing spaces', () => {
+    process.env.TEST_STR = '   spaced value   '; // variable with extra spaces
+    const result = parseEnvString('TEST_STR', 'default'); // parse trimmed
+    assert.strictEqual(result, 'spaced value'); // should trim whitespace
+  });
+
   it('returns default when variable missing', () => {
     delete process.env.TEST_STR; // ensure variable not present
     const result = parseEnvString('TEST_STR', 'default'); // parse without env var

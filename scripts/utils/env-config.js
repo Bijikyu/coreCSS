@@ -16,7 +16,7 @@ function parseEnvInt(name, def, min = 1, max = 1000){
 function parseEnvString(name, def){
   console.log(`parseEnvString is running with ${name},${def}`); // entry log
   try {
-    const result = envVar.get(name).default(def).asString(); // parse string
+    const result = envVar.get(name).default(def).asString().trim(); // parse string and strip spaces
     console.log(`parseEnvString is returning ${result}`); // return value
     return result; // success path
   } catch(err){
