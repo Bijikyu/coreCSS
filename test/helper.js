@@ -71,9 +71,14 @@ Module.prototype.require = function(id){
  * This is essential for testing the main index.js module which uses
  * require.resolve() to get CSS file paths for npm package consumers.
  */
-const origResolve = Module._resolveFilename; // Preserves original filename resolution
+const origResolve = Module._resolveFilename; // Preserves original filename resolution for restoration
 Module._resolveFilename = function(request, parent, isMain, options){
   if(request === './qore.css') return path.resolve(__dirname,'../qore.css'); // Resolves qore.css to absolute path from project root
   if(request === './variables.css') return path.resolve(__dirname,'../variables.css'); // Resolves variables.css to absolute path from project root
   return origResolve.call(this, request, parent, isMain, options); // Preserves normal resolution for other files
 };
+
+if(!global.__restoreResolveFilenameHooked){ // ensures cleanup hook added only once
+  process.once('exit', ()=>{ Module._resolveFilename = origResolve; }); // restores original resolver after all tests run
+  global.__restoreResolveFilenameHooked = true; // flag prevents duplicate hooks across test files
+}
