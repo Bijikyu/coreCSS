@@ -22,7 +22,7 @@ const assert = require('node:assert'); // node assert library for tests validati
 const fs = require('node:fs'); // filesystem module for temp files and validation
 const path = require('node:path'); // path utilities for file paths and resolution
 const os = require('node:os'); // os module to find temp dir for isolation
-const {describe, it, before, after} = require('node:test'); // test framework functions for organization
+const {describe, it, before, after, beforeEach, afterEach} = require('node:test'); // imports beforeEach/afterEach hooks for complete lifecycle management
 let build, updateHtml, purgeCdn; // holds imported scripts for integration testing
 let tmpDir; // temporary directory path for isolated execution
 
